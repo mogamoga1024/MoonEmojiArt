@@ -1,8 +1,14 @@
 
-const imgHE = document.querySelector("#main-img");
-const canvas = document.querySelector("canvas");
+const img = new Image();
+img.src = "野獣先輩.png";
 
-canvas.width = imgHE.width;
-canvas.height = imgHE.height;
-canvas.getContext('2d').drawImage(imgHE, 0, 0);
+img.onload = function() {
+    const canvas = document.querySelector("canvas");
+
+    canvas.width = img.width;
+    canvas.height = img.height;
+    canvas.getContext("2d").drawImage(img, 0, 0);
+};
+
+
 
