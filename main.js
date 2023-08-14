@@ -5,7 +5,7 @@ const App = {
     data() {
         return {
             file: null,
-            fileReader: null,
+            fileReader: new FileReader(),
             baseAverageColor: 90,
             baseAverageColorPrev: 90,
             baseAverageColorMin: 0,
@@ -63,6 +63,21 @@ const App = {
             }
             else if (value > this.baseAverageColorMax) {
                 this.baseColorDistance = this.baseColorDistanceMax;
+            }
+        },
+        onClickMonochromeButton() {
+            if (this.file == null) {
+                return;
+            }
+        
+            monoCanvas.needOutline = this.needOutline;
+            monoCanvas.baseAverageColor = this.baseAverageColor;
+            monoCanvas.baseColorDistance = this.baseColorDistance;
+        
+            this.fileReader.readAsDataURL(this.file);
+        
+            this.fileReader.onload = () => {
+                monoCanvas.monochrome(this.fileReader.result);
             }
         }
     }
