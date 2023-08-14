@@ -12,15 +12,32 @@
     <input type="file" @change="onChangeInputFile">
     <div>
       白多め - 黒多め
-      <input type="range" id="base-average-color-range" min="0" max="255" v-model="baseAverageColor">
-      <input type="number" id="base-average-color-number" min="0" max="255" v-model="baseAverageColor">
+      <input type="range"
+             id="base-average-color-range"
+             :min="baseAverageColorMin"
+             :max="baseAverageColorMax"
+             v-model="baseAverageColor">
+      <input type="number"
+             id="base-average-color-number"
+             min="0" max="255"
+             v-model="baseAverageColor"
+             @change="onChangeBaseAverageColorNumber">
     </div>
     輪郭必要？
     <input type="checkbox" id="outline-chkbox" v-model="needOutline">
     <div>
       輪郭強め - 弱め
-      <input type="range" id="base-color-distance-range" min="0" max="200" v-model="baseColorDistance">
-      <input type="number" id="base-color-distance-number" min="0" max="255" v-model="baseColorDistance">
+      <input type="range"
+             id="base-color-distance-range"
+             :min="baseColorDistanceMin"
+             :max="baseColorDistanceMax"
+             v-model="baseColorDistance">
+      <input type="number"
+             id="base-color-distance-number"
+             :min="baseColorDistanceMin"
+             :max="baseColorDistanceMax"
+             v-model="baseColorDistance"
+             @change="onChangeBaseColorDistanceNumber">
     </div>
     <button id="monochrome-btn">実行</button>
     <canvas></canvas>
