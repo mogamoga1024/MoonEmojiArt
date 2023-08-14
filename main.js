@@ -16,15 +16,20 @@ img.onload = function() {
     for (let y = 0; y < pixels.height; y++) {
         for (let x = 0; x < pixels.width; x++) {
             const i = (y * 4) * pixels.width + x * 4;
-            const avgRgb = Math.floor((pixels.data[i] + pixels.data[i + 1] + pixels.data[i + 2]) / 3);
 
-            // let newColor = avgRgb > 127 ? 255 : 0;
-            let newColor = avgRgb > 90 ? 255 : 0;
-
-            pixels.data[i] = pixels.data[i + 1] = pixels.data[i + 2] = newColor;
+            monochrome(pixels.data, i);
         }
     }
     context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
+};
+
+function monochrome(data, i) {
+    const avgRgb = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
+
+    // let newColor = avgRgb > 127 ? 255 : 0;
+    let newColor = avgRgb > 90 ? 255 : 0;
+
+    data[i] = data[i + 1] = data[i + 2] = newColor;
 };
 
 function colorDistance(data, oriIdx, dstIdx) {
