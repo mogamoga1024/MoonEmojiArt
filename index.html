@@ -5,23 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>モノクロ</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body>
-  <input type="file">
-  <div>
-    白多め - 黒多め
-    <input type="range" id="base-average-color-range" min="0" max="255">
-    <input type="number" id="base-average-color-number" min="0" max="255">
+  <div id="app">
+    <input type="file" @change="onChangeInputFile">
+    <div>
+      白多め - 黒多め
+      <input type="range" id="base-average-color-range" min="0" max="255" v-model="baseAverageColor">
+      <input type="number" id="base-average-color-number" min="0" max="255" v-model="baseAverageColor">
+    </div>
+    輪郭必要？
+    <input type="checkbox" id="outline-chkbox" v-model="needOutline">
+    <div>
+      輪郭強め - 弱め
+      <input type="range" id="base-color-distance-range" min="0" max="200" v-model="baseColorDistance">
+      <input type="number" id="base-color-distance-number" min="0" max="255" v-model="baseColorDistance">
+    </div>
+    <button id="monochrome-btn">実行</button>
+    <canvas></canvas>
   </div>
-  輪郭必要？
-  <input type="checkbox" id="outline-chkbox">
-  <div>
-    輪郭強め - 弱め
-    <input type="range" id="base-color-distance-range" min="0" max="200">
-    <input type="number" id="base-color-distance-number" min="0" max="255">
-  </div>
-  <button id="monochrome-btn">実行</button>
-  <canvas></canvas>
 
   <script src="monochrome_canvas.js"></script>
   <script src="main.js"></script>
