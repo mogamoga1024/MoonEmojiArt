@@ -7,6 +7,8 @@ const inputFile = document.querySelector("input[type='file']");
 const baseAverageColorRange = document.querySelector("#base-average-color-range");
 const monochromeButton = document.querySelector("#monochrome-btn");
 
+baseAverageColorRange.value = monoCanvas.baseAverageColor;
+
 let file = null;
 const reader = new FileReader();
 
