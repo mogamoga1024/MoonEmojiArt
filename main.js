@@ -17,23 +17,48 @@ img.onload = function() {
         for (let x = 0; x < pixels.width; x++) {
             const i = (y * 4) * pixels.width + x * 4;
 
-            monochrome(pixels.data, i);
+            outline(pixels, i);
+            monochrome(pixels, i);
         }
     }
     context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
 };
 
-function monochrome(data, i) {
+function monochrome(pixels, i) {
+    const data = pixels.data;
     const avgRgb = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
 
-    // let newColor = avgRgb > 127 ? 255 : 0;
-    let newColor = avgRgb > 90 ? 255 : 0;
+    //let newColor = avgRgb < 128 ? 0 : 255;
+    let newColor = avgRgb < 90 ? 0 : 255;
 
     data[i] = data[i + 1] = data[i + 2] = newColor;
 };
 
+function outline(pixels, i) {
+    const baseColorDistance = 10;
+    const data = pixels.data;
+    const rightIdx = i + 4;
+    const underIdx = i + pixels.width * 4;
+
+    const existsRight = (i / 4 + 1) % pixels.width !== 0;
+    const existsUnder = i <= pixels.width * 4 * (pixels.height - 1);
+
+    let didChangeColor = false;
+    if (existsRight) {
+        if (colorDistance(data, i, rightIdx) > baseColorDistance) {
+            data[i] = data[i + 1] = data[i + 2] = 0;
+            didChangeColor = true;
+        }
+    }
+    if (!didChangeColor && existsUnder) {
+        if (colorDistance(data, i, underIdx) > baseColorDistance) {
+            data[i] = data[i + 1] = data[i + 2] = 0;
+        }
+    }
+};
+
+// 3次元空間の距離を求める
 function colorDistance(data, oriIdx, dstIdx) {
-    // 三次元空間の距離が返る
     return Math.sqrt(
         Math.pow((data[oriIdx] - data[dstIdx]), 2) +
         Math.pow((data[oriIdx + 1] - data[dstIdx + 1]), 2) +
