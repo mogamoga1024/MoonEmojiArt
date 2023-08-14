@@ -6,10 +6,10 @@ monoCanvas.setImage("野獣先輩.png");
 const inputFile = document.querySelector("input[type='file']");
 
 inputFile.addEventListener("change", function(e) {
-    const file = e.target.files;
+    const file = e.target.files[0];
     const reader = new FileReader();
 
-    reader.readAsDataURL(file[0]);
+    reader.readAsDataURL(file);
 
     reader.onload = function() {
         monoCanvas.setImage(reader.result);
