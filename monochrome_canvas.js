@@ -2,6 +2,7 @@
 class MonochromeCanvas {
     baseAverageColor = 90;
     baseColorDistance = 50;
+    needOutline = true;
 
     constructor(canvas) {
         this.canvas = canvas;
@@ -25,7 +26,9 @@ class MonochromeCanvas {
                     for (let x = 0; x < pixels.width; x++) {
                         const i = (y * 4) * pixels.width + x * 4;
 
-                        this.#outline(pixels, i);
+                        if (this.needOutline) {
+                            this.#outline(pixels, i);
+                        }
                         this.#monochrome(pixels, i);
                     }
                 }
