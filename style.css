@@ -2,3 +2,7 @@
 input[type="file"] {
   display: block;
 }
+
+#monochrome-btn {
+  display: block;
+}
