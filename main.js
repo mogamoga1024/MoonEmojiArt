@@ -7,11 +7,11 @@ const App = {
             file: null,
             fileReader: null,
             baseAverageColor: 90,
-            baseAverageColorDefault: 90,
+            baseAverageColorPrev: 90,
             baseAverageColorMin: 0,
             baseAverageColorMax: 255,
             baseColorDistance: 50,
-            baseColorDistanceDefault: 50,
+            baseColorDistancePrev: 50,
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
             needOutline: true,
@@ -21,13 +21,27 @@ const App = {
         monoCanvas = new MonochromeCanvas(document.querySelector("canvas"));
         monoCanvas.monochrome("野獣先輩.png");
     },
+    watch: {
+        baseAverageColor(newVal) {
+            if (newVal === "") {
+                return;
+            }
+            this.baseAverageColorPrev = this.baseAverageColor;
+        },
+        baseColorDistance(newVal) {
+            if (newVal === "") {
+                return;
+            }
+            this.baseColorDistancePrev = this.baseColorDistance;
+        }
+    },
     methods: {
         onChangeInputFile(e) {
             this.file = e.target.files[0];
         },
         onChangeBaseAverageColorNumber(e) {
             if (e.target.value === "") {
-                this.baseAverageColor = this.baseAverageColorDefault;
+                this.baseAverageColor = this.baseAverageColorPrev;
                 return;
             }
             const value = Number(e.target.value);
@@ -40,7 +54,7 @@ const App = {
         },
         onChangeBaseColorDistanceNumber(e) {
             if (e.target.value === "") {
-                this.baseColorDistance = this.baseColorDistanceDefault;
+                this.baseColorDistance = this.baseColorDistancePrev;
                 return;
             }
             const value = Number(e.target.value);
