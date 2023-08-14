@@ -19,7 +19,7 @@ const App = {
     },
     mounted() {
         monoCanvas = new MonochromeCanvas(document.querySelector("canvas"));
-        monoCanvas.monochrome("野獣先輩.png");
+        monoCanvas.monochrome("野獣先輩.png", this.baseAverageColor, this.needOutline, this.baseColorDistance);
     },
     watch: {
         baseAverageColor(newVal) {
@@ -70,14 +70,10 @@ const App = {
                 return;
             }
         
-            monoCanvas.needOutline = this.needOutline;
-            monoCanvas.baseAverageColor = this.baseAverageColor;
-            monoCanvas.baseColorDistance = this.baseColorDistance;
-        
             this.fileReader.readAsDataURL(this.file);
         
             this.fileReader.onload = () => {
-                monoCanvas.monochrome(this.fileReader.result);
+                monoCanvas.monochrome(this.fileReader.result, this.baseAverageColor, this.needOutline, this.baseColorDistance);
             }
         }
     }

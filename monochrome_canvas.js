@@ -1,8 +1,5 @@
 
 class MonochromeCanvas {
-    baseAverageColor = 90;
-    baseColorDistance = 50;
-    needOutline = true;
     isProcessing = false;
 
     constructor(canvas) {
@@ -10,17 +7,12 @@ class MonochromeCanvas {
         this.context = canvas.getContext("2d");
     }
 
-    monochrome(src) {
+    monochrome(src, baseAverageColor, needOutline, baseColorDistance) {
         return new Promise((resolve, reject) => {
             if (this.isProcessing) {
                 return reject(new Error("まだ前の処理をしている最中"));
             }
             this.isProcessing = true;
-
-            // 処理中に外部から値が変えられる可能性があるため、この処理内では固定した値を使う。
-            const baseAverageColor = this.baseAverageColor;
-            const baseColorDistance = this.baseColorDistance;
-            const needOutline = this.needOutline;
 
             const img = new Image();
             img.src = src;
