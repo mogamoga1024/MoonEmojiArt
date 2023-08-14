@@ -4,12 +4,14 @@ const monoCanvas = new MonochromeCanvas(document.querySelector("canvas"));
 monoCanvas.monochrome("野獣先輩.png");
 
 const inputFile = document.querySelector("input[type='file']");
+const outlineChkbox = document.querySelector("#outline-chkbox");
 const baseAverageColorRange = document.querySelector("#base-average-color-range");
 const baseAverageColorNumber = document.querySelector("#base-average-color-number");
 const baseColorDistanceRange = document.querySelector("#base-color-distance-range");
 const baseColorDistanceNumber = document.querySelector("#base-color-distance-number");
 const monochromeButton = document.querySelector("#monochrome-btn");
 
+outlineChkbox.checked = monoCanvas.needOutline;
 baseAverageColorRange.value = baseAverageColorNumber.value = monoCanvas.baseAverageColor;
 baseColorDistanceRange.value = baseColorDistanceNumber.value = monoCanvas.baseColorDistance;
 
@@ -21,8 +23,7 @@ inputFile.addEventListener("change", function(e) {
 });
 
 baseAverageColorRange.addEventListener("change", function(e) {
-    monoCanvas.baseAverageColor = Number(e.target.value);
-    baseAverageColorNumber.value = monoCanvas.baseAverageColor;
+    baseAverageColorNumber.value = Number(e.target.value);
 });
 
 baseAverageColorNumber.addEventListener("change", function(e) {
@@ -40,13 +41,11 @@ baseAverageColorNumber.addEventListener("change", function(e) {
         value = max;
         baseAverageColorNumber.value = value;
     }
-    monoCanvas.baseAverageColor = value;
-    baseAverageColorRange.value = monoCanvas.baseAverageColor;
+    baseAverageColorRange.value = value;
 });
 
 baseColorDistanceRange.addEventListener("change", function(e) {
-    monoCanvas.baseColorDistance = Number(e.target.value);
-    baseColorDistanceNumber.value = monoCanvas.baseColorDistance;
+    baseColorDistanceNumber.value = Number(e.target.value);
 });
 
 baseColorDistanceNumber.addEventListener("change", function(e) {
@@ -64,14 +63,17 @@ baseColorDistanceNumber.addEventListener("change", function(e) {
         value = max;
         baseColorDistanceNumber.value = value;
     }
-    monoCanvas.baseColorDistance = value;
-    baseColorDistanceRange.value = monoCanvas.baseColorDistance;
+    baseColorDistanceRange.value = monoCanvas.value;
 });
 
 monochromeButton.addEventListener("click", function() {
     if (file == null) {
         return;
     }
+
+    monoCanvas.needOutline = outlineChkbox.checked;
+    monoCanvas.baseAverageColor = Number(baseAverageColorRange.value);
+    monoCanvas.baseColorDistance = Number(baseColorDistanceRange.value);
 
     reader.readAsDataURL(file);
 
