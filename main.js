@@ -29,6 +29,9 @@ baseAverageColorNumber.addEventListener("change", function(e) {
     let value = Number(e.target.value);
     const min = Number(baseAverageColorRange.min);
     const max = Number(baseAverageColorRange.max);
+    if (e.target.value === "") {
+        baseAverageColorNumber.value = 0;
+    }
     if (value < min) {
         value = min;
         baseAverageColorNumber.value = value;
@@ -50,6 +53,9 @@ baseColorDistanceNumber.addEventListener("change", function(e) {
     let value = Number(e.target.value);
     const min = Number(baseColorDistanceRange.min);
     const max = Number(baseColorDistanceRange.max);
+    if (e.target.value === "") {
+        baseColorDistanceNumber.value = 0;
+    }
     if (value < min) {
         value = min;
         baseColorDistanceNumber.value = value;
