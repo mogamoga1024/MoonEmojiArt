@@ -19,7 +19,7 @@ baseAverageColorRange.addEventListener("change", function(e) {
 });
 
 monochromeButton.addEventListener("click", function() {
-    if (file === null) {
+    if (file == null) {
         return;
     }
 
