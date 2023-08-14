@@ -27,5 +27,12 @@ img.onload = function() {
     context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
 };
 
-
+function colorDistance(data, oriIdx, dstIdx) {
+    // 三次元空間の距離が返る
+    return Math.sqrt(
+        Math.pow((data[oriIdx] - data[dstIdx]), 2) +
+        Math.pow((data[oriIdx + 1] - data[dstIdx + 1]), 2) +
+        Math.pow((data[oriIdx + 2] - data[dstIdx + 2]), 2)
+    );
+};
 
