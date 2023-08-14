@@ -19,7 +19,8 @@
              v-model="baseAverageColor">
       <input type="number"
              id="base-average-color-number"
-             min="0" max="255"
+             :min="baseAverageColorMin"
+             :max="baseAverageColorMax"
              v-model="baseAverageColor"
              @change="onChangeBaseAverageColorNumber">
     </div>
