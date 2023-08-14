@@ -16,10 +16,10 @@ img.onload = function() {
     for (let y = 0; y < pixels.height; y++) {
         for (let x = 0; x < pixels.width; x++) {
             const i = (y * 4) * pixels.width + x * 4;
-            const rgb = parseInt((pixels.data[i] + pixels.data[i + 1] + pixels.data[i + 2]) / 3, 10);
-            pixels.data[i] = rgb;
-            pixels.data[i + 1] = rgb;
-            pixels.data[i + 2] = rgb;
+            const avgRgb = Math.floor((pixels.data[i] + pixels.data[i + 1] + pixels.data[i + 2]) / 3);
+            pixels.data[i] = avgRgb;
+            pixels.data[i + 1] = avgRgb;
+            pixels.data[i + 2] = avgRgb;
         }
     }
     context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
