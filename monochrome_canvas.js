@@ -3,6 +3,7 @@ class MonochromeCanvas {
     baseAverageColor = 90;
     baseColorDistance = 50;
     needOutline = true;
+    isProcessing = false;
 
     constructor(canvas) {
         this.canvas = canvas;
@@ -11,6 +12,16 @@ class MonochromeCanvas {
 
     monochrome(src) {
         return new Promise((resolve, reject) => {
+            if (this.isProcessing) {
+                return reject(new Error("まだ前の処理をしている最中"));
+            }
+            this.isProcessing = true;
+
+            // 処理中に外部から値が変えられる可能性があるため、この処理内では固定した値を使う。
+            const baseAverageColor = this.baseAverageColor;
+            const baseColorDistance = this.baseColorDistance;
+            const needOutline = this.needOutline;
+
             const img = new Image();
             img.src = src;
 
@@ -26,30 +37,34 @@ class MonochromeCanvas {
                     for (let x = 0; x < pixels.width; x++) {
                         const i = (y * 4) * pixels.width + x * 4;
 
-                        if (this.needOutline) {
-                            this.#outline(pixels, i);
+                        if (needOutline) {
+                            this.#outline(pixels, i, baseColorDistance);
                         }
-                        this.#monochrome(pixels, i);
+                        this.#monochrome(pixels, i, baseAverageColor);
                     }
                 }
                 this.context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
+                this.isProcessing = false;
                 resolve();
             };
-            img.onerror = e => reject(e);
+            img.onerror = e => {
+                this.isProcessing = false;
+                reject(e);
+            };
         });
     }
 
-    #monochrome(pixels, i) {
+    #monochrome(pixels, i, baseAverageColor) {
         const data = pixels.data;
         const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
     
         //let newColor = avgColor < 128 ? 0 : 255;
-        let newColor = avgColor < this.baseAverageColor ? 0 : 255;
+        let newColor = avgColor < baseAverageColor ? 0 : 255;
     
         data[i] = data[i + 1] = data[i + 2] = newColor;
     };
     
-    #outline(pixels, i) {
+    #outline(pixels, i, baseColorDistance) {
         const data = pixels.data;
         const rightIdx = i + 4;
         const underIdx = i + pixels.width * 4;
@@ -59,13 +74,13 @@ class MonochromeCanvas {
     
         let didChangeColor = false;
         if (existsRight) {
-            if (this.#colorDistance(data, i, rightIdx) > this.baseColorDistance) {
+            if (this.#colorDistance(data, i, rightIdx) > baseColorDistance) {
                 data[i] = data[i + 1] = data[i + 2] = 0;
                 didChangeColor = true;
             }
         }
         if (!didChangeColor && existsUnder) {
-            if (this.#colorDistance(data, i, underIdx) > this.baseColorDistance) {
+            if (this.#colorDistance(data, i, underIdx) > baseColorDistance) {
                 data[i] = data[i + 1] = data[i + 2] = 0;
             }
         }
