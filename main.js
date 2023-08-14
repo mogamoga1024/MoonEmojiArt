@@ -17,9 +17,11 @@ img.onload = function() {
         for (let x = 0; x < pixels.width; x++) {
             const i = (y * 4) * pixels.width + x * 4;
             const avgRgb = Math.floor((pixels.data[i] + pixels.data[i + 1] + pixels.data[i + 2]) / 3);
-            pixels.data[i] = avgRgb;
-            pixels.data[i + 1] = avgRgb;
-            pixels.data[i + 2] = avgRgb;
+
+            // let newColor = avgRgb > 127 ? 255 : 0;
+            let newColor = avgRgb > 90 ? 255 : 0;
+
+            pixels.data[i] = pixels.data[i + 1] = pixels.data[i + 2] = newColor;
         }
     }
     context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
