@@ -1,2 +1,4 @@
 
-
+input[type="file"] {
+  display: block;
+}
