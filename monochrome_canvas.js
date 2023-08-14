@@ -87,6 +87,7 @@ class MonochromeCanvas {
     };
     
     // 3次元空間の距離を求める
+    // ちなみに最大値は441.6729559300637
     #colorDistance(data, oriIdx, dstIdx) {
         return Math.sqrt(
             Math.pow((data[oriIdx] - data[dstIdx]), 2) +
