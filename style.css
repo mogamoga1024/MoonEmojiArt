@@ -1,0 +1,6 @@
+
+#main-img {
+  display: block;
+  filter: grayscale(100%) contrast(200%) brightness(100%);
+}
+
