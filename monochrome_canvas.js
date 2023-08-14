@@ -9,7 +9,7 @@ class MonochromeCanvas {
         this.context = canvas.getContext("2d");
     }
 
-    setImage(src) {
+    monochrome(src) {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.src = src;
