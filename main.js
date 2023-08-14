@@ -35,7 +35,7 @@ function monochrome(pixels, i) {
 };
 
 function outline(pixels, i) {
-    const baseColorDistance = 27;
+    const baseColorDistance = 50;
     const data = pixels.data;
     const rightIdx = i + 4;
     const underIdx = i + pixels.width * 4;
