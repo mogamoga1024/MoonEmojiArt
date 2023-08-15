@@ -51,6 +51,9 @@ const App = {
                 this.imageHeight = this.originalImageHeight = img.height;
                 URL.revokeObjectURL(img.src);
             };
+            img.onerror = () => {
+                URL.revokeObjectURL(img.src);
+            };
 
             img.src = URL.createObjectURL(this.file);
         },
