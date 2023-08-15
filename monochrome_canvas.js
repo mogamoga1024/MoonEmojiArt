@@ -19,8 +19,8 @@ class MonochromeCanvas {
 
             img.onload = () => {
                 // キャンバスに画像を貼る
-                this.canvas.width = img.width * 2;
-                this.canvas.height = img.height * 2;
+                this.canvas.width = img.width * 1;
+                this.canvas.height = img.height * 1;
                 this.context.drawImage(img, 0, 0, img.width, img.height, 0, 0, this.canvas.width, this.canvas.height);
 
                 // 画像の各ピクセルをグレースケールに変換する
