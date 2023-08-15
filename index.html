@@ -9,7 +9,7 @@
 </head>
 <body>
   <div id="app">
-    <input type="file" @change="onChangeInputFile">
+    <input type="file" ref="inputFile" @change="onChangeInputFile">
     <div>
       白多め - 黒多め
       <input type="range"
@@ -42,14 +42,16 @@
     </div>
     <div>
       幅
-      <input type="number" :min="0" :max="imageWidthMax" v-model="imageWidth">
-      高さ
-      <input type="number" :min="0" v-model="imageHeight">
+      <input type="number" :min="0" :max="imageWidthMax"
+             v-model="imageWidth"
+             @blur="onBlurImageWidth">
       倍率
-      <input type="number" :min="0" v-model="imageSizeRate">
+      <input type="number" :min="0"
+             v-model="imageSizeRate"
+             @blur="onBlurImageSizeRate">
     </div>
     <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
-    <canvas></canvas>
+    <canvas ref="canvas"></canvas>
   </div>
 
   <script src="monochrome_canvas.js"></script>

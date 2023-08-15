@@ -16,15 +16,15 @@ const App = {
             baseColorDistanceMax: 200,
             needOutline: true,
             imageWidthOri: 0,
-            imageHeightOri: 0,
-            imageWidth: 0,
+            imageHeightOri: 100,
+            imageWidth: 100,
+            imageWidthMin: 100,
             imageWidthMax: 1280,
-            imageHeight: 0,
             imageSizeRate: 1,
         }
     },
     mounted() {
-        monoCanvas = new MonochromeCanvas(document.querySelector("canvas"));
+        monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         monoCanvas.monochrome("野獣先輩.png", this.baseAverageColor, this.needOutline, this.baseColorDistance);
     },
     watch: {
@@ -48,8 +48,18 @@ const App = {
             const img = new Image();
 
             img.onload = () => {
-                this.imageWidth = this.imageWidthOri = img.width;
-                this.imageHeight = this.imageHeightOri = img.height;
+                if (img.width < this.imageWidthMin) {
+                    alert("画像の幅は100px以上必要です");
+                    this.$refs.inputFile.value = "";
+                    this.file = null;
+                    this.imageWidth = this.imageWidthMin;
+                    this.imageSizeRate = 1;
+                }
+                else {
+                    this.imageWidth = this.imageWidthOri = img.width;
+                    this.imageHeightOri = img.height;
+                }
+                
                 URL.revokeObjectURL(img.src);
             };
             img.onerror = () => {
@@ -85,16 +95,23 @@ const App = {
             }
         },
         onBlurImageWidth(e) {
-            
-        },
-        onBlurImageHeight(e) {
-
+            if (e.target.value === "") {
+                this.imageWidth = this.imageWidthOri; // todo
+                return;
+            }
+            const value = Number(e.target.value);
+            if (value < this.imageWidthMin) {
+                this.imageWidth = this.imageWidthMin;
+            }
+            else if (value > this.imageWidthMax) {
+                this.imageWidth = this.imageWidthMax;
+            }
         },
         onBlurImageSizeRate(e) {
 
         },
         onClickMonochromeButton() {
-            if (this.file == null || this.imageSizeRate === 0) {
+            if (this.file == null || this.imageWidth === 0) {
                 return;
             }
         
