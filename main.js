@@ -22,7 +22,7 @@ const App = {
             imageWidthMax: 1280,
             imageSizeRate: 1,
             imageSizeRateMin: 0.1,
-            imageSizeRateMax: Math.ceil(1280 / 100), // Math.ceil(imageWidthMax / imageWidthMin)
+            imageSizeRateMax: Math.floor(1280 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
         }
     },
     mounted() {
@@ -59,6 +59,8 @@ const App = {
                 else {
                     this.imageWidth = this.imageWidthOri = img.width;
                     this.imageHeightOri = img.height;
+                    this.imageSizeRateMin = Math.ceil(this.imageWidthMin * 10 / this.imageWidth) / 10;
+                    this.imageSizeRateMax = Math.floor(this.imageWidthMax * 10 / this.imageWidth) / 10;
                 }
                 this.imageSizeRate = 1;
                 
