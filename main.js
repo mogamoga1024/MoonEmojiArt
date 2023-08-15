@@ -18,9 +18,11 @@ const App = {
             imageWidthOri: 0,
             imageHeightOri: 100,
             imageWidth: 100,
+            imageWidthPrev: 100,
             imageWidthMin: 100,
             imageWidthMax: 1280,
             imageSizeRate: 1,
+            imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(1280 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
         }
@@ -41,6 +43,18 @@ const App = {
                 return;
             }
             this.baseColorDistancePrev = this.baseColorDistance;
+        },
+        imageWidth(newVal) {
+            if (newVal === "") {
+                return;
+            }
+            this.imageWidthPrev = this.imageWidth;
+        },
+        imageSizeRate(newVal) {
+            if (newVal === "") {
+                return;
+            }
+            this.imageSizeRatePrev = this.imageSizeRate;
         }
     },
     methods: {
@@ -100,7 +114,7 @@ const App = {
         },
         onBlurImageWidth(e) {
             if (e.target.value === "") {
-                this.imageWidth = this.imageWidthOri; // todo
+                this.imageWidth = this.imageWidthPrev;
                 return;
             }
             const value = Number(e.target.value);
@@ -116,7 +130,7 @@ const App = {
         },
         onBlurImageSizeRate(e) {
             if (e.target.value === "") {
-                this.imageSizeRate = 1; // todo
+                this.imageSizeRate = this.imageSizeRatePrev;
                 return;
             }
             const value = Number(e.target.value);
