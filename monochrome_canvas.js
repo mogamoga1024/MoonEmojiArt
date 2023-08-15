@@ -4,7 +4,7 @@ class MonochromeCanvas {
 
     constructor(canvas) {
         this.canvas = canvas;
-        this.context = canvas.getContext("2d");
+        this.context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
     monochrome(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
