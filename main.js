@@ -44,7 +44,15 @@ const App = {
         onChangeInputFile(e) {
             this.file = e.target.files[0];
 
-            
+            const img = new Image();
+
+            img.onload = () => {
+                this.imageWidth = this.originalImageWidth = img.width;
+                this.imageHeight = this.originalImageHeight = img.height;
+                URL.revokeObjectURL(img.src);
+            };
+
+            img.src = URL.createObjectURL(this.file);
         },
         onBlurBaseAverageColorNumber(e) {
             if (e.target.value === "") {
