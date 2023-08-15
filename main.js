@@ -60,6 +60,7 @@ const App = {
                 else {
                     this.imageWidth = this.imageWidthOri = img.width;
                     this.imageHeightOri = img.height;
+                    this.imageSizeRate = 1;
                 }
                 
                 URL.revokeObjectURL(img.src);

@@ -47,6 +47,7 @@
              @blur="onBlurImageWidth">
       倍率
       <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
+             step="0.1"
              v-model="imageSizeRate"
              @blur="onBlurImageSizeRate">
     </div>
