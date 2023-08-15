@@ -21,20 +21,6 @@ const App = {
         monoCanvas = new MonochromeCanvas(document.querySelector("canvas"));
         monoCanvas.monochrome("野獣先輩.png", this.baseAverageColor, this.needOutline, this.baseColorDistance);
     },
-    watch: {
-        // baseAverageColor(newVal) {
-        //     if (newVal === "") {
-        //         return;
-        //     }
-        //     this.baseAverageColorPrev = this.baseAverageColor;
-        // },
-        // baseColorDistance(newVal) {
-        //     if (newVal === "") {
-        //         return;
-        //     }
-        //     this.baseColorDistancePrev = this.baseColorDistance;
-        // }
-    },
     methods: {
         onChangeInputFile(e) {
             this.file = e.target.files[0];
