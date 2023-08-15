@@ -27,7 +27,7 @@ const App = {
     },
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
-        monoCanvas.monochrome("野獣先輩.png", this.baseAverageColor, this.needOutline, this.baseColorDistance);
+        monoCanvas.monochrome("野獣先輩.png");
     },
     watch: {
         baseAverageColor(newVal) {
@@ -138,7 +138,14 @@ const App = {
             this.fileReader.readAsDataURL(this.file);
         
             this.fileReader.onload = () => {
-                monoCanvas.monochrome(this.fileReader.result, this.baseAverageColor, this.needOutline, this.baseColorDistance);
+                monoCanvas.monochrome(
+                    this.fileReader.result,
+                    this.imageWidth,
+                    Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
+                    this.baseAverageColor,
+                    this.needOutline,
+                    this.baseColorDistance
+                );
             }
         }
     }

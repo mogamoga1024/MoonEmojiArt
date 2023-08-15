@@ -7,7 +7,7 @@ class MonochromeCanvas {
         this.context = canvas.getContext("2d");
     }
 
-    monochrome(src, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
+    monochrome(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
         return new Promise((resolve, reject) => {
             if (this.isProcessing) {
                 return reject(new Error("まだ前の処理をしている最中"));
@@ -19,9 +19,13 @@ class MonochromeCanvas {
 
             img.onload = () => {
                 // キャンバスに画像を貼る
-                this.canvas.width = img.width * 1;
-                this.canvas.height = img.height * 1;
-                this.context.drawImage(img, 0, 0, img.width, img.height, 0, 0, this.canvas.width, this.canvas.height);
+                if (resizeImageWidth == null || resizeImageHeight == null) {
+                    resizeImageWidth = img.width;
+                    resizeImageHeight = img.height;
+                }
+                this.canvas.width = resizeImageWidth;
+                this.canvas.height = resizeImageHeight;
+                this.context.drawImage(img, 0, 0, img.width, img.height, 0, 0, resizeImageWidth, resizeImageHeight);
 
                 // 画像の各ピクセルをグレースケールに変換する
                 const pixels = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
