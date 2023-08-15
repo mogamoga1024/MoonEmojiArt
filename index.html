@@ -42,11 +42,11 @@
     </div>
     <div>
       幅
-      <input type="number" :min="0" :max="imageWidthMax"
+      <input type="number" :min="imageWidthMin" :max="imageWidthMax"
              v-model="imageWidth"
              @blur="onBlurImageWidth">
       倍率
-      <input type="number" :min="0"
+      <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
              v-model="imageSizeRate"
              @blur="onBlurImageSizeRate">
     </div>

@@ -21,6 +21,8 @@ const App = {
             imageWidthMin: 100,
             imageWidthMax: 1280,
             imageSizeRate: 1,
+            imageSizeRateMin: 0,
+            imageSizeRateMax: Math.ceil(1280 / 100), // Math.ceil(imageWidthMax / imageWidthMin)
         }
     },
     mounted() {
