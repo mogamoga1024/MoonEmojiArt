@@ -79,39 +79,33 @@ const App = {
                 this.baseAverageColor = this.baseAverageColorPrev;
                 return;
             }
-            const value = Number(e.target.value);
-            if (value < this.baseAverageColorMin) {
-                this.baseAverageColor = this.baseAverageColorMin;
-            }
-            else if (value > this.baseAverageColorMax) {
-                this.baseAverageColor = this.baseAverageColorMax;
-            }
+            this.baseAverageColor = this.rangeCorrection(
+                Number(e.target.value),
+                this.baseAverageColorMin,
+                this.baseAverageColorMax
+            );
         },
         onBlurBaseColorDistanceNumber(e) {
             if (e.target.value === "") {
                 this.baseColorDistance = this.baseColorDistancePrev;
                 return;
             }
-            const value = Number(e.target.value);
-            if (value < this.baseColorDistanceMin) {
-                this.baseColorDistance = this.baseColorDistanceMin;
-            }
-            else if (value > this.baseAverageColorMax) {
-                this.baseColorDistance = this.baseColorDistanceMax;
-            }
+            this.baseColorDistance = this.rangeCorrection(
+                Number(e.target.value),
+                this.baseColorDistanceMin,
+                this.baseColorDistanceMax
+            );
         },
         onBlurImageWidth(e) {
             if (e.target.value === "") {
                 this.imageWidth = this.imageWidthPrev;
                 return;
             }
-            const value = Number(e.target.value);
-            if (value < this.imageWidthMin) {
-                this.imageWidth = this.imageWidthMin;
-            }
-            else if (value > this.imageWidthMax) {
-                this.imageWidth = this.imageWidthMax;
-            }
+            this.imageWidth = this.rangeCorrection(
+                Number(e.target.value),
+                this.imageWidthMin,
+                this.imageWidthMax
+            );
             if (this.file !== null) {
                 this.imageSizeRate = Math.floor(this.imageWidth * 10 / this.imageWidthOri) / 10;
             }
@@ -121,13 +115,11 @@ const App = {
                 this.imageSizeRate = this.imageSizeRatePrev;
                 return;
             }
-            const value = Number(e.target.value);
-            if (value < this.imageSizeRateMin) {
-                this.imageSizeRate = this.imageSizeRateMin;
-            }
-            else if (value > this.imageSizeRateMax) {
-                this.imageSizeRate = this.imageSizeRateMax;
-            }
+            this.imageSizeRate = this.rangeCorrection(
+                Number(e.target.value),
+                this.imageSizeRateMin,
+                this.imageSizeRateMax
+            );
             if (this.file !== null) {
                 this.imageWidth = Math.round(this.imageWidthOri * this.imageSizeRate);
             }
@@ -151,7 +143,13 @@ const App = {
             }
         },
         rangeCorrection(val, min, max) {
-
+            if (val < min) {
+                return min;
+            }
+            else if (val > max) {
+                return max;
+            }
+            return val;
         }
     }
 };
