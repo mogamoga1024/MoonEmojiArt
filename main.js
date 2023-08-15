@@ -33,27 +33,19 @@ const App = {
     },
     watch: {
         baseAverageColor(newVal) {
-            if (newVal === "") {
-                return;
-            }
+            if (newVal === "") return;
             this.baseAverageColorPrev = this.baseAverageColor;
         },
         baseColorDistance(newVal) {
-            if (newVal === "") {
-                return;
-            }
+            if (newVal === "") return;
             this.baseColorDistancePrev = this.baseColorDistance;
         },
         imageWidth(newVal) {
-            if (newVal === "") {
-                return;
-            }
+            if (newVal === "") return;
             this.imageWidthPrev = this.imageWidth;
         },
         imageSizeRate(newVal) {
-            if (newVal === "") {
-                return;
-            }
+            if (newVal === "") return;
             this.imageSizeRatePrev = this.imageSizeRate;
         }
     },
