@@ -51,17 +51,16 @@ const App = {
 
             img.onload = () => {
                 if (img.width < this.imageWidthMin) {
-                    alert("画像の幅は100px以上必要です");
+                    alert(`画像の幅は${this.imageWidthMin}px以上必要です`);
                     this.$refs.inputFile.value = "";
                     this.file = null;
                     this.imageWidth = this.imageWidthMin;
-                    this.imageSizeRate = 1;
                 }
                 else {
                     this.imageWidth = this.imageWidthOri = img.width;
                     this.imageHeightOri = img.height;
-                    this.imageSizeRate = 1;
                 }
+                this.imageSizeRate = 1;
                 
                 URL.revokeObjectURL(img.src);
             };
@@ -108,6 +107,9 @@ const App = {
             }
             else if (value > this.imageWidthMax) {
                 this.imageWidth = this.imageWidthMax;
+            }
+            if (this.file !== null) {
+                this.imageSizeRate = Math.floor(this.imageWidth * 10 / this.imageWidthOri) / 10;
             }
         },
         onBlurImageSizeRate(e) {
