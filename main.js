@@ -15,8 +15,8 @@ const App = {
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
             needOutline: true,
-            originalImageWidth: 0,
-            originalImageHeight: 0,
+            imageWidthOri: 0,
+            imageHeightOri: 0,
             imageWidth: 0,
             imageWidthMax: 1280,
             imageHeight: 0,
@@ -48,8 +48,8 @@ const App = {
             const img = new Image();
 
             img.onload = () => {
-                this.imageWidth = this.originalImageWidth = img.width;
-                this.imageHeight = this.originalImageHeight = img.height;
+                this.imageWidth = this.imageWidthOri = img.width;
+                this.imageHeight = this.imageHeightOri = img.height;
                 URL.revokeObjectURL(img.src);
             };
             img.onerror = () => {
@@ -85,7 +85,7 @@ const App = {
             }
         },
         onBlurImageWidth(e) {
-
+            
         },
         onBlurImageHeight(e) {
 
@@ -94,7 +94,7 @@ const App = {
 
         },
         onClickMonochromeButton() {
-            if (this.file == null) {
+            if (this.file == null || this.imageSizeRate === 0) {
                 return;
             }
         
