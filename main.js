@@ -50,8 +50,8 @@ const App = {
             const img = new Image();
 
             img.onload = () => {
-                if (img.width < this.imageWidthMin) {
-                    alert(`画像の幅は${this.imageWidthMin}px以上必要です`);
+                if (img.width < this.imageWidthMin || img.width > this.imageWidthMax) {
+                    alert(`画像の幅は${this.imageWidthMin}px以上${this.imageWidthMax}px以下の必要があります`);
                     this.$refs.inputFile.value = "";
                     this.file = null;
                     this.imageWidth = this.imageWidthMin;
