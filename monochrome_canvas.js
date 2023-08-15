@@ -7,7 +7,7 @@ class MonochromeCanvas {
         this.context = canvas.getContext("2d");
     }
 
-    monochrome(src, baseAverageColor, needOutline, baseColorDistance) {
+    monochrome(src, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
         return new Promise((resolve, reject) => {
             if (this.isProcessing) {
                 return reject(new Error("まだ前の処理をしている最中"));
