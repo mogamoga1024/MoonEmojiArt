@@ -18,6 +18,7 @@ const App = {
             originalImageWidth: 0,
             originalImageHeight: 0,
             imageWidth: 0,
+            imageWidthMax: 1280,
             imageHeight: 0,
             imageSizeRate: 1,
         }
@@ -82,6 +83,15 @@ const App = {
             else if (value > this.baseAverageColorMax) {
                 this.baseColorDistance = this.baseColorDistanceMax;
             }
+        },
+        onBlurImageWidth(e) {
+
+        },
+        onBlurImageHeight(e) {
+
+        },
+        onBlurImageSizeRate(e) {
+
         },
         onClickMonochromeButton() {
             if (this.file == null) {

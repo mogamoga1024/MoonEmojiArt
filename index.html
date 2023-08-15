@@ -42,11 +42,11 @@
     </div>
     <div>
       幅
-      <input type="number" v-model="imageWidth">
+      <input type="number" :min="0" :max="imageWidthMax" v-model="imageWidth">
       高さ
-      <input type="number" v-model="imageHeight">
+      <input type="number" :min="0" v-model="imageHeight">
       倍率
-      <input type="number" v-model="imageSizeRate">
+      <input type="number" :min="0" v-model="imageSizeRate">
     </div>
     <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
     <canvas></canvas>
