@@ -21,7 +21,7 @@ const App = {
             imageWidthMin: 100,
             imageWidthMax: 1280,
             imageSizeRate: 1,
-            imageSizeRateMin: 0,
+            imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.ceil(1280 / 100), // Math.ceil(imageWidthMax / imageWidthMin)
         }
     },
@@ -113,7 +113,20 @@ const App = {
             }
         },
         onBlurImageSizeRate(e) {
-
+            if (e.target.value === "") {
+                this.imageSizeRate = 1; // todo
+                return;
+            }
+            const value = Number(e.target.value);
+            if (value < this.imageSizeRateMin) {
+                this.imageSizeRate = this.imageSizeRateMin;
+            }
+            else if (value > this.imageSizeRateMax) {
+                this.imageSizeRate = this.imageSizeRateMax;
+            }
+            if (this.file !== null) {
+                this.imageWidth = Math.round(this.imageWidthOri * this.imageSizeRate);
+            }
         },
         onClickMonochromeButton() {
             if (this.file == null || this.imageWidth === 0) {
