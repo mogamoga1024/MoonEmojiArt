@@ -15,6 +15,11 @@ const App = {
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
             needOutline: true,
+            originalImageWidth: 0,
+            originalImageHeight: 0,
+            imageWidth: 0,
+            imageHeight: 0,
+            imageSizeRate: 1,
         }
     },
     mounted() {
@@ -38,6 +43,8 @@ const App = {
     methods: {
         onChangeInputFile(e) {
             this.file = e.target.files[0];
+
+            
         },
         onBlurBaseAverageColorNumber(e) {
             if (e.target.value === "") {
