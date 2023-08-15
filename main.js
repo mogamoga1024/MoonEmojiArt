@@ -33,20 +33,16 @@ const App = {
     },
     watch: {
         baseAverageColor(newVal) {
-            if (newVal === "") return;
-            this.baseAverageColorPrev = this.baseAverageColor;
+            if (newVal === "") return; this.baseAverageColorPrev = newVal;
         },
         baseColorDistance(newVal) {
-            if (newVal === "") return;
-            this.baseColorDistancePrev = this.baseColorDistance;
+            if (newVal === "") return; this.baseColorDistancePrev = newVal;
         },
         imageWidth(newVal) {
-            if (newVal === "") return;
-            this.imageWidthPrev = this.imageWidth;
+            if (newVal === "") return; this.imageWidthPrev = newVal;
         },
         imageSizeRate(newVal) {
-            if (newVal === "") return;
-            this.imageSizeRatePrev = this.imageSizeRate;
+            if (newVal === "") return; this.imageSizeRatePrev = newVal;
         }
     },
     methods: {
@@ -153,6 +149,9 @@ const App = {
                     this.baseColorDistance
                 );
             }
+        },
+        rangeCorrection(val, min, max) {
+
         }
     }
 };
