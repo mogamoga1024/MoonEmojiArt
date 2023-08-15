@@ -22,24 +22,24 @@ const App = {
         monoCanvas.monochrome("野獣先輩.png", this.baseAverageColor, this.needOutline, this.baseColorDistance);
     },
     watch: {
-        baseAverageColor(newVal) {
-            if (newVal === "") {
-                return;
-            }
-            this.baseAverageColorPrev = this.baseAverageColor;
-        },
-        baseColorDistance(newVal) {
-            if (newVal === "") {
-                return;
-            }
-            this.baseColorDistancePrev = this.baseColorDistance;
-        }
+        // baseAverageColor(newVal) {
+        //     if (newVal === "") {
+        //         return;
+        //     }
+        //     this.baseAverageColorPrev = this.baseAverageColor;
+        // },
+        // baseColorDistance(newVal) {
+        //     if (newVal === "") {
+        //         return;
+        //     }
+        //     this.baseColorDistancePrev = this.baseColorDistance;
+        // }
     },
     methods: {
         onChangeInputFile(e) {
             this.file = e.target.files[0];
         },
-        onChangeBaseAverageColorNumber(e) {
+        onBlurBaseAverageColorNumber(e) {
             if (e.target.value === "") {
                 this.baseAverageColor = this.baseAverageColorPrev;
                 return;
@@ -52,7 +52,7 @@ const App = {
                 this.baseAverageColor = this.baseAverageColorMax;
             }
         },
-        onChangeBaseColorDistanceNumber(e) {
+        onBlurBaseColorDistanceNumber(e) {
             if (e.target.value === "") {
                 this.baseColorDistance = this.baseColorDistancePrev;
                 return;
