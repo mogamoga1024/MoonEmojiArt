@@ -1,5 +1,5 @@
 
-class TukimojiGenerator {
+class TukiArtGenerator {
     generate(pixels) {
         let text = "";
 
