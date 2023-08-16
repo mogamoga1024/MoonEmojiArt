@@ -37,7 +37,7 @@ class MonochromeCanvas {
                 const pixels = this.pixels;
                 for (let y = 0; y < pixels.height; y++) {
                     for (let x = 0; x < pixels.width; x++) {
-                        const i = (y * 4) * pixels.width + x * 4;
+                        const i = y * pixels.width * 4 + x * 4;
 
                         if (needOutline) {
                             this.#outline(pixels, i, baseColorDistance);
