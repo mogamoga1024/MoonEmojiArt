@@ -30,7 +30,10 @@ const App = {
     },
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
-        monoCanvas.monochrome("野獣先輩.png");
+        monoCanvas.monochrome("野獣先輩.png").then(() => {
+            const tukimojiText = tukimojiGenerator.generate(monoCanvas.pixels);
+            console.log(tukimojiText);
+        });
     },
     watch: {
         baseAverageColor(newVal) {
