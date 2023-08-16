@@ -1,6 +1,6 @@
 
 let monoCanvas = null;
-let TukiArtGenerator = new TukiArtGenerator();
+let tukiArtGenerator = new TukiArtGenerator();
 
 const App = {
     data() {
@@ -31,7 +31,7 @@ const App = {
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         monoCanvas.monochrome("野獣先輩.png").then(() => {
-            const tukimojiText = TukiArtGenerator.generate(monoCanvas.pixels);
+            const tukimojiText = tukiArtGenerator.generate(monoCanvas.pixels);
             console.log(tukimojiText);
         });
     },
@@ -144,7 +144,7 @@ const App = {
                     this.needOutline,
                     this.baseColorDistance
                 ).then(() => {
-                    const tukimojiText = TukiArtGenerator.generate(monoCanvas.pixels);
+                    const tukimojiText = tukiArtGenerator.generate(monoCanvas.pixels);
                     console.log(tukimojiText);
                 });
             }
