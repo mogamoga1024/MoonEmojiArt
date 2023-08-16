@@ -90,4 +90,4 @@ class MonochromeCanvas {
             Math.pow((data[oriIdx + 2] - data[dstIdx + 2]), 2)
         );
     };
-};
+}
