@@ -1,18 +1,24 @@
 
 class MonochromeCanvas {
-    isProcessing = false;
+    #canvas = null;
+    #context = null;
+    #isProcessing = false;
+
+    get pixels() {
+        return this.#context.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
+    }
 
     constructor(canvas) {
-        this.canvas = canvas;
-        this.context = canvas.getContext("2d", { willReadFrequently: true });
+        this.#canvas = canvas;
+        this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
     monochrome(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
         return new Promise((resolve, reject) => {
-            if (this.isProcessing) {
+            if (this.#isProcessing) {
                 return reject(new Error("まだ前の処理をしている最中"));
             }
-            this.isProcessing = true;
+            this.#isProcessing = true;
 
             const img = new Image();
             img.src = src;
@@ -23,12 +29,12 @@ class MonochromeCanvas {
                     resizeImageWidth = img.width;
                     resizeImageHeight = img.height;
                 }
-                this.canvas.width = resizeImageWidth;
-                this.canvas.height = resizeImageHeight;
-                this.context.drawImage(img, 0, 0, img.width, img.height, 0, 0, resizeImageWidth, resizeImageHeight);
+                this.#canvas.width = resizeImageWidth;
+                this.#canvas.height = resizeImageHeight;
+                this.#context.drawImage(img, 0, 0, img.width, img.height, 0, 0, resizeImageWidth, resizeImageHeight);
 
                 // 画像の各ピクセルをグレースケールに変換する
-                const pixels = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+                const pixels = this.pixels;
                 for (let y = 0; y < pixels.height; y++) {
                     for (let x = 0; x < pixels.width; x++) {
                         const i = (y * 4) * pixels.width + x * 4;
@@ -39,12 +45,12 @@ class MonochromeCanvas {
                         this.#monochrome(pixels, i, baseAverageColor);
                     }
                 }
-                this.context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
-                this.isProcessing = false;
+                this.#context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
+                this.#isProcessing = false;
                 resolve();
             };
             img.onerror = e => {
-                this.isProcessing = false;
+                this.#isProcessing = false;
                 reject(e);
             };
         });

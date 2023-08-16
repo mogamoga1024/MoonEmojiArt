@@ -1,5 +1,6 @@
 
 let monoCanvas = null;
+let tukimojiGenerator = new TukimojiGenerator();
 
 const App = {
     data() {
@@ -139,7 +140,10 @@ const App = {
                     this.baseAverageColor,
                     this.needOutline,
                     this.baseColorDistance
-                );
+                ).then(() => {
+                    const tukimojiText = tukimojiGenerator.generate(monoCanvas.pixels);
+                    console.log(tukimojiText);
+                });
             }
         },
         rangeCorrection(val, min, max) {
