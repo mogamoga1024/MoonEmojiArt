@@ -102,14 +102,14 @@
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌗");
     });
-    test("🌗 > 🌖", function() {
+    test("🌓 > 🌒🌔", function() {
         const pixels = [
-            [1, 1, 0, 0],
-            [1, 1, 0, 0],
-            [1, 1, 1, 0],
-            [1, 1, 1, 0],
+            [0, 0, 1, 1],
+            [0, 0, 1, 1],
+            [0, 1, 0, 1],
+            [0, 1, 0, 1],
         ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels), "🌗");
+        strictEqual(tukiArtGenerator._convertTuki(pixels), "🌓");
     });
     test("🌕 > 🌑🌒🌓🌔🌘🌗🌖", function() {
         const pixels = [
