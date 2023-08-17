@@ -13,6 +13,10 @@ class MonochromeCanvas {
         this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
+    text(text) {
+        
+    }
+
     monochrome(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
         return new Promise((resolve, reject) => {
             if (this.#isProcessing) {
