@@ -34,7 +34,7 @@ const App = {
         //     const tukimojiText = tukiArtGenerator.generate(monoCanvas.pixels);
         //     console.log(tukimojiText);
         // });
-        monoCanvas.text("草生える");
+        monoCanvas.text("草生えるwwwWWW");
     },
     watch: {
         baseAverageColor(newVal) {
