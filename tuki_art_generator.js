@@ -16,13 +16,13 @@ class TukiArtGenerator {
                                 tmpRow.push(this.#colorToBit(data[l]));
                             }
                             else {
-                                tmpRow.push(0);
+                                tmpRow.push(tmpRow[tmpRow.length - 1]);
                             }
                         }
                         tmpPixels.push(tmpRow);
                     }
                     else {
-                        tmpPixels.push([0, 0, 0, 0]);
+                        tmpPixels.push(tmpPixels[tmpPixels.length - 1]);
                     }
                 }
 
