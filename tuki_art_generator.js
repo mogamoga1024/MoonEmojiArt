@@ -23,7 +23,7 @@ class TukiArtGenerator {
     }
 
     _convertTuki(pixels) {
-        let rtnTukiEmoji = null;
+        let rtnTuki = null;
         let count = -1;
 
         const rowCount = this.#tukiList[0].pixels.length;
@@ -37,11 +37,16 @@ class TukiArtGenerator {
             }
             if (count < tmpCount) {
                 count = tmpCount;
-                rtnTukiEmoji = tuki.emoji;
+                rtnTuki = tuki;
+            }
+            else if (count === tmpCount) {
+                if (rtnTuki.priority < tuki.priority) {
+                    rtnTuki = tuki;
+                }
             }
         }
 
-        return rtnTukiEmoji;
+        return rtnTuki.emoji;
     }
 
     #tukiList = [
