@@ -35,9 +35,9 @@ class MonochromeCanvas {
 
                 // 画像の各ピクセルをグレースケールに変換する
                 const pixels = this.pixels;
-                for (let y = 0; y < pixels.height; y++) {
-                    for (let x = 0; x < pixels.width; x++) {
-                        const i = y * pixels.width * 4 + x * 4;
+                for (let row = 0; row < pixels.height; row++) {
+                    for (let col = 0; col < pixels.width; col++) {
+                        const i = row * pixels.width * 4 + col * 4;
 
                         if (needOutline) {
                             this.#outline(pixels, i, baseColorDistance);

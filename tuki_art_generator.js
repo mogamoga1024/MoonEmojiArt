@@ -4,22 +4,38 @@ class TukiArtGenerator {
         let text = "";
 
         const data = pixels.data;
-        for (let y = 0; y < pixels.height; y++) {
-            for (let x = 0; x < pixels.width; x++) {
-                const i = y * pixels.width * 4 + x * 4;
-                
-                if (data[i] === 0) {
-                    text += "■";
+        for (let row = 0; row < pixels.height; row += 4) {
+            for (let col = 0; col < pixels.width; col += 4) {
+                const tmpPixels = [];
+                for (let j = 0; j < 4; j++) {
+                    if (row + j < pixels.height) {
+                        const tmpRow = [];
+                        for (let k = 0; k < 4; k++) {
+                            if (col + k < pixels.width) {
+                                const l = (row + j) * pixels.width * 4 + (col + k) * 4;
+                                tmpRow.push(this.#colorToBit(data[l]));
+                            }
+                            else {
+                                tmpRow.push(0);
+                            }
+                        }
+                        tmpPixels.push(tmpRow);
+                    }
+                    else {
+                        tmpPixels.push([0, 0, 0, 0]);
+                    }
                 }
-                else {
-                    text += "□";
-                }
+
+                text += this._convertTuki(tmpPixels);
             }
             text += "\n";
         }
 
-        //return text;
-        return "";
+        return text;
+    }
+
+    #colorToBit(color) {
+        return color === 0 ? 0 : 1;
     }
 
     _convertTuki(pixels) {
