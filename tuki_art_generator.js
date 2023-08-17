@@ -47,6 +47,7 @@ class TukiArtGenerator {
     #tukiList = [
         {
             emoji: "🌑",
+            priority: 2,
             pixels: [
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
@@ -56,6 +57,7 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌒",
+            priority: 0,
             pixels: [
                 [0, 0, 0, 1],
                 [0, 0, 0, 1],
@@ -65,6 +67,7 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌓",
+            priority: 1,
             pixels: [
                 [0, 0, 1, 1],
                 [0, 0, 1, 1],
@@ -74,6 +77,7 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌔",
+            priority: 0,
             pixels: [
                 [0, 1, 1, 1],
                 [0, 1, 1, 1],
@@ -83,6 +87,7 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌘",
+            priority: 0,
             pixels: [
                 [1, 0, 0, 0],
                 [1, 0, 0, 0],
@@ -92,6 +97,7 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌗",
+            priority: 1,
             pixels: [
                 [1, 1, 0, 0],
                 [1, 1, 0, 0],
@@ -101,6 +107,7 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌖",
+            priority: 0,
             pixels: [
                 [1, 1, 1, 0],
                 [1, 1, 1, 0],
@@ -110,6 +117,7 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌕",
+            priority: 3,
             pixels: [
                 [1, 1, 1, 1],
                 [1, 1, 1, 1],
