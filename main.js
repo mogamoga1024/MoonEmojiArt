@@ -16,6 +16,7 @@ const App = {
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
             needOutline: true,
+            needReverse: false,
             imageWidthOri: 0,
             imageHeightOri: 100,
             imageWidth: 100,
@@ -32,7 +33,7 @@ const App = {
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         // monoCanvas.image("野獣先輩.png").then(() => {
-        //     this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels);
+        //     this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.needReverse);
         //     console.log(this.tukiArt);
         // });
         //monoCanvas.text("草生えるwwwWWW");
@@ -151,7 +152,7 @@ const App = {
                     this.needOutline,
                     this.baseColorDistance
                 ).then(() => {
-                    this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels);
+                    this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.needReverse);
                     console.log(this.tukiArt);
                 });
             }
