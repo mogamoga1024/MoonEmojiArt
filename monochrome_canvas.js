@@ -15,7 +15,6 @@ class MonochromeCanvas {
 
     text(text) {
         this.#context.font = '600 80px "ＭＳ Ｐゴシック", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Verdana, Roboto, "Droid Sans", sans-serif';
-        this.#context.fillStyle = "#000";
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
         this.#canvas.width = measure.width;
