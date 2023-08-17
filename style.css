@@ -7,3 +7,9 @@ input[type="file"] {
   display: block;
 }
 
+#result {
+  display: block;
+  width: 100%;
+  height: 600px;
+}
+

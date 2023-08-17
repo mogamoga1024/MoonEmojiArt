@@ -26,20 +26,21 @@ const App = {
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(1280 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
+            tukiArt: ""
         }
     },
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         // monoCanvas.image("野獣先輩.png").then(() => {
-        //     const tukimojiText = tukiArtGenerator.generate(monoCanvas.pixels);
-        //     console.log(tukimojiText);
+        //     this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels);
+        //     console.log(this.tukiArt);
         // });
         //monoCanvas.text("草生えるwwwWWW");
         //monoCanvas.text("草");
-        // monoCanvas.text("月");
-        monoCanvas.text("迫真月文字部～Emojiの裏技～");
-        const tukimojiText = tukiArtGenerator.generate(monoCanvas.pixels);
-        console.log(tukimojiText);
+        monoCanvas.text("月");
+        //monoCanvas.text("迫真月文字部～Emojiの裏技～");
+        this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, true);
+        console.log(this.tukiArt);
     },
     watch: {
         baseAverageColor(newVal) {
@@ -150,8 +151,8 @@ const App = {
                     this.needOutline,
                     this.baseColorDistance
                 ).then(() => {
-                    const tukimojiText = tukiArtGenerator.generate(monoCanvas.pixels);
-                    console.log(tukimojiText);
+                    this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels);
+                    console.log(this.tukiArt);
                 });
             }
         },

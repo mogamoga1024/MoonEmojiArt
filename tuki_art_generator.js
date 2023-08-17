@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    generate(pixels) {
+    generate(pixels, isReverse = false) {
         let text = "";
 
         const data = pixels.data;
@@ -26,7 +26,8 @@ class TukiArtGenerator {
                     }
                 }
 
-                text += this._convertTuki(tmpPixels);
+                const emoji = this._convertTuki(tmpPixels);
+                text += isReverse ? this.#reverse(emoji) : emoji;
             }
             text += "\n";
         }
@@ -63,6 +64,20 @@ class TukiArtGenerator {
         }
 
         return rtnTuki.emoji;
+    }
+
+    #reverse(emoji) {
+        switch (emoji) {
+            case "🌑": return "🌕";
+            case "🌒": return "🌖";
+            case "🌓": return "🌗";
+            case "🌔": return "🌘";
+            case "🌘": return "🌔";
+            case "🌗": return "🌓";
+            case "🌖": return "🌒";
+            case "🌕": return "🌑";
+            default: throw new Error(`引数が不正：${emoji}`);
+        }
     }
 
     #tukiList = [

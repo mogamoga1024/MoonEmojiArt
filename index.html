@@ -12,7 +12,7 @@
     <h1>月文字ジェネレーター（JS完結版）</h1>
     <input type="file" ref="inputFile" @change="onChangeInputFile">
     <div>
-      白多め - 黒多め
+      黒：少 - 多
       <input type="range"
              id="base-average-color-range"
              :min="baseAverageColorMin"
@@ -28,7 +28,7 @@
     輪郭必要？
     <input type="checkbox" id="outline-chkbox" v-model="needOutline">
     <div>
-      輪郭強め - 弱め
+      輪郭：強 - 弱
       <input type="range"
              id="base-color-distance-range"
              :min="baseColorDistanceMin"
@@ -55,6 +55,7 @@
     </div>
     <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
     <canvas ref="canvas"></canvas>
+    <textarea id="result">{{ tukiArt }}</textarea>
   </div>
 
   <script src="monochrome_canvas.js"></script>
