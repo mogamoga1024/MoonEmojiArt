@@ -15,13 +15,15 @@ class MonochromeCanvas {
 
     text(text) {
         this.#context.font = "600 50px 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif";
-        this.#context.fillStyle = "black";
+        this.#context.fillStyle = "#000";
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
         this.#canvas.width = measure.width + 10;
         this.#canvas.height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent + 20;
         this.#context.font = "600 50px 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif";
-        this.#context.fillStyle = "black";
+        this.#context.fillStyle = "#fff";
+        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+        this.#context.fillStyle = "#000";
         this.#context.textBaseline = "top";
         this.#context.textAlign = "center"
         this.#context.fillText(text, this.#canvas.width / 2, 12);
