@@ -29,7 +29,7 @@ class MonochromeCanvas {
         this.#context.fillText(text, this.#canvas.width / 2, this.#canvas.height / 2);
     }
 
-    monochrome(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
+    image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
         return new Promise((resolve, reject) => {
             if (this.#isProcessing) {
                 return reject(new Error("まだ前の処理をしている最中"));
@@ -58,7 +58,7 @@ class MonochromeCanvas {
                         if (needOutline) {
                             this.#outline(pixels, i, baseColorDistance);
                         }
-                        this.#monochrome(pixels, i, baseAverageColor);
+                        this.#image(pixels, i, baseAverageColor);
                     }
                 }
                 this.#context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
@@ -72,7 +72,7 @@ class MonochromeCanvas {
         });
     }
 
-    #monochrome(pixels, i, baseAverageColor) {
+    #image(pixels, i, baseAverageColor) {
         const data = pixels.data;
         const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
     

@@ -30,7 +30,7 @@ const App = {
     },
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
-        // monoCanvas.monochrome("野獣先輩.png").then(() => {
+        // monoCanvas.image("野獣先輩.png").then(() => {
         //     const tukimojiText = tukiArtGenerator.generate(monoCanvas.pixels);
         //     console.log(tukimojiText);
         // });
@@ -142,7 +142,7 @@ const App = {
             this.fileReader.readAsDataURL(this.file);
         
             this.fileReader.onload = () => {
-                monoCanvas.monochrome(
+                monoCanvas.image(
                     this.fileReader.result,
                     this.imageWidth,
                     Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
