@@ -57,8 +57,9 @@ const App = {
             if (newVal === "") return; this.imageSizeRatePrev = newVal;
         },
         tukiArt(newVal) {
-            this.$refs.calcWidth.textContent = this.tukiArt.substr(0, this.tukiArt.indexOf("\n"));
+            this.$refs.calcWidth.textContent = newVal.substr(0, newVal.indexOf("\n")); // todo \nが無かったらどうなる？
             this.$refs.result.style.width = `${this.$refs.calcWidth.clientWidth + 50}px`;
+            this.$refs.result.style.height = "auto";
             this.$refs.result.textContent = newVal;
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
             this.$refs.calcWidth.textContent = "";
