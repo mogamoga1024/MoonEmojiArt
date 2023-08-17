@@ -14,7 +14,23 @@ class MonochromeCanvas {
     }
 
     text(text) {
-        
+        // this.#canvas.width = 500;
+        // this.#canvas.height = 500;
+        // this.#canvas.width = 128;
+        // this.#canvas.height = 29;
+        this.#context.font = "600 32px 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif";
+        this.#context.fillStyle = "black";
+        this.#context.textBaseline = "top";
+        // this.#context.fillText(text, 0, 0);
+        const measure = this.#context.measureText(text)
+        this.#canvas.width = measure.width;
+        this.#canvas.height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent;
+        // this.#canvas.width = 128;
+        // this.#canvas.height = 29;
+        this.#context.font = "600 32px 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif";
+        this.#context.fillStyle = "black";
+        this.#context.textBaseline = "top";
+        this.#context.fillText(text, 0, 0);
     }
 
     monochrome(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
