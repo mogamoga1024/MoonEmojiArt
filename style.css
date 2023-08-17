@@ -1,4 +1,12 @@
 
+* {
+  font-family: Verdana, Roboto, "Droid Sans", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", sans-serif;
+}
+
+*:not(h1) {
+  font-size: 16px;
+}
+
 input[type="file"] {
   display: block;
 }
@@ -7,9 +15,19 @@ input[type="file"] {
   display: block;
 }
 
+#calc-width {
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  font-size: 12px; /* #result.font-sizeと同じであること */
+}
+
 #result {
   display: block;
-  width: 100%;
-  height: 600px;
+  width: 100px;
+  height: 100px;
+  font-size: 12px;
 }
 

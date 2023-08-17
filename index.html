@@ -9,6 +9,7 @@
 </head>
 <body>
   <div id="app">
+    <span id="calc-width" ref="calcWidth"></span>
     <h1>月文字ジェネレーター（JS完結版）</h1>
     <input type="file" ref="inputFile" @change="onChangeInputFile">
     <div>
@@ -57,7 +58,7 @@
     </div>
     <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
     <canvas ref="canvas"></canvas>
-    <textarea id="result">{{ tukiArt }}</textarea>
+    <textarea id="result" ref="result">{{ tukiArt }}</textarea>
   </div>
 
   <script src="monochrome_canvas.js"></script>

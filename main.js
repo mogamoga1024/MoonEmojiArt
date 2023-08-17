@@ -55,6 +55,12 @@ const App = {
         },
         imageSizeRate(newVal) {
             if (newVal === "") return; this.imageSizeRatePrev = newVal;
+        },
+        tukiArt() {
+            this.$refs.calcWidth.textContent = this.tukiArt.substr(0, this.tukiArt.indexOf("\n"));
+            this.$refs.result.style.width = `${this.$refs.calcWidth.clientWidth + 50}px`;
+            this.$refs.calcWidth.textContent = "";
+            console.log(this.tukiArt);
         }
     },
     methods: {
@@ -153,7 +159,6 @@ const App = {
                     this.baseColorDistance
                 ).then(() => {
                     this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.needReverse);
-                    console.log(this.tukiArt);
                 });
             }
         },
