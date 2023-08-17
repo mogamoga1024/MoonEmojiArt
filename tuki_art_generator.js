@@ -18,10 +18,11 @@ class TukiArtGenerator {
             text += "\n";
         }
 
-        return text;
+        //return text;
+        return "";
     }
 
-    #convertTuki(pixels) {
+    _convertTuki(pixels) {
         let tuki = this.#tukiList[0].emoji;
 
         
