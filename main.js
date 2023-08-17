@@ -27,21 +27,18 @@ const App = {
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(1280 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
-            tukiArt: ""
         }
     },
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         // monoCanvas.image("野獣先輩.png").then(() => {
-        //     this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.needReverse);
-        //     console.log(this.tukiArt);
+        //     this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needReverse));
         // });
         //monoCanvas.text("草生えるwwwWWW");
         //monoCanvas.text("草");
         monoCanvas.text("月");
         //monoCanvas.text("迫真月文字部～Emojiの裏技～");
-        this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, true);
-        console.log(this.tukiArt);
+        this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
     },
     watch: {
         baseAverageColor(newVal) {
@@ -55,15 +52,6 @@ const App = {
         },
         imageSizeRate(newVal) {
             if (newVal === "") return; this.imageSizeRatePrev = newVal;
-        },
-        tukiArt(newVal) {
-            this.$refs.calcWidth.textContent = newVal.substr(0, newVal.indexOf("\n")); // todo \nが無かったらどうなる？
-            this.$refs.result.style.width = `${this.$refs.calcWidth.clientWidth + 50}px`;
-            this.$refs.result.style.height = "auto";
-            this.$refs.result.textContent = newVal;
-            this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
-            this.$refs.calcWidth.textContent = "";
-            console.log(this.tukiArt);
         }
     },
     methods: {
@@ -161,9 +149,12 @@ const App = {
                     this.needOutline,
                     this.baseColorDistance
                 ).then(() => {
-                    this.tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.needReverse);
+                    this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needReverse));
                 });
             }
+        },
+        onClickCopyButton() {
+            navigator.clipboard.writeText(this.$refs.result.value);
         },
         rangeCorrection(val, min, max) {
             if (val < min) {
@@ -173,6 +164,14 @@ const App = {
                 return max;
             }
             return val;
+        },
+        displayTukiArt(tukiArt) {
+            this.$refs.calcWidth.textContent = tukiArt.substr(0, tukiArt.indexOf("\n")); // todo \nが無かったらどうなる？
+            this.$refs.result.style.width = `${this.$refs.calcWidth.clientWidth + 50}px`;
+            this.$refs.result.style.height = "auto";
+            this.$refs.result.value = tukiArt;
+            this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
+            this.$refs.calcWidth.textContent = "";
         }
     }
 };

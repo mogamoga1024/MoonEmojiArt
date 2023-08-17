@@ -11,10 +11,6 @@ input[type="file"] {
   display: block;
 }
 
-#monochrome-btn {
-  display: block;
-}
-
 #calc-width {
   position: absolute;
   visibility: hidden;

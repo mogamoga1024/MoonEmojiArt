@@ -56,7 +56,10 @@
              @blur="onBlurImageSizeRate">
       幅は200～300程度をお勧めします
     </div>
-    <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
+    <div>
+      <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
+      <button id="copy-btn" @click="onClickCopyButton">コピー</button>
+    </div>
     <canvas ref="canvas"></canvas>
     <textarea id="result" ref="result"></textarea>
   </div>
