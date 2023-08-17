@@ -35,7 +35,9 @@ const App = {
         //     console.log(tukimojiText);
         // });
         //monoCanvas.text("草生えるwwwWWW");
-        monoCanvas.text("草");
+        //monoCanvas.text("草");
+        // monoCanvas.text("月");
+        monoCanvas.text("全身全霊今日も青春");
         const tukimojiText = tukiArtGenerator.generate(monoCanvas.pixels);
         console.log(tukimojiText);
     },
