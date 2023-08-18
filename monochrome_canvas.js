@@ -38,6 +38,9 @@ class MonochromeCanvas {
             if (char !== "、" && char !== "。") {
                 height += Math.abs(measure.actualBoundingBoxAscent);
             }
+            else {
+                height = Math.round(height / 3);
+            }
             if (maxWidth < width) {
                 maxWidth = width;
             }
@@ -53,10 +56,17 @@ class MonochromeCanvas {
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         this.#context.fillStyle = "#000";
         this.#context.textBaseline = "top";
-        this.#context.textAlign = "center";
+        // this.#context.textAlign = "center";
         let top = 0;
         for (const char of charList) {
-            this.#context.fillText(char.char, this.#canvas.width / 2, top);
+            if (char.char === "、" || char.char === "。") {
+                this.#context.textAlign = "left";
+                this.#context.fillText(char.char, this.#canvas.width / 2, top - char.height * 2);
+            }
+            else {
+                this.#context.textAlign = "center";
+                this.#context.fillText(char.char, this.#canvas.width / 2, top);
+            }
             top += char.height;
         }
     }
