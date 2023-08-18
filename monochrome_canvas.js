@@ -57,7 +57,7 @@ class MonochromeCanvas {
                         if (needOutline) {
                             this.#outline(pixels, i, baseColorDistance);
                         }
-                        this.#image(pixels, i, baseAverageColor);
+                        this.#monochrome(pixels, i, baseAverageColor);
                     }
                 }
                 this.#context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
@@ -71,7 +71,7 @@ class MonochromeCanvas {
         });
     }
 
-    #image(pixels, i, baseAverageColor) {
+    #monochrome(pixels, i, baseAverageColor) {
         const data = pixels.data;
         const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
     
