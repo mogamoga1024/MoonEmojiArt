@@ -13,6 +13,7 @@ const App = {
             fontSizeMax: 160,
             isBold: true,
             isTate: true,
+            wasTate: true,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -213,6 +214,8 @@ const App = {
             this.$refs.result.value = tukiArt;
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
             this.$refs.calcWidth.textContent = "";
+
+            this.wasTate = this.isTate;
         }
     }
 };
