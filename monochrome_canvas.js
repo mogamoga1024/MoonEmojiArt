@@ -61,7 +61,7 @@ class MonochromeCanvas {
         for (const char of charList) {
             if (char.char === "、" || char.char === "。") {
                 this.#context.textAlign = "left";
-                this.#context.fillText(char.char, this.#canvas.width / 2, top - char.height * 2);
+                this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top - char.height * 2);
             }
             else {
                 this.#context.textAlign = "center";
