@@ -46,6 +46,8 @@ class MonochromeCanvas {
                 }
                 this.#canvas.width = resizeImageWidth;
                 this.#canvas.height = resizeImageHeight;
+                this.#context.fillStyle = "#fff"; // 透過画像対策
+                this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
                 this.#context.drawImage(img, 0, 0, img.width, img.height, 0, 0, resizeImageWidth, resizeImageHeight);
 
                 // 画像の各ピクセルをグレースケールに変換する
