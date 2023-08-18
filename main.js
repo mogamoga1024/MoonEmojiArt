@@ -7,10 +7,11 @@ const App = {
         return {
             mode: "text", // "text" | "image"
             text: "",
-            fontSize: 30,
-            fontSizePrev: 80,
+            fontSize: 60,
+            fontSizePrev: 60,
             fontSizeMin: 50,
             fontSizeMax: 160,
+            isBold: true,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -168,7 +169,7 @@ const App = {
                     return;
                 }
                 
-                monoCanvas.text(this.text, this.fontSize);
+                monoCanvas.text(this.text, this.fontSize, this.isBold);
                 this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needTextReverse));
             }
             else if (this.mode === "image") {

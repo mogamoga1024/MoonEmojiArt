@@ -19,7 +19,7 @@
       変換したい文
       <input type="text" v-model="text">
       <div>
-        フォントサイズ(px)
+        フォントサイズ
         <input type="number"
                :min="fontSizeMin"
                :max="fontSizeMax"
@@ -27,8 +27,10 @@
                @blur="onBlurFontSizeNumber">
       </div>
       <div>
+        太字？
+        <input type="checkbox" style="margin-right: 16px;" v-model="isBold">
         色反転する？
-        <input type="checkbox" id="text-reverse-chkbox" v-model="needTextReverse">
+        <input type="checkbox" v-model="needTextReverse">
       </div>
     </tempate>
     <tempate v-else-if="mode === 'image'">
@@ -48,9 +50,9 @@
                @blur="onBlurBaseAverageColorNumber">
       </div>
       輪郭必要？
-      <input type="checkbox" id="outline-chkbox" style="margin-right: 16px;" v-model="needOutline">
+      <input type="checkbox" style="margin-right: 16px;" v-model="needOutline">
       色反転する？
-      <input type="checkbox" id="image-reverse-chkbox" v-model="needImageReverse">
+      <input type="checkbox" v-model="needImageReverse">
       <div>
         輪郭：強 - 弱
         <input type="range"
