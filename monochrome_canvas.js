@@ -43,7 +43,7 @@ class MonochromeCanvas {
         }
         // キャンバスのサイズ設定
         this.#canvas.width = maxWidth;
-        this.#canvas.height = totalHeihgt;
+        this.#canvas.height = totalHeihgt + 10 * (charList.length + 1);
         // テキスト反映
         this.#context.font = font;
         this.#context.fillStyle = "#fff";
@@ -51,10 +51,10 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#000";
         this.#context.textBaseline = "top";
         this.#context.textAlign = "center";
-        let top = 0;
+        let top = 10;
         for (const char of charList) {
             this.#context.fillText(char.char, this.#canvas.width / 2, top);
-            top += char.height;
+            top += char.height + 10;
         }
     }
 

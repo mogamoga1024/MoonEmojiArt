@@ -170,7 +170,7 @@ const App = {
                     return;
                 }
                 
-                monoCanvas.text(this.text, this.fontSize, this.isBold);
+                monoCanvas.text(this.text, this.fontSize, this.isBold, this.isTate);
                 this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needTextReverse));
             }
             else if (this.mode === "image") {
