@@ -42,8 +42,21 @@ class MonochromeCanvas {
             charList.push({ char: char, height: height });
         }
         // キャンバスのサイズ設定
+        const firstChar = charList[0];
+        const lastChar = charList[charList.length - 1];
+        let missingTopMargin = 0;
+        let missingBottomMargin = 0;
+        if (firstChar === lastChar) {
+            // 何もしない
+        }
+        else if (firstChar.height < lastChar.height) {
+            missingTopMargin = Math.round((lastChar.height - firstChar.height) / 2);
+        }
+        else if (firstChar.height > lastChar.height) {
+            missingBottomMargin = Math.round((firstChar.height - lastChar.height) / 2);
+        }
         this.#canvas.width = maxWidth;
-        this.#canvas.height = totalHeihgt + 10 * (charList.length + 1);
+        this.#canvas.height = totalHeihgt + 10 * (charList.length + 1) + missingTopMargin + missingBottomMargin;
         // テキスト反映
         this.#context.font = font;
         this.#context.fillStyle = "#fff";
@@ -51,7 +64,7 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#000";
         this.#context.textBaseline = "top";
         this.#context.textAlign = "center";
-        let top = 10;
+        let top = 10 + missingTopMargin;
         for (const char of charList) {
             this.#context.fillText(char.char, this.#canvas.width / 2, top);
             top += char.height + 10;
