@@ -26,21 +26,52 @@ class MonochromeCanvas {
     }
 
     #tateText(text, font) {
-        // todo
+        this.#context.font = font;
+        this.#context.textBaseline = "top";
+        const charList = [];
+        let maxWidth = 0;
+        let totalHeihgt = 0;
+        for (const char of text) {
+            const measure = this.#context.measureText(char);
+            const width = measure.width;
+            const height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent;
+            if (maxWidth < width) {
+                maxWidth = width;
+            }
+            totalHeihgt += height;
+            charList.push({ char: char, height: height });
+        }
+        // キャンバスのサイズ設定
+        this.#canvas.width = maxWidth;
+        this.#canvas.height = totalHeihgt;
+        // テキスト反映
+        this.#context.font = font;
+        this.#context.fillStyle = "#fff";
+        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+        this.#context.fillStyle = "#000";
+        this.#context.textBaseline = "top";
+        this.#context.textAlign = "center";
+        let top = 0;
+        for (const char of charList) {
+            this.#context.fillText(char.char, this.#canvas.width / 2, top);
+            top += char.height;
+        }
     }
 
     #yokoText(text, font) {
         this.#context.font = font;
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
+        // キャンバスのサイズ設定
         this.#canvas.width = measure.width;
         this.#canvas.height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent + 20;
+        // テキスト反映
         this.#context.font = font;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         this.#context.fillStyle = "#000";
         this.#context.textBaseline = "middle";
-        this.#context.textAlign = "center"
+        this.#context.textAlign = "center";
         this.#context.fillText(text, this.#canvas.width / 2, this.#canvas.height / 2);
     }
 
