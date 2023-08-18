@@ -13,13 +13,14 @@ class MonochromeCanvas {
         this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text) {
-        this.#context.font = '600 80px "ＭＳ Ｐゴシック", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Verdana, Roboto, "Droid Sans", sans-serif';
+    text(text, fontSize = 80) {
+        const font = `600 ${fontSize}px "ＭＳ Ｐゴシック", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Verdana, Roboto, "Droid Sans", sans-serif`;
+        this.#context.font = font;
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
         this.#canvas.width = measure.width;
         this.#canvas.height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent + 20;
-        this.#context.font = '600 80px "ＭＳ Ｐゴシック", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Verdana, Roboto, "Droid Sans", sans-serif';
+        this.#context.font = font;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         this.#context.fillStyle = "#000";

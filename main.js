@@ -37,7 +37,8 @@ const App = {
         // });
         //monoCanvas.text("草生えるwwwWWW");
         //monoCanvas.text("草");
-        monoCanvas.text("月");
+        // monoCanvas.text("月");
+        monoCanvas.text("僕の未来へ", 60);
         //monoCanvas.text("迫真月文字部～Emojiの裏技～");
         this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
     },
