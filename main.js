@@ -12,6 +12,7 @@ const App = {
             fontSizeMin: 50,
             fontSizeMax: 160,
             isBold: true,
+            isTate: true,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -45,7 +46,7 @@ const App = {
         //monoCanvas.text("草生えるwwwWWW");
         //monoCanvas.text("草");
         // monoCanvas.text("月");
-        monoCanvas.text("葵いカナリアアアアアアアアアアアアアアアア！！！", 60);
+        monoCanvas.text("葵いカナリアアアアアアアアアアアアアアアア！！！", 60, true, false);
         //monoCanvas.text("迫真月文字部～Emojiの裏技～");
         this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
     },

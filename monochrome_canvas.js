@@ -13,9 +13,23 @@ class MonochromeCanvas {
         this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, fontSize = 60, isBold = true) {
+    text(text, fontSize = 60, isBold = true, isTate = true) {
         const fontWeight = isBold ? 600 : 400;
         const font = `${fontWeight} ${fontSize}px "ＭＳ Ｐゴシック", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Verdana, Roboto, "Droid Sans", sans-serif`;
+        
+        if (isTate) {
+            this.#tateText(text, font);
+        }
+        else {
+            this.#yokoText(text, font);
+        }
+    }
+
+    #tateText(text, font) {
+        // todo
+    }
+
+    #yokoText(text, font) {
         this.#context.font = font;
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)

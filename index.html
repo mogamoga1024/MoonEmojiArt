@@ -30,7 +30,9 @@
         太字？
         <input type="checkbox" style="margin-right: 16px;" v-model="isBold">
         色反転する？
-        <input type="checkbox" v-model="needTextReverse">
+        <input type="checkbox" style="margin-right: 16px;" v-model="needTextReverse">
+        縦書き？
+        <input type="checkbox" v-model="isTate">
       </div>
     </template>
     <template v-else-if="mode === 'image'">
