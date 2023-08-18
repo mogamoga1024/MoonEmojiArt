@@ -7,6 +7,10 @@ const App = {
         return {
             mode: "text", // "text" | "image"
             text: "",
+            fontSize: 30,
+            fontSizePrev: 80,
+            fontSizeMin: 50,
+            fontSizeMax: 160,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -45,6 +49,9 @@ const App = {
         this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
     },
     watch: {
+        fontSize(newVal) {
+            if (newVal === "") return; this.fontSizePrev = newVal;
+        },
         baseAverageColor(newVal) {
             if (newVal === "") return; this.baseAverageColorPrev = newVal;
         },
@@ -92,6 +99,17 @@ const App = {
             };
 
             img.src = URL.createObjectURL(this.file);
+        },
+        onBlurFontSizeNumber(e) {
+            if (e.target.value === "") {
+                this.fontSize = this.fontSizePrev;
+                return;
+            }
+            this.fontSize = this.rangeCorrection(
+                Number(e.target.value),
+                this.fontSizeMin,
+                this.fontSizeMax
+            );
         },
         onBlurBaseAverageColorNumber(e) {
             if (e.target.value === "") {
@@ -150,7 +168,7 @@ const App = {
                     return;
                 }
                 
-                monoCanvas.text(this.text); // todo font size
+                monoCanvas.text(this.text, this.fontSize);
                 this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needTextReverse));
             }
             else if (this.mode === "image") {
