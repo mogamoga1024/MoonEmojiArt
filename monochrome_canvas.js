@@ -67,7 +67,7 @@ class MonochromeCanvas {
         const measure = this.#context.measureText(text)
         // キャンバスのサイズ設定
         this.#canvas.width = measure.width;
-        this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent + 20;
+        this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
         // テキスト反映
         this.#context.font = font;
         this.#context.fillStyle = "#fff";
