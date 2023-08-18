@@ -7,6 +7,10 @@
   font-size: 16px;
 }
 
+#app {
+  padding: 0 16px;
+}
+
 .btn-mode {
   display: inline-block;
   width: 40px;
