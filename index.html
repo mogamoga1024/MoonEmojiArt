@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>月文字ジェネレーター（JS）</title>
+  <title>月文字ジェネレーター（JS版）</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body>
   <div id="app">
     <span id="calc-width" ref="calcWidth"></span>
-    <h1>月文字ジェネレーター（JS）</h1>
+    <h1>月文字ジェネレーター（JS版）</h1>
     <div>
       <div class="btn-mode" :class="{'selected': mode === 'text'}" @click="onClickTextModeButton">文字</div>
       <div class="btn-mode" :class="{'selected': mode === 'image'}" @click="onClickImageModeButton">画像</div>
