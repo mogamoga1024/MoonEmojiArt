@@ -6,6 +6,7 @@ const App = {
     data() {
         return {
             mode: "text", // "text" | "image"
+            text: "",
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -17,7 +18,8 @@ const App = {
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
             needOutline: true,
-            needReverse: false,
+            needTextReverse: true,
+            needImageReverse: false,
             imageWidthOri: 0,
             imageHeightOri: 100,
             imageWidth: 100,
@@ -33,12 +35,12 @@ const App = {
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         // monoCanvas.image("野獣先輩.png").then(() => {
-        //     this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needReverse));
+        //     this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needImageReverse));
         // });
         //monoCanvas.text("草生えるwwwWWW");
         //monoCanvas.text("草");
         // monoCanvas.text("月");
-        monoCanvas.text("僕の未来へ", 60);
+        monoCanvas.text("葵いカナリアアアアアアアアアアアアアアアア！！！", 60);
         //monoCanvas.text("迫真月文字部～Emojiの裏技～");
         this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
     },
@@ -141,24 +143,35 @@ const App = {
                 this.imageWidth = Math.round(this.imageWidthOri * this.imageSizeRate);
             }
         },
+        // 実行ボタン押下時
         onClickMonochromeButton() {
-            if (this.file == null || this.imageWidth === 0) {
-                return;
+            if (this.mode === "text") {
+                if (this.text === "") {
+                    return;
+                }
+                
+                monoCanvas.text(this.text); // todo font size
+                this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needTextReverse));
             }
-        
-            this.fileReader.readAsDataURL(this.file);
-        
-            this.fileReader.onload = () => {
-                monoCanvas.image(
-                    this.fileReader.result,
-                    this.imageWidth,
-                    Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
-                    this.baseAverageColor,
-                    this.needOutline,
-                    this.baseColorDistance
-                ).then(() => {
-                    this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needReverse));
-                });
+            else if (this.mode === "image") {
+                if (this.file == null || this.imageWidth === 0) {
+                    return;
+                }
+            
+                this.fileReader.readAsDataURL(this.file);
+            
+                this.fileReader.onload = () => {
+                    monoCanvas.image(
+                        this.fileReader.result,
+                        this.imageWidth,
+                        Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
+                        this.baseAverageColor,
+                        this.needOutline,
+                        this.baseColorDistance
+                    ).then(() => {
+                        this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needImageReverse));
+                    });
+                }
             }
         },
         onClickCopyButton() {

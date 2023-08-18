@@ -16,7 +16,12 @@
       <div class="btn-mode" :class="{'selected': mode === 'image'}" @click="onClickImageModeButton">画像</div>
     </div>
     <tempate v-if="mode === 'text'">
-      hogehoge
+      変換したい文
+      <input type="text" v-model="text">
+      <div>
+        色反転する？
+        <input type="checkbox" id="text-reverse-chkbox" v-model="needTextReverse">
+      </div>
     </tempate>
     <tempate v-else-if="mode === 'image'">
       <input type="file" ref="inputFile" @change="onChangeInputFile">
@@ -37,7 +42,7 @@
       輪郭必要？
       <input type="checkbox" id="outline-chkbox" style="margin-right: 16px;" v-model="needOutline">
       色反転する？
-      <input type="checkbox" id="reverse-chkbox" v-model="needReverse">
+      <input type="checkbox" id="image-reverse-chkbox" v-model="needImageReverse">
       <div>
         輪郭：強 - 弱
         <input type="range"
