@@ -34,7 +34,10 @@ class MonochromeCanvas {
         for (const char of text) {
             const measure = this.#context.measureText(char);
             const width = measure.width;
-            const height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent;
+            let height = measure.actualBoundingBoxDescent;
+            if (char !== "、" && char !== "。") {
+                height += Math.abs(measure.actualBoundingBoxAscent);
+            }
             if (maxWidth < width) {
                 maxWidth = width;
             }
@@ -42,21 +45,8 @@ class MonochromeCanvas {
             charList.push({ char: char, height: height });
         }
         // キャンバスのサイズ設定
-        const firstChar = charList[0];
-        const lastChar = charList[charList.length - 1];
-        let missingTopMargin = 0;
-        let missingBottomMargin = 0;
-        if (firstChar === lastChar) {
-            // 何もしない
-        }
-        else if (firstChar.height < lastChar.height) {
-            missingTopMargin = Math.round((lastChar.height - firstChar.height) / 2);
-        }
-        else if (firstChar.height > lastChar.height) {
-            missingBottomMargin = Math.round((firstChar.height - lastChar.height) / 2);
-        }
         this.#canvas.width = maxWidth;
-        this.#canvas.height = totalHeihgt + 10 * (charList.length + 1) + missingTopMargin + missingBottomMargin;
+        this.#canvas.height = totalHeihgt;
         // テキスト反映
         this.#context.font = font;
         this.#context.fillStyle = "#fff";
@@ -64,10 +54,10 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#000";
         this.#context.textBaseline = "top";
         this.#context.textAlign = "center";
-        let top = 10 + missingTopMargin;
+        let top = 0;
         for (const char of charList) {
             this.#context.fillText(char.char, this.#canvas.width / 2, top);
-            top += char.height + 10;
+            top += char.height;
         }
     }
 
@@ -77,7 +67,7 @@ class MonochromeCanvas {
         const measure = this.#context.measureText(text)
         // キャンバスのサイズ設定
         this.#canvas.width = measure.width;
-        this.#canvas.height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent + 20;
+        this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent + 20;
         // テキスト反映
         this.#context.font = font;
         this.#context.fillStyle = "#fff";
