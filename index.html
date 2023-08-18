@@ -15,7 +15,7 @@
       <div class="btn-mode" :class="{'selected': mode === 'text'}" @click="onClickTextModeButton">文字</div>
       <div class="btn-mode" :class="{'selected': mode === 'image'}" @click="onClickImageModeButton">画像</div>
     </div>
-    <tempate v-if="mode === 'text'">
+    <template v-if="mode === 'text'">
       変換したい文
       <input type="text" v-model="text">
       <div>
@@ -32,8 +32,8 @@
         色反転する？
         <input type="checkbox" v-model="needTextReverse">
       </div>
-    </tempate>
-    <tempate v-else-if="mode === 'image'">
+    </template>
+    <template v-else-if="mode === 'image'">
       <input type="file" ref="inputFile" @change="onChangeInputFile">
       <div>
         黒：少 - 多
@@ -79,7 +79,7 @@
               @blur="onBlurImageSizeRate">
         幅は200～300程度をお勧めします
       </div>
-    </tempate>
+    </template>
     <div>
       <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
       <button id="copy-btn" @click="onClickCopyButton">コピー</button>
