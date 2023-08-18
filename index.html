@@ -15,51 +15,56 @@
       <div class="btn-mode" :class="{'selected': mode === 'text'}" @click="onClickTextModeButton">文字</div>
       <div class="btn-mode" :class="{'selected': mode === 'image'}" @click="onClickImageModeButton">画像</div>
     </div>
-    <input type="file" ref="inputFile" @change="onChangeInputFile">
-    <div>
-      黒：少 - 多
-      <input type="range"
-             id="base-average-color-range"
-             :min="baseAverageColorMin"
-             :max="baseAverageColorMax"
-             v-model="baseAverageColor">
-      <input type="number"
-             id="base-average-color-number"
-             :min="baseAverageColorMin"
-             :max="baseAverageColorMax"
-             v-model="baseAverageColor"
-             @blur="onBlurBaseAverageColorNumber">
-    </div>
-    輪郭必要？
-    <input type="checkbox" id="outline-chkbox" style="margin-right: 16px;" v-model="needOutline">
-    色反転する？
-    <input type="checkbox" id="reverse-chkbox" v-model="needReverse">
-    <div>
-      輪郭：強 - 弱
-      <input type="range"
-             id="base-color-distance-range"
-             :min="baseColorDistanceMin"
-             :max="baseColorDistanceMax"
-             v-model="baseColorDistance">
-      <input type="number"
-             id="base-color-distance-number"
-             :min="baseColorDistanceMin"
-             :max="baseColorDistanceMax"
-             v-model="baseColorDistance"
-             @blur="onBlurBaseColorDistanceNumber">
-    </div>
-    <div>
-      幅
-      <input type="number" :min="imageWidthMin" :max="imageWidthMax"
-             v-model="imageWidth"
-             @blur="onBlurImageWidth">
-      倍率
-      <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
-             step="0.1"
-             v-model="imageSizeRate"
-             @blur="onBlurImageSizeRate">
-      幅は200～300程度をお勧めします
-    </div>
+    <tempate v-if="mode === 'text'">
+      hogehoge
+    </tempate>
+    <tempate v-else-if="mode === 'image'">
+      <input type="file" ref="inputFile" @change="onChangeInputFile">
+      <div>
+        黒：少 - 多
+        <input type="range"
+              id="base-average-color-range"
+              :min="baseAverageColorMin"
+              :max="baseAverageColorMax"
+              v-model="baseAverageColor">
+        <input type="number"
+              id="base-average-color-number"
+              :min="baseAverageColorMin"
+              :max="baseAverageColorMax"
+              v-model="baseAverageColor"
+              @blur="onBlurBaseAverageColorNumber">
+      </div>
+      輪郭必要？
+      <input type="checkbox" id="outline-chkbox" style="margin-right: 16px;" v-model="needOutline">
+      色反転する？
+      <input type="checkbox" id="reverse-chkbox" v-model="needReverse">
+      <div>
+        輪郭：強 - 弱
+        <input type="range"
+              id="base-color-distance-range"
+              :min="baseColorDistanceMin"
+              :max="baseColorDistanceMax"
+              v-model="baseColorDistance">
+        <input type="number"
+              id="base-color-distance-number"
+              :min="baseColorDistanceMin"
+              :max="baseColorDistanceMax"
+              v-model="baseColorDistance"
+              @blur="onBlurBaseColorDistanceNumber">
+      </div>
+      <div>
+        幅
+        <input type="number" :min="imageWidthMin" :max="imageWidthMax"
+              v-model="imageWidth"
+              @blur="onBlurImageWidth">
+        倍率
+        <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
+              step="0.1"
+              v-model="imageSizeRate"
+              @blur="onBlurImageSizeRate">
+        幅は200～300程度をお勧めします
+      </div>
+    </tempate>
     <div>
       <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
       <button id="copy-btn" @click="onClickCopyButton">コピー</button>

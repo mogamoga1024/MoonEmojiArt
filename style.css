@@ -18,6 +18,7 @@
   font-weight: 600;
   cursor: pointer;
   user-select: none;
+  color: blue;
   background-color: white;
   text-align: center;
 }
