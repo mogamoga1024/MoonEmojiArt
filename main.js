@@ -215,7 +215,12 @@ const App = {
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
             this.$refs.calcWidth.textContent = "";
 
-            this.wasTate = this.isTate;
+            if (this.mode === "text") {
+                this.wasTate = this.isTate;
+            }
+            else {
+                this.wasTate = false;
+            }
         }
     }
 };
