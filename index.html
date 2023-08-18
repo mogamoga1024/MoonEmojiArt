@@ -11,6 +11,10 @@
   <div id="app">
     <span id="calc-width" ref="calcWidth"></span>
     <h1>月文字ジェネレーター（JS）</h1>
+    <div>
+      <div class="btn-mode" :class="{'selected': mode === 'text'}" @click="onClickTextModeButton">文字</div>
+      <div class="btn-mode" :class="{'selected': mode === 'image'}" @click="onClickImageModeButton">画像</div>
+    </div>
     <input type="file" ref="inputFile" @change="onChangeInputFile">
     <div>
       黒：少 - 多

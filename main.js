@@ -5,6 +5,7 @@ let tukiArtGenerator = new TukiArtGenerator();
 const App = {
     data() {
         return {
+            mode: "text", // "text" | "image"
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -55,6 +56,12 @@ const App = {
         }
     },
     methods: {
+        onClickTextModeButton() {
+            this.mode = "text";
+        },
+        onClickImageModeButton() {
+            this.mode = "image";
+        },
         onChangeInputFile(e) {
             this.file = e.target.files[0];
 
