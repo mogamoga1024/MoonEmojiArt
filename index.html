@@ -86,8 +86,10 @@
       <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
       <button id="copy-btn" @click="onClickCopyButton">コピー</button>
     </div>
-    <canvas ref="canvas"></canvas>
-    <textarea id="result" ref="result"></textarea>
+    <div :style="{whiteSpace: isTate ? 'nowrap' : 'normal'}">
+      <canvas ref="canvas" :class="{'tate-canvas': isTate}"></canvas>
+      <textarea id="result" ref="result" :class="isTate ? 'tate-canvas' : 'yoko-canvas'"></textarea>
+    </div>
   </div>
 
   <script src="monochrome_canvas.js"></script>

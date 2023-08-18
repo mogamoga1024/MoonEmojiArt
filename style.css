@@ -51,9 +51,17 @@ input[type="file"] {
 }
 
 #result {
-  display: block;
   width: 100px;
   height: 100px;
   font-size: 12px;
+}
+
+.yoko-canvas {
+  display: block;
+}
+
+.tate-canvas {
+  display: inline-block;
+  vertical-align: top;
 }
 
