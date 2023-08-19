@@ -17,7 +17,7 @@ button, input, select, textarea {
   padding: 0 32px;
 }
 
-.mt4 {
+#setting div:not(:first-of-type) {
   margin-top: 4px;
 }
 

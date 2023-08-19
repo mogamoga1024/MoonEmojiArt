@@ -30,79 +30,83 @@
     </div>
     <hr>
     <template v-if="mode === 'text'">
-      <div class="mt4">
-        変換したい文
-        <input type="text" v-model="text">
-      </div>
-      <div class="mt4">
-        フォントサイズ
-        <input type="number"
-               :min="fontSizeMin"
-               :max="fontSizeMax"
-               v-model="fontSize"
-               @blur="onBlurFontSizeNumber">
-      </div>
-      <div class="mt4">
-        フォント
-        <select v-model="fontFamily">
-          <option value="default">デフォルト</option>
-          <option value="sans">ゴシック体</option>
-          <option value="serif">明朝体</option>
-        </select>
-      </div>
-      <div class="mt4">
-        <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
-        <div class="btn" :class="{'selected': isTextColorReverse}" @click="isTextColorReverse = !isTextColorReverse">色反転</div>
-        <div class="btn" :class="{'selected': isTate}" @click="isTate = !isTate">縦書き</div>
+      <div id="setting">
+        <div>
+          変換したい文
+          <input type="text" v-model="text">
+        </div>
+        <div>
+          フォントサイズ
+          <input type="number"
+                 :min="fontSizeMin"
+                 :max="fontSizeMax"
+                 v-model="fontSize"
+                 @blur="onBlurFontSizeNumber">
+        </div>
+        <div>
+          フォント
+          <select v-model="fontFamily">
+            <option value="default">デフォルト</option>
+            <option value="sans">ゴシック体</option>
+            <option value="serif">明朝体</option>
+          </select>
+        </div>
+        <div>
+          <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
+          <div class="btn" :class="{'selected': isTextColorReverse}" @click="isTextColorReverse = !isTextColorReverse">色反転</div>
+          <div class="btn" :class="{'selected': isTate}" @click="isTate = !isTate">縦書き</div>
+        </div>
       </div>
     </template>
     <template v-else-if="mode === 'image'">
-      <div class="mt4">
-        <input type="file" ref="inputFile" @change="onChangeInputFile">
-      </div>
-      <div class="mt4">
-        黒：少 - 多
-        <input type="range"
-               id="base-average-color-range"
-               :min="baseAverageColorMin"
-               :max="baseAverageColorMax"
-               v-model="baseAverageColor">
-        <input type="number"
-               id="base-average-color-number"
-               :min="baseAverageColorMin"
-               :max="baseAverageColorMax"
-               v-model="baseAverageColor"
-               @blur="onBlurBaseAverageColorNumber">
-      </div>
-      <div class="mt4">
-        <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
-        <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
-      </div>
-      <div class="mt4" v-show="needOutline">
-        輪郭：強 - 弱
-        <input type="range"
-              id="base-color-distance-range"
-              :min="baseColorDistanceMin"
-              :max="baseColorDistanceMax"
-              v-model="baseColorDistance">
-        <input type="number"
-              id="base-color-distance-number"
-              :min="baseColorDistanceMin"
-              :max="baseColorDistanceMax"
-              v-model="baseColorDistance"
-              @blur="onBlurBaseColorDistanceNumber">
-      </div>
-      <div class="mt4">
-        幅
-        <input type="number" :min="imageWidthMin" :max="imageWidthMax"
-              v-model="imageWidth"
-              @blur="onBlurImageWidth">
-        倍率
-        <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
-              step="0.1"
-              v-model="imageSizeRate"
-              @blur="onBlurImageSizeRate">
-        幅は200～300程度をお勧めします
+      <div id="setting">
+        <div>
+          <input type="file" ref="inputFile" @change="onChangeInputFile">
+        </div>
+        <div>
+          黒：少 - 多
+          <input type="range"
+                 id="base-average-color-range"
+                 :min="baseAverageColorMin"
+                 :max="baseAverageColorMax"
+                 v-model="baseAverageColor">
+          <input type="number"
+                 id="base-average-color-number"
+                 :min="baseAverageColorMin"
+                 :max="baseAverageColorMax"
+                 v-model="baseAverageColor"
+                 @blur="onBlurBaseAverageColorNumber">
+        </div>
+        <div>
+          <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
+          <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
+        </div>
+        <div v-show="needOutline">
+          輪郭：強 - 弱
+          <input type="range"
+                id="base-color-distance-range"
+                :min="baseColorDistanceMin"
+                :max="baseColorDistanceMax"
+                v-model="baseColorDistance">
+          <input type="number"
+                id="base-color-distance-number"
+                :min="baseColorDistanceMin"
+                :max="baseColorDistanceMax"
+                v-model="baseColorDistance"
+                @blur="onBlurBaseColorDistanceNumber">
+        </div>
+        <div>
+          幅
+          <input type="number" :min="imageWidthMin" :max="imageWidthMax"
+                v-model="imageWidth"
+                @blur="onBlurImageWidth">
+          倍率
+          <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
+                step="0.1"
+                v-model="imageSizeRate"
+                @blur="onBlurImageSizeRate">
+          幅は200～300程度をお勧めします
+        </div>
       </div>
     </template>
     <hr>
