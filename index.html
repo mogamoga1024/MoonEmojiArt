@@ -78,7 +78,7 @@
         <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
         <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
       </div>
-      <div class="mt4">
+      <div class="mt4" v-show="needOutline">
         輪郭：強 - 弱
         <input type="range"
               id="base-color-distance-range"
