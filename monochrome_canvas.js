@@ -35,11 +35,11 @@ class MonochromeCanvas {
             const measure = this.#context.measureText(char);
             const width = measure.width;
             let height = measure.actualBoundingBoxDescent;
-            if (char !== "、" && char !== "。") {
-                height += Math.abs(measure.actualBoundingBoxAscent);
+            if ("、。".includes(char)) {
+                height = Math.round(height / 3);
             }
             else {
-                height = Math.round(height / 3);
+                height += Math.abs(measure.actualBoundingBoxAscent);
             }
             if (maxWidth < width) {
                 maxWidth = width;
@@ -59,7 +59,7 @@ class MonochromeCanvas {
         // this.#context.textAlign = "center";
         let top = 0;
         for (const char of charList) {
-            if (char.char === "、" || char.char === "。") {
+            if ("、。".includes(char.char)) {
                 this.#context.textAlign = "left";
                 this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top - char.height * 2);
             }
