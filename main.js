@@ -62,6 +62,14 @@ const App = {
         fontSize(newVal) {
             if (newVal === "") return; this.fontSizePrev = newVal;
         },
+        fontFamily(newVal) {
+            if (newVal === "default") {
+                return;
+            }
+            if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+                this.negativeMargin = 40;
+            }
+        },
         baseAverageColor(newVal) {
             if (newVal === "") return; this.baseAverageColorPrev = newVal;
         },
