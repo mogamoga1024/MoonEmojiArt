@@ -13,7 +13,7 @@ class MonochromeCanvas {
         this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, _fontFamily = "default", fontSize = 60, isBold = true, isTate = true) {
+    text(text, _fontFamily = "default", fontSize = 60, isBold = true, isTate = true, negativeMargin = 0) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         switch (_fontFamily) {
@@ -31,14 +31,14 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate) {
-            this.#tateText(text, font);
+            this.#tateText(text, font, negativeMargin);
         }
         else {
             this.#yokoText(text, font);
         }
     }
 
-    #tateText(text, font) {
+    #tateText(text, font, negativeMargin) {
         this.#context.font = font;
         this.#context.textBaseline = "top";
         const charList = [];
@@ -66,14 +66,19 @@ class MonochromeCanvas {
         }
         // キャンバスのサイズ設定
         this.#canvas.width = maxWidth;
-        this.#canvas.height = totalHeihgt;
+        this.#canvas.height = totalHeihgt - negativeMargin * (charList.length - 1);
         // テキスト反映
         this.#context.font = font;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         this.#context.fillStyle = "#000";
         let top = 0;
-        for (const char of charList) {
+
+        for (let i = 0; i < charList.length; i++) {
+            const char = charList[i];
+            if (i > 0) {
+                top -= negativeMargin;
+            }
             if ("、。".includes(char.char)) {
                 this.#context.textBaseline = "top";
                 this.#context.textAlign = "left";

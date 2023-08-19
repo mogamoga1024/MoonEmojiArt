@@ -19,6 +19,7 @@ const App = {
             isBold: true,
             isTate: true,
             wasTate: true,
+            negativeMargin: 0,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -53,7 +54,7 @@ const App = {
         if (this.isDebug) {
             this.text = "冷やし中華、はじめました。";
             this.fontSize = 80;
-            monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
+            monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate, this.negativeMargin);
             this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
         }
     },
@@ -171,7 +172,7 @@ const App = {
                     return;
                 }
                 
-                monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
+                monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate, this.negativeMargin);
                 this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse));
             }
             else if (this.mode === "image") {
