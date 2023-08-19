@@ -214,7 +214,7 @@ const App = {
             return val;
         },
         displayTukiArt(tukiArt) {
-            this.$refs.calcWidth.textContent = tukiArt.substr(0, tukiArt.indexOf("\n")); // 必ず"\n"が存在する
+            this.$refs.calcWidth.textContent = tukiArt.substring(0, tukiArt.indexOf("\n")); // 必ず"\n"が存在する
             this.$refs.result.style.width = `${this.$refs.calcWidth.clientWidth + 50}px`;
             this.$refs.result.style.height = "auto";
             this.$refs.result.value = tukiArt;
