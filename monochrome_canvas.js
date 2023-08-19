@@ -15,7 +15,9 @@ class MonochromeCanvas {
 
     text(text, fontSize = 60, isBold = true, isTate = true) {
         const fontWeight = isBold ? 600 : 400;
-        const font = `${fontWeight} ${fontSize}px "ＭＳ Ｐゴシック", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Verdana, Roboto, "Droid Sans", sans-serif`;
+        //const fontFamily = "'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif";
+        const fontFamily = "'Noto Sans JP', sans-serif";
+        const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate) {
             this.#tateText(text, font);
