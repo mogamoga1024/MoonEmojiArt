@@ -53,7 +53,7 @@ class MonochromeCanvas {
             }
             else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char)) {
                 height += Math.abs(measure.actualBoundingBoxAscent);
-                height = Math.round(height * 3 / 4)
+                height = Math.round(height * 4 / 5);
             }
             else {
                 height += Math.abs(measure.actualBoundingBoxAscent);
@@ -82,17 +82,25 @@ class MonochromeCanvas {
             if ("、。".includes(char.char)) {
                 this.#context.textBaseline = "top";
                 this.#context.textAlign = "left";
-                this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top - char.height * 2);
+                top -=  char.height * 2;
+                this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top);
             }
             else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.char)) {
                 this.#context.textBaseline = "top";
                 this.#context.textAlign = "center";
-                this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top - char.height / 4);
+                top -=  char.height / 3.8;
+                this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top);
             }
             else {
-                this.#context.textBaseline = "middle";
                 this.#context.textAlign = "center";
-                this.#context.fillText(char.char, this.#canvas.width / 2, top + char.height / 2);
+                if (charList.length === 1) {
+                    this.#context.textBaseline = "middle";
+                    this.#context.fillText(char.char, this.#canvas.width / 2, top + char.height / 2);
+                }
+                else {
+                    this.#context.textBaseline = "top";
+                    this.#context.fillText(char.char, this.#canvas.width / 2, top);
+                }
             }
             top += char.height;
         }
