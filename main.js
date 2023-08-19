@@ -10,7 +10,7 @@ const App = {
             fontSize: 60,
             fontSizePrev: 60,
             fontSizeMin: 50,
-            fontSizeMax: 160,
+            fontSizeMax: 200,
             isBold: true,
             isTate: true,
             wasTate: true,
