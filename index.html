@@ -16,8 +16,8 @@
     <span id="calc-width" ref="calcWidth"></span>
     <h1>月文字ジェネレーター（JS版）</h1>
     <div>
-      <div class="btn-mode" :class="{'selected': mode === 'text'}" @click="onClickTextModeButton">文字</div>
-      <div class="btn-mode" :class="{'selected': mode === 'image'}" @click="onClickImageModeButton">画像</div>
+      <div class="btn-mode" :class="{'selected': mode === 'text'}" @click="onClickModeButton('text')">文字</div>
+      <div class="btn-mode" :class="{'selected': mode === 'image'}" @click="onClickModeButton('image')">画像</div>
     </div>
     <template v-if="mode === 'text'">
       変換したい文
@@ -29,6 +29,9 @@
                :max="fontSizeMax"
                v-model="fontSize"
                @blur="onBlurFontSizeNumber">
+      </div>
+      <div>
+
       </div>
       <div>
         太字？

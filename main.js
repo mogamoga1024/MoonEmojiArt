@@ -73,11 +73,8 @@ const App = {
         }
     },
     methods: {
-        onClickTextModeButton() {
-            this.mode = "text";
-        },
-        onClickImageModeButton() {
-            this.mode = "image";
+        onClickModeButton(mode) {
+            this.mode = mode;
         },
         onChangeInputFile(e) {
             this.file = e.target.files[0];
