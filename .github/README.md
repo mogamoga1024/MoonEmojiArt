@@ -6,6 +6,8 @@
 デバグ用  
 [https://mogamoga1024.github.io/MoonEmojiArt/?isDebug=true](https://mogamoga1024.github.io/MoonEmojiArt/?isDebug=true)
 
+スマホからだとゴシック体の高さが違う～～～～～あああああああああああああ！！！
+
 テキストの絵文字が反映されないのは黒の要素がないためです。  
 やろうと思えば反映できますが必要性を感じないので対応しません。
 
