@@ -84,7 +84,7 @@ button, input, select, textarea {
 }
 
 input[type="file"] {
-  display: block;
+  display: none;
 }
 
 #generate-btn, #copy-btn {

@@ -73,6 +73,7 @@
     <template v-else-if="mode === 'image'">
       <div id="setting">
         <div>
+          <div class="btn" @click="$refs.inputFile.click()">ファイルを選択</div><span style="margin-left: 8px;">{{file?.name}}</span>
           <input type="file" ref="inputFile" @change="onChangeInputFile">
         </div>
         <div>
