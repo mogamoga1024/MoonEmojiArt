@@ -17,8 +17,16 @@ button, input, select, textarea {
   padding: 0 32px;
 }
 
-#setting div:not(:first-of-type) {
-  margin-top: 4px;
+#setting {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.btn-list {
+  display: flex;
+  flex-wrap: nowrap;
+  column-gap: 8px;
 }
 
 .radio-wrapper {
@@ -63,10 +71,6 @@ button, input, select, textarea {
   color: blue;
   background-color: white;
   text-align: center;
-}
-
-.btn:not(:first-of-type) {
-  margin-left: 8px;
 }
 
 .btn.selected, .radio.selected {

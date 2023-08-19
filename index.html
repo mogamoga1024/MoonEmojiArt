@@ -60,7 +60,7 @@
             <option value="serif">明朝体</option>
           </select>
         </div>
-        <div>
+        <div class="btn-list">
           <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
           <div class="btn" :class="{'selected': isTextColorReverse}" @click="isTextColorReverse = !isTextColorReverse">色反転</div>
           <div class="radio-wrapper">
@@ -89,7 +89,7 @@
                  v-model="baseAverageColor"
                  @blur="onBlurBaseAverageColorNumber">
         </div>
-        <div>
+        <div class="btn-list">
           <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
           <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
         </div>
