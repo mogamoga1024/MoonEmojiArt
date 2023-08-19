@@ -21,6 +21,30 @@ button, input, select, textarea {
   margin-top: 4px;
 }
 
+.radio {
+  display: inline-block;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 8px;
+  border: 1px solid blue;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  color: blue;
+  background-color: white;
+  text-align: center;
+}
+
+.radio:first-of-type {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.radio:last-of-type {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 .btn {
   display: inline-block;
   height: 25px;
@@ -40,7 +64,7 @@ button, input, select, textarea {
   margin-left: 8px;
 }
 
-.btn.selected {
+.btn.selected, .radio.selected {
   color: white;
   border-color: blue;
   background-color: blue;
