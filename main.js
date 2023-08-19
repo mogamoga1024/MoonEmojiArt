@@ -49,21 +49,12 @@ const App = {
     },
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
-        // monoCanvas.image("野獣先輩.png").then(() => {
-        //     this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse));
-        // });
-        //monoCanvas.text("草生えるwwwWWW");
-        //monoCanvas.text("草");
-        // monoCanvas.text("月");
-        this.text = "冷やし中華、はじめました。";
-        // this.text = "やゃやぅやゅ";
-        // this.text = "日本";
-        // this.text = "も";
-        // this.fontFamily = "serif";
-        this.fontSize = 80;
-        monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
-        //monoCanvas.text("迫真月文字部～Emojiの裏技～");
-        this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
+        if (this.isDebug) {
+            this.text = "冷やし中華、はじめました。";
+            this.fontSize = 80;
+            monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
+            this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
+        }
     },
     watch: {
         fontSize(newVal) {
