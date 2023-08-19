@@ -28,10 +28,13 @@
       <div class="btn" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
       <div class="btn" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
     </div>
+    <hr>
     <template v-if="mode === 'text'">
-      変換したい文
-      <input type="text" v-model="text">
-      <div>
+      <div class="mt4">
+        変換したい文
+        <input type="text" v-model="text">
+      </div>
+      <div class="mt4">
         フォントサイズ
         <input type="number"
                :min="fontSizeMin"
@@ -39,21 +42,25 @@
                v-model="fontSize"
                @blur="onBlurFontSizeNumber">
       </div>
-      フォント
-      <select v-model="fontFamily">
-        <option value="default">デフォルト</option>
-        <option value="sans">ゴシック体</option>
-        <option value="serif">明朝体</option>
-      </select>
-      <div>
+      <div class="mt4">
+        フォント
+        <select v-model="fontFamily">
+          <option value="default">デフォルト</option>
+          <option value="sans">ゴシック体</option>
+          <option value="serif">明朝体</option>
+        </select>
+      </div>
+      <div class="mt4">
         <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
         <div class="btn" :class="{'selected': isTextColorReverse}" @click="isTextColorReverse = !isTextColorReverse">色反転</div>
         <div class="btn" :class="{'selected': isTate}" @click="isTate = !isTate">縦書き</div>
       </div>
     </template>
     <template v-else-if="mode === 'image'">
-      <input type="file" ref="inputFile" @change="onChangeInputFile">
-      <div>
+      <div class="mt4">
+        <input type="file" ref="inputFile" @change="onChangeInputFile">
+      </div>
+      <div class="mt4">
         黒：少 - 多
         <input type="range"
                id="base-average-color-range"
@@ -67,11 +74,11 @@
                v-model="baseAverageColor"
                @blur="onBlurBaseAverageColorNumber">
       </div>
-      <div>
+      <div class="mt4">
         <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
         <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
       </div>
-      <div>
+      <div class="mt4">
         輪郭：強 - 弱
         <input type="range"
               id="base-color-distance-range"
@@ -85,7 +92,7 @@
               v-model="baseColorDistance"
               @blur="onBlurBaseColorDistanceNumber">
       </div>
-      <div>
+      <div class="mt4">
         幅
         <input type="number" :min="imageWidthMin" :max="imageWidthMax"
               v-model="imageWidth"
@@ -98,10 +105,12 @@
         幅は200～300程度をお勧めします
       </div>
     </template>
+    <hr>
     <div>
-      <button id="monochrome-btn" @click="onClickMonochromeButton">実行</button>
+      <button id="generate-btn" @click="onClickGenerateButton">生成</button>
       <button id="copy-btn" @click="onClickCopyButton">コピー</button>
     </div>
+    <hr>
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}">
       <canvas ref="canvas" v-show="isDebug" :class="{'tate-canvas': wasTate}"></canvas>
       <textarea id="result" ref="result" :class="wasTate ? 'tate-canvas' : 'yoko-canvas'"></textarea>

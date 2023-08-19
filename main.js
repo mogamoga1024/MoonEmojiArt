@@ -171,7 +171,7 @@ const App = {
             }
         },
         // 実行ボタン押下時
-        onClickMonochromeButton() {
+        onClickGenerateButton() {
             if (this.mode === "text") {
                 if (this.text === "") {
                     return;

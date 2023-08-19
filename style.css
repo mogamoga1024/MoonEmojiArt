@@ -1,14 +1,24 @@
 
-* {
+body {
   font-family: Verdana, Roboto, "Droid Sans", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", sans-serif;
+  background-color: #f4f4f4;
 }
 
-*:not(h1) {
-  font-size: 16px;
+body:not(h1) {
+  font-size: 18px;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
 }
 
 #app {
-  padding: 0 16px;
+  padding: 0 32px;
+}
+
+.mt4 {
+  margin-top: 4px;
 }
 
 .btn {
@@ -38,6 +48,10 @@
 
 input[type="file"] {
   display: block;
+}
+
+#generate-btn, #copy-btn {
+  font-size: 1.2rem;
 }
 
 #copy-btn {
