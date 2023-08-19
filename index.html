@@ -67,10 +67,10 @@
                v-model="baseAverageColor"
                @blur="onBlurBaseAverageColorNumber">
       </div>
-      輪郭必要？
-      <input type="checkbox" style="margin-right: 16px;" v-model="needOutline">
-      色反転する？
-      <input type="checkbox" v-model="isImageColorReverse">
+      <div>
+        <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
+        <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
+      </div>
       <div>
         輪郭：強 - 弱
         <input type="range"
