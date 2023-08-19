@@ -140,7 +140,8 @@
     </div>
     <hr>
     <div v-if="!existsTukiArt">
-      変換したい文か画像を決めて生成ボタンを押してね！
+      変換したい文か画像を決めて生成ボタンを押してね！<br>
+      まだ開発中だから大目に見てね！
     </div>
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}" :class="{'not-exists-tuki-art': !existsTukiArt}">
       <canvas ref="canvas" v-show="isDebug" :class="{'tate-canvas': wasTate}"></canvas>

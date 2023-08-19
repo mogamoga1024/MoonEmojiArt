@@ -41,12 +41,12 @@ class MonochromeCanvas {
 
     #debugTateText(text, font) {
         this.#context.font = font;
-        this.#context.textBaseline = "top";
+        // this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
         // キャンバスのサイズ設定
         this.#canvas.width = measure.width;
-        // this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
-        this.#canvas.height = measure.actualBoundingBoxDescent;
+        this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
+        // this.#canvas.height = measure.actualBoundingBoxDescent;
         // テキスト反映
         this.#context.font = font;
         this.#context.fillStyle = "#fff";
