@@ -122,6 +122,13 @@ input[type="file"] {
   font-size: 12px; /* #result.font-sizeと同じであること */
 }
 
+.not-exists-tuki-art {
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+}
+
 #result {
   width: 100px;
   height: 100px;

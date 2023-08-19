@@ -131,7 +131,10 @@
       </transition>
     </div>
     <hr>
-    <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}">
+    <div v-if="!existsTukiArt">
+      変換したい文か画像を決めて生成ボタンを押してね！
+    </div>
+    <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}" :class="{'not-exists-tuki-art': !existsTukiArt}">
       <canvas ref="canvas" v-show="isDebug" :class="{'tate-canvas': wasTate}"></canvas>
       <textarea id="result" ref="result" :class="wasTate ? 'tate-canvas' : 'yoko-canvas'"></textarea>
     </div>

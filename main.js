@@ -6,6 +6,7 @@ const App = {
     data() {
         return {
             isDebug: false,
+            existsTukiArt: false,
             timer: null,
             toggle: false, // この値自体には何の関心もない。ただのCSSの制御に利用する。
             mode: "text", // "text" | "image"
@@ -214,6 +215,8 @@ const App = {
             this.$refs.result.value = tukiArt;
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
             this.$refs.calcWidth.textContent = "";
+
+            this.existsTukiArt = true;
 
             if (this.mode === "text") {
                 this.wasTate = this.isTate;
