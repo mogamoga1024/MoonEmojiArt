@@ -13,11 +13,21 @@ class MonochromeCanvas {
         this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, fontSize = 60, isBold = true, isTate = true) {
+    text(text, _fontFamily = "default", fontSize = 60, isBold = true, isTate = true) {
         const fontWeight = isBold ? 700 : 400;
-        //const fontFamily = "'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif";
-        //const fontFamily = "'Noto Sans JP', sans-serif";
-        const fontFamily = "'Noto Serif JP', serif";
+        let fontFamily = "";
+        switch (_fontFamily) {
+            case "default":
+                fontFamily = "'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif";
+                break;
+            case "sans":
+                fontFamily = "'Noto Sans JP', sans-serif";
+                break;
+            case "serif":
+                fontFamily = "'Noto Serif JP', serif";
+                break;
+            default: throw new Error(`引数が不正：${_fontFamily}`);
+        }
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate) {

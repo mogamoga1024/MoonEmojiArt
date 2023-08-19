@@ -30,9 +30,12 @@
                v-model="fontSize"
                @blur="onBlurFontSizeNumber">
       </div>
-      <div>
-
-      </div>
+      フォント
+      <select v-model="fontFamily">
+        <option value="default">デフォルト</option>
+        <option value="sans">ゴシック体</option>
+        <option value="serif">明朝体</option>
+      </select>
       <div>
         太字？
         <input type="checkbox" style="margin-right: 16px;" v-model="isBold">

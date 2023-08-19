@@ -7,6 +7,7 @@ const App = {
         return {
             mode: "text", // "text" | "image"
             text: "",
+            fontFamily: "default",
             fontSize: 60,
             fontSizePrev: 60,
             fontSizeMin: 50,
@@ -51,7 +52,7 @@ const App = {
         this.text = "やゃやぅやゅ";
         // this.text = "も";
         this.fontSize = 80;
-        monoCanvas.text(this.text, this.fontSize, this.isBold, this.isTate);
+        monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
         //monoCanvas.text("迫真月文字部～Emojiの裏技～");
         this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
     },
@@ -172,7 +173,7 @@ const App = {
                     return;
                 }
                 
-                monoCanvas.text(this.text, this.fontSize, this.isBold, this.isTate);
+                monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
                 this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needTextReverse));
             }
             else if (this.mode === "image") {
