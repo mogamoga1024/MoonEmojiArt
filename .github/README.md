@@ -6,6 +6,12 @@
 デバグ用  
 [https://mogamoga1024.github.io/MoonEmojiArt/?isDebug=true](https://mogamoga1024.github.io/MoonEmojiArt/?isDebug=true)
 
+## TODO
+
+縦書きのロジックは根本的に作り直す
+
+## MEMO
+
 スマホからだとゴシック体の高さが違う～～～～～あああああああああああああ！！！
 
 https://stackoverflow.com/questions/46653569/canvas-measuretext-differences-on-browsers-are-huge
