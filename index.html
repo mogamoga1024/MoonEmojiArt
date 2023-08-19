@@ -97,7 +97,7 @@
       <button id="copy-btn" @click="onClickCopyButton">コピー</button>
     </div>
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}">
-      <canvas ref="canvas" :class="{'tate-canvas': wasTate}"></canvas>
+      <canvas ref="canvas" v-show="isDebug" :class="{'tate-canvas': wasTate}"></canvas>
       <textarea id="result" ref="result" :class="wasTate ? 'tate-canvas' : 'yoko-canvas'"></textarea>
     </div>
   </div>

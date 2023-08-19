@@ -5,6 +5,7 @@ let tukiArtGenerator = new TukiArtGenerator();
 const App = {
     data() {
         return {
+            isDebug: false,
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "default",
@@ -39,6 +40,10 @@ const App = {
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(3000 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
         }
+    },
+    created() {
+        const params = (new URL(window.location.href)).searchParams;
+        this.isDebug = params.get("isDebug") === "true";
     },
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
