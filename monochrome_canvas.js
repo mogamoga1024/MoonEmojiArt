@@ -39,7 +39,6 @@ class MonochromeCanvas {
                 height = Math.round(height / 3);
             }
             else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char)) {
-                // todo
                 height += Math.abs(measure.actualBoundingBoxAscent);
                 height = Math.round(height * 3 / 4)
             }
@@ -60,8 +59,6 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         this.#context.fillStyle = "#000";
-        // this.#context.textBaseline = "top";
-        // this.#context.textAlign = "center";
         let top = 0;
         for (const char of charList) {
             if ("、。".includes(char.char)) {
@@ -70,7 +67,6 @@ class MonochromeCanvas {
                 this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top - char.height * 2);
             }
             else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.char)) {
-                // todo
                 this.#context.textBaseline = "top";
                 this.#context.textAlign = "center";
                 this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top - char.height / 4);
