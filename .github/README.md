@@ -8,6 +8,8 @@
 
 スマホからだとゴシック体の高さが違う～～～～～あああああああああああああ！！！
 
+https://stackoverflow.com/questions/46653569/canvas-measuretext-differences-on-browsers-are-huge
+
 テキストの絵文字が反映されないのは黒の要素がないためです。  
 やろうと思えば反映できますが必要性を感じないので対応しません。
 
