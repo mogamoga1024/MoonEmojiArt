@@ -31,11 +31,30 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate) {
-            this.#tateText(text, font, negativeMargin);
+            //this.#tateText(text, font, negativeMargin);
+            this.#debugTateText(text, font);
         }
         else {
             this.#yokoText(text, font);
         }
+    }
+
+    #debugTateText(text, font) {
+        this.#context.font = font;
+        this.#context.textBaseline = "top";
+        const measure = this.#context.measureText(text)
+        // キャンバスのサイズ設定
+        this.#canvas.width = measure.width;
+        // this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
+        this.#canvas.height = measure.actualBoundingBoxDescent;
+        // テキスト反映
+        this.#context.font = font;
+        this.#context.fillStyle = "#fff";
+        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+        this.#context.fillStyle = "#000";
+        this.#context.textBaseline = "top";
+        this.#context.textAlign = "center";
+        this.#context.fillText(text, this.#canvas.width / 2, 0);
     }
 
     #tateText(text, font, negativeMargin) {
