@@ -48,6 +48,7 @@ const App = {
         //monoCanvas.text("草");
         // monoCanvas.text("月");
         this.text = "冷やし中華、はじめました。";
+        // this.text = "も";
         monoCanvas.text(this.text, this.fontSize, this.isBold, this.isTate);
         //monoCanvas.text("迫真月文字部～Emojiの裏技～");
         this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
