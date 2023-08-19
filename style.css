@@ -40,6 +40,10 @@ input[type="file"] {
   display: block;
 }
 
+#copy-btn {
+  margin-left: 8px;
+}
+
 #calc-width {
   position: absolute;
   visibility: hidden;
