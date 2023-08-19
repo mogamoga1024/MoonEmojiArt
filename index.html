@@ -25,8 +25,8 @@
     <span id="calc-width" ref="calcWidth"></span>
     <h1>月文字ジェネレーター（JS版）</h1>
     <div>
-      <div class="btn" :class="{'selected': mode === 'text'}" @click="onClickModeButton('text')">文字</div>
-      <div class="btn" :class="{'selected': mode === 'image'}" @click="onClickModeButton('image')">画像</div>
+      <div class="btn" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
+      <div class="btn" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
     </div>
     <template v-if="mode === 'text'">
       変換したい文
@@ -46,12 +46,9 @@
         <option value="serif">明朝体</option>
       </select>
       <div>
-        太字？
-        <input type="checkbox" style="margin-right: 16px;" v-model="isBold">
-        色反転する？
-        <input type="checkbox" style="margin-right: 16px;" v-model="needTextReverse">
-        縦書き？
-        <input type="checkbox" v-model="isTate">
+        <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
+        <div class="btn" :class="{'selected': isTextColorReverse}" @click="isTextColorReverse = !isTextColorReverse">色反転</div>
+        <div class="btn" :class="{'selected': isTate}" @click="isTate = !isTate">縦書き</div>
       </div>
     </template>
     <template v-else-if="mode === 'image'">
@@ -73,7 +70,7 @@
       輪郭必要？
       <input type="checkbox" style="margin-right: 16px;" v-model="needOutline">
       色反転する？
-      <input type="checkbox" v-model="needImageReverse">
+      <input type="checkbox" v-model="isImageColorReverse">
       <div>
         輪郭：強 - 弱
         <input type="range"

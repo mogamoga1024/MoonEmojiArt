@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    generate(pixels, needImageReverse = false) {
+    generate(pixels, isImageColorReverse = false) {
         let text = "";
 
         const data = pixels.data;
@@ -27,7 +27,7 @@ class TukiArtGenerator {
                 }
 
                 const emoji = this._convertTuki(tmpPixels);
-                text += needImageReverse ? this.#reverse(emoji) : emoji;
+                text += isImageColorReverse ? this.#reverse(emoji) : emoji;
             }
             text += "\n";
         }

@@ -27,8 +27,8 @@ const App = {
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
             needOutline: true,
-            needTextReverse: true,
-            needImageReverse: false,
+            isTextColorReverse: true,
+            isImageColorReverse: false,
             imageWidthOri: 0,
             imageHeightOri: 100,
             imageWidth: 100,
@@ -48,16 +48,16 @@ const App = {
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         // monoCanvas.image("野獣先輩.png").then(() => {
-        //     this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needImageReverse));
+        //     this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse));
         // });
         //monoCanvas.text("草生えるwwwWWW");
         //monoCanvas.text("草");
         // monoCanvas.text("月");
-        // this.text = "冷やし中華、はじめました。";
+        this.text = "冷やし中華、はじめました。";
         // this.text = "やゃやぅやゅ";
-        this.text = "日本";
+        // this.text = "日本";
         // this.text = "も";
-        this.fontFamily = "serif";
+        // this.fontFamily = "serif";
         this.fontSize = 80;
         monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
         //monoCanvas.text("迫真月文字部～Emojiの裏技～");
@@ -81,9 +81,6 @@ const App = {
         }
     },
     methods: {
-        onClickModeButton(mode) {
-            this.mode = mode;
-        },
         onChangeInputFile(e) {
             this.file = e.target.files[0];
 
@@ -181,7 +178,7 @@ const App = {
                 }
                 
                 monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
-                this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needTextReverse));
+                this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse));
             }
             else if (this.mode === "image") {
                 if (this.file == null || this.imageWidth === 0) {
@@ -199,7 +196,7 @@ const App = {
                         this.needOutline,
                         this.baseColorDistance
                     ).then(() => {
-                        this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.needImageReverse));
+                        this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse));
                     });
                 }
             }
