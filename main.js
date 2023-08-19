@@ -20,6 +20,9 @@ const App = {
             isTate: true,
             wasTate: true,
             negativeMargin: 0,
+            negativeMarginPrev: 0,
+            negativeMarginMin: -100,
+            negativeMarginMax: 100,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -69,6 +72,9 @@ const App = {
             if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
                 this.negativeMargin = 40;
             }
+        },
+        negativeMargin(newVal) {
+            if (newVal === "") return; this.negativeMarginPrev = newVal;
         },
         baseAverageColor(newVal) {
             if (newVal === "") return; this.baseAverageColorPrev = newVal;
@@ -121,6 +127,17 @@ const App = {
                 Number(e.target.value),
                 this.fontSizeMin,
                 this.fontSizeMax
+            );
+        },
+        onBlurNegativeMarginNumber(e) {
+            if (e.target.value === "") {
+                this.negativeMargin = this.negativeMarginPrev;
+                return;
+            }
+            this.negativeMargin = this.rangeCorrection(
+                Number(e.target.value),
+                this.negativeMarginMin,
+                this.negativeMarginMax
             );
         },
         onBlurBaseAverageColorNumber(e) {

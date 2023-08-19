@@ -70,7 +70,11 @@
         </div>
         <div v-show="isTate">
           幅を縮めたいときは大きくして
-          <input type="number" v-model="negativeMargin">
+          <input type="number"
+                 :min="negativeMarginMin"
+                 :max="negativeMarginMax"
+                 v-model="negativeMargin"
+                 @blur="onBlurNegativeMarginNumber">
         </div>
       </div>
     </template>
