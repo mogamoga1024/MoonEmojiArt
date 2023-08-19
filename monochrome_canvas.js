@@ -40,13 +40,15 @@ class MonochromeCanvas {
     }
 
     #debugTateText(text, font) {
+        const dstCanvas = document.querySelector("#canvas");
+        const dstContext = dstCanvas.getContext("2d", { willReadFrequently: true });
+
         this.#context.font = font;
         // this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
         // キャンバスのサイズ設定
         this.#canvas.width = measure.width;
         this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
-        // this.#canvas.height = measure.actualBoundingBoxDescent;
         // テキスト反映
         this.#context.font = font;
         this.#context.fillStyle = "#fff";
@@ -55,6 +57,10 @@ class MonochromeCanvas {
         this.#context.textBaseline = "top";
         this.#context.textAlign = "center";
         this.#context.fillText(text, this.#canvas.width / 2, 0);
+
+        dstCanvas.width = this.#canvas.width;
+        dstCanvas.height = this.#canvas.height;
+        dstContext.putImageData(this.#context.getImageData(0, 0, this.#canvas.width, this.#canvas.height), 0, 0);
     }
 
     #tateText(text, font, negativeMargin) {
