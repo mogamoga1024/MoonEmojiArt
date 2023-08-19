@@ -41,6 +41,7 @@ class MonochromeCanvas {
             else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char)) {
                 // todo
                 height += Math.abs(measure.actualBoundingBoxAscent);
+                height = Math.round(height * 3 / 4)
             }
             else {
                 height += Math.abs(measure.actualBoundingBoxAscent);
@@ -70,9 +71,9 @@ class MonochromeCanvas {
             }
             else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.char)) {
                 // todo
-                this.#context.textBaseline = "middle";
+                this.#context.textBaseline = "top";
                 this.#context.textAlign = "center";
-                this.#context.fillText(char.char, this.#canvas.width / 2, top + char.height / 2);
+                this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top - char.height / 4);
             }
             else {
                 this.#context.textBaseline = "middle";
