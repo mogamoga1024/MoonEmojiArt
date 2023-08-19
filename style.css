@@ -58,6 +58,24 @@ input[type="file"] {
   margin-left: 8px;
 }
 
+#copied-messega {
+  margin-left: 8px;
+  font-weight: bold;
+  opacity: 0;
+}
+
+.fadeout-enter-from, .fadeout-leave-from {
+  opacity: 1 !important;
+}
+
+.fadeout-enter-active, .fadeout-leave-active {
+  transition: all 1.5s;
+}
+
+.fadeout-enter-to, .fadeout-leave-to {
+  opacity: 0 !important;
+}
+
 #calc-width {
   position: absolute;
   visibility: hidden;

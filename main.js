@@ -6,6 +6,8 @@ const App = {
     data() {
         return {
             isDebug: false,
+            timer: null,
+            toggle: false, // この値自体には何の関心もない。ただのCSSの制御に利用する。
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "default",
@@ -170,7 +172,7 @@ const App = {
                 this.imageWidth = Math.round(this.imageWidthOri * this.imageSizeRate);
             }
         },
-        // 実行ボタン押下時
+        // 生成ボタン押下時
         onClickGenerateButton() {
             if (this.mode === "text") {
                 if (this.text === "") {
@@ -203,6 +205,7 @@ const App = {
         },
         onClickCopyButton() {
             navigator.clipboard.writeText(this.$refs.result.value);
+            this.toggle = !this.toggle;
         },
         rangeCorrection(val, min, max) {
             if (val < min) {
