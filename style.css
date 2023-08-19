@@ -21,6 +21,11 @@ button, input, select, textarea {
   margin-top: 4px;
 }
 
+.radio-wrapper {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .radio {
   display: inline-block;
   height: 25px;
@@ -68,6 +73,10 @@ button, input, select, textarea {
   color: white;
   border-color: blue;
   background-color: blue;
+}
+
+#btn-debug {
+  margin-left: 16px;
 }
 
 input[type="file"] {

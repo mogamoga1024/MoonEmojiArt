@@ -25,8 +25,11 @@
     <span id="calc-width" ref="calcWidth"></span>
     <h1>月文字ジェネレーター（JS版）</h1>
     <div>
-      <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
-      <div class="radio" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
+      <div class="radio-wrapper">
+        <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
+        <div class="radio" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
+      </div>
+      <div id="btn-debug" class="btn" :class="{'selected': isDebug}" @click="isDebug = !isDebug">DEBUG</div>
     </div>
     <hr>
     <template v-if="mode === 'text'">
