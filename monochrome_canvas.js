@@ -64,6 +64,8 @@ class MonochromeCanvas {
             return this.#trimming(this.pixels);
         })();
 
+        console.log("standardChar y w h:", standardCharY, standardCharWidth, standardCharHeight);
+
         // 各文字の幅、高さの抽出とか
         let tmpCanvasWidth = 0;
         let tmpCanvasHeight = 0;
@@ -97,6 +99,9 @@ class MonochromeCanvas {
 
             this.#canvas.width = Math.ceil(char.width);
             this.#canvas.height = Math.max(Math.ceil(char.height), standardCharY + standardCharHeight);
+
+            console.log("canvas w h:", this.#canvas.width, this.#canvas.height);
+
             // テキスト反映
             this.#context.font = font;
             this.#context.fillStyle = "#fff";
@@ -129,6 +134,8 @@ class MonochromeCanvas {
             if (maxWidth < trimmed.width) {
                 maxWidth = trimmed.width;
             }
+
+            console.log("trimmed:", trimmed);
         }
 
         let yokoMargin = margin;
