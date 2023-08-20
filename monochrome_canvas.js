@@ -39,8 +39,8 @@ class MonochromeCanvas {
     }
 
     #tateText(text, font) {
-        const dstCanvas = document.querySelector("#canvas");
-        const dstContext = dstCanvas.getContext("2d", { willReadFrequently: true });
+        const tmpCanvas = document.createElement("canvas");
+        const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         const standardCharWidth = (() => {
             this.#context.font = font;
@@ -58,8 +58,8 @@ class MonochromeCanvas {
         })();
 
         // 各文字の幅、高さの抽出とか
-        let dstCanvasWidth = 0;
-        let dstCanvasHeight = 0;
+        let tmpCanvasWidth = 0;
+        let tmpCanvasHeight = 0;
         const charList = [];
         for (const char of text) {
             this.#context.font = font;
@@ -71,16 +71,16 @@ class MonochromeCanvas {
                 width: width,
                 height: height
             });
-            if (dstCanvasWidth < width) {
-                dstCanvasWidth = width;
+            if (tmpCanvasWidth < width) {
+                tmpCanvasWidth = width;
             }
-            dstCanvasHeight += height;
+            tmpCanvasHeight += height;
         }
 
-        dstCanvas.width = Math.ceil(dstCanvasWidth);
-        dstCanvas.height = Math.ceil(dstCanvasHeight);
-        dstContext.fillStyle = "#fff";
-        dstContext.fillRect(0, 0, dstCanvas.width, dstCanvas.height);
+        tmpCanvas.width = Math.ceil(tmpCanvasWidth);
+        tmpCanvas.height = Math.ceil(tmpCanvasHeight);
+        tmpContext.fillStyle = "#fff";
+        tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
         let dstY = 0;
         for (const char of charList) {
@@ -98,26 +98,26 @@ class MonochromeCanvas {
             const trimmed = this.#trimming(this.pixels);
 
             // 転写
-            let dstX = (dstCanvas.width - trimmed.width) / 2;
+            let dstX = (tmpCanvas.width - trimmed.width) / 2;
 
             if ("、。".includes(char.value)) {
-                dstX = (dstCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
+                dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
             else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.value)) {
-                dstX = (dstCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
+                dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
 
-            dstContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
+            tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
             dstY += trimmed.height;
         }
 
-        const tmpPixels = dstContext.getImageData(0, 0, dstCanvas.width, dstCanvas.height)
+        const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
         const trimmed = this.#trimming(tmpPixels);
         this.#canvas.width = trimmed.width;
         this.#canvas.height = trimmed.height;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.putImageData(dstContext.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, 0);
+        this.#context.putImageData(tmpContext.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, 0);
     }
 
     #trimming(pixels) {
