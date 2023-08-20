@@ -80,6 +80,8 @@ class MonochromeCanvas {
 
         dstCanvas.width = Math.ceil(dstCanvasWidth);
         dstCanvas.height = Math.ceil(dstCanvasHeight);
+        dstContext.fillStyle = "#fff";
+        dstContext.fillRect(0, 0, dstCanvas.width, dstCanvas.height);
 
         let dstY = 0;
         for (const char of charList) {
@@ -109,6 +111,14 @@ class MonochromeCanvas {
             dstContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
             dstY += trimmed.height;
         }
+
+        const tmpPixels = dstContext.getImageData(0, 0, dstCanvas.width, dstCanvas.height)
+        const trimmed = this.#trimming(tmpPixels);
+        this.#canvas.width = trimmed.width;
+        this.#canvas.height = trimmed.height;
+        this.#context.fillStyle = "#fff";
+        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+        this.#context.putImageData(dstContext.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, 0);
     }
 
     #trimming(pixels) {
