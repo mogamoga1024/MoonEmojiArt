@@ -42,27 +42,38 @@ class MonochromeCanvas {
     #debugTateText(text, font) {
         const dstCanvas = document.querySelector("#canvas");
         const dstContext = dstCanvas.getContext("2d", { willReadFrequently: true });
+        
+        // dstCanvas.height = 0;
+        dstCanvas.width = 100;
+        dstCanvas.height = 500;
 
-        this.#context.font = font;
-        // this.#context.textBaseline = "top";
-        const measure = this.#context.measureText(text)
-        // キャンバスのサイズ設定
-        this.#canvas.width = measure.width;
-        this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
-        // テキスト反映
-        this.#context.font = font;
-        this.#context.fillStyle = "#fff";
-        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.fillStyle = "#000";
-        this.#context.textBaseline = "top";
-        this.#context.textAlign = "center";
-        this.#context.fillText(text, this.#canvas.width / 2, 0);
-
-        const trimmed = this.#trimming(this.pixels);
-
-        dstCanvas.width = this.#canvas.width;
-        dstCanvas.height = this.#canvas.height;
-        dstContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, 0);
+        let pasteY = 0;
+        for (const char of text) {
+            this.#context.font = font;
+            // this.#context.textBaseline = "top";
+            const measure = this.#context.measureText(char)
+            // キャンバスのサイズ設定
+            this.#canvas.width = measure.width;
+            this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
+            // テキスト反映
+            this.#context.font = font;
+            this.#context.fillStyle = "#fff";
+            this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+            this.#context.fillStyle = "#000";
+            this.#context.textBaseline = "top";
+            this.#context.textAlign = "center";
+            this.#context.fillText(char, this.#canvas.width / 2, 0);
+            // トリミング
+            const trimmed = this.#trimming(this.pixels);
+    
+            // 転写
+            // dstCanvas.width = this.#canvas.width;
+            // dstCanvas.height = this.#canvas.height;
+            // dstCanvas.width = 100; // todo 仮 maxにする
+            // dstCanvas.height += this.#canvas.height; // todo 最初に全部足す
+            dstContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, pasteY);
+            pasteY += trimmed.height;
+        }
     }
 
     #trimming(pixels) {
