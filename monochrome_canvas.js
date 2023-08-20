@@ -41,7 +41,8 @@ class MonochromeCanvas {
     #tateText(text, font) {
         const margin = 4;
 
-        const tmpCanvas = document.createElement("canvas");
+        // const tmpCanvas = document.createElement("canvas");
+        const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         const {

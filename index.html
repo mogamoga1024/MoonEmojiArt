@@ -137,7 +137,7 @@
     </div>
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}" :class="{'not-exists-tuki-art': !existsTukiArt}">
       <canvas ref="canvas" v-show="isDebug" :class="{'tate-canvas': wasTate}"></canvas>
-      <!-- <canvas id="canvas"></canvas> -->
+      <canvas id="canvas"></canvas>
       <textarea id="result" ref="result" :class="wasTate ? 'tate-canvas' : 'yoko-canvas'"></textarea>
     </div>
   </div>
