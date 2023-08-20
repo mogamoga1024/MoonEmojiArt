@@ -89,8 +89,11 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
         let dstY = 0;
+        let maxWidth = 0;
         let totalHeight = margin * (charList.length - 1);
         for (const char of charList) {
+            const isSmallChar = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.value);
+
             this.#canvas.width = Math.ceil(char.width);
             this.#canvas.height = Math.ceil(char.height);
             // テキスト反映
@@ -104,34 +107,37 @@ class MonochromeCanvas {
             // トリミング
             const trimmed = this.#trimming(this.pixels);
 
-            // 漢数字の「一」みたいな文字は必要な余白すら切り取られてしまうので対策
-            if (trimmed.height < standardCharHeight) {
-                trimmed.y = standardCharY;
-                trimmed.height = standardCharHeight;
+            // 漢数字の「一」や「1」みたいな文字は必要な余白すら切り取られてしまうので対策
+            if (!isSmallChar) {
+                if (trimmed.height < standardCharHeight) {
+                    trimmed.y = standardCharY;
+                    trimmed.height = standardCharHeight;
+                }
             }
 
             // 転写
             let dstX = (tmpCanvas.width - trimmed.width) / 2;
 
-            if ("、。".includes(char.value)) {
-                dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
-            }
-            else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.value)) {
+            if (isSmallChar) {
                 dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
 
             tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
             dstY += trimmed.height + margin;
             totalHeight += trimmed.height;
+            if (maxWidth < trimmed.width) {
+                maxWidth = trimmed.width;
+            }
         }
 
-        const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
-        const trimmed = this.#trimming(tmpPixels);
-        this.#canvas.width = trimmed.width + margin * 2;
+        // const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
+        // const trimmed = this.#trimming(tmpPixels);
+        this.#canvas.width = maxWidth + margin * 2;
         this.#canvas.height = totalHeight + margin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.putImageData(tmpContext.getImageData(trimmed.x, 0, trimmed.width, totalHeight), margin, margin);
+        const srcX = (tmpCanvas.width - maxWidth) / 2;
+        this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), margin, margin);
     }
 
     #trimming(pixels) {
