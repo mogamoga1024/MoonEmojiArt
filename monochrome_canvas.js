@@ -50,18 +50,19 @@ class MonochromeCanvas {
             width: standardCharWidth,
             height: standardCharHeight
         } = (() => {
-            this.#context.font = font;
-            const measure = this.#context.measureText("あ")
-            this.#canvas.width = Math.ceil(measure.width);
-            this.#canvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
-            this.#context.font = font;
-            this.#context.fillStyle = "#fff";
-            this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-            this.#context.fillStyle = "#000";
-            this.#context.textBaseline = "top";
-            this.#context.textAlign = "center";
-            this.#context.fillText("あ", this.#canvas.width / 2, 0);
-            return this.#trimming(this.pixels);
+            tmpContext.font = font;
+            const measure = tmpContext.measureText("あ")
+            tmpCanvas.width = Math.ceil(measure.width);
+            tmpCanvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
+            tmpContext.font = font;
+            tmpContext.fillStyle = "#fff";
+            tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
+            tmpContext.fillStyle = "#000";
+            tmpContext.textBaseline = "top";
+            tmpContext.textAlign = "center";
+            tmpContext.fillText("あ", tmpCanvas.width / 2, 0);
+            const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
+            return this.#trimming(tmpPixels);
         })();
 
         console.log("standardChar y w h:", standardCharY, standardCharWidth, standardCharHeight);
