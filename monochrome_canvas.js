@@ -51,9 +51,18 @@ class MonochromeCanvas {
             height: standardCharHeight
         } = (() => {
             tmpContext.font = font;
+            tmpContext.textBaseline = "top";
+            tmpContext.textAlign = "center";
             const measure = tmpContext.measureText("あ")
             tmpCanvas.width = Math.ceil(measure.width);
             tmpCanvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
+
+            console.log("font:", font);
+            console.log("measure w:", measure.width);
+            console.log("measure box asc:", measure.actualBoundingBoxAscent);
+            console.log("measure box dsc:", measure.actualBoundingBoxDescent);
+            console.log("tmpCanvas w h:", tmpCanvas.width, tmpCanvas.height);
+
             tmpContext.font = font;
             tmpContext.fillStyle = "#fff";
             tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
