@@ -54,7 +54,7 @@ const App = {
             // this.text = "あっ、はい。";
             // this.text = "あ";
             // this.text = "一あ一あ一";
-            this.text = "あ「あ";
+            this.text = "あ「あ」1「1」1";
             this.fontSize = 80;
             monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
             this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
