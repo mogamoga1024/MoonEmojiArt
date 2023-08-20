@@ -40,31 +40,32 @@ class MonochromeCanvas {
     }
 
     #debugTateText(text, font) {
-        const dstCanvas = document.querySelector("#canvas");
-        const dstContext = dstCanvas.getContext("2d", { willReadFrequently: true });
+        const tmpCanvas = document.querySelector("#canvas");
+        const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         const standardCharWidth = (() => {
-            this.#context.font = font;
-            const measure = this.#context.measureText("あ")
-            this.#canvas.width = Math.ceil(measure.width);
-            this.#canvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
-            this.#context.font = font;
-            this.#context.fillStyle = "#fff";
-            this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-            this.#context.fillStyle = "#000";
-            this.#context.textBaseline = "top";
-            this.#context.textAlign = "center";
-            this.#context.fillText("あ", this.#canvas.width / 2, 0);
-            return this.#trimming(this.pixels).width;
+            tmpContext.font = font;
+            const measure = tmpContext.measureText("あ")
+            tmpCanvas.width = Math.ceil(measure.width);
+            tmpCanvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
+            tmpContext.font = font;
+            tmpContext.fillStyle = "#fff";
+            tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
+            tmpContext.fillStyle = "#000";
+            tmpContext.textBaseline = "top";
+            tmpContext.textAlign = "center";
+            tmpContext.fillText("あ", tmpCanvas.width / 2, 0);
+            const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height);
+            return this.#trimming(tmpPixels).width;
         })();
-
+    
         // 各文字の幅、高さの抽出とか
-        let dstCanvasWidth = 0;
-        let dstCanvasHeight = 0;
+        let tmpCanvasWidth = 0;
+        let tmpCanvasHeight = 0;
         const charList = [];
         for (const char of text) {
-            this.#context.font = font;
-            const measure = this.#context.measureText(char)
+            tmpContext.font = font;
+            const measure = tmpContext.measureText(char)
             const width = measure.width;
             const height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
             charList.push({
@@ -72,41 +73,44 @@ class MonochromeCanvas {
                 width: width,
                 height: height
             });
-            if (dstCanvasWidth < width) {
-                dstCanvasWidth = width;
+            if (tmpCanvasWidth < width) {
+                tmpCanvasWidth = width;
             }
-            dstCanvasHeight += height;
+            tmpCanvasHeight += height;
         }
-
-        dstCanvas.width = Math.ceil(dstCanvasWidth);
-        dstCanvas.height = Math.ceil(dstCanvasHeight);
-
+    
+        this.#canvas.width = Math.ceil(tmpCanvasWidth); // todo
+        this.#canvas.height = Math.ceil(tmpCanvasHeight); // todo
+        this.#context.fillStyle = "#fff";
+        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+    
         let dstY = 0;
         for (const char of charList) {
-            this.#canvas.width = Math.ceil(char.width);
-            this.#canvas.height = Math.ceil(char.height);
+            tmpCanvas.width = Math.ceil(char.width);
+            tmpCanvas.height = Math.ceil(char.height);
             // テキスト反映
-            this.#context.font = font;
-            this.#context.fillStyle = "#fff";
-            this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-            this.#context.fillStyle = "#000";
-            this.#context.textBaseline = "top";
-            this.#context.textAlign = "center";
-            this.#context.fillText(char.value, this.#canvas.width / 2, 0);
+            tmpContext.font = font;
+            tmpContext.fillStyle = "#fff";
+            tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
+            tmpContext.fillStyle = "#000";
+            tmpContext.textBaseline = "top";
+            tmpContext.textAlign = "center";
+            tmpContext.fillText(char.value, tmpCanvas.width / 2, 0);
             // トリミング
-            const trimmed = this.#trimming(this.pixels);
-
+            const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height);
+            const trimmed = this.#trimming(tmpPixels);
+    
             // 転写
-            let dstX = (dstCanvas.width - trimmed.width) / 2;
-
+            let dstX = (this.#canvas.width - trimmed.width) / 2;
+    
             if ("、。".includes(char.value)) {
-                dstX = (dstCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
+                dstX = (this.#canvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
             else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.value)) {
-                dstX = (dstCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
+                dstX = (this.#canvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
-
-            dstContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
+    
+            this.#context.putImageData(tmpContext.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
             dstY += trimmed.height;
         }
     }
