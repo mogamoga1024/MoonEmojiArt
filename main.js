@@ -55,8 +55,8 @@ const App = {
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         if (this.isDebug) {
-            // this.text = "あっはい。";
-            this.text = "あ";
+            this.text = "あっ、はい。";
+            // this.text = "あ";
             this.fontSize = 80;
             monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate, this.negativeMargin);
             this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
