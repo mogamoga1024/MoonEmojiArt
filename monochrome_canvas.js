@@ -89,6 +89,7 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
         let dstY = 0;
+        let totalHeight = margin * (charList.length - 1);
         for (const char of charList) {
             this.#canvas.width = Math.ceil(char.width);
             this.#canvas.height = Math.ceil(char.height);
@@ -121,16 +122,16 @@ class MonochromeCanvas {
 
             tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
             dstY += trimmed.height + margin;
+            totalHeight += trimmed.height;
         }
 
-        // todo TRIM不要
         const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
         const trimmed = this.#trimming(tmpPixels);
         this.#canvas.width = trimmed.width + margin * 2;
-        this.#canvas.height = trimmed.height + margin * 2;
+        this.#canvas.height = totalHeight + margin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.putImageData(tmpContext.getImageData(trimmed.x, 0, trimmed.width, trimmed.height), margin, margin);
+        this.#context.putImageData(tmpContext.getImageData(trimmed.x, 0, trimmed.width, totalHeight), margin, margin);
     }
 
     #trimming(pixels) {
