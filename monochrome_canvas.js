@@ -43,6 +43,7 @@ class MonochromeCanvas {
         const dstCanvas = document.querySelector("#canvas");
         const dstContext = dstCanvas.getContext("2d", { willReadFrequently: true });
         
+        // 各文字の幅、高さの抽出とか
         dstCanvas.width = 0;
         dstCanvas.height = 0;
         const charList = [];
@@ -62,7 +63,7 @@ class MonochromeCanvas {
             dstCanvas.height += height;
         }
 
-        let pasteY = 0;
+        let dstY = 0;
         for (const char of charList) {
             this.#canvas.width = char.width;
             this.#canvas.height = char.height;
@@ -76,14 +77,11 @@ class MonochromeCanvas {
             this.#context.fillText(char.value, this.#canvas.width / 2, 0);
             // トリミング
             const trimmed = this.#trimming(this.pixels);
-    
+
             // 転写
-            // dstCanvas.width = this.#canvas.width;
-            // dstCanvas.height = this.#canvas.height;
-            // dstCanvas.width = 100; // todo 仮 maxにする
-            // dstCanvas.height += this.#canvas.height; // todo 最初に全部足す
-            dstContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, pasteY);
-            pasteY += trimmed.height;
+            const dstX = (dstCanvas.width - trimmed.width) / 2;
+            dstContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
+            dstY += trimmed.height;
         }
     }
 
