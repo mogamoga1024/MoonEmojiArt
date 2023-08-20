@@ -58,9 +58,9 @@ class MonochromeCanvas {
             tmpCanvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
 
             console.log("font:", font);
-            console.log("measure w:", measure.width);
-            console.log("measure box asc:", measure.actualBoundingBoxAscent);
-            console.log("measure box dsc:", measure.actualBoundingBoxDescent);
+            console.log("あ measure w:", measure.width);
+            console.log("あ measure box asc:", measure.actualBoundingBoxAscent);
+            console.log("あ measure box dsc:", measure.actualBoundingBoxDescent);
             console.log("tmpCanvas w h:", tmpCanvas.width, tmpCanvas.height);
 
             tmpContext.font = font;
@@ -81,10 +81,18 @@ class MonochromeCanvas {
         let tmpCanvasHeight = 0;
         const charList = [];
         for (const char of text) {
+            // todo ここでthis.#contextを使ってはいけない！！
             this.#context.font = font;
+            this.#context.textBaseline = "top";
+            this.#context.textAlign = "center";
             const measure = this.#context.measureText(char)
             const width = measure.width;
             const height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
+
+            console.log("「 measure w:", measure.width);
+            console.log("「 measure box asc:", measure.actualBoundingBoxAscent);
+            console.log("「 measure box dsc:", measure.actualBoundingBoxDescent);
+
             charList.push({
                 value: char,
                 width: width,
