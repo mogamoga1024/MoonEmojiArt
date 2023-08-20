@@ -58,11 +58,11 @@ class MonochromeCanvas {
         this.#context.textAlign = "center";
         this.#context.fillText(text, this.#canvas.width / 2, 0);
 
-        const trimming = this.#trimming(this.pixels);
+        const trimmed = this.#trimming(this.pixels);
 
         dstCanvas.width = this.#canvas.width;
         dstCanvas.height = this.#canvas.height;
-        dstContext.putImageData(this.#context.getImageData(trimming.x, trimming.y, trimming.width, trimming.height), 0, 0);
+        dstContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, 0);
     }
 
     #trimming(pixels) {
