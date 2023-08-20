@@ -39,6 +39,8 @@ class MonochromeCanvas {
     }
 
     #tateText(text, font) {
+        const margin = 4;
+
         const tmpCanvas = document.createElement("canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
@@ -78,7 +80,7 @@ class MonochromeCanvas {
         }
 
         tmpCanvas.width = Math.ceil(tmpCanvasWidth);
-        tmpCanvas.height = Math.ceil(tmpCanvasHeight);
+        tmpCanvas.height = Math.ceil(tmpCanvasHeight) + margin * (charList.length - 1);
         tmpContext.fillStyle = "#fff";
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
@@ -108,16 +110,16 @@ class MonochromeCanvas {
             }
 
             tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
-            dstY += trimmed.height;
+            dstY += trimmed.height + margin;
         }
 
         const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
         const trimmed = this.#trimming(tmpPixels);
-        this.#canvas.width = trimmed.width;
-        this.#canvas.height = trimmed.height;
+        this.#canvas.width = trimmed.width + margin * 2;
+        this.#canvas.height = trimmed.height + margin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.putImageData(tmpContext.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, 0);
+        this.#context.putImageData(tmpContext.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), margin, margin);
     }
 
     #trimming(pixels) {
