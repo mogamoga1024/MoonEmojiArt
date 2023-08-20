@@ -13,7 +13,7 @@ class MonochromeCanvas {
         this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, _fontFamily = "default", fontSize = 60, isBold = true, isTate = true, negativeMargin = 0) {
+    text(text, _fontFamily = "default", fontSize = 60, isBold = true, isTate = true) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         switch (_fontFamily) {
@@ -31,15 +31,14 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate) {
-            //this.#tateText(text, font, negativeMargin);
-            this.#debugTateText(text, font);
+            this.#tateText(text, font);
         }
         else {
             this.#yokoText(text, font);
         }
     }
 
-    #debugTateText(text, font) {
+    #tateText(text, font) {
         const dstCanvas = document.querySelector("#canvas");
         const dstContext = dstCanvas.getContext("2d", { willReadFrequently: true });
         
@@ -193,74 +192,6 @@ class MonochromeCanvas {
             width: targetRightX - targetLeftX + 1,
             height: targetBottomY - targetTopY + 1
         };
-    }
-
-    #tateText(text, font, negativeMargin) {
-        this.#context.font = font;
-        this.#context.textBaseline = "top";
-        const charList = [];
-        let maxWidth = 0;
-        let totalHeihgt = 0;
-        for (const char of text) {
-            const measure = this.#context.measureText(char);
-            const width = measure.width;
-            let height = measure.actualBoundingBoxDescent;
-            if ("、。".includes(char)) {
-                height = Math.round(height / 3);
-            }
-            else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char)) {
-                height += Math.abs(measure.actualBoundingBoxAscent);
-                height = Math.round(height * 4 / 5);
-            }
-            else {
-                height += Math.abs(measure.actualBoundingBoxAscent);
-            }
-            if (maxWidth < width) {
-                maxWidth = width;
-            }
-            totalHeihgt += height;
-            charList.push({ char: char, height: height });
-        }
-        // キャンバスのサイズ設定
-        this.#canvas.width = maxWidth;
-        this.#canvas.height = totalHeihgt - negativeMargin * (charList.length - 1);
-        // テキスト反映
-        this.#context.font = font;
-        this.#context.fillStyle = "#fff";
-        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.fillStyle = "#000";
-        let top = 0;
-
-        for (let i = 0; i < charList.length; i++) {
-            const char = charList[i];
-            if (i > 0) {
-                top -= negativeMargin;
-            }
-            if ("、。".includes(char.char)) {
-                this.#context.textBaseline = "top";
-                this.#context.textAlign = "left";
-                top -=  char.height * 2;
-                this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top);
-            }
-            else if ("っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.char)) {
-                this.#context.textBaseline = "top";
-                this.#context.textAlign = "center";
-                top -=  char.height / 3.8;
-                this.#context.fillText(char.char, this.#canvas.width * 4 / 7, top);
-            }
-            else {
-                this.#context.textAlign = "center";
-                if (charList.length === 1) {
-                    this.#context.textBaseline = "middle";
-                    this.#context.fillText(char.char, this.#canvas.width / 2, top + char.height / 2);
-                }
-                else {
-                    this.#context.textBaseline = "top";
-                    this.#context.fillText(char.char, this.#canvas.width / 2, top);
-                }
-            }
-            top += char.height;
-        }
     }
 
     #yokoText(text, font) {

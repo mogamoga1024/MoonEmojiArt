@@ -19,10 +19,6 @@ const App = {
             isBold: true,
             isTate: true,
             wasTate: true,
-            negativeMargin: 0,
-            negativeMarginPrev: 0,
-            negativeMarginMin: -100,
-            negativeMarginMax: 100,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -58,7 +54,7 @@ const App = {
             this.text = "あっ、はい。";
             // this.text = "あ";
             this.fontSize = 80;
-            monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate, this.negativeMargin);
+            monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
             this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
         }
     },
@@ -70,12 +66,6 @@ const App = {
             if (newVal === "default") {
                 return;
             }
-            if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
-                this.negativeMargin = 40;
-            }
-        },
-        negativeMargin(newVal) {
-            if (newVal === "") return; this.negativeMarginPrev = newVal;
         },
         baseAverageColor(newVal) {
             if (newVal === "") return; this.baseAverageColorPrev = newVal;
@@ -128,17 +118,6 @@ const App = {
                 Number(e.target.value),
                 this.fontSizeMin,
                 this.fontSizeMax
-            );
-        },
-        onBlurNegativeMarginNumber(e) {
-            if (e.target.value === "") {
-                this.negativeMargin = this.negativeMarginPrev;
-                return;
-            }
-            this.negativeMargin = this.rangeCorrection(
-                Number(e.target.value),
-                this.negativeMarginMin,
-                this.negativeMarginMax
             );
         },
         onBlurBaseAverageColorNumber(e) {
@@ -198,7 +177,7 @@ const App = {
                     return;
                 }
                 
-                monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate, this.negativeMargin);
+                monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
                 this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse));
             }
             else if (this.mode === "image") {

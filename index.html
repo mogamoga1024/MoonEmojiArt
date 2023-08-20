@@ -68,14 +68,6 @@
             <div class="radio" :class="{'selected': !isTate}" @click="isTate = false">横</div>
           </div>
         </div>
-        <div v-show="isTate">
-          幅を縮めたいときは大きくして
-          <input type="number"
-                 :min="negativeMarginMin"
-                 :max="negativeMarginMax"
-                 v-model="negativeMargin"
-                 @blur="onBlurNegativeMarginNumber">
-        </div>
       </div>
     </template>
     <template v-else-if="mode === 'image'">
