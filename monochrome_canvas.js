@@ -43,18 +43,29 @@ class MonochromeCanvas {
         const dstCanvas = document.querySelector("#canvas");
         const dstContext = dstCanvas.getContext("2d", { willReadFrequently: true });
         
-        // dstCanvas.height = 0;
-        dstCanvas.width = 100;
-        dstCanvas.height = 500;
-
-        let pasteY = 0;
+        dstCanvas.width = 0;
+        dstCanvas.height = 0;
+        const charList = [];
         for (const char of text) {
             this.#context.font = font;
-            // this.#context.textBaseline = "top";
             const measure = this.#context.measureText(char)
-            // キャンバスのサイズ設定
-            this.#canvas.width = measure.width;
-            this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
+            const width = measure.width;
+            const height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
+            charList.push({
+                value: char,
+                width: width,
+                height: height
+            });
+            if (dstCanvas.width < width) {
+                dstCanvas.width = width;
+            }
+            dstCanvas.height += height;
+        }
+
+        let pasteY = 0;
+        for (const char of charList) {
+            this.#canvas.width = char.width;
+            this.#canvas.height = char.height;
             // テキスト反映
             this.#context.font = font;
             this.#context.fillStyle = "#fff";
@@ -62,7 +73,7 @@ class MonochromeCanvas {
             this.#context.fillStyle = "#000";
             this.#context.textBaseline = "top";
             this.#context.textAlign = "center";
-            this.#context.fillText(char, this.#canvas.width / 2, 0);
+            this.#context.fillText(char.value, this.#canvas.width / 2, 0);
             // トリミング
             const trimmed = this.#trimming(this.pixels);
     
