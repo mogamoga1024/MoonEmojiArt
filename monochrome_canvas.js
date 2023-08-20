@@ -107,7 +107,7 @@ class MonochromeCanvas {
             // トリミング
             const trimmed = this.#trimming(this.pixels);
 
-            // 漢数字の「一」や「1」みたいな文字は必要な余白すら切り取られてしまうので対策
+            // 漢数字の「一」みたいな文字は必要な余白すら切り取られてしまうので対策
             if (!isSmallChar) {
                 if (trimmed.height < standardCharHeight) {
                     trimmed.y = standardCharY;
@@ -130,14 +130,17 @@ class MonochromeCanvas {
             }
         }
 
-        // const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
-        // const trimmed = this.#trimming(tmpPixels);
-        this.#canvas.width = maxWidth + margin * 2;
+        let yokoMargin = margin;
+        // 数字の「1」みたいな文字は必要な余白すら切り取られてしまうので対策
+        if (maxWidth < standardCharWidth) {
+            yokoMargin += (standardCharWidth - maxWidth) / 2;
+        }
+        this.#canvas.width = maxWidth + yokoMargin * 2;
         this.#canvas.height = totalHeight + margin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         const srcX = (tmpCanvas.width - maxWidth) / 2;
-        this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), margin, margin);
+        this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, margin);
     }
 
     #trimming(pixels) {
