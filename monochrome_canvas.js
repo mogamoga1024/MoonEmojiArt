@@ -95,7 +95,7 @@ class MonochromeCanvas {
             const isSmallChar = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.value);
 
             this.#canvas.width = Math.ceil(char.width);
-            this.#canvas.height = Math.ceil(char.height);
+            this.#canvas.height = Math.max(Math.ceil(char.height), standardCharY + standardCharHeight);
             // テキスト反映
             this.#context.font = font;
             this.#context.fillStyle = "#fff";
