@@ -45,6 +45,7 @@ class MonochromeCanvas {
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         const {
+            y: standardCharY,
             width: standardCharWidth,
             height: standardCharHeight
         } = (() => {
@@ -101,6 +102,12 @@ class MonochromeCanvas {
             this.#context.fillText(char.value, this.#canvas.width / 2, 0);
             // トリミング
             const trimmed = this.#trimming(this.pixels);
+
+            // 漢数字の「一」みたいな文字は必要な余白すら切り取られてしまうので対策
+            if (trimmed.height < standardCharHeight) {
+                trimmed.y = standardCharY;
+                trimmed.height = standardCharHeight;
+            }
 
             // 転写
             let dstX = (tmpCanvas.width - trimmed.width) / 2;
