@@ -15,6 +15,7 @@ class MonochromeCanvas {
 
     text(text, _fontFamily = "default", fontSize = 60, isBold = true, isTate = true) {
         const fontWeight = isBold ? 700 : 400;
+        let tateMargin = 4;
         let fontFamily = "";
         switch (_fontFamily) {
             case "default":
@@ -25,29 +26,27 @@ class MonochromeCanvas {
                 break;
             case "serif":
                 fontFamily = "'Noto Serif JP', serif";
+                tateMargin = 8;
                 break;
             default: throw new Error(`引数が不正：${_fontFamily}`);
         }
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate || text.length === 1) {
-            this.#tateText(text, font);
+            this.#tateText(text, font, tateMargin);
         }
         else {
             this.#yokoText(text, font);
         }
     }
 
-    #tateText(text, font) {
-        const margin = 4;
-
+    #tateText(text, font, tateMargin = 4) {
         const tmpCanvas = document.createElement("canvas");
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         let minCanvasHeight = 0;
         const {
-            y: standardCharY,
             width: standardCharWidth,
             height: standardCharHeight
         } = (() => {
@@ -93,13 +92,13 @@ class MonochromeCanvas {
         }
 
         tmpCanvas.width = Math.ceil(tmpCanvasWidth);
-        tmpCanvas.height = Math.ceil(tmpCanvasHeight) + margin * (charList.length - 1);
+        tmpCanvas.height = Math.ceil(tmpCanvasHeight) + tateMargin * (charList.length - 1);
         tmpContext.fillStyle = "#fff";
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
         let dstY = 0;
         let maxWidth = 0;
-        let totalHeight = margin * (charList.length - 1);
+        let totalHeight = tateMargin * (charList.length - 1);
         for (const char of charList) {
             const isSmallChar = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.value);
 
@@ -124,8 +123,8 @@ class MonochromeCanvas {
                 dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
             
-            let isLargeMarginChar = !isSmallChar && trimmed.height < standardCharHeight;
             // 漢数字の「一」みたいな文字は必要な余白すら切り取られてしまうので対策
+            let isLargeMarginChar = !isSmallChar && trimmed.height < standardCharHeight;
             const prevDestY = dstY;
             if (isLargeMarginChar) {
                 dstY += (standardCharHeight - trimmed.height) / 2;
@@ -135,11 +134,11 @@ class MonochromeCanvas {
 
             if (isLargeMarginChar) {
                 dstY = prevDestY;
-                dstY += standardCharHeight + margin;
+                dstY += standardCharHeight + tateMargin;
                 totalHeight += standardCharHeight;
             }
             else {
-                dstY += trimmed.height + margin;
+                dstY += trimmed.height + tateMargin;
                 totalHeight += trimmed.height;
             }
             if (maxWidth < trimmed.width) {
@@ -147,17 +146,17 @@ class MonochromeCanvas {
             }
         }
 
-        let yokoMargin = margin;
+        let yokoMargin = 4;
         // 数字の「1」みたいな文字は必要な余白すら切り取られてしまうので対策
         if (maxWidth < standardCharWidth) {
             yokoMargin += (standardCharWidth - maxWidth) / 2;
         }
         this.#canvas.width = maxWidth + yokoMargin * 2;
-        this.#canvas.height = totalHeight + margin * 2;
+        this.#canvas.height = totalHeight + tateMargin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         const srcX = (tmpCanvas.width - maxWidth) / 2;
-        this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, margin);
+        this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
     }
 
     #trimming(pixels) {
