@@ -101,7 +101,7 @@ class MonochromeCanvas {
             tmpContext.font = font;
             tmpContext.textBaseline = "top";
             tmpContext.textAlign = "center";
-            const measure = tmpContext.measureText(char)
+            const measure = tmpContext.measureText(char);
             const width = measure.width;
             const height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
 
