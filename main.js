@@ -187,9 +187,9 @@ const App = {
                 }
                 
                 monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
-                const shouldDrawThinYokoLine = this.fontFamily === "serif";
-                // const shouldDrawThinYokoLine = false;
-                const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, shouldDrawThinYokoLine);
+                const shouldDrawThinBlackYokoLine = this.fontFamily === "serif";
+                // const shouldDrawThinBlackYokoLine = false;
+                const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, shouldDrawThinBlackYokoLine);
                 this.displayTukiArt(tukiArt);
             }
             else if (this.mode === "image") {

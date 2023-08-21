@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    generate(pixels, isImageColorReverse = false, shouldDrawThinYokoLine = false) {
+    generate(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false) {
         let text = "";
 
         const data = pixels.data;
@@ -26,7 +26,7 @@ class TukiArtGenerator {
                     }
                 }
 
-                const emoji = this._convertTuki(tmpPixels, shouldDrawThinYokoLine);
+                const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine);
                 text += isImageColorReverse ? this.#reverse(emoji) : emoji;
             }
             text += "\n";
@@ -39,7 +39,7 @@ class TukiArtGenerator {
         return color === 0 ? 0 : 1;
     }
 
-    _convertTuki(pixels, shouldDrawThinYokoLine = false) {
+    _convertTuki(pixels, shouldDrawThinBlackYokoLine = false) {
         let rtnTuki = null;
         let hitCount = -1;
 
@@ -51,7 +51,7 @@ class TukiArtGenerator {
             for (let row = 0; row < rowCount; row++) {
                 for (let col = 0; col < colCount; col++) {
                     tmpHitCount += tuki.pixels[row][col] === pixels[row][col] ? 1 : 0;
-                    if (!existsLightColList[col] && pixels[row][col] === 1) {
+                    if (!existsLightColList[col] && pixels[row][col] === 0) {
                         existsLightColList[col] = true;
                     }
                 }
@@ -67,8 +67,8 @@ class TukiArtGenerator {
             }
         }
 
-        if (shouldDrawThinYokoLine && rtnTuki.emoji === "🌑" && hitCount < 16 && existsLightColList.filter(e => e).length > 2) {
-            return "🌕";
+        if (shouldDrawThinBlackYokoLine && rtnTuki.emoji === "🌕" && hitCount < 16 && existsLightColList.filter(e => e).length > 2) {
+            return "🌑";
         }
 
         return rtnTuki.emoji;

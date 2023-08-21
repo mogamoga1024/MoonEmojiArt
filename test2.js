@@ -111,130 +111,130 @@
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌓");
     });
-    test("🌕 > 🌑🌒🌓🌔🌘🌗🌖", function() {
+    test("🌑 > 🌕🌒🌓🌔🌘🌗🌖", function() {
         const pixels = [
             [1, 1, 0, 0],
             [1, 1, 0, 0],
             [0, 0, 1, 1],
             [0, 0, 1, 1],
         ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
     });
-    test("横線 5 🌕 > 🌑", function() {
-        const pixels = [
-            [0, 0, 0, 0],
-            [1, 1, 1, 1],
-            [0, 1, 0, 0],
-            [0, 0, 0, 0],
-        ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
-    });
-    test("横線 4 🌕 > 🌑", function() {
+    test("横線 5 🌑 > 🌕", function() {
         const pixels = [
             [1, 1, 1, 1],
             [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-        ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
-    });
-    test("横線 4 🌕 > 🌑", function() {
-        const pixels = [
-            [0, 0, 0, 0],
-            [1, 1, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-        ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
-    });
-    test("横線 4 🌕 > 🌑", function() {
-        const pixels = [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [1, 1, 1, 1],
-        ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
-    });
-    test("横線 4 🌕 > 🌑", function() {
-        const pixels = [
-            [0, 0, 0, 1],
-            [0, 0, 1, 0],
-            [0, 1, 0, 0],
-            [1, 0, 0, 0],
-        ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
-    });
-    test("横線 3 🌕 > 🌑", function() {
-        const pixels = [
             [1, 0, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
+            [1, 1, 1, 1],
         ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
     });
-    test("横線 3 🌕 > 🌑", function() {
+    test("横線 4 🌑 > 🌕", function() {
         const pixels = [
             [0, 0, 0, 0],
-            [1, 1, 0, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
+    });
+    test("横線 4 🌑 > 🌕", function() {
+        const pixels = [
+            [1, 1, 1, 1],
             [0, 0, 0, 0],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
+    });
+    test("横線 4 🌑 > 🌕", function() {
+        const pixels = [
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
             [0, 0, 0, 0],
         ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
     });
-    test("横線 3 🌕 > 🌑", function() {
+    test("横線 4 🌑 > 🌕", function() {
         const pixels = [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
             [1, 1, 1, 0],
+            [1, 1, 0, 1],
+            [1, 0, 1, 1],
+            [0, 1, 1, 1],
         ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
     });
-    test("横線 3 🌕 > 🌑", function() {
+    test("横線 3 🌑 > 🌕", function() {
         const pixels = [
-            [0, 0, 0, 1],
-            [0, 0, 1, 0],
             [0, 1, 0, 0],
-            [0, 0, 0, 0],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
+    });
+    test("横線 3 🌑 > 🌕", function() {
+        const pixels = [
+            [1, 1, 1, 1],
+            [0, 0, 1, 0],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
+    });
+    test("横線 3 🌑 > 🌕", function() {
+        const pixels = [
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [0, 0, 0, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
+    });
+    test("横線 3 🌑 > 🌕", function() {
+        const pixels = [
+            [1, 1, 1, 0],
+            [1, 1, 0, 1],
+            [1, 0, 1, 1],
+            [1, 1, 1, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
+    });
+    test("横線 2 🌕", function() { // todo
+        const pixels = [
+            [0, 0, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
     });
-    test("横線 2 🌑", function() {
+    test("横線 2 🌕", function() {
+        const pixels = [
+            [1, 1, 1, 1],
+            [1, 1, 0, 1],
+            [1, 0, 1, 1],
+            [1, 1, 1, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
+    });
+    test("縦は駄目 🌔", function() {
+        const pixels = [
+            [0, 1, 1, 1],
+            [0, 1, 1, 1],
+            [0, 1, 1, 1],
+            [0, 1, 1, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌔");
+    });
+    test("縦は駄目 🌗", function() {
         const pixels = [
             [1, 1, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
+            [1, 1, 0, 0],
+            [1, 1, 1, 0],
+            [1, 1, 0, 0],
         ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
-    });
-    test("横線 2 🌑", function() {
-        const pixels = [
-            [0, 0, 0, 0],
-            [0, 0, 1, 0],
-            [0, 1, 0, 0],
-            [0, 0, 0, 0],
-        ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
-    });
-    test("縦は駄目 🌘", function() {
-        const pixels = [
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-        ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌘");
-    });
-    test("縦は駄目 🌓", function() {
-        const pixels = [
-            [0, 0, 1, 1],
-            [0, 0, 1, 1],
-            [0, 0, 0, 1],
-            [0, 0, 1, 1],
-        ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌓");
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌗");
     });
 })();
