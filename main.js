@@ -56,9 +56,11 @@ const App = {
             // this.text = "一あ一あ一";
             // this.text = "あ「あ」1「1」1";
             // this.text = "「";
-            this.text = "「あいうえお」";
+            // this.text = "「あいうえお」";
+            this.text = "日本";
             this.fontSize = 80;
-            this.fontFamily = "sans";
+            // this.fontFamily = "sans";
+            this.fontFamily = "serif";
             this.isTate = false;
             // ↓ フォントのロードが終わっていないとフォントが反映されないっぽい？
             // monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
