@@ -45,6 +45,7 @@ class MonochromeCanvas {
         const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
+        let minCanvasHeight = 0;
         const {
             y: standardCharY,
             width: standardCharWidth,
@@ -55,7 +56,8 @@ class MonochromeCanvas {
             tmpContext.textAlign = "center";
             const measure = tmpContext.measureText("あ")
             tmpCanvas.width = Math.ceil(measure.width);
-            tmpCanvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
+            minCanvasHeight = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
+            tmpCanvas.height = minCanvasHeight;
 
             console.log("font:", font);
             console.log("あ measure w:", measure.width);
@@ -132,7 +134,8 @@ class MonochromeCanvas {
             const isSmallChar = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.value);
 
             this.#canvas.width = Math.ceil(char.width);
-            this.#canvas.height = Math.max(Math.ceil(char.height), standardCharY + standardCharHeight);
+            // this.#canvas.height = Math.max(Math.ceil(char.height), standardCharY + standardCharHeight);
+            this.#canvas.height = Math.max(Math.ceil(char.height), minCanvasHeight);
 
             console.log("canvas w h:", this.#canvas.width, this.#canvas.height);
 
