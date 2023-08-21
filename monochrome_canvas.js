@@ -153,7 +153,8 @@ class MonochromeCanvas {
             // 漢数字の「一」みたいな文字は必要な余白すら切り取られてしまうので対策
             if (!isSmallChar) {
                 if (trimmed.height < standardCharHeight) {
-                    trimmed.y = standardCharY;
+                    // trimmed.y = standardCharY;
+                    trimmed.y -= (standardCharHeight - trimmed.height) / 2;
                     trimmed.height = standardCharHeight;
                 }
             }
