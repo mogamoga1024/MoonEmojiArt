@@ -26,7 +26,9 @@ class MonochromeCanvas {
                 break;
             case "serif":
                 fontFamily = "'Noto Serif JP', serif";
-                tateMargin = 8;
+                if (isTate) {
+                    tateMargin = 8;
+                }
                 break;
             default: throw new Error(`引数が不正：${_fontFamily}`);
         }
@@ -36,7 +38,7 @@ class MonochromeCanvas {
             this.#tateText(text, font, tateMargin);
         }
         else {
-            this.#yokoText(text, font);
+            this.#yokoText(text, font, tateMargin);
         }
     }
 
@@ -233,7 +235,7 @@ class MonochromeCanvas {
         };
     }
 
-    #yokoText(text, font) {
+    #yokoText(text, font, tateMargin = 4) {
         this.#context.font = font;
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
@@ -248,6 +250,14 @@ class MonochromeCanvas {
         this.#context.textBaseline = "middle";
         this.#context.textAlign = "center";
         this.#context.fillText(text, this.#canvas.width / 2, this.#canvas.height / 2);
+
+        const trimmed = this.#trimming(this.pixels);
+        const pixels = this.#context.getImageData(0, trimmed.y, this.#canvas.width, trimmed.height);
+
+        this.#canvas.height = trimmed.height + tateMargin * 2;
+        this.#context.fillStyle = "#fff";
+        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+        this.#context.putImageData(pixels, 0, tateMargin);
     }
 
     image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
