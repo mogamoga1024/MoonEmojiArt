@@ -30,7 +30,7 @@ class MonochromeCanvas {
         }
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
-        if (isTate) {
+        if (isTate || text.length === 1) {
             this.#tateText(text, font);
         }
         else {
