@@ -57,7 +57,9 @@ const App = {
             // this.text = "あ「あ」1「1」1";
             // this.text = "「";
             // this.text = "「あいうえお」";
-            this.text = "日本";
+            // this.text = "日本";
+            // this.text = "「」";
+            this.text = "あ";
             this.fontSize = 80;
             // this.fontFamily = "sans";
             this.fontFamily = "serif";
@@ -188,7 +190,6 @@ const App = {
                 
                 monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
                 const shouldDrawThinBlackYokoLine = this.fontFamily === "serif";
-                // const shouldDrawThinBlackYokoLine = false;
                 const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, shouldDrawThinBlackYokoLine);
                 this.displayTukiArt(tukiArt);
             }
