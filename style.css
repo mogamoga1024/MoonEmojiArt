@@ -22,12 +22,12 @@ button, input, select, textarea {
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-.bold {
-  font-weight: 700;
-}
-
 .font-serif {
   font-family: 'Noto Serif JP', serif;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 #app {
