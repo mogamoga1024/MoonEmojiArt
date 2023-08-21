@@ -42,7 +42,7 @@
       <div id="setting">
         <div>
           変換したい文
-          <input type="text" v-model="text">
+          <input type="text" :class="'font-' + fontFamily" v-model="text">
         </div>
         <div>
           フォントサイズ

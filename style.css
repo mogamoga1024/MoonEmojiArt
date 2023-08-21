@@ -14,6 +14,18 @@ button, input, select, textarea {
   font-size: 100%;
 }
 
+.font-default {
+  font-family: 'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif;
+}
+
+.font-sans {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.font-serif {
+  font-family: 'Noto Serif JP', serif;
+}
+
 #app {
   padding: 0 32px;
 }

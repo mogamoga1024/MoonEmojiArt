@@ -76,6 +76,23 @@ class MonochromeCanvas {
 
         console.log("standardChar y w h:", standardCharY, standardCharWidth, standardCharHeight);
 
+        // debug start
+
+        // this.#canvas.width = 500;
+        // this.#canvas.height = 500;
+
+        // this.#context.font = font;
+        // this.#context.fillStyle = "#fff";
+        // this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+        // this.#context.fillStyle = "#000";
+        // this.#context.textBaseline = "top";
+        // this.#context.textAlign = "center";
+        // this.#context.fillText("あ", this.#canvas.width / 2, 0);
+
+        // return;
+
+        // debug end
+
         // 各文字の幅、高さの抽出とか
         const tmpCanvas2 = document.createElement("canvas");
         const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });

@@ -58,8 +58,9 @@ const App = {
             this.text = "「";
             this.fontSize = 80;
             this.fontFamily = "sans";
-            monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
-            this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
+            // ↓ フォントのロードが終わっていないとフォントが反映されないっぽい？
+            // monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
+            // this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, true));
         }
     },
     watch: {
