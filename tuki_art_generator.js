@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    generate(pixels, isImageColorReverse = false) {
+    generate(pixels, isImageColorReverse = false, shouldDrawThinYokoLine = false) {
         let text = "";
 
         const data = pixels.data;
@@ -26,7 +26,7 @@ class TukiArtGenerator {
                     }
                 }
 
-                const emoji = this._convertTuki(tmpPixels);
+                const emoji = this._convertTuki(tmpPixels, shouldDrawThinYokoLine);
                 text += isImageColorReverse ? this.#reverse(emoji) : emoji;
             }
             text += "\n";
@@ -39,28 +39,32 @@ class TukiArtGenerator {
         return color === 0 ? 0 : 1;
     }
 
-    _convertTuki(pixels) {
+    _convertTuki(pixels, shouldDrawThinYokoLine = false) {
         let rtnTuki = null;
-        let count = -1;
+        let hitCount = -1;
 
         const rowCount = this.#tukiList[0].pixels.length;
         const colCount = this.#tukiList[0].pixels[0].length;
         for (const tuki of this.#tukiList) {
-            let tmpCount = 0;
+            let tmpHitCount = 0;
             for (let row = 0; row < rowCount; row++) {
                 for (let col = 0; col < colCount; col++) {
-                    tmpCount += tuki.pixels[row][col] === pixels[row][col] ? 1 : 0;
+                    tmpHitCount += tuki.pixels[row][col] === pixels[row][col] ? 1 : 0;
                 }
             }
-            if (count < tmpCount) {
-                count = tmpCount;
+            if (hitCount < tmpHitCount) {
+                hitCount = tmpHitCount;
                 rtnTuki = tuki;
             }
-            else if (count === tmpCount) {
+            else if (hitCount === tmpHitCount) {
                 if (rtnTuki.priority < tuki.priority) {
                     rtnTuki = tuki;
                 }
             }
+        }
+
+        if (shouldDrawThinYokoLine && rtnTuki.emoji === "🌑" && hitCount < 16) {
+            return "🌕";
         }
 
         return rtnTuki.emoji;
