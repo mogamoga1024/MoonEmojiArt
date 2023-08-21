@@ -119,7 +119,7 @@ class MonochromeCanvas {
             if (tmpCanvasWidth < width) {
                 tmpCanvasWidth = width;
             }
-            tmpCanvasHeight += height;
+            tmpCanvasHeight += Math.max(height, standardCharHeight);
         }
 
         tmpCanvas.width = Math.ceil(tmpCanvasWidth);
@@ -151,13 +151,13 @@ class MonochromeCanvas {
             const trimmed = this.#trimming(this.pixels);
 
             // 漢数字の「一」みたいな文字は必要な余白すら切り取られてしまうので対策
-            if (!isSmallChar) {
-                if (trimmed.height < standardCharHeight) {
-                    // trimmed.y = standardCharY;
-                    trimmed.y -= (standardCharHeight - trimmed.height) / 2;
-                    trimmed.height = standardCharHeight;
-                }
-            }
+            // if (!isSmallChar) {
+            //     if (trimmed.height < standardCharHeight) {
+            //         // trimmed.y = standardCharY;
+            //         trimmed.y -= (standardCharHeight - trimmed.height) / 2;
+            //         trimmed.height = standardCharHeight;
+            //     }
+            // }
 
             // 転写
             let dstX = (tmpCanvas.width - trimmed.width) / 2;
@@ -165,10 +165,25 @@ class MonochromeCanvas {
             if (isSmallChar) {
                 dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
+            
+            let isLargeMarginChar = !isSmallChar && trimmed.height < standardCharHeight;
+            // 漢数字の「一」みたいな文字は必要な余白すら切り取られてしまうので対策
+            const prevDestY = dstY;
+            if (isLargeMarginChar) {
+                dstY += (standardCharHeight - trimmed.height) / 2;
+            }
 
             tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
-            dstY += trimmed.height + margin;
-            totalHeight += trimmed.height;
+
+            if (isLargeMarginChar) {
+                dstY = prevDestY;
+                dstY += standardCharHeight + margin;
+                totalHeight += standardCharHeight;
+            }
+            else {
+                dstY += trimmed.height + margin;
+                totalHeight += trimmed.height;
+            }
             if (maxWidth < trimmed.width) {
                 maxWidth = trimmed.width;
             }
