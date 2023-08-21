@@ -94,17 +94,14 @@ class MonochromeCanvas {
         // debug end
 
         // 各文字の幅、高さの抽出とか
-        const tmpCanvas2 = document.createElement("canvas");
-        const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });
         let tmpCanvasWidth = 0;
         let tmpCanvasHeight = 0;
         const charList = [];
         for (const char of text) {
-            // todo ここでthis.#contextを使ってはいけない！！？
-            tmpContext2.font = font;
-            tmpContext2.textBaseline = "top";
-            tmpContext2.textAlign = "center";
-            const measure = tmpContext2.measureText(char)
+            tmpContext.font = font;
+            tmpContext.textBaseline = "top";
+            tmpContext.textAlign = "center";
+            const measure = tmpContext.measureText(char)
             const width = measure.width;
             const height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
 
