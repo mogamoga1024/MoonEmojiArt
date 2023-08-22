@@ -246,4 +246,13 @@
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌕");
     });
+    test("縦線 黒要素が少なすぎるのは駄目 🌕 > 🌔", function() {
+        const pixels = [
+            [B, W, W, W],
+            [B, W, W, W],
+            [W, W, W, W],
+            [W, W, W, W],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌕");
+    });
 })();
