@@ -19,6 +19,8 @@ const App = {
             isBold: true,
             isTate: true,
             wasTate: true,
+            isYokoLinePowerUp: false,
+            isTateLinePowerUp: false,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -73,8 +75,13 @@ const App = {
             if (newVal === "") return; this.fontSizePrev = newVal;
         },
         fontFamily(newVal) {
-            if (newVal === "default") {
-                return;
+            if (newVal === "serif") {
+                this.isYokoLinePowerUp = true;
+                this.isTateLinePowerUp = true;
+            }
+            else {
+                this.isYokoLinePowerUp = false;
+                this.isTateLinePowerUp = false;
             }
         },
         baseAverageColor(newVal) {
@@ -188,9 +195,7 @@ const App = {
                 }
                 
                 monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
-                const shouldDrawThinBlackYokoLine = this.fontFamily === "serif";
-                const shouldDrawThinBlackTateLine = this.fontFamily === "serif";
-                const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine);
+                const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isYokoLinePowerUp, this.isTateLinePowerUp);
                 this.displayTukiArt(tukiArt);
             }
             else if (this.mode === "image") {
