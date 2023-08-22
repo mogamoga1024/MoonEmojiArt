@@ -47,6 +47,8 @@ class TukiArtGenerator {
         const colCount = this.#tukiList[0].pixels[0].length;
         const existsLightColList = [false, false, false, false];
         const tukiPriorityList = this.#tukiPriorityList(shouldDrawThinBlackTateLine);
+        let tukiBBBWCount = 0;
+        let tukiWBBBCount = 0;
         for (const tuki of this.#tukiList) {
             let tmpHitCount = 0;
             for (let row = 0; row < rowCount; row++) {
@@ -56,6 +58,12 @@ class TukiArtGenerator {
                         existsLightColList[col] = true;
                     }
                 }
+            }
+            if (tuki.emoji === "🌒") {
+                tukiBBBWCount = tmpHitCount;
+            }
+            else if (tuki.emoji === "🌘") {
+                tukiWBBBCount = tmpHitCount;
             }
             if (hitCount < tmpHitCount) {
                 hitCount = tmpHitCount;
@@ -72,8 +80,10 @@ class TukiArtGenerator {
             return "🌑";
         }
 
-        if (shouldDrawThinBlackTateLine && rtnTuki.emoji === "🌕") {
-            // todo
+        if (shouldDrawThinBlackTateLine && "🌒🌘".includes(rtnTuki.emoji)) {
+            if (tukiBBBWCount === tukiWBBBCount) {
+                return "🌑";
+            }
         }
 
         return rtnTuki.emoji;
