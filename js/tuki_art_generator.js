@@ -46,6 +46,7 @@ class TukiArtGenerator {
         const rowCount = this.#tukiList[0].pixels.length;
         const colCount = this.#tukiList[0].pixels[0].length;
         const existsLightColList = [false, false, false, false];
+        const tukiPriorityList = this.#tukiPriorityList(shouldDrawThinBlackTateLine);
         for (const tuki of this.#tukiList) {
             let tmpHitCount = 0;
             for (let row = 0; row < rowCount; row++) {
@@ -61,7 +62,7 @@ class TukiArtGenerator {
                 rtnTuki = tuki;
             }
             else if (hitCount === tmpHitCount) {
-                if (rtnTuki.priority < tuki.priority) {
+                if (tukiPriorityList[rtnTuki.emoji] < tukiPriorityList[tuki.emoji]) {
                     rtnTuki = tuki;
                 }
             }
@@ -92,10 +93,24 @@ class TukiArtGenerator {
         }
     }
 
+    #tukiPriorityList(shouldDrawThinBlackTateLine) {
+        if (shouldDrawThinBlackTateLine) {
+            return {
+                "🌑": 3, "🌓": 2, "🌗": 2, "🌒": 1,
+                "🌔": 1, "🌘": 1, "🌖": 1, "🌕": 0,
+            }
+        }
+        else {
+            return {
+                "🌕": 3, "🌑": 2, "🌓": 1, "🌗": 1,
+                "🌒": 0, "🌔": 0, "🌘": 0, "🌖": 0,
+            }
+        }
+    }
+
     #tukiList = [
         {
             emoji: "🌑",
-            priority: 2,
             pixels: [
                 [B, B, B, B],
                 [B, B, B, B],
@@ -105,7 +120,6 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌒",
-            priority: 0,
             pixels: [
                 [B, B, B, W],
                 [B, B, B, W],
@@ -115,7 +129,6 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌓",
-            priority: 1,
             pixels: [
                 [B, B, W, W],
                 [B, B, W, W],
@@ -125,7 +138,6 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌔",
-            priority: 0,
             pixels: [
                 [B, W, W, W],
                 [B, W, W, W],
@@ -135,7 +147,6 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌘",
-            priority: 0,
             pixels: [
                 [W, B, B, B],
                 [W, B, B, B],
@@ -145,7 +156,6 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌗",
-            priority: 1,
             pixels: [
                 [W, W, B, B],
                 [W, W, B, B],
@@ -155,7 +165,6 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌖",
-            priority: 0,
             pixels: [
                 [W, W, W, B],
                 [W, W, W, B],
@@ -165,7 +174,6 @@ class TukiArtGenerator {
         },
         {
             emoji: "🌕",
-            priority: 3,
             pixels: [
                 [W, W, W, W],
                 [W, W, W, W],
