@@ -12,8 +12,8 @@ const App = {
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "default",
-            fontSize: 60,
-            fontSizePrev: 60,
+            fontSize: 80,
+            fontSizePrev: 80,
             fontSizeMin: 50,
             fontSizeMax: 200,
             isBold: true,
