@@ -71,7 +71,9 @@ class TukiArtGenerator {
             return "🌑";
         }
 
-        // todo
+        if (shouldDrawThinBlackTateLine && rtnTuki.emoji === "🌕") {
+            // todo
+        }
 
         return rtnTuki.emoji;
     }
