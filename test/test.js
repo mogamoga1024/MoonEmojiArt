@@ -5,118 +5,118 @@
 
     test("🌑", function() {
         const pixels = [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
+            [B, B, B, B],
+            [B, B, B, B],
+            [B, B, B, B],
+            [B, B, B, B],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌑");
     });
     test("🌒", function() {
         const pixels = [
-            [0, 0, 0, 1],
-            [0, 0, 0, 1],
-            [0, 0, 0, 1],
-            [0, 0, 0, 1],
+            [B, B, B, W],
+            [B, B, B, W],
+            [B, B, B, W],
+            [B, B, B, W],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌒");
     });
     test("🌓", function() {
         const pixels = [
-            [0, 0, 1, 1],
-            [0, 0, 1, 1],
-            [0, 0, 1, 1],
-            [0, 0, 1, 1],
+            [B, B, W, W],
+            [B, B, W, W],
+            [B, B, W, W],
+            [B, B, W, W],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌓");
     });
     test("🌔", function() {
         const pixels = [
-            [0, 1, 1, 1],
-            [0, 1, 1, 1],
-            [0, 1, 1, 1],
-            [0, 1, 1, 1],
+            [B, W, W, W],
+            [B, W, W, W],
+            [B, W, W, W],
+            [B, W, W, W],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌔");
     });
     test("🌘", function() {
         const pixels = [
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
+            [W, B, B, B],
+            [W, B, B, B],
+            [W, B, B, B],
+            [W, B, B, B],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌘");
     });
     test("🌗", function() {
         const pixels = [
-            [1, 1, 0, 0],
-            [1, 1, 0, 0],
-            [1, 1, 0, 0],
-            [1, 1, 0, 0],
+            [W, W, B, B],
+            [W, W, B, B],
+            [W, W, B, B],
+            [W, W, B, B],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌗");
     });
     test("🌖", function() {
         const pixels = [
-            [1, 1, 1, 0],
-            [1, 1, 1, 0],
-            [1, 1, 1, 0],
-            [1, 1, 1, 0],
+            [W, W, W, B],
+            [W, W, W, B],
+            [W, W, W, B],
+            [W, W, W, B],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌖");
     });
     test("🌕", function() {
         const pixels = [
-            [1, 1, 1, 1],
-            [1, 1, 1, 1],
-            [1, 1, 1, 1],
-            [1, 1, 1, 1],
+            [W, W, W, W],
+            [W, W, W, W],
+            [W, W, W, W],
+            [W, W, W, W],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌕");
     });
     test("🌑 > 🌘", function() {
         const pixels = [
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
+            [W, B, B, B],
+            [W, B, B, B],
+            [B, B, B, B],
+            [B, B, B, B],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌑");
     });
     test("🌕 > 🌔", function() {
         const pixels = [
-            [0, 1, 1, 1],
-            [0, 1, 1, 1],
-            [1, 1, 1, 1],
-            [1, 1, 1, 1],
+            [B, W, W, W],
+            [B, W, W, W],
+            [W, W, W, W],
+            [W, W, W, W],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌕");
     });
     test("🌗 > 🌘🌖", function() {
         const pixels = [
-            [1, 1, 0, 0],
-            [1, 1, 0, 0],
-            [1, 0, 1, 0],
-            [1, 0, 1, 0],
+            [W, W, B, B],
+            [W, W, B, B],
+            [W, B, W, B],
+            [W, B, W, B],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌗");
     });
     test("🌓 > 🌒🌔", function() {
         const pixels = [
-            [0, 0, 1, 1],
-            [0, 0, 1, 1],
-            [0, 1, 0, 1],
-            [0, 1, 0, 1],
+            [B, B, W, W],
+            [B, B, W, W],
+            [B, W, B, W],
+            [B, W, B, W],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌓");
     });
     test("🌕 > 🌑🌒🌓🌔🌘🌗🌖", function() {
         const pixels = [
-            [1, 1, 0, 0],
-            [1, 1, 0, 0],
-            [0, 0, 1, 1],
-            [0, 0, 1, 1],
+            [W, W, B, B],
+            [W, W, B, B],
+            [B, B, W, W],
+            [B, B, W, W],
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels), "🌕");
     });

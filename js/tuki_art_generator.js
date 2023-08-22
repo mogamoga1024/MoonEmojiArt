@@ -36,7 +36,7 @@ class TukiArtGenerator {
     }
 
     #colorToBit(color) {
-        return color === 0 ? 0 : 1;
+        return color === 0 ? B : W;
     }
 
     _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
@@ -51,7 +51,7 @@ class TukiArtGenerator {
             for (let row = 0; row < rowCount; row++) {
                 for (let col = 0; col < colCount; col++) {
                     tmpHitCount += tuki.pixels[row][col] === pixels[row][col] ? 1 : 0;
-                    if (!existsLightColList[col] && pixels[row][col] === 0) {
+                    if (!existsLightColList[col] && pixels[row][col] === B) {
                         existsLightColList[col] = true;
                     }
                 }
@@ -95,80 +95,80 @@ class TukiArtGenerator {
             emoji: "🌑",
             priority: 2,
             pixels: [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
+                [B, B, B, B],
+                [B, B, B, B],
+                [B, B, B, B],
+                [B, B, B, B],
             ]
         },
         {
             emoji: "🌒",
             priority: 0,
             pixels: [
-                [0, 0, 0, 1],
-                [0, 0, 0, 1],
-                [0, 0, 0, 1],
-                [0, 0, 0, 1],
+                [B, B, B, W],
+                [B, B, B, W],
+                [B, B, B, W],
+                [B, B, B, W],
             ]
         },
         {
             emoji: "🌓",
             priority: 1,
             pixels: [
-                [0, 0, 1, 1],
-                [0, 0, 1, 1],
-                [0, 0, 1, 1],
-                [0, 0, 1, 1],
+                [B, B, W, W],
+                [B, B, W, W],
+                [B, B, W, W],
+                [B, B, W, W],
             ]
         },
         {
             emoji: "🌔",
             priority: 0,
             pixels: [
-                [0, 1, 1, 1],
-                [0, 1, 1, 1],
-                [0, 1, 1, 1],
-                [0, 1, 1, 1],
+                [B, W, W, W],
+                [B, W, W, W],
+                [B, W, W, W],
+                [B, W, W, W],
             ]
         },
         {
             emoji: "🌘",
             priority: 0,
             pixels: [
-                [1, 0, 0, 0],
-                [1, 0, 0, 0],
-                [1, 0, 0, 0],
-                [1, 0, 0, 0],
+                [W, B, B, B],
+                [W, B, B, B],
+                [W, B, B, B],
+                [W, B, B, B],
             ]
         },
         {
             emoji: "🌗",
             priority: 1,
             pixels: [
-                [1, 1, 0, 0],
-                [1, 1, 0, 0],
-                [1, 1, 0, 0],
-                [1, 1, 0, 0],
+                [W, W, B, B],
+                [W, W, B, B],
+                [W, W, B, B],
+                [W, W, B, B],
             ]
         },
         {
             emoji: "🌖",
             priority: 0,
             pixels: [
-                [1, 1, 1, 0],
-                [1, 1, 1, 0],
-                [1, 1, 1, 0],
-                [1, 1, 1, 0],
+                [W, W, W, B],
+                [W, W, W, B],
+                [W, W, W, B],
+                [W, W, W, B],
             ]
         },
         {
             emoji: "🌕",
             priority: 3,
             pixels: [
-                [1, 1, 1, 1],
-                [1, 1, 1, 1],
-                [1, 1, 1, 1],
-                [1, 1, 1, 1],
+                [W, W, W, W],
+                [W, W, W, W],
+                [W, W, W, W],
+                [W, W, W, W],
             ]
         },
     ];
