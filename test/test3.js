@@ -129,6 +129,71 @@
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌑");
     });
+    test("縦線 7 🌑 > 🌕", function() {
+        const pixels = [
+            [W, B, B, W],
+            [W, W, B, W],
+            [W, B, B, W],
+            [W, B, B, W],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌑");
+    });
+    test("縦線 7 🌑 > 🌕", function() {
+        const pixels = [
+            [W, B, W, W],
+            [W, B, B, W],
+            [W, B, B, W],
+            [W, B, B, W],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌑");
+    });
+    test("縦線 6 🌑 > 🌕", function() {
+        const pixels = [
+            [W, B, B, W],
+            [W, W, B, W],
+            [W, B, B, W],
+            [W, B, W, W],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌑");
+    });
+    test("縦線 6 🌑 > 🌕", function() {
+        const pixels = [
+            [W, B, B, W],
+            [W, B, B, W],
+            [W, B, B, W],
+            [W, W, W, W],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌑");
+    });
+    test("縦線 6 🌓 > 🌕", function() {
+        const pixels = [
+            [W, B, W, W],
+            [W, B, B, W],
+            [W, B, B, W],
+            [W, B, W, W],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌓");
+    });
+    test("縦線 6 🌗 > 🌕", function() {
+        const pixels = [
+            [W, B, B, W],
+            [W, W, B, W],
+            [W, W, B, W],
+            [W, B, B, W],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌗");
+    });
+
+
+
+
+
+
+
+
+
+
+
     // todo
     test("縦線 5 🌓 > 🌕", function() {
         const pixels = [
