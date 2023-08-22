@@ -80,9 +80,22 @@ class TukiArtGenerator {
             return "🌑";
         }
 
-        if (shouldDrawThinBlackTateLine && "🌒🌘".includes(rtnTuki.emoji)) {
-            if (tukiBBBWHitCount === tukiWBBBHitCount) {
-                return "🌑";
+        if (shouldDrawThinBlackTateLine) {
+            if ("🌒🌘".includes(rtnTuki.emoji)) {
+                if (tukiBBBWHitCount === tukiWBBBHitCount) {
+                    return "🌑";
+                }
+            }
+            else if ("🌔🌖".includes(rtnTuki.emoji)) {
+                let blackHitCount = 0;
+                for (let row = 0; row < rowCount; row++) {
+                    for (let col = 0; col < colCount; col++) {
+                        blackHitCount += pixels[row][col] === B ? 1 : 0;
+                    }
+                }
+                if (blackHitCount < 3) {
+                    return "🌕";
+                }
             }
         }
 
