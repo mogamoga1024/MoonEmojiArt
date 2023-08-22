@@ -26,7 +26,7 @@ class TukiArtGenerator {
                     }
                 }
 
-                const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine);
+                const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine);
                 text += isImageColorReverse ? this.#reverse(emoji) : emoji;
             }
             text += "\n";
@@ -39,7 +39,7 @@ class TukiArtGenerator {
         return color === 0 ? 0 : 1;
     }
 
-    _convertTuki(pixels, shouldDrawThinBlackYokoLine = false) {
+    _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
         let rtnTuki = null;
         let hitCount = -1;
 
@@ -70,6 +70,8 @@ class TukiArtGenerator {
         if (shouldDrawThinBlackYokoLine && rtnTuki.emoji === "🌕" && hitCount < 16 && existsLightColList.filter(e => e).length > 2) {
             return "🌑";
         }
+
+        // todo
 
         return rtnTuki.emoji;
     }

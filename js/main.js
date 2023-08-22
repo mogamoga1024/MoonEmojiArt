@@ -189,7 +189,8 @@ const App = {
                 
                 monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
                 const shouldDrawThinBlackYokoLine = this.fontFamily === "serif";
-                const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, shouldDrawThinBlackYokoLine);
+                const shouldDrawThinBlackTateLine = this.fontFamily === "serif";
+                const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine);
                 this.displayTukiArt(tukiArt);
             }
             else if (this.mode === "image") {

@@ -201,7 +201,7 @@
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
     });
-    test("横線 2 🌕", function() { // todo
+    test("横線 2 🌕", function() {
         const pixels = [
             [0, 0, 1, 1],
             [1, 1, 1, 1],
