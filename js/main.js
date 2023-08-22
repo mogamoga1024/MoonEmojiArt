@@ -19,8 +19,10 @@ const App = {
             isBold: true,
             isTate: true,
             wasTate: true,
-            isYokoLinePowerUp: false,
-            isTateLinePowerUp: false,
+            isTextYokoLinePowerUp: false,
+            isTextTateLinePowerUp: false,
+            isImageYokoLinePowerUp: false,
+            isImageTateLinePowerUp: false,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -76,12 +78,12 @@ const App = {
         },
         fontFamily(newVal) {
             if (newVal === "serif") {
-                this.isYokoLinePowerUp = true;
-                this.isTateLinePowerUp = true;
+                this.isTextYokoLinePowerUp = true;
+                this.isTextTateLinePowerUp = true;
             }
             else {
-                this.isYokoLinePowerUp = false;
-                this.isTateLinePowerUp = false;
+                this.isTextYokoLinePowerUp = false;
+                this.isTextTateLinePowerUp = false;
             }
         },
         baseAverageColor(newVal) {
@@ -195,7 +197,7 @@ const App = {
                 }
                 
                 monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
-                const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isYokoLinePowerUp, this.isTateLinePowerUp);
+                const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
                 this.displayTukiArt(tukiArt);
             }
             else if (this.mode === "image") {
@@ -214,7 +216,7 @@ const App = {
                         this.needOutline,
                         this.baseColorDistance
                     ).then(() => {
-                        this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse));
+                        this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
                     });
                 }
             }
