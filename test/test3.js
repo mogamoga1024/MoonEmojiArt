@@ -120,8 +120,33 @@
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌑");
     });
+    test("縦線 8 🌑 > 🌕", function() {
+        const pixels = [
+            [1, 0, 0, 1],
+            [1, 0, 0, 1],
+            [1, 0, 0, 1],
+            [1, 0, 0, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌑");
+    });
+    test("縦線 5 🌓 > 🌕", function() {
+        const pixels = [
+            [1, 0, 1, 1],
+            [1, 0, 0, 1],
+            [1, 0, 1, 1],
+            [1, 0, 1, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌓");
+    });
+    test("縦線 4 🌓 > 🌕", function() {
+        const pixels = [
+            [1, 0, 1, 1],
+            [1, 0, 1, 1],
+            [1, 0, 1, 1],
+            [1, 0, 1, 1],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, false, true), "🌓");
+    });
 
-    // todo
 
-    
 })();
