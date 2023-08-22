@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    generate(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false) {
+    generate(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
         let text = "";
 
         const data = pixels.data;
