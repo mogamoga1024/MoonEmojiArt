@@ -122,10 +122,10 @@ class MonochromeCanvas {
             // 転写
             let dstX = (tmpCanvas.width - trimmed.width) / 2;
 
-            debug(`dstX: ${dstX}`);
-            debug(`tmpCanvas.width: ${tmpCanvas.width}`);
-            debug(`trimmed.x: ${trimmed.x}`);
-            debug(`trimmed.width: ${trimmed.width}`);
+            // debug(`dstX: ${dstX}`);
+            // debug(`tmpCanvas.width: ${tmpCanvas.width}`);
+            // debug(`trimmed.x: ${trimmed.x}`);
+            // debug(`trimmed.width: ${trimmed.width}`);
 
             if (isSmallChar) {
                 dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
@@ -138,8 +138,8 @@ class MonochromeCanvas {
                 dstY += (standardCharHeight - trimmed.height) / 2;
             }
 
-            // tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
-            tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, dstY);
+            tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
+            // tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, dstY);
 
             if (isLargeMarginChar) {
                 dstY = prevDestY;
@@ -157,7 +157,7 @@ class MonochromeCanvas {
             }
         }
 
-        return;
+        // return;
 
         let yokoMargin = 4;
         // 数字の「1」みたいな文字は必要な余白すら切り取られてしまうので対策
@@ -167,7 +167,7 @@ class MonochromeCanvas {
         this.#canvas.width = maxWidth + yokoMargin * 2;
 
         // debug 実験
-        this.#canvas.width = tmpCanvas.width
+        // this.#canvas.width = tmpCanvas.width
 
         this.#canvas.height = totalHeight + tateMargin * 2;
         this.#context.fillStyle = "#fff";
@@ -178,9 +178,9 @@ class MonochromeCanvas {
         // センターをセンターにペタって貼ればいいじゃん。（いいじゃん。）
         // srcXはいらない
 
-        debug(`tmpCanvas.width: ${tmpCanvas.width}`);
-        debug(`maxWidth: ${maxWidth}`);
-        debug(`this.#canvas.width: ${this.#canvas.width}`);
+        // debug(`tmpCanvas.width: ${tmpCanvas.width}`);
+        // debug(`maxWidth: ${maxWidth}`);
+        // debug(`this.#canvas.width: ${this.#canvas.width}`);
 
         // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
         // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
