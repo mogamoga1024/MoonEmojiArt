@@ -12,4 +12,14 @@
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels, true, true), "🌑");
     });
+    
+    test("🌓", function() {
+        const pixels = [
+            [W, B, W, W],
+            [W, B, W, W],
+            [W, B, W, W],
+            [W, B, W, W],
+        ];
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true, true), "🌓");
+    });
 })();
