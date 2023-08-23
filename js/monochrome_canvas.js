@@ -151,6 +151,10 @@ class MonochromeCanvas {
             }
         }
 
+        debug("ver 5");
+
+        return;
+
         let yokoMargin = 4;
         // 数字の「1」みたいな文字は必要な余白すら切り取られてしまうので対策
         if (maxWidth < standardCharWidth) {
@@ -170,7 +174,7 @@ class MonochromeCanvas {
         // センターをセンターにペタって貼ればいいじゃん。（いいじゃん。）
         // srcXはいらない
 
-        debug("ver 4");
+        debug("ver 5");
         debug(`tmpCanvas.width: ${tmpCanvas.width}`);
         debug(`maxWidth: ${maxWidth}`);
         debug(`this.#canvas.width: ${this.#canvas.width}`);
@@ -178,13 +182,14 @@ class MonochromeCanvas {
         // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
         // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
         const dstX = (this.#canvas.width - tmpCanvas.width) / 2;
-        if (dstX >= 0) {
-            this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
-        }
-        else {
-            // dstXではいけない説
-            this.#context.putImageData(tmpContext.getImageData(-dstX, 0, tmpCanvas.width, totalHeight), 0, tateMargin);
-        }
+        this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
+        // if (dstX >= 0) {
+        //     this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
+        // }
+        // else {
+        //     // dstXではいけない説
+        //     this.#context.putImageData(tmpContext.getImageData(-dstX, 0, tmpCanvas.width, totalHeight), 0, tateMargin);
+        // }
     }
 
     #trimming(pixels) {
