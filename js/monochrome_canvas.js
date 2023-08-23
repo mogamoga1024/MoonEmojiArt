@@ -162,6 +162,9 @@ class MonochromeCanvas {
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         // const srcX = (tmpCanvas.width - maxWidth) / 2; // todo trimmed.xでは？
 
+        // todo
+        // センターをセンターにペタって貼ればいいじゃん。（いいじゃん。）
+
         debug(`srcX: ${srcX}`);
         debug(`tmpCanvas.width: ${tmpCanvas.width}`);
         debug(`maxWidth: ${maxWidth}`);
