@@ -36,6 +36,9 @@ class TukiArtGenerator {
     }
 
     #colorToBit(color) {
+        // todo PCとスマホで異なる
+        // color < 128 ? B : W;
+        // みたいな。パラメータも作ったほうがいいか。
         return color === 0 ? B : W;
     }
 
