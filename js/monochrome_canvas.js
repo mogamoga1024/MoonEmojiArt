@@ -99,6 +99,7 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
         let dstY = 0;
+        let srcX = 0;
         let maxWidth = 0;
         let totalHeight = tateMargin * (charList.length - 1);
         for (const char of charList) {
@@ -143,7 +144,9 @@ class MonochromeCanvas {
                 dstY += trimmed.height + tateMargin;
                 totalHeight += trimmed.height;
             }
+
             if (maxWidth < trimmed.width) {
+                srcX = trimmed.x;
                 maxWidth = trimmed.width;
             }
         }
@@ -157,12 +160,13 @@ class MonochromeCanvas {
         this.#canvas.height = totalHeight + tateMargin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        const srcX = (tmpCanvas.width - maxWidth) / 2;
+        // const srcX = (tmpCanvas.width - maxWidth) / 2; // todo trimmed.xでは？
 
         debug(`srcX: ${srcX}`);
         debug(`tmpCanvas.width: ${tmpCanvas.width}`);
         debug(`maxWidth: ${maxWidth}`);
 
+        // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
         this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
     }
 
