@@ -53,18 +53,6 @@
             <option value="serif">明朝体</option>
           </select>
         </div>
-        <div>
-          黒：少 - 多
-          <input type="range"
-                 :min="textBaseAverageColorMin"
-                 :max="textBaseAverageColorMax"
-                 v-model="textBaseAverageColor">
-          <input type="number"
-                 :min="textBaseAverageColorMin"
-                 :max="textBaseAverageColorMax"
-                 v-model="textBaseAverageColor"
-                 @blur="onBlurTextBaseAverageColorNumber">
-        </div>
         <div class="item-list">
           <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
           <div class="btn" :class="{'selected': isTextColorReverse}" @click="isTextColorReverse = !isTextColorReverse">色反転</div>
@@ -88,14 +76,16 @@
         <div>
           黒：少 - 多
           <input type="range"
-                 :min="imageBaseAverageColorMin"
-                 :max="imageBaseAverageColorMax"
-                 v-model="imageBaseAverageColor">
+                 id="base-average-color-range"
+                 :min="baseAverageColorMin"
+                 :max="baseAverageColorMax"
+                 v-model="baseAverageColor">
           <input type="number"
-                 :min="imageBaseAverageColorMin"
-                 :max="imageBaseAverageColorMax"
-                 v-model="imageBaseAverageColor"
-                 @blur="onBlurImageBaseAverageColorNumber">
+                 id="base-average-color-number"
+                 :min="baseAverageColorMin"
+                 :max="baseAverageColorMax"
+                 v-model="baseAverageColor"
+                 @blur="onBlurBaseAverageColorNumber">
         </div>
         <div class="item-list">
           <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
@@ -106,10 +96,12 @@
         <div v-show="needOutline">
           輪郭：強 - 弱
           <input type="range"
+                id="base-color-distance-range"
                 :min="baseColorDistanceMin"
                 :max="baseColorDistanceMax"
                 v-model="baseColorDistance">
           <input type="number"
+                id="base-color-distance-number"
                 :min="baseColorDistanceMin"
                 :max="baseColorDistanceMax"
                 v-model="baseColorDistance"
