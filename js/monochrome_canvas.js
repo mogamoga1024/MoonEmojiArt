@@ -164,7 +164,9 @@ class MonochromeCanvas {
 
         // todo
         // センターをセンターにペタって貼ればいいじゃん。（いいじゃん。）
+        // srcXはいらない
 
+        debug("ver 1");
         debug(`srcX: ${srcX}`);
         debug(`tmpCanvas.width: ${tmpCanvas.width}`);
         debug(`maxWidth: ${maxWidth}`);
