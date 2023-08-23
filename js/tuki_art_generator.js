@@ -59,11 +59,13 @@ class TukiArtGenerator {
                     }
                 }
             }
-            if (tuki.emoji === "🌒") {
-                tukiBBBWHitCount = tmpHitCount;
-            }
-            else if (tuki.emoji === "🌘") {
-                tukiWBBBHitCount = tmpHitCount;
+            if (shouldDrawThinBlackTateLine) {
+                if (tuki.emoji === "🌒") {
+                    tukiBBBWHitCount = tmpHitCount;
+                }
+                else if (tuki.emoji === "🌘") {
+                    tukiWBBBHitCount = tmpHitCount;
+                }
             }
             if (hitCount < tmpHitCount) {
                 hitCount = tmpHitCount;

@@ -3,13 +3,13 @@
 
     module("4.月変換 細い横線縦線考慮");
 
-    test("🌕", function() {
+    test("🌑", function() {
         const pixels = [
             [W, W, W, W],
             [W, W, W, W],
             [B, B, W, W],
             [B, B, B, B],
         ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true, true), "🌕");
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true, true), "🌑");
     });
 })();
