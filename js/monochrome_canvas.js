@@ -124,6 +124,7 @@ class MonochromeCanvas {
 
             debug(`dstX: ${dstX}`);
             debug(`tmpCanvas.width: ${tmpCanvas.width}`);
+            debug(`trimmed.x: ${trimmed.x}`);
             debug(`trimmed.width: ${trimmed.width}`);
 
             if (isSmallChar) {
@@ -205,10 +206,14 @@ class MonochromeCanvas {
         for (let col = 0; col < pixels.width; col++) {
             for (let row = 0; row < pixels.height; row++) {
                 const i = row * pixels.width * 4 + col * 4;
-                if (data[i] === 0) {
+                // if (data[i] === 0) {
+                if (data[i] !== 255) {
                     targetLeftX = col;
                     break;
                 }
+                // else if (data[i] !== 255) {
+                //     debug(data[i]);
+                // }
             }
             if (targetLeftX !== -1) {
                 break;
