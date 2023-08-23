@@ -1,7 +1,7 @@
 (function() {
     const tukiArtGenerator = new TukiArtGenerator();
 
-    module("月変換 細い縦線考慮");
+    module("3.月変換 細い縦線考慮");
 
     test("🌑", function() {
         const pixels = [
