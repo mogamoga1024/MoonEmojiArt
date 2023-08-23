@@ -46,7 +46,7 @@ class TukiArtGenerator {
         const rowCount = this.#tukiList[0].pixels.length;
         const colCount = this.#tukiList[0].pixels[0].length;
         const existsLightColList = [false, false, false, false];
-        const tukiPriorityDic = this.#tukiPriorityDic(!shouldDrawThinBlackYokoLine && shouldDrawThinBlackTateLine);
+        const tukiPriorityDic = this.#tukiPriorityDic(false); // todo 削除
         let tukiBBBWHitCount = 0;
         let tukiWBBBHitCount = 0;
         for (const tuki of this.#tukiList) {
@@ -72,7 +72,10 @@ class TukiArtGenerator {
                 rtnTuki = tuki;
             }
             else if (hitCount === tmpHitCount) {
-                if (tukiPriorityDic[rtnTuki.emoji] < tukiPriorityDic[tuki.emoji]) {
+                if (shouldDrawThinBlackTateLine && tuki.emoji === "🌕") {
+                    // 何もしない。
+                }
+                else if (tukiPriorityDic[rtnTuki.emoji] < tukiPriorityDic[tuki.emoji]) {
                     rtnTuki = tuki;
                 }
             }
