@@ -7,7 +7,11 @@ function debug(text) {
 let monoCanvas = null;
 let tukiArtGenerator = new TukiArtGenerator();
 
-const MSG_NO_INPUT_DATA = "変換したい文か画像を決めて生成ボタンを押してね！\nサイズが小さいとクオリティが低くなるよ！ごめんね！\nまだ開発中だから大目に見てね！";
+const MSG_NO_INPUT_DATA = `変換したい文か画像を決めて生成ボタンを押してね！
+サイズが小さいとクオリティが低くなるよ！ごめんね！
+ちなみにYouTubeに月文字を書き込むとスパム判定で表示されないよ！
+不謹慎な言葉を表示できちゃうからだろうね！
+あと、まだ開発中だから多少の不具合は大目に見てね！`;
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 
 const App = {
