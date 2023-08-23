@@ -30,6 +30,10 @@ const App = {
             fontSizePrev: 80,
             fontSizeMin: 50,
             fontSizeMax: 200,
+            textBaseAverageColor: 90,
+            textBaseAverageColorPrev: 90,
+            textBaseAverageColorMin: 0,
+            textBaseAverageColorMax: 255,
             isBold: true,
             isTate: true,
             wasTate: true,
@@ -39,10 +43,10 @@ const App = {
             isImageTateLinePowerUp: false,
             file: null,
             fileReader: new FileReader(),
-            baseAverageColor: 90,
-            baseAverageColorPrev: 90,
-            baseAverageColorMin: 0,
-            baseAverageColorMax: 255,
+            imageBaseAverageColor: 90,
+            imageBaseAverageColorPrev: 90,
+            imageBaseAverageColorMin: 0,
+            imageBaseAverageColorMax: 255,
             baseColorDistance: 50,
             baseColorDistancePrev: 50,
             baseColorDistanceMin: 0,
@@ -91,8 +95,11 @@ const App = {
                 this.isTextTateLinePowerUp = false;
             }
         },
-        baseAverageColor(newVal) {
-            if (newVal === "") return; this.baseAverageColorPrev = newVal;
+        textBaseAverageColor(newVal) {
+            if (newVal === "") return; this.textBaseAverageColorPrev = newVal;
+        },
+        imageBaseAverageColor(newVal) {
+            if (newVal === "") return; this.imageBaseAverageColorPrev = newVal;
         },
         baseColorDistance(newVal) {
             if (newVal === "") return; this.baseColorDistancePrev = newVal;
@@ -144,15 +151,26 @@ const App = {
                 this.fontSizeMax
             );
         },
-        onBlurBaseAverageColorNumber(e) {
+        onBlurTextBaseAverageColorNumber(e) {
             if (e.target.value === "") {
-                this.baseAverageColor = this.baseAverageColorPrev;
+                this.textBaseAverageColor = this.textBaseAverageColorPrev;
                 return;
             }
-            this.baseAverageColor = this.rangeCorrection(
+            this.textBaseAverageColor = this.rangeCorrection(
                 Number(e.target.value),
-                this.baseAverageColorMin,
-                this.baseAverageColorMax
+                this.textBaseAverageColorMin,
+                this.textBaseAverageColorMax
+            );
+        },
+        onBlurImageBaseAverageColorNumber(e) {
+            if (e.target.value === "") {
+                this.imageBaseAverageColor = this.imageBaseAverageColorPrev;
+                return;
+            }
+            this.imageBaseAverageColor = this.rangeCorrection(
+                Number(e.target.value),
+                this.imageBaseAverageColorMin,
+                this.imageBaseAverageColorMax
             );
         },
         onBlurBaseColorDistanceNumber(e) {
@@ -203,7 +221,14 @@ const App = {
                     return;
                 }
                 try {
-                    monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
+                    monoCanvas.text(
+                        this.text,
+                        this.fontFamily,
+                        this.fontSize,
+                        this.textBaseAverageColor,
+                        this.isBold,
+                        this.isTate
+                    );
                     const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
                     this.displayTukiArt(tukiArt);
                 }
@@ -225,7 +250,7 @@ const App = {
                         this.fileReader.result,
                         this.imageWidth,
                         Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
-                        this.baseAverageColor,
+                        this.imageBaseAverageColor,
                         this.needOutline,
                         this.baseColorDistance
                     ).then(() => {

@@ -13,7 +13,7 @@ class MonochromeCanvas {
         this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, _fontFamily = "default", fontSize = 60, isBold = true, isTate = true) {
+    text(text, _fontFamily = "default", fontSize = 60, baseAverageColor = 90, isBold = true, isTate = true) {
         const fontWeight = isBold ? 700 : 400;
         let tateMargin = 4;
         let fontFamily = "";
@@ -39,6 +39,14 @@ class MonochromeCanvas {
         }
         else {
             this.#yokoText(text, font, tateMargin);
+        }
+
+        const pixels = this.pixels;
+        for (let row = 0; row < pixels.height; row++) {
+            for (let col = 0; col < pixels.width; col++) {
+                const i = row * pixels.width * 4 + col * 4;
+                this.#monochrome(pixels, i, baseAverageColor);
+            }
         }
     }
 
