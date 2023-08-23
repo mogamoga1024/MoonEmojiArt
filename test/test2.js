@@ -93,23 +93,23 @@
         ];
         strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌕");
     });
-    test("🌗 > 🌘🌖", function() {
+    test("🌑 > 🌗 > 🌘🌖", function() {
         const pixels = [
             [W, W, B, B],
             [W, W, B, B],
             [W, B, W, B],
             [W, B, W, B],
         ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌗");
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
     });
-    test("🌓 > 🌒🌔", function() {
+    test("🌑 > 🌓 > 🌒🌔", function() {
         const pixels = [
             [B, B, W, W],
             [B, B, W, W],
             [B, W, B, W],
             [B, W, B, W],
         ];
-        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌓");
+        strictEqual(tukiArtGenerator._convertTuki(pixels, true), "🌑");
     });
     test("🌑 > 🌕🌒🌓🌔🌘🌗🌖", function() {
         const pixels = [

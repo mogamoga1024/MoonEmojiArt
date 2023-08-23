@@ -81,7 +81,7 @@ class TukiArtGenerator {
             }
         }
 
-        if (shouldDrawThinBlackYokoLine && rtnTuki.emoji === "🌕" && hitCount < 16 && existsLightColList.filter(e => e).length > 2) {
+        if (shouldDrawThinBlackYokoLine && hitCount < 16 && existsLightColList.filter(e => e).length > 2) {
             return "🌑";
         }
 
