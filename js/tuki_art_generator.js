@@ -46,7 +46,7 @@ class TukiArtGenerator {
         const rowCount = this.#tukiList[0].pixels.length;
         const colCount = this.#tukiList[0].pixels[0].length;
         const existsLightColList = [false, false, false, false];
-        const tukiPriorityDic = this.#tukiPriorityDic(shouldDrawThinBlackTateLine);
+        const tukiPriorityDic = this.#tukiPriorityDic(!shouldDrawThinBlackYokoLine && shouldDrawThinBlackTateLine);
         let tukiBBBWHitCount = 0;
         let tukiWBBBHitCount = 0;
         for (const tuki of this.#tukiList) {
