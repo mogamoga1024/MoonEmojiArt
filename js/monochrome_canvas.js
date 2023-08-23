@@ -43,8 +43,8 @@ class MonochromeCanvas {
     }
 
     #tateText(text, font, tateMargin = 4) {
-        const tmpCanvas = document.createElement("canvas");
-        // const tmpCanvas = document.querySelector("#canvas");
+        // const tmpCanvas = document.createElement("canvas");
+        const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         let minCanvasHeight = 0;
@@ -151,7 +151,7 @@ class MonochromeCanvas {
             }
         }
 
-        debug("ver 5");
+        debug("ver 6");
 
         return;
 
