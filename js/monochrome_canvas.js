@@ -43,8 +43,8 @@ class MonochromeCanvas {
     }
 
     #tateText(text, font, tateMargin = 4) {
-        // const tmpCanvas = document.createElement("canvas");
-        const tmpCanvas = document.querySelector("#canvas");
+        const tmpCanvas = document.createElement("canvas");
+        // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         let minCanvasHeight = 0;
@@ -99,7 +99,6 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
         let dstY = 0;
-        //let srcX = 0;
         let maxWidth = 0;
         let totalHeight = tateMargin * (charList.length - 1);
         for (const char of charList) {
@@ -122,11 +121,6 @@ class MonochromeCanvas {
             // 転写
             let dstX = (tmpCanvas.width - trimmed.width) / 2;
 
-            // debug(`dstX: ${dstX}`);
-            // debug(`tmpCanvas.width: ${tmpCanvas.width}`);
-            // debug(`trimmed.x: ${trimmed.x}`);
-            // debug(`trimmed.width: ${trimmed.width}`);
-
             if (isSmallChar) {
                 dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
@@ -139,7 +133,6 @@ class MonochromeCanvas {
             }
 
             tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
-            // tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, dstY);
 
             if (isLargeMarginChar) {
                 dstY = prevDestY;
@@ -152,12 +145,9 @@ class MonochromeCanvas {
             }
 
             if (maxWidth < trimmed.width) {
-                //srcX = trimmed.x;
                 maxWidth = trimmed.width;
             }
         }
-
-        // return;
 
         let yokoMargin = 4;
         // 数字の「1」みたいな文字は必要な余白すら切り取られてしまうので対策
@@ -166,33 +156,11 @@ class MonochromeCanvas {
         }
         this.#canvas.width = maxWidth + yokoMargin * 2;
 
-        // debug 実験
-        // this.#canvas.width = tmpCanvas.width
-
         this.#canvas.height = totalHeight + tateMargin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        // const srcX = (tmpCanvas.width - maxWidth) / 2; // todo trimmed.xでは？
-
-        // todo
-        // センターをセンターにペタって貼ればいいじゃん。（いいじゃん。）
-        // srcXはいらない
-
-        // debug(`tmpCanvas.width: ${tmpCanvas.width}`);
-        // debug(`maxWidth: ${maxWidth}`);
-        // debug(`this.#canvas.width: ${this.#canvas.width}`);
-
-        // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
-        // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
         const dstX = (this.#canvas.width - tmpCanvas.width) / 2;
         this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
-        // if (dstX >= 0) {
-        //     this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
-        // }
-        // else {
-        //     // dstXではいけない説
-        //     this.#context.putImageData(tmpContext.getImageData(-dstX, 0, tmpCanvas.width, totalHeight), 0, tateMargin);
-        // }
     }
 
     #trimming(pixels) {
@@ -206,14 +174,10 @@ class MonochromeCanvas {
         for (let col = 0; col < pixels.width; col++) {
             for (let row = 0; row < pixels.height; row++) {
                 const i = row * pixels.width * 4 + col * 4;
-                // if (data[i] === 0) {
                 if (data[i] !== 255) {
                     targetLeftX = col;
                     break;
                 }
-                // else if (data[i] !== 255) {
-                //     debug(data[i]);
-                // }
             }
             if (targetLeftX !== -1) {
                 break;
@@ -228,7 +192,7 @@ class MonochromeCanvas {
         for (let col = pixels.width - 1; col >= 0; col--) {
             for (let row = 0; row < pixels.height; row++) {
                 const i = row * pixels.width * 4 + col * 4;
-                if (data[i] === 0) {
+                if (data[i] !== 255) {
                     targetRightX = col;
                     break;
                 }
@@ -242,7 +206,7 @@ class MonochromeCanvas {
         for (let row = 0; row < pixels.height; row++) {
             for (let col = targetLeftX; col <= targetRightX; col++) {
                 const i = row * pixels.width * 4 + col * 4;
-                if (data[i] === 0) {
+                if (data[i] !== 255) {
                     targetTopY = row;
                     break;
                 }
@@ -256,7 +220,7 @@ class MonochromeCanvas {
         for (let row = pixels.height - 1; row >= 0; row--) {
             for (let col = targetLeftX; col <= targetRightX; col++) {
                 const i = row * pixels.width * 4 + col * 4;
-                if (data[i] === 0) {
+                if (data[i] !== 255) {
                     targetBottomY = row;
                     break;
                 }

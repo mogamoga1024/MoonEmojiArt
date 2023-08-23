@@ -138,7 +138,7 @@
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}" :class="{'not-exists-tuki-art': resultMessage !== ''}">
       <canvas ref="canvas" v-show="shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
-      <canvas id="canvas" style="margin-left: 8px;"></canvas>
+      <!-- <canvas id="canvas" style="margin-left: 8px;"></canvas> -->
       <textarea id="result" ref="result" :class="wasTate ? 'tate-canvas' : 'yoko-canvas'"></textarea>
     </div>
   </div>
