@@ -149,7 +149,7 @@ class MonochromeCanvas {
             }
         }
 
-        let yokoMargin = 4;
+        let yokoMargin = 0;
         // 数字の「1」みたいな文字は必要な余白すら切り取られてしまうので対策
         if (maxWidth < standardCharWidth) {
             yokoMargin += (standardCharWidth - maxWidth) / 2;
