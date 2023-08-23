@@ -7,7 +7,7 @@ function debug(text) {
 let monoCanvas = null;
 let tukiArtGenerator = new TukiArtGenerator();
 
-const MSG_NO_INPUT_DATA = "変換したい文か画像を決めて生成ボタンを押してね！\nまだ開発中だから大目に見てね！";
+const MSG_NO_INPUT_DATA = "変換したい文か画像を決めて生成ボタンを押してね！\nサイズが小さいとクオリティが低くなるよ！仕方ないね！\nまだ開発中だから大目に見てね！";
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 
 const App = {
