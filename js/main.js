@@ -2,13 +2,16 @@
 let monoCanvas = null;
 let tukiArtGenerator = new TukiArtGenerator();
 
+const MSG_NO_INPUT_DATA = "変換したい文か画像を決めて生成ボタンを押してね！\nまだ開発中だから大目に見てね！";
+const MSG_ERROR = "生成に失敗したよ！ごめんね！";
+
 const App = {
     data() {
         return {
             isDebug: false,
-            existsTukiArt: false,
             timer: null,
             toggle: false, // この値自体には何の関心もない。ただのCSSの制御に利用する。
+            resultMessage: MSG_NO_INPUT_DATA,
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "default",
@@ -191,17 +194,25 @@ const App = {
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
+            this.resultMessage = "";
             if (this.mode === "text") {
                 if (this.text === "") {
+                    this.resultMessage = MSG_NO_INPUT_DATA;
                     return;
                 }
-                
-                monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
-                const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
-                this.displayTukiArt(tukiArt);
+                try {
+                    monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
+                    const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
+                    this.displayTukiArt(tukiArt);
+                }
+                catch(e) {
+                    console.error(e);
+                    this.resultMessage = MSG_ERROR;
+                }
             }
             else if (this.mode === "image") {
                 if (this.file == null || this.imageWidth === 0) {
+                    this.resultMessage = MSG_NO_INPUT_DATA;
                     return;
                 }
             
@@ -217,8 +228,14 @@ const App = {
                         this.baseColorDistance
                     ).then(() => {
                         this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
+                    }).catch(e => {
+                        console.error(e);
+                        this.resultMessage = MSG_ERROR;
                     });
-                }
+                };
+                this.fileReader.onerror = () => {
+                    this.resultMessage = MSG_ERROR;
+                };
             }
         },
         onClickCopyButton() {
@@ -241,8 +258,6 @@ const App = {
             this.$refs.result.value = tukiArt;
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
             this.$refs.calcWidth.textContent = "";
-
-            this.existsTukiArt = true;
 
             if (this.mode === "text") {
                 this.wasTate = this.isTate;
