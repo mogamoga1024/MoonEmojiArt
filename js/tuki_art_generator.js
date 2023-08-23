@@ -39,7 +39,8 @@ class TukiArtGenerator {
         // todo PCとスマホで異なる
         // color < 128 ? B : W;
         // みたいな。パラメータも作ったほうがいいか。
-        return color === 0 ? B : W;
+        // return color === 0 ? B : W;
+        return color < 128 ? B : W;
     }
 
     _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
