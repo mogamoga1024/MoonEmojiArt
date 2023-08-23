@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/github-corner.css">
   <link rel="stylesheet" href="css/mobile.css">
-  <link rel="stylesheet" href="css/style.css">
   <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body>
@@ -35,7 +35,7 @@
       <div id="setting">
         <div>
           変換したい文
-          <input type="text" :class="['font-' + fontFamily, {'bold': isBold}]" v-model="text">
+          <input type="text" id="input-text" :class="['font-' + fontFamily, {'bold': isBold}]" v-model="text">
         </div>
         <div>
           フォントサイズ
@@ -53,7 +53,7 @@
             <option value="serif">明朝体</option>
           </select>
         </div>
-        <div class="btn-list">
+        <div class="item-list">
           <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
           <div class="btn" :class="{'selected': isTextColorReverse}" @click="isTextColorReverse = !isTextColorReverse">色反転</div>
           <div class="radio-wrapper">
@@ -61,7 +61,7 @@
             <div class="radio" :class="{'selected': !isTate}" @click="isTate = false">横</div>
           </div>
         </div>
-        <div class="btn-list">
+        <div class="item-list">
           <div class="btn" :class="{'selected': isTextYokoLinePowerUp}" @click="isTextYokoLinePowerUp = !isTextYokoLinePowerUp">横線強化</div>
           <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="isTextTateLinePowerUp = !isTextTateLinePowerUp">縦線強化</div>
         </div>
@@ -87,7 +87,7 @@
                  v-model="baseAverageColor"
                  @blur="onBlurBaseAverageColorNumber">
         </div>
-        <div class="btn-list">
+        <div class="item-list">
           <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
           <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
           <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横線強化</div>
@@ -107,17 +107,21 @@
                 v-model="baseColorDistance"
                 @blur="onBlurBaseColorDistanceNumber">
         </div>
-        <div>
-          幅
-          <input type="number" :min="imageWidthMin" :max="imageWidthMax"
-                v-model="imageWidth"
-                @blur="onBlurImageWidth">
-          倍率
-          <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
-                step="0.1"
-                v-model="imageSizeRate"
-                @blur="onBlurImageSizeRate">
-          幅は200～300程度をお勧めします
+        <div class="item-list">
+          <div>
+            幅
+            <input type="number" :min="imageWidthMin" :max="imageWidthMax"
+                   v-model="imageWidth"
+                   @blur="onBlurImageWidth">
+          </div>
+          <div>
+            倍率
+            <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
+                   step="0.1"
+                   v-model="imageSizeRate"
+                   @blur="onBlurImageSizeRate">
+          </div>
+          <div>幅は200～300程度をお勧めします</div>
         </div>
       </div>
     </template>

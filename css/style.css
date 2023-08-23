@@ -2,7 +2,6 @@
 body {
   font-family: Verdana, Roboto, "Droid Sans", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", sans-serif;
   background-color: #f4f4f4;
-  /* background-color: grey; */
 }
 
 body:not(h1) {
@@ -40,9 +39,10 @@ button, input, select, textarea {
   row-gap: 4px;
 }
 
-.btn-list {
+.item-list {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  row-gap: 4px;
   column-gap: 8px;
 }
 
@@ -112,6 +112,14 @@ button, input, select, textarea {
 
 input[type="file"] {
   display: none;
+}
+
+input[type="number"] {
+  width: 60px;
+}
+
+#input-text {
+  width: 300px;
 }
 
 #generate-btn, #copy-btn {
