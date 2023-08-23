@@ -170,7 +170,9 @@ class MonochromeCanvas {
         debug(`maxWidth: ${maxWidth}`);
 
         // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
-        this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
+        // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
+        const dstX = (this.#canvas.width - tmpCanvas.width) / 2;
+        this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
     }
 
     #trimming(pixels) {
