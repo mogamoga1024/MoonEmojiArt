@@ -56,11 +56,11 @@ button, input, select, textarea {
   height: 25px;
   line-height: 25px;
   padding: 0 8px;
-  border: 1px solid blue;
+  border: 1px solid mediumblue;
   font-weight: 600;
   cursor: pointer;
   user-select: none;
-  color: blue;
+  color: mediumblue;
   background-color: white;
   text-align: center;
 }
@@ -81,19 +81,29 @@ button, input, select, textarea {
   line-height: 25px;
   padding: 0 8px;
   border-radius: 5px;
-  border: 1px solid blue;
+  border: 1px solid mediumblue;
   font-weight: 600;
   cursor: pointer;
   user-select: none;
-  color: blue;
+  color: mediumblue;
   background-color: white;
   text-align: center;
 }
 
 .btn.selected, .radio.selected {
   color: white;
-  border-color: blue;
-  background-color: blue;
+  border-color: mediumblue;
+  background-color: mediumblue;
+}
+
+.btn:hover, .radio:hover {
+  background-color: lightcyan;
+  opacity: 0.7;
+}
+
+.btn.selected:hover, .radio.selected:hover {
+  background-color: mediumblue;
+  opacity: 0.7;
 }
 
 #btn-debug {
