@@ -157,6 +157,10 @@ class MonochromeCanvas {
             yokoMargin += (standardCharWidth - maxWidth) / 2;
         }
         this.#canvas.width = maxWidth + yokoMargin * 2;
+
+        // debug 実験
+        this.#canvas.width = tmpCanvas.width
+
         this.#canvas.height = totalHeight + tateMargin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
@@ -166,7 +170,7 @@ class MonochromeCanvas {
         // センターをセンターにペタって貼ればいいじゃん。（いいじゃん。）
         // srcXはいらない
 
-        debug("ver 3");
+        debug("ver 4");
         debug(`tmpCanvas.width: ${tmpCanvas.width}`);
         debug(`maxWidth: ${maxWidth}`);
         debug(`this.#canvas.width: ${this.#canvas.width}`);
@@ -178,6 +182,7 @@ class MonochromeCanvas {
             this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
         }
         else {
+            // dstXではいけない説
             this.#context.putImageData(tmpContext.getImageData(-dstX, 0, tmpCanvas.width, totalHeight), 0, tateMargin);
         }
     }
