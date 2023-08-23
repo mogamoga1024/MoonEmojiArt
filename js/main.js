@@ -12,6 +12,7 @@ const App = {
             timer: null,
             toggle: false, // この値自体には何の関心もない。ただのCSSの制御に利用する。
             resultMessage: MSG_NO_INPUT_DATA,
+            shouldDisplayMonochromeImage: false,
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "default",
@@ -58,6 +59,7 @@ const App = {
     mounted() {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         if (this.isDebug) {
+            this.shouldDisplayMonochromeImage = true;
             this.text = "草";
             this.fontSize = 50;
             // this.fontFamily = "sans";
