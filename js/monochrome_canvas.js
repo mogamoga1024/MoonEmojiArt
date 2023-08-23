@@ -137,7 +137,8 @@ class MonochromeCanvas {
                 dstY += (standardCharHeight - trimmed.height) / 2;
             }
 
-            tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
+            // tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
+            tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), 0, dstY);
 
             if (isLargeMarginChar) {
                 dstY = prevDestY;

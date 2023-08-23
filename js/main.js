@@ -3,7 +3,7 @@ let debugText = "";
 function debug(text) {
     debugText += text + "\n";
 };
-debug("ver 7");
+debug("ver 8");
 
 let monoCanvas = null;
 let tukiArtGenerator = new TukiArtGenerator();
