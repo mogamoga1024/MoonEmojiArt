@@ -122,6 +122,10 @@ class MonochromeCanvas {
             // 転写
             let dstX = (tmpCanvas.width - trimmed.width) / 2;
 
+            debug(`dstX: ${dstX}`);
+            debug(`tmpCanvas.width: ${tmpCanvas.width}`);
+            debug(`trimmed.width: ${trimmed.width}`);
+
             if (isSmallChar) {
                 dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
@@ -151,8 +155,6 @@ class MonochromeCanvas {
             }
         }
 
-        debug("ver 6");
-
         return;
 
         let yokoMargin = 4;
@@ -174,7 +176,6 @@ class MonochromeCanvas {
         // センターをセンターにペタって貼ればいいじゃん。（いいじゃん。）
         // srcXはいらない
 
-        debug("ver 5");
         debug(`tmpCanvas.width: ${tmpCanvas.width}`);
         debug(`maxWidth: ${maxWidth}`);
         debug(`this.#canvas.width: ${this.#canvas.width}`);
