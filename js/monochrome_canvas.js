@@ -158,6 +158,11 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         const srcX = (tmpCanvas.width - maxWidth) / 2;
+
+        debug(`srcX: ${srcX}`);
+        debug(`tmpCanvas.width: ${tmpCanvas.width}`);
+        debug(`maxWidth: ${maxWidth}`);
+
         this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
     }
 

@@ -1,4 +1,9 @@
 
+let debugText = "";
+function debug(text) {
+    debugText += text + "\n";
+};
+
 let monoCanvas = null;
 let tukiArtGenerator = new TukiArtGenerator();
 
@@ -9,6 +14,7 @@ const App = {
     data() {
         return {
             isDebug: false,
+            debugText: debugText,
             timer: null,
             toggle: false, // この値自体には何の関心もない。ただのCSSの制御に利用する。
             resultMessage: MSG_NO_INPUT_DATA,
@@ -257,6 +263,8 @@ const App = {
             else {
                 this.wasTate = false;
             }
+
+            this.debugText = debugText;
         }
     }
 };
