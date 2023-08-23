@@ -99,7 +99,7 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
         let dstY = 0;
-        let srcX = 0;
+        //let srcX = 0;
         let maxWidth = 0;
         let totalHeight = tateMargin * (charList.length - 1);
         for (const char of charList) {
@@ -146,7 +146,7 @@ class MonochromeCanvas {
             }
 
             if (maxWidth < trimmed.width) {
-                srcX = trimmed.x;
+                //srcX = trimmed.x;
                 maxWidth = trimmed.width;
             }
         }
@@ -166,10 +166,10 @@ class MonochromeCanvas {
         // センターをセンターにペタって貼ればいいじゃん。（いいじゃん。）
         // srcXはいらない
 
-        debug("ver 1");
-        debug(`srcX: ${srcX}`);
+        debug("ver 2");
         debug(`tmpCanvas.width: ${tmpCanvas.width}`);
         debug(`maxWidth: ${maxWidth}`);
+        debug(`this.#canvas.width: ${this.#canvas.width}`);
 
         // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
         // this.#context.putImageData(tmpContext.getImageData(srcX, 0, maxWidth, totalHeight), yokoMargin, tateMargin);
