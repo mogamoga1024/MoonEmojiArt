@@ -13,7 +13,7 @@ class MonochromeCanvas {
         this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, _fontFamily = "default", fontSize = 60, isBold = true, isTate = true) {
+    text(text, _fontFamily = "default", fontSize = 80, isBold = true, isTate = true) {
         const fontWeight = isBold ? 700 : 400;
         let tateMargin = 4;
         let fontFamily = "";
