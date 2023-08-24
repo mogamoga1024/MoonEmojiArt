@@ -83,12 +83,10 @@
           <div class="item">
             <div>黒：少 - 多</div>
             <input type="range"
-                   id="base-average-color-range"
                    :min="baseAverageColorMin"
                    :max="baseAverageColorMax"
                    v-model="baseAverageColor">
             <input type="number"
-                   id="base-average-color-number"
                    :min="baseAverageColorMin"
                    :max="baseAverageColorMax"
                    v-model="baseAverageColor"
@@ -105,12 +103,10 @@
           <div class="item">
             <div>輪郭：強 - 弱</div>
             <input type="range"
-                  id="base-color-distance-range"
-                  :min="baseColorDistanceMin"
-                  :max="baseColorDistanceMax"
-                  v-model="baseColorDistance">
+                   :min="baseColorDistanceMin"
+                   :max="baseColorDistanceMax"
+                   v-model="baseColorDistance">
             <input type="number"
-                   id="base-color-distance-number"
                    :min="baseColorDistanceMin"
                    :max="baseColorDistanceMax"
                    v-model="baseColorDistance"
