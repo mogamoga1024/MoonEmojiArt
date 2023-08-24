@@ -34,14 +34,14 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate || text.length === 1) {
-            this.#tateText(text, font);
+            this.#tateText(text, font, 13 * TUKI_SIDE_PIXEL_COUNT);
         }
         else {
-            this.#yokoText(text, font);
+            this.#yokoText(text, font, 13 * TUKI_SIDE_PIXEL_COUNT);
         }
     }
 
-    #tateText(text, font) {
+    #tateText(text, font, yokoPixelCount) {
         const tmpCanvas = document.createElement("canvas");
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
@@ -237,7 +237,7 @@ class MonochromeCanvas {
         };
     }
 
-    #yokoText(text, font) {
+    #yokoText(text, font, tatePixcelCount) {
         this.#context.font = font;
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
@@ -267,9 +267,9 @@ class MonochromeCanvas {
         tmpContext.putImageData(pixels, 0, tateMargin);
 
         this.#canvas.height = tmpCanvas.height;
-        const rate = 13 * TUKI_SIDE_PIXEL_COUNT / this.#canvas.height; // 13文字
+        const rate = tatePixcelCount / this.#canvas.height;
         this.#canvas.width *= rate;
-        this.#canvas.height = 13 * TUKI_SIDE_PIXEL_COUNT;
+        this.#canvas.height = tatePixcelCount;
         this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
