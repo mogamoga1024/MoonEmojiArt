@@ -125,7 +125,7 @@ const App = {
 
             img.src = URL.createObjectURL(this.file);
         },
-        onBlurTukiCountNumber(e) {
+        onBlurTukiCount(e) {
             if (e.target.value === "") {
                 this.tukiCount = this.tukiCountPrev;
                 return;
@@ -148,7 +148,7 @@ const App = {
                 this.isTextTateLinePowerUp = false;
             }
         },
-        onBlurBaseAverageColorNumber(e) {
+        onBlurBaseAverageColor(e) {
             if (e.target.value === "") {
                 this.baseAverageColor = this.baseAverageColorPrev;
                 return;
@@ -159,7 +159,7 @@ const App = {
                 this.baseAverageColorMax
             );
         },
-        onBlurBaseColorDistanceNumber(e) {
+        onBlurBaseColorDistance(e) {
             if (e.target.value === "") {
                 this.baseColorDistance = this.baseColorDistancePrev;
                 return;
