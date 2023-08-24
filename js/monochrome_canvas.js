@@ -113,9 +113,9 @@ class MonochromeCanvas {
             this.#context.fillStyle = "#fff";
             this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
             this.#context.fillStyle = "#000";
-            this.#context.textBaseline = "top";
+            this.#context.textBaseline = "middle";
             this.#context.textAlign = "center";
-            this.#context.fillText(char.value, this.#canvas.width / 2, 0);
+            this.#context.fillText(char.value, this.#canvas.width / 2, this.#canvas.height / 2);
             // トリミング
             const trimmed = this.#trimming(this.pixels);
 
