@@ -70,7 +70,7 @@ const App = {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
-            this.text = "草";
+            this.text = "草生える。";
             this.fontSize = 50;
             // this.fontFamily = "sans";
             this.fontFamily = "serif";

@@ -258,6 +258,7 @@ class MonochromeCanvas {
 
         const tateMargin = 4;
         const tmpCanvas = document.createElement("canvas");
+        // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         tmpCanvas.width = this.#canvas.width;
         tmpCanvas.height = trimmed.height + tateMargin * 2;
@@ -265,12 +266,11 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
         tmpContext.putImageData(pixels, 0, tateMargin);
 
-        // const tateMargin = 4;
-        this.#canvas.height = trimmed.height + tateMargin * 2;
-        // this.#context.fillStyle = "#fff";
-        // this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        // this.#context.putImageData(pixels, 0, tateMargin);
-        this.#context.drawImage(tmpCanvas, 0, 0);
+        this.#canvas.height = tmpCanvas.height;
+        const rate = 13 * 4 / this.#canvas.height; // 13文字
+        this.#canvas.width *= rate;
+        this.#canvas.height = 13 * 4;
+        this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
     image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
