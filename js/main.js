@@ -25,16 +25,16 @@ const App = {
             shouldDisplayMonochromeImage: false,
             mode: "text", // "text" | "image"
             text: "",
-            fontFamily: "default",
+            fontFamily: "serif", // "default" | "sans" | "serif"
             tukiCount: 13,
             tukiCountPrev: 13,
             tukiCountMin: 10,
             tukiCountMax: 50,
-            isBold: true,
+            isBold: false,
             isTate: true,
             wasTate: true,
-            isTextYokoLinePowerUp: false,
-            isTextTateLinePowerUp: false,
+            isTextYokoLinePowerUp: true,
+            isTextTateLinePowerUp: true,
             isImageYokoLinePowerUp: false,
             isImageTateLinePowerUp: false,
             file: null,
@@ -83,10 +83,12 @@ const App = {
         },
         fontFamily(newVal) {
             if (newVal === "serif") {
+                this.isBold = false;
                 this.isTextYokoLinePowerUp = true;
                 this.isTextTateLinePowerUp = true;
             }
             else {
+                this.isBold = true;
                 this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
             }
