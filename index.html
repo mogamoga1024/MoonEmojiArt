@@ -34,24 +34,30 @@
     <template v-if="mode === 'text'">
       <div id="setting">
         <div>
-          変換したい文
-          <input type="text" id="input-text" :class="['font-' + fontFamily, {'bold': isBold}]" v-model="text">
+          <div class="item">
+            <div>変換したい文</div>
+            <input type="text" id="input-text" :class="['font-' + fontFamily, {'bold': isBold}]" v-model="text">
+          </div>
         </div>
         <div>
-          <span>{{isTate ? "幅文字数" : "高さ文字数"}}</span>
-          <input type="number"
-                 :min="tukiCountMin"
-                 :max="tukiCountMax"
-                 v-model="tukiCount"
-                 @blur="onBlurTukiCountNumber">
+          <div class="item">
+            <div>{{isTate ? "幅文字数" : "高さ文字数"}}</div>
+            <input type="number"
+                   :min="tukiCountMin"
+                   :max="tukiCountMax"
+                   v-model="tukiCount"
+                   @blur="onBlurTukiCountNumber">
+          </div>
         </div>
         <div>
-          フォント
-          <select v-model="fontFamily">
-            <option value="default">デフォルト</option>
-            <option value="sans">ゴシック体</option>
-            <option value="serif">明朝体</option>
-          </select>
+          <div class="item">
+            <div>フォント</div>
+            <select v-model="fontFamily">
+              <option value="default">デフォルト</option>
+              <option value="sans">ゴシック体</option>
+              <option value="serif">明朝体</option>
+            </select>
+          </div>
         </div>
         <div class="item-list">
           <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
@@ -74,18 +80,20 @@
           <input type="file" ref="inputFile" @change="onChangeInputFile">
         </div>
         <div>
-          黒：少 - 多
-          <input type="range"
-                 id="base-average-color-range"
-                 :min="baseAverageColorMin"
-                 :max="baseAverageColorMax"
-                 v-model="baseAverageColor">
-          <input type="number"
-                 id="base-average-color-number"
-                 :min="baseAverageColorMin"
-                 :max="baseAverageColorMax"
-                 v-model="baseAverageColor"
-                 @blur="onBlurBaseAverageColorNumber">
+          <div class="item">
+            <div>黒：少 - 多</div>
+            <input type="range"
+                   id="base-average-color-range"
+                   :min="baseAverageColorMin"
+                   :max="baseAverageColorMax"
+                   v-model="baseAverageColor">
+            <input type="number"
+                   id="base-average-color-number"
+                   :min="baseAverageColorMin"
+                   :max="baseAverageColorMax"
+                   v-model="baseAverageColor"
+                   @blur="onBlurBaseAverageColorNumber">
+          </div>
         </div>
         <div class="item-list">
           <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
@@ -94,28 +102,30 @@
           <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦線強化</div>
         </div>
         <div v-show="needOutline">
-          輪郭：強 - 弱
-          <input type="range"
-                id="base-color-distance-range"
-                :min="baseColorDistanceMin"
-                :max="baseColorDistanceMax"
-                v-model="baseColorDistance">
-          <input type="number"
-                id="base-color-distance-number"
-                :min="baseColorDistanceMin"
-                :max="baseColorDistanceMax"
-                v-model="baseColorDistance"
-                @blur="onBlurBaseColorDistanceNumber">
+          <div class="item">
+            <div>輪郭：強 - 弱</div>
+            <input type="range"
+                  id="base-color-distance-range"
+                  :min="baseColorDistanceMin"
+                  :max="baseColorDistanceMax"
+                  v-model="baseColorDistance">
+            <input type="number"
+                   id="base-color-distance-number"
+                   :min="baseColorDistanceMin"
+                   :max="baseColorDistanceMax"
+                   v-model="baseColorDistance"
+                   @blur="onBlurBaseColorDistanceNumber">
+          </div>
         </div>
         <div class="item-list">
-          <div>
-            幅
+          <div class="item">
+            <div>幅</div>
             <input type="number" :min="imageWidthMin" :max="imageWidthMax"
                    v-model="imageWidth"
                    @blur="onBlurImageWidth">
           </div>
-          <div>
-            倍率
+          <div class="item">
+            <div>倍率</div>
             <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
                    step="0.1"
                    v-model="imageSizeRate"
