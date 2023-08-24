@@ -78,7 +78,8 @@ class TukiArtGenerator {
             }
         }
 
-        if (shouldDrawThinBlackYokoLine && hitCount < 16 && existsLightColList.filter(e => e).length > 2) {
+        const maxHitCount = TUKI_SIDE_PIXEL_COUNT * TUKI_SIDE_PIXEL_COUNT;
+        if (shouldDrawThinBlackYokoLine && hitCount < maxHitCount && existsLightColList.filter(e => e).length > 2) {
             return "🌑";
         }
 
