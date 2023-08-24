@@ -70,28 +70,18 @@ const App = {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
-            this.text = "草生える。";
+            this.text = "「";
             this.tukiCount = 13;
             // this.fontFamily = "sans";
-            this.fontFamily = "serif";
+            // this.fontFamily = "serif";
+            this.fontFamily = "default";
+            this.isBold = false;
             this.isTate = true;
         }
     },
     watch: {
         tukiCount(newVal) {
             if (newVal === "") return; this.tukiCountPrev = newVal;
-        },
-        fontFamily(newVal) {
-            if (newVal === "serif") {
-                this.isBold = false;
-                this.isTextYokoLinePowerUp = true;
-                this.isTextTateLinePowerUp = true;
-            }
-            else {
-                this.isBold = true;
-                this.isTextYokoLinePowerUp = false;
-                this.isTextTateLinePowerUp = false;
-            }
         },
         baseAverageColor(newVal) {
             if (newVal === "") return; this.baseAverageColorPrev = newVal;
@@ -145,6 +135,18 @@ const App = {
                 this.tukiCountMin,
                 this.tukiCountMax
             );
+        },
+        onChangeFontFamily(e) {
+            if (e.target.value === "serif") {
+                this.isBold = false;
+                this.isTextYokoLinePowerUp = true;
+                this.isTextTateLinePowerUp = true;
+            }
+            else {
+                this.isBold = true;
+                this.isTextYokoLinePowerUp = false;
+                this.isTextTateLinePowerUp = false;
+            }
         },
         onBlurBaseAverageColorNumber(e) {
             if (e.target.value === "") {
