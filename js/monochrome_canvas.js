@@ -16,6 +16,7 @@ class MonochromeCanvas {
     text(text, _fontFamily = "default", fontSize = 80, isBold = true, isTate = true) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
+        let tateMargin = 4;
         switch (_fontFamily) {
             case "default":
                 fontFamily = "'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif";
@@ -34,14 +35,14 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate || text.length === 1) {
-            this.#tateText(text, font, 13 * TUKI_SIDE_PIXEL_COUNT);
+            this.#tateText(text, font, 13 * TUKI_SIDE_PIXEL_COUNT, tateMargin);
         }
         else {
             this.#yokoText(text, font, 13 * TUKI_SIDE_PIXEL_COUNT);
         }
     }
 
-    #tateText(text, font, yokoPixelCount) {
+    #tateText(text, font, yokoPixelCount, tateMargin = 4) {
         const tmpCanvas = document.createElement("canvas");
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
@@ -92,7 +93,6 @@ class MonochromeCanvas {
             tmpCanvasHeight += Math.max(height, standardCharHeight);
         }
 
-        const tateMargin = 4;
         tmpCanvas.width = Math.ceil(tmpCanvasWidth);
         tmpCanvas.height = Math.ceil(tmpCanvasHeight) + tateMargin * (charList.length - 1);
         tmpContext.fillStyle = "#fff";
@@ -159,7 +159,6 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         const dstX = (this.#canvas.width - tmpCanvas.width) / 2;
-        // this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
         this.#context.drawImage(tmpCanvas, dstX, tateMargin);
     }
 
@@ -266,8 +265,7 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
         tmpContext.putImageData(pixels, 0, tateMargin);
 
-        this.#canvas.height = tmpCanvas.height;
-        const rate = tatePixcelCount / this.#canvas.height;
+        const rate = tatePixcelCount / tmpCanvas.height;
         this.#canvas.width *= rate;
         this.#canvas.height = tatePixcelCount;
         this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
