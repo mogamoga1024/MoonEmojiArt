@@ -155,7 +155,6 @@ class MonochromeCanvas {
             yokoMargin += (standardCharWidth - maxWidth) / 2;
         }
         this.#canvas.width = maxWidth + yokoMargin * 2;
-
         this.#canvas.height = totalHeight + tateMargin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
