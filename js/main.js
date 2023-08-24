@@ -74,7 +74,7 @@ const App = {
             this.fontSize = 50;
             // this.fontFamily = "sans";
             this.fontFamily = "serif";
-            this.isTate = false;
+            this.isTate = true;
         }
     },
     watch: {

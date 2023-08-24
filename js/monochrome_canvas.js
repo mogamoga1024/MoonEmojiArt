@@ -149,17 +149,24 @@ class MonochromeCanvas {
             }
         }
 
+        const tmpCanvas2 = document.createElement("canvas");
+        const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });
         let yokoMargin = 0;
         // 数字の「1」みたいな文字は必要な余白すら切り取られてしまうので対策
         if (maxWidth < standardCharWidth) {
             yokoMargin += (standardCharWidth - maxWidth) / 2;
         }
-        this.#canvas.width = maxWidth + yokoMargin * 2;
-        this.#canvas.height = totalHeight + tateMargin * 2;
-        this.#context.fillStyle = "#fff";
-        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        const dstX = (this.#canvas.width - tmpCanvas.width) / 2;
-        this.#context.drawImage(tmpCanvas, dstX, tateMargin);
+        tmpCanvas2.width = maxWidth + yokoMargin * 2;
+        tmpCanvas2.height = totalHeight + tateMargin * 2;
+        tmpContext2.fillStyle = "#fff";
+        tmpContext2.fillRect(0, 0, tmpCanvas2.width, tmpCanvas2.height);
+        const dstX = (tmpCanvas2.width - tmpCanvas.width) / 2;
+        tmpContext2.drawImage(tmpCanvas, dstX, tateMargin);
+
+        const rate = yokoPixelCount / tmpCanvas2.width;
+        this.#canvas.width = yokoPixelCount;
+        this.#canvas.height = tmpCanvas2.height * rate;
+        this.#context.drawImage(tmpCanvas2, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
     #trimming(pixels) {
@@ -236,7 +243,7 @@ class MonochromeCanvas {
         };
     }
 
-    #yokoText(text, font, tatePixcelCount) {
+    #yokoText(text, font, tatePixelCount) {
         this.#context.font = font;
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
@@ -265,9 +272,9 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
         tmpContext.putImageData(pixels, 0, tateMargin);
 
-        const rate = tatePixcelCount / tmpCanvas.height;
+        const rate = tatePixelCount / tmpCanvas.height;
         this.#canvas.width *= rate;
-        this.#canvas.height = tatePixcelCount;
+        this.#canvas.height = tatePixelCount;
         this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
