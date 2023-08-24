@@ -48,6 +48,9 @@ class MonochromeCanvas {
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
+        const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ";
+        const rotateCharList = "「」【】ー ～";
+
         let minCanvasHeight = 0;
         const {
             width: standardCharWidth,
@@ -103,7 +106,7 @@ class MonochromeCanvas {
         let maxWidth = 0;
         let totalHeight = tateMargin * (charList.length - 1);
         for (const char of charList) {
-            const isSmallChar = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ".includes(char.value);
+            const isSmallChar = smallCharList.includes(char.value);
 
             this.#canvas.width = Math.ceil(char.width);
             this.#canvas.height = Math.max(Math.ceil(char.height), minCanvasHeight);
@@ -115,6 +118,13 @@ class MonochromeCanvas {
             this.#context.fillStyle = "#000";
             this.#context.textBaseline = "middle";
             this.#context.textAlign = "center";
+
+            // debug start
+            this.#context.translate(this.#canvas.width / 2, this.#canvas.height / 2);
+            this.#context.rotate(Math.PI / 2);
+            this.#context.translate(-this.#canvas.width / 2, -this.#canvas.height / 2);
+            // debug end
+
             this.#context.fillText(char.value, this.#canvas.width / 2, this.#canvas.height / 2);
             // トリミング
             const trimmed = this.#trimming(this.pixels);
