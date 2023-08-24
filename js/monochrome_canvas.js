@@ -44,8 +44,8 @@ class MonochromeCanvas {
     }
 
     #tateText(text, font, yokoPixelCount, tateMargin = 4) {
-        const tmpCanvas = document.createElement("canvas");
-        // const tmpCanvas = document.querySelector("#canvas");
+        // const tmpCanvas = document.createElement("canvas");
+        const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ";
@@ -86,15 +86,25 @@ class MonochromeCanvas {
             const measure = tmpContext.measureText(char);
             const width = measure.width;
             const height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
+            let canvasWidth = width;
+            let canvasHeight = height;
+
+            if (rotateCharList.includes(char)) {
+                canvasWidth = height;
+                canvasHeight = width;
+            }
+
             charList.push({
                 value: char,
                 width: width,
-                height: height
+                height: height,
+                canvasWidth: canvasWidth,
+                canvasHeight: canvasHeight,
             });
-            if (tmpCanvasWidth < width) {
-                tmpCanvasWidth = width;
+            if (tmpCanvasWidth < canvasWidth) {
+                tmpCanvasWidth = canvasWidth;
             }
-            tmpCanvasHeight += Math.max(height, standardCharHeight);
+            tmpCanvasHeight += Math.max(canvasHeight, standardCharHeight);
         }
 
         tmpCanvas.width = Math.ceil(tmpCanvasWidth);
@@ -107,9 +117,14 @@ class MonochromeCanvas {
         let totalHeight = tateMargin * (charList.length - 1);
         for (const char of charList) {
             const isSmallChar = smallCharList.includes(char.value);
+            const isRotateCar = rotateCharList.includes(char.value);
 
-            this.#canvas.width = Math.ceil(char.width);
-            this.#canvas.height = Math.max(Math.ceil(char.height), minCanvasHeight);
+            this.#canvas.width = Math.ceil(char.canvasWidth);
+            this.#canvas.height = Math.max(Math.ceil(char.canvasHeight), minCanvasHeight);
+
+            if (isRotateCar) {
+                this.#canvas.width = this.#canvas.height = Math.max(this.#canvas.width, this.#canvas.height);
+            }
 
             // テキスト反映
             this.#context.font = font;
@@ -119,11 +134,11 @@ class MonochromeCanvas {
             this.#context.textBaseline = "middle";
             this.#context.textAlign = "center";
 
-            // debug start
-            this.#context.translate(this.#canvas.width / 2, this.#canvas.height / 2);
-            this.#context.rotate(Math.PI / 2);
-            this.#context.translate(-this.#canvas.width / 2, -this.#canvas.height / 2);
-            // debug end
+            if (isRotateCar) {
+                this.#context.translate(this.#canvas.width / 2, this.#canvas.height / 2);
+                this.#context.rotate(Math.PI / 2);
+                this.#context.translate(-this.#canvas.width / 2, -this.#canvas.height / 2);
+            }
 
             this.#context.fillText(char.value, this.#canvas.width / 2, this.#canvas.height / 2);
             // トリミング
