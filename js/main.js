@@ -9,6 +9,7 @@ let tukiArtGenerator = new TukiArtGenerator();
 
 const MSG_NO_INPUT_DATA = `・変換したい文か画像を決めて生成ボタンを押してね！
 ・サイズが小さいとクオリティが低くなるよ！
+・文に空白と絵文字は入れないでほしいな～
 ・ちなみにYouTubeに月文字を書き込むとスパム判定で表示されないよ！`;
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 
@@ -202,6 +203,7 @@ const App = {
         onClickGenerateButton() {
             this.resultMessage = "";
             if (this.mode === "text") {
+                this.text = this.text.replace(/\s/g, "");
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     return;
