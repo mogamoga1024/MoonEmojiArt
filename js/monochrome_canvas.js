@@ -50,6 +50,7 @@ class MonochromeCanvas {
         
         const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ「」【】";
         const rotateCharList = "「」【】ー ～";
+        const reverseCharList = "ー～";
         const centerJustifiedCharList = "【】";
         const leftJustifiedCharList = "」";
 
@@ -120,6 +121,7 @@ class MonochromeCanvas {
         for (const char of charList) {
             const isSmallChar = smallCharList.includes(char.value);
             const isRotateCar = rotateCharList.includes(char.value);
+            const isReverseChar = reverseCharList.includes(char.value);
             const isCenterJustifiedChar = centerJustifiedCharList.includes(char.value); 
             const isLeftJustifiedChar = leftJustifiedCharList.includes(char.value);
 
@@ -142,6 +144,10 @@ class MonochromeCanvas {
                 this.#context.translate(this.#canvas.width / 2, this.#canvas.height / 2);
                 this.#context.rotate(Math.PI / 2);
                 this.#context.translate(-this.#canvas.width / 2, -this.#canvas.height / 2);
+            }
+            if (isReverseChar) {
+                this.#context.scale(1, -1);
+                this.#context.translate(0, -this.#canvas.height);
             }
 
             this.#context.fillText(char.value, this.#canvas.width / 2, this.#canvas.height / 2);
