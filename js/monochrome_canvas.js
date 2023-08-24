@@ -15,7 +15,6 @@ class MonochromeCanvas {
 
     text(text, _fontFamily = "default", fontSize = 80, isBold = true, isTate = true) {
         const fontWeight = isBold ? 700 : 400;
-        let tateMargin = 4;
         let fontFamily = "";
         switch (_fontFamily) {
             case "default":
@@ -35,14 +34,14 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate || text.length === 1) {
-            this.#tateText(text, font, tateMargin);
+            this.#tateText(text, font);
         }
         else {
-            this.#yokoText(text, font, tateMargin);
+            this.#yokoText(text, font);
         }
     }
 
-    #tateText(text, font, tateMargin = 4) {
+    #tateText(text, font) {
         const tmpCanvas = document.createElement("canvas");
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
@@ -93,6 +92,7 @@ class MonochromeCanvas {
             tmpCanvasHeight += Math.max(height, standardCharHeight);
         }
 
+        const tateMargin = 4;
         tmpCanvas.width = Math.ceil(tmpCanvasWidth);
         tmpCanvas.height = Math.ceil(tmpCanvasHeight) + tateMargin * (charList.length - 1);
         tmpContext.fillStyle = "#fff";
@@ -159,7 +159,8 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         const dstX = (this.#canvas.width - tmpCanvas.width) / 2;
-        this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
+        // this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
+        this.#context.putImageData(tmpCanvas, dstX, tateMargin);
     }
 
     #trimming(pixels) {
@@ -236,7 +237,7 @@ class MonochromeCanvas {
         };
     }
 
-    #yokoText(text, font, tateMargin = 4) {
+    #yokoText(text, font) {
         this.#context.font = font;
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text)
@@ -255,6 +256,7 @@ class MonochromeCanvas {
         const trimmed = this.#trimming(this.pixels);
         const pixels = this.#context.getImageData(0, trimmed.y, this.#canvas.width, trimmed.height);
 
+        const tateMargin = 4;
         this.#canvas.height = trimmed.height + tateMargin * 2;
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
