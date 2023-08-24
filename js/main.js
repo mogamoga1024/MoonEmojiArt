@@ -26,10 +26,10 @@ const App = {
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "default",
-            fontSize: 80,
-            fontSizePrev: 80,
-            fontSizeMin: 50,
-            fontSizeMax: 200,
+            tukiCount: 13,
+            tukiCountPrev: 13,
+            tukiCountMin: 10,
+            tukiCountMax: 50,
             isBold: true,
             isTate: true,
             wasTate: true,
@@ -71,15 +71,15 @@ const App = {
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
             this.text = "草生える。";
-            this.fontSize = 50;
+            this.tukiCount = 13;
             // this.fontFamily = "sans";
             this.fontFamily = "serif";
             this.isTate = true;
         }
     },
     watch: {
-        fontSize(newVal) {
-            if (newVal === "") return; this.fontSizePrev = newVal;
+        tukiCount(newVal) {
+            if (newVal === "") return; this.tukiCountPrev = newVal;
         },
         fontFamily(newVal) {
             if (newVal === "serif") {
@@ -133,15 +133,15 @@ const App = {
 
             img.src = URL.createObjectURL(this.file);
         },
-        onBlurFontSizeNumber(e) {
+        onBlurTukiCountNumber(e) {
             if (e.target.value === "") {
-                this.fontSize = this.fontSizePrev;
+                this.tukiCount = this.tukiCountPrev;
                 return;
             }
-            this.fontSize = this.rangeCorrection(
+            this.tukiCount = this.rangeCorrection(
                 Number(e.target.value),
-                this.fontSizeMin,
-                this.fontSizeMax
+                this.tukiCountMin,
+                this.tukiCountMax
             );
         },
         onBlurBaseAverageColorNumber(e) {
@@ -203,7 +203,7 @@ const App = {
                     return;
                 }
                 try {
-                    monoCanvas.text(this.text, this.fontFamily, this.fontSize, this.isBold, this.isTate);
+                    monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
                     const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
                     this.displayTukiArt(tukiArt);
                 }

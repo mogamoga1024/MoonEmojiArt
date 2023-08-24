@@ -13,9 +13,10 @@ class MonochromeCanvas {
         this.#context = canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, _fontFamily = "default", fontSize = 80, isBold = true, isTate = true) {
+    text(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
+        const fontSize = 80
         let tateMargin = 4;
         switch (_fontFamily) {
             case "default":
@@ -35,10 +36,10 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate || text.length === 1) {
-            this.#tateText(text, font, 13 * TUKI_SIDE_PIXEL_COUNT, tateMargin);
+            this.#tateText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin);
         }
         else {
-            this.#yokoText(text, font, 13 * TUKI_SIDE_PIXEL_COUNT);
+            this.#yokoText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount);
         }
     }
 

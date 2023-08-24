@@ -38,12 +38,12 @@
           <input type="text" id="input-text" :class="['font-' + fontFamily, {'bold': isBold}]" v-model="text">
         </div>
         <div>
-          フォントサイズ
+          <span>{{isTate ? "幅文字数" : "高さ文字数"}}</span>
           <input type="number"
-                 :min="fontSizeMin"
-                 :max="fontSizeMax"
-                 v-model="fontSize"
-                 @blur="onBlurFontSizeNumber">
+                 :min="tukiCountMin"
+                 :max="tukiCountMax"
+                 v-model="tukiCount"
+                 @blur="onBlurTukiCountNumber">
         </div>
         <div>
           フォント
