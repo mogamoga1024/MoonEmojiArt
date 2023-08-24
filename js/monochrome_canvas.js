@@ -160,7 +160,7 @@ class MonochromeCanvas {
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         const dstX = (this.#canvas.width - tmpCanvas.width) / 2;
         // this.#context.putImageData(tmpContext.getImageData(0, 0, tmpCanvas.width, totalHeight), dstX, tateMargin);
-        this.#context.putImageData(tmpCanvas, dstX, tateMargin);
+        this.#context.drawImage(tmpCanvas, dstX, tateMargin);
     }
 
     #trimming(pixels) {
@@ -257,10 +257,20 @@ class MonochromeCanvas {
         const pixels = this.#context.getImageData(0, trimmed.y, this.#canvas.width, trimmed.height);
 
         const tateMargin = 4;
+        const tmpCanvas = document.createElement("canvas");
+        const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
+        tmpCanvas.width = this.#canvas.width;
+        tmpCanvas.height = trimmed.height + tateMargin * 2;
+        tmpContext.fillStyle = "#fff";
+        tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
+        tmpContext.putImageData(pixels, 0, tateMargin);
+
+        // const tateMargin = 4;
         this.#canvas.height = trimmed.height + tateMargin * 2;
-        this.#context.fillStyle = "#fff";
-        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.putImageData(pixels, 0, tateMargin);
+        // this.#context.fillStyle = "#fff";
+        // this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+        // this.#context.putImageData(pixels, 0, tateMargin);
+        this.#context.drawImage(tmpCanvas, 0, 0);
     }
 
     image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50) {
