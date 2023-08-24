@@ -48,8 +48,9 @@ class MonochromeCanvas {
         const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
-        const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ";
+        const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ「」【】";
         const rotateCharList = "「」【】ー ～";
+        const leftJustifiedCharList = "」";
 
         let minCanvasHeight = 0;
         const {
@@ -118,6 +119,7 @@ class MonochromeCanvas {
         for (const char of charList) {
             const isSmallChar = smallCharList.includes(char.value);
             const isRotateCar = rotateCharList.includes(char.value);
+            const isLeftJustifiedChar = leftJustifiedCharList.includes(char.value);
 
             this.#canvas.width = Math.ceil(char.canvasWidth);
             this.#canvas.height = Math.max(Math.ceil(char.canvasHeight), minCanvasHeight);
@@ -148,7 +150,12 @@ class MonochromeCanvas {
             let dstX = (tmpCanvas.width - trimmed.width) / 2;
 
             if (isSmallChar) {
+                // 右寄せ
                 dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
+            }
+            if (isLeftJustifiedChar) {
+                // 左寄せ
+                dstX = (tmpCanvas.width - standardCharWidth) / 2;
             }
             
             // 漢数字の「一」みたいな文字は必要な余白すら切り取られてしまうので対策

@@ -70,7 +70,7 @@ const App = {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
-            this.text = "「";
+            this.text = "「あいう」";
             this.tukiCount = 13;
             // this.fontFamily = "sans";
             // this.fontFamily = "serif";
