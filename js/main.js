@@ -70,12 +70,14 @@ const App = {
         monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
-            this.text = "「あいう」";
+            this.text = "「わーむほーる。」";
             this.tukiCount = 13;
             // this.fontFamily = "sans";
-            // this.fontFamily = "serif";
-            this.fontFamily = "default";
+            this.fontFamily = "serif";
+            // this.fontFamily = "default";
             this.isBold = false;
+            this.isTextYokoLinePowerUp = true;
+            this.isTextTateLinePowerUp = true;
             this.isTate = true;
         }
     },

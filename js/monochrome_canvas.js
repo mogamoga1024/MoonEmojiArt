@@ -44,12 +44,13 @@ class MonochromeCanvas {
     }
 
     #tateText(text, font, yokoPixelCount, tateMargin = 4) {
-        // const tmpCanvas = document.createElement("canvas");
-        const tmpCanvas = document.querySelector("#canvas");
+        const tmpCanvas = document.createElement("canvas");
+        // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ「」【】";
         const rotateCharList = "「」【】ー ～";
+        const centerJustifiedCharList = "【】";
         const leftJustifiedCharList = "」";
 
         let minCanvasHeight = 0;
@@ -114,11 +115,12 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
         let dstY = 0;
-        let maxWidth = 0;
+        let maxWidth = standardCharWidth;
         let totalHeight = tateMargin * (charList.length - 1);
         for (const char of charList) {
             const isSmallChar = smallCharList.includes(char.value);
             const isRotateCar = rotateCharList.includes(char.value);
+            const isCenterJustifiedChar = centerJustifiedCharList.includes(char.value); 
             const isLeftJustifiedChar = leftJustifiedCharList.includes(char.value);
 
             this.#canvas.width = Math.ceil(char.canvasWidth);
@@ -149,7 +151,7 @@ class MonochromeCanvas {
             // 転写
             let dstX = (tmpCanvas.width - trimmed.width) / 2;
 
-            if (isSmallChar) {
+            if (isSmallChar && !isCenterJustifiedChar) {
                 // 右寄せ
                 dstX = (tmpCanvas.width - standardCharWidth) / 2 + standardCharWidth - trimmed.width;
             }
@@ -185,10 +187,6 @@ class MonochromeCanvas {
         const tmpCanvas2 = document.createElement("canvas");
         const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });
         let yokoMargin = 0;
-        // 数字の「1」みたいな文字は必要な余白すら切り取られてしまうので対策
-        if (maxWidth < standardCharWidth) {
-            yokoMargin += (standardCharWidth - maxWidth) / 2;
-        }
         tmpCanvas2.width = maxWidth + yokoMargin * 2;
         tmpCanvas2.height = totalHeight + tateMargin * 2;
         tmpContext2.fillStyle = "#fff";
