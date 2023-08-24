@@ -267,9 +267,9 @@ class MonochromeCanvas {
         tmpContext.putImageData(pixels, 0, tateMargin);
 
         this.#canvas.height = tmpCanvas.height;
-        const rate = 13 * 4 / this.#canvas.height; // 13文字
+        const rate = 13 * TUKI_SIDE_PIXEL_COUNT / this.#canvas.height; // 13文字
         this.#canvas.width *= rate;
-        this.#canvas.height = 13 * 4;
+        this.#canvas.height = 13 * TUKI_SIDE_PIXEL_COUNT;
         this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
