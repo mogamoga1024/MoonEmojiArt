@@ -34,7 +34,7 @@
     <template v-if="mode === 'text'">
       <div id="setting">
         <div>
-          <div class="item">
+          <div class="item wrap">
             <div>変換したい文</div>
             <input type="text" id="input-text" :class="['font-' + fontFamily, {'bold': isBold}]" v-model="text">
           </div>

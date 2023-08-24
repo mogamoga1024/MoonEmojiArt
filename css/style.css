@@ -53,6 +53,10 @@ button, input, select, textarea {
   column-gap: 4px;
 }
 
+.item.wrap {
+  flex-wrap: wrap;
+}
+
 .radio-wrapper {
   display: inline-block;
   white-space: nowrap;
