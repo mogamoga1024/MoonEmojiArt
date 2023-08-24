@@ -6,15 +6,8 @@
 デバグ用  
 [https://mogamoga1024.github.io/MoonEmojiArt/?isDebug=true](https://mogamoga1024.github.io/MoonEmojiArt/?isDebug=true)
 
-## TODO
-
-縦書きで  「」【】ー ～  
-
 ## MEMO
 
 テキストの絵文字が反映されないのは黒の要素がないためです。  
 やろうと思えば反映できますが必要性を感じないので対応しません。
 
-縦書きで  
-「」【】ー ～  
-といった文字を90度回転させたいですが未対応です。
