@@ -102,6 +102,11 @@ const App = {
             this.imageSizeRatePrev = newVal;
         }
     },
+    computed: {
+        existsTukiArt() {
+            return this.resultMessage === "";
+        }
+    },
     methods: {
         onChangeInputFile(e) {
             this.file = e.target.files[0];
