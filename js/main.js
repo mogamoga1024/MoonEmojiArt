@@ -288,8 +288,8 @@ const App = {
             // todo end
 
             if (this.$refs.appWidth.clientWidth < this.$refs.canvas.width) {
-                // this.canvasScale = this.$refs.appWidth.clientWidth / this.$refs.canvas.width;
-                this.canvasScale = 0.5;
+                this.canvasScale = this.$refs.appWidth.clientWidth / this.$refs.canvas.width;
+                // this.canvasScale = 0.5;
             }
 
             if (this.mode === "text") {
