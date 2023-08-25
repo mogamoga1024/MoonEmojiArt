@@ -143,14 +143,16 @@
     <hr>
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
-    <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}" :class="{'not-exists-tuki-art': resultMessage !== ''}">
-      <canvas ref="canvas" v-show="shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
-      <!-- <canvas id="canvas" style="margin-left: 8px;"></canvas> -->
-      <div ref="resultWrapper">
+    <div style="overflow: hidden;" :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}" :class="{'not-exists-tuki-art': resultMessage !== ''}">
+      <div ref="canvasWrapper"
+           v-show="shouldDisplayMonochromeImage"
+           :class="{'tate-canvas': wasTate}">
+        <canvas id="canvas" ref="canvas" :style="{transform: `scale(${canvasScale})`}"></canvas>
+      </div>
+      <div ref="resultWrapper" :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
         <textarea id="result"
                   ref="result"
-                  :style="{transform: `scale(${resultScale})`}"
-                  :class="wasTate ? 'tate-canvas' : 'yoko-canvas'"></textarea>
+                  :style="{transform: `scale(${resultScale})`}"></textarea>
       </div>
     </div>
   </div>

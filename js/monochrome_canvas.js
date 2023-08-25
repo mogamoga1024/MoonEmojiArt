@@ -4,16 +4,12 @@ class MonochromeCanvas {
     #context = null;
     #isProcessing = false;
 
-    get canvas() {
-        return this.#canvas;
-    }
-
     get pixels() {
         return this.#context.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    constructor() {
-        this.#canvas = document.createElement("canvas");
+    constructor(canvas) {
+        this.#canvas = canvas;
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
