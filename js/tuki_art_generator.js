@@ -29,7 +29,7 @@ class TukiArtGenerator {
                 const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine);
                 text += isImageColorReverse ? this.#reverse(emoji) : emoji;
             }
-            text += "\n";
+            text += "<br>";
         }
 
         return text;

@@ -60,6 +60,7 @@ const App = {
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(3000 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
             isProcessing: false,
+            shouldOverflowHidden: false,
         }
     },
     created() {
@@ -296,24 +297,22 @@ const App = {
             return val;
         },
         clearResult() {
+            this.shouldOverflowHidden = true;
             this.$refs.canvas.width = 0;
             this.$refs.canvas.height = 0;
             this.$refs.result.style.transform = "scale(1)";
-            this.$refs.result.style.width = "0px";
-            this.$refs.result.style.height = "0px";
-            this.$refs.resultWrapper.style.width = "0px";
-            this.$refs.resultWrapper.style.height = "0px";
+            this.$refs.result.style.width = "0";
+            this.$refs.result.style.height = "0";
+            this.$refs.resultWrapper.style.width = "0";
+            this.$refs.resultWrapper.style.height = "0";
         },
         displayTukiArt(tukiArt) {
-            let scale = 1;
-
-            this.$refs.calcWidth.textContent = tukiArt.substring(0, tukiArt.indexOf("\n")); // 必ず"\n"が存在する
-            const resultWidth = this.$refs.calcWidth.clientWidth + 50;
-            this.$refs.result.style.width = `${resultWidth}px`;
+            this.$refs.result.style.width = "auto";
             this.$refs.result.style.height = "auto";
-            this.$refs.result.value = tukiArt;
-            this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
-            this.$refs.calcWidth.textContent = "";
+            this.$refs.resultWrapper.style.width = "auto";
+            this.$refs.resultWrapper.style.height = "auto";
+
+            this.$refs.result.innerHTML = tukiArt;
 
             const context = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
             if (this.mode === "image" && this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
@@ -328,15 +327,17 @@ const App = {
                 context.drawImage(monoCanvas.canvas, 0, 0);
             }
 
+            let scale = 1;
             if (this.mode === "text") {
                 this.wasTate = this.isTate;
+                this.shouldOverflowHidden = false;
             }
             else {
                 this.wasTate = false;
-                if (this.$refs.appWidth.clientWidth < resultWidth) {
-                    scale = this.$refs.appWidth.clientWidth / resultWidth;
-                    this.$refs.result.style.transform = `scale(${scale})`;
+                if (this.$refs.appWidth.clientWidth < this.$refs.result.clientWidth) {
+                    scale = this.$refs.appWidth.clientWidth / this.$refs.result.clientWidth;
                 }
+                this.shouldOverflowHidden = true;
             }
 
             this.$refs.result.style.transform = `scale(${scale})`;

@@ -22,8 +22,7 @@
   </a>
   <div id="app">
     <div ref="appWidth"></div>
-    <span id="calc-width" ref="calcWidth"></span>
-    <h1>月文字ジェネレーター（JS版）v1.0.0</h1>
+    <h1>月文字ジェネレーター（JS版）v1.0.1</h1>
     <div>
       <div class="radio-wrapper">
         <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
@@ -143,10 +142,9 @@
       <canvas ref="canvas" v-show="shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
       <!-- <canvas id="canvas" style="margin-left: 8px;"></canvas> -->
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
-        <div ref="resultWrapper">
-          <textarea id="result" ref="result"
-                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                    :style="{visibility: !existsTukiArt || isProcessing ? 'hidden' : 'visible'}"></textarea>
+        <div ref="resultWrapper" :style="{overflow: shouldOverflowHidden ? 'hidden' : 'visible'}">
+          <div id="result" ref="result"
+               :style="{visibility: !existsTukiArt || isProcessing ? 'hidden' : 'visible'}"></div>
         </div>
       </div>
     </div>
