@@ -59,8 +59,6 @@ const App = {
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(3000 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
-            canvasScale: 1,
-            resultScale: 1,
         }
     },
     created() {
@@ -68,7 +66,7 @@ const App = {
         this.isDebug = params.get("isDebug") === "true";
     },
     mounted() {
-        monoCanvas = new MonochromeCanvas(this.$refs.canvas);
+        monoCanvas = new MonochromeCanvas();
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
             this.text = "「わーむほーる。」";
@@ -208,8 +206,6 @@ const App = {
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
-            this.canvasScale = 1;
-            this.resultScale = 1;
             this.resultMessage = "";
             if (this.mode === "text") {
                 this.text = this.text.replace(/\s/g, "");
@@ -269,6 +265,8 @@ const App = {
             return val;
         },
         displayTukiArt(tukiArt) {
+            let scale = 1;
+
             this.$refs.calcWidth.textContent = tukiArt.substring(0, tukiArt.indexOf("\n")); // 必ず"\n"が存在する
             const resultWidth = this.$refs.calcWidth.clientWidth + 50;
             this.$refs.result.style.width = `${resultWidth}px`;
@@ -277,8 +275,17 @@ const App = {
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
             this.$refs.calcWidth.textContent = "";
 
-            if (this.$refs.appWidth.clientWidth < this.$refs.canvas.width) {
-                this.canvasScale = this.$refs.appWidth.clientWidth / this.$refs.canvas.width;
+            const context = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
+            if (this.mode === "image" && this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
+                const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
+                this.$refs.canvas.width = this.$refs.appWidth.clientWidth;
+                this.$refs.canvas.height = monoCanvas.canvas.height * rate;
+                context.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+            }
+            else {
+                this.$refs.canvas.width = monoCanvas.canvas.width;
+                this.$refs.canvas.height = monoCanvas.canvas.height;
+                context.drawImage(monoCanvas.canvas, 0, 0);
             }
 
             if (this.mode === "text") {
@@ -287,13 +294,13 @@ const App = {
             else {
                 this.wasTate = false;
                 if (this.$refs.appWidth.clientWidth < resultWidth) {
-                    this.resultScale = this.$refs.appWidth.clientWidth / resultWidth;
+                    scale = this.$refs.appWidth.clientWidth / resultWidth;
+                    this.$refs.result.style.transform = `scale(${scale})`;
                 }
             }
 
-            this.$refs.canvasWrapper.style.width = `${this.$refs.canvas.width * this.canvasScale}px`;
-            this.$refs.canvasWrapper.style.height = `${this.$refs.canvas.height * this.canvasScale}px`;
-            this.$refs.resultWrapper.style.height = `${this.$refs.result.clientHeight * this.resultScale}px`;
+            this.$refs.result.style.transform = `scale(${scale})`;
+            this.$refs.resultWrapper.style.height = `${this.$refs.result.clientHeight * scale}px`;
 
             this.debugText = debugText;
         }
