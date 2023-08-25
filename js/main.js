@@ -59,6 +59,7 @@ const App = {
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(3000 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
+            isProcessing: false,
         }
     },
     created() {
@@ -206,29 +207,38 @@ const App = {
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
+            if (this.isProcessing) {
+                return;
+            }
+            this.isProcessing = true;
+
             this.resultMessage = "";
             if (this.mode === "text") {
                 this.text = this.text.replace(/\s/g, "");
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.clearResult();
+                    this.isProcessing = false;
                     return;
                 }
                 try {
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
                     const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
                     this.displayTukiArt(tukiArt);
+                    this.isProcessing = false;
                 }
                 catch(e) {
                     console.error(e);
                     this.resultMessage = MSG_ERROR;
                     this.clearResult();
+                    this.isProcessing = false;
                 }
             }
             else if (this.mode === "image") {
                 if (this.file == null || this.imageWidth === 0) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.clearResult();
+                    this.isProcessing = false;
                     return;
                 }
             
@@ -244,15 +254,18 @@ const App = {
                         this.baseColorDistance
                     ).then(() => {
                         this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
+                        this.isProcessing = false;
                     }).catch(e => {
                         console.error(e);
                         this.resultMessage = MSG_ERROR;
                         this.clearResult();
+                        this.isProcessing = false;
                     });
                 };
                 this.fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
                     this.clearResult();
+                    this.isProcessing = false;
                 };
             }
         },
