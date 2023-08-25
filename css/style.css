@@ -179,6 +179,7 @@ input[type="number"] {
   width: 100px;
   height: 100px;
   font-size: 12px;
+  transform-origin: top left;
 }
 
 .yoko-canvas {

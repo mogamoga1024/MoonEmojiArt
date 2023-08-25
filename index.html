@@ -21,6 +21,7 @@
     </svg>
   </a>
   <div id="app">
+    <div ref="appWidth"></div>
     <span id="calc-width" ref="calcWidth"></span>
     <h1>月文字ジェネレーター（JS版）</h1>
     <div>
@@ -145,7 +146,11 @@
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}" :class="{'not-exists-tuki-art': resultMessage !== ''}">
       <canvas ref="canvas" v-show="shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
       <!-- <canvas id="canvas" style="margin-left: 8px;"></canvas> -->
-      <textarea id="result" ref="result" :class="wasTate ? 'tate-canvas' : 'yoko-canvas'"></textarea>
+      <textarea
+        id="result"
+        ref="result"
+        :style="{transform: `scale(${resultScale})`}"
+        :class="wasTate ? 'tate-canvas' : 'yoko-canvas'"></textarea>
     </div>
   </div>
 

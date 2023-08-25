@@ -59,6 +59,7 @@ const App = {
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(3000 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
+            resultScale: 1,
         }
     },
     created() {
@@ -201,6 +202,7 @@ const App = {
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
+            this.resultScale = 1;
             this.resultMessage = "";
             if (this.mode === "text") {
                 this.text = this.text.replace(/\s/g, "");
@@ -261,7 +263,8 @@ const App = {
         },
         displayTukiArt(tukiArt) {
             this.$refs.calcWidth.textContent = tukiArt.substring(0, tukiArt.indexOf("\n")); // 必ず"\n"が存在する
-            this.$refs.result.style.width = `${this.$refs.calcWidth.clientWidth + 50}px`;
+            const resultWidth = this.$refs.calcWidth.clientWidth + 50;
+            this.$refs.result.style.width = `${resultWidth}px`;
             this.$refs.result.style.height = "auto";
             this.$refs.result.value = tukiArt;
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
@@ -272,6 +275,9 @@ const App = {
             }
             else {
                 this.wasTate = false;
+                if (this.$refs.appWidth.clientWidth < resultWidth) {
+                    this.resultScale = this.$refs.appWidth.clientWidth / resultWidth;
+                }
             }
 
             this.debugText = debugText;
