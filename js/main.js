@@ -284,7 +284,7 @@ const App = {
             }
         },
         onClickCopyButton() {
-            navigator.clipboard.writeText(this.$refs.result.value);
+            navigator.clipboard.writeText(this.$refs.result.innerHTML.replaceAll("<br>", "\n"));
             this.toggle = !this.toggle;
         },
         rangeCorrection(val, min, max) {
