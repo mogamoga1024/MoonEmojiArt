@@ -67,7 +67,7 @@ const App = {
         this.isDebug = params.get("isDebug") === "true";
     },
     mounted() {
-        monoCanvas = new MonochromeCanvas(this.$refs.canvas);
+        monoCanvas = new MonochromeCanvas();
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
             this.text = "「わーむほーる。」";
@@ -269,6 +269,19 @@ const App = {
             this.$refs.result.value = tukiArt;
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
             this.$refs.calcWidth.textContent = "";
+
+            const context = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
+            if (this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
+                const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
+                this.$refs.canvas.width = this.$refs.appWidth.clientWidth;
+                this.$refs.canvas.height = monoCanvas.canvas.height * rate;
+                context.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+            }
+            else {
+                this.$refs.canvas.width = monoCanvas.canvas.width;
+                this.$refs.canvas.height = monoCanvas.canvas.height;
+                context.drawImage(monoCanvas.canvas, 0, 0);
+            }
 
             if (this.mode === "text") {
                 this.wasTate = this.isTate;
