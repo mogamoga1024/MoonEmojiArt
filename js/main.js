@@ -67,7 +67,6 @@ const App = {
         this.isDebug = params.get("isDebug") === "true";
     },
     mounted() {
-        monoCanvas = new MonochromeCanvas();
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
             this.text = "「わーむほーる。」";
@@ -212,12 +211,15 @@ const App = {
             }
             this.isProcessing = true;
 
+            monoCanvas = new MonochromeCanvas();
+
             this.resultMessage = "";
             if (this.mode === "text") {
                 this.text = this.text.replace(/\s/g, "");
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.clearResult();
+                    monoCanvas = null;
                     this.isProcessing = false;
                     return;
                 }
@@ -225,12 +227,14 @@ const App = {
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
                     const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
                     this.displayTukiArt(tukiArt);
+                    monoCanvas = null;
                     this.isProcessing = false;
                 }
                 catch(e) {
                     console.error(e);
                     this.resultMessage = MSG_ERROR;
                     this.clearResult();
+                    monoCanvas = null;
                     this.isProcessing = false;
                 }
             }
@@ -238,6 +242,7 @@ const App = {
                 if (this.file == null || this.imageWidth === 0) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.clearResult();
+                    monoCanvas = null;
                     this.isProcessing = false;
                     return;
                 }
@@ -254,17 +259,20 @@ const App = {
                         this.baseColorDistance
                     ).then(() => {
                         this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
+                        monoCanvas = null;
                         this.isProcessing = false;
                     }).catch(e => {
                         console.error(e);
                         this.resultMessage = MSG_ERROR;
                         this.clearResult();
+                        monoCanvas = null;
                         this.isProcessing = false;
                     });
                 };
                 this.fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
                     this.clearResult();
+                    monoCanvas = null;
                     this.isProcessing = false;
                 };
             }
