@@ -211,6 +211,7 @@ const App = {
                 this.text = this.text.replace(/\s/g, "");
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
+                    this.clearResult();
                     return;
                 }
                 try {
@@ -221,11 +222,13 @@ const App = {
                 catch(e) {
                     console.error(e);
                     this.resultMessage = MSG_ERROR;
+                    this.clearResult();
                 }
             }
             else if (this.mode === "image") {
                 if (this.file == null || this.imageWidth === 0) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
+                    this.clearResult();
                     return;
                 }
             
@@ -244,10 +247,12 @@ const App = {
                     }).catch(e => {
                         console.error(e);
                         this.resultMessage = MSG_ERROR;
+                        this.clearResult();
                     });
                 };
                 this.fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
+                    this.clearResult();
                 };
             }
         },
@@ -263,6 +268,15 @@ const App = {
                 return max;
             }
             return val;
+        },
+        clearResult() {
+            this.$refs.canvas.width = 0;
+            this.$refs.canvas.height = 0;
+            this.$refs.result.style.transform = "scale(1)";
+            this.$refs.result.style.width = "0px";
+            this.$refs.result.style.height = "0px";
+            this.$refs.resultWrapper.style.width = "0px";
+            this.$refs.resultWrapper.style.height = "0px";
         },
         displayTukiArt(tukiArt) {
             let scale = 1;
