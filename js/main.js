@@ -111,6 +111,7 @@ const App = {
     methods: {
         onChangeInputFile(e) {
             this.file = e.target.files[0];
+            e.target.value = "";
 
             const img = new Image();
 
