@@ -145,6 +145,7 @@
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
         <div ref="resultWrapper">
           <textarea id="result" ref="result"
+                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                     :style="{visibility: !existsTukiArt || isProcessing ? 'hidden' : 'visible'}"></textarea>
         </div>
       </div>
