@@ -308,10 +308,10 @@ const App = {
             this.$refs.resultWrapper.style.height = "0";
         },
         displayTukiArt(tukiArt) {
-            this.$refs.result.style.width = "auto";
-            this.$refs.result.style.height = "auto";
-            this.$refs.resultWrapper.style.width = "auto";
-            this.$refs.resultWrapper.style.height = "auto";
+            this.$refs.result.style.width = "";
+            this.$refs.result.style.height = "";
+            this.$refs.resultWrapper.style.width = "";
+            this.$refs.resultWrapper.style.height = "";
 
             this.$refs.result.innerHTML = tukiArt;
 
