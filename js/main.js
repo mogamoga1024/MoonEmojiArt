@@ -293,6 +293,8 @@ const App = {
                 }
             }
 
+            this.$refs.resultWrapper.style.height = `${this.$refs.result.clientHeight * this.resultScale}px`;
+
             this.debugText = debugText;
         }
     }
