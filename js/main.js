@@ -272,24 +272,8 @@ const App = {
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
             this.$refs.calcWidth.textContent = "";
 
-            // todo start
-            // const context = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
-            // if (this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
-            //     const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
-            //     this.$refs.canvas.width = this.$refs.appWidth.clientWidth;
-            //     this.$refs.canvas.height = monoCanvas.canvas.height * rate;
-            //     context.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
-            // }
-            // else {
-            //     this.$refs.canvas.width = monoCanvas.canvas.width;
-            //     this.$refs.canvas.height = monoCanvas.canvas.height;
-            //     context.drawImage(monoCanvas.canvas, 0, 0);
-            // }
-            // todo end
-
             if (this.$refs.appWidth.clientWidth < this.$refs.canvas.width) {
                 this.canvasScale = this.$refs.appWidth.clientWidth / this.$refs.canvas.width;
-                // this.canvasScale = 0.5;
             }
 
             if (this.mode === "text") {

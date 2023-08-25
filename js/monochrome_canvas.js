@@ -45,7 +45,6 @@ class MonochromeCanvas {
 
     #tateText(text, font, yokoPixelCount, tateMargin = 4) {
         const tmpCanvas = document.createElement("canvas");
-        // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ「」()（）【】";
@@ -301,7 +300,6 @@ class MonochromeCanvas {
 
         const tateMargin = 4;
         const tmpCanvas = document.createElement("canvas");
-        // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         tmpCanvas.width = this.#canvas.width;
         tmpCanvas.height = trimmed.height + tateMargin * 2;
