@@ -59,6 +59,7 @@ const App = {
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(3000 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
+            canvasScale: 1,
             resultScale: 1,
         }
     },
@@ -67,7 +68,7 @@ const App = {
         this.isDebug = params.get("isDebug") === "true";
     },
     mounted() {
-        monoCanvas = new MonochromeCanvas();
+        monoCanvas = new MonochromeCanvas(this.$refs.canvas);
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
             this.text = "「わーむほーる。」";
@@ -202,6 +203,7 @@ const App = {
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
+            this.canvasScale = 1;
             this.resultScale = 1;
             this.resultMessage = "";
             if (this.mode === "text") {
@@ -270,17 +272,8 @@ const App = {
             this.$refs.result.style.height = `${this.$refs.result.scrollHeight}px`;
             this.$refs.calcWidth.textContent = "";
 
-            const context = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
-            if (this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
-                const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
-                this.$refs.canvas.width = this.$refs.appWidth.clientWidth;
-                this.$refs.canvas.height = monoCanvas.canvas.height * rate;
-                context.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
-            }
-            else {
-                this.$refs.canvas.width = monoCanvas.canvas.width;
-                this.$refs.canvas.height = monoCanvas.canvas.height;
-                context.drawImage(monoCanvas.canvas, 0, 0);
+            if (this.$refs.appWidth.clientWidth < this.$refs.canvas.width) {
+                this.canvasScale = this.$refs.appWidth.clientWidth / this.$refs.canvas.width;
             }
 
             if (this.mode === "text") {
@@ -293,6 +286,8 @@ const App = {
                 }
             }
 
+            this.$refs.canvasWrapper.style.width = `${this.$refs.canvas.width * this.canvasScale}px`;
+            this.$refs.canvasWrapper.style.height = `${this.$refs.canvas.height * this.canvasScale}px`;
             this.$refs.resultWrapper.style.height = `${this.$refs.result.clientHeight * this.resultScale}px`;
 
             this.debugText = debugText;

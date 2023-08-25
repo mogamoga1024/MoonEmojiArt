@@ -175,6 +175,10 @@ input[type="number"] {
   left: 0;
 }
 
+#canvas {
+  transform-origin: top left;
+}
+
 #result {
   display: block;
   width: 100px;
