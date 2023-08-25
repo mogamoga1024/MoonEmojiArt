@@ -84,19 +84,24 @@ const App = {
     },
     watch: {
         tukiCount(newVal) {
-            if (newVal === "") return; this.tukiCountPrev = newVal;
+            if (newVal === "") return;
+            this.tukiCountPrev = newVal;
         },
         baseAverageColor(newVal) {
-            if (newVal === "") return; this.baseAverageColorPrev = newVal;
+            if (newVal === "") return;
+            this.baseAverageColorPrev = newVal;
         },
         baseColorDistance(newVal) {
-            if (newVal === "") return; this.baseColorDistancePrev = newVal;
+            if (newVal === "") return;
+            this.baseColorDistancePrev = newVal;
         },
         imageWidth(newVal) {
-            if (newVal === "") return; this.imageWidthPrev = newVal;
+            if (newVal === "") return;
+            this.imageWidthPrev = newVal;
         },
         imageSizeRate(newVal) {
-            if (newVal === "") return; this.imageSizeRatePrev = newVal;
+            if (newVal === "") return;
+            this.imageSizeRatePrev = newVal;
         }
     },
     methods: {
