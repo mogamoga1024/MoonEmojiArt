@@ -31,7 +31,7 @@ class MonochromeCanvas {
                 break;
             case "serif":
                 fontFamily = "'Noto Serif JP', serif";
-                if (isTate) {
+                if (isTate || text.length == 1) {
                     tateMargin = 8;
                 }
                 break;
