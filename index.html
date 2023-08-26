@@ -22,7 +22,7 @@
   </a>
   <div id="app">
     <div ref="appWidth"></div>
-    <h1>月文字ジェネレーター（JS版）v1.0.3</h1>
+    <h1>月文字ジェネレーター（JS版）v1.0.2</h1>
     <div>
       <div class="radio-wrapper">
         <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
@@ -137,17 +137,22 @@
     <hr>
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
-    <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
+    <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal',
+                  overflowX: shouldOverflowHidden ? 'hidden' : 'visible',
+                  overflowY: !wasTate ? 'hidden' : 'visible'}"
          :class="{'not-exists-tuki-art': !existsTukiArt}">
       <canvas ref="canvas" v-show="shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
+      <!-- <canvas id="canvas" style="margin-left: 8px;"></canvas> -->
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
-        <canvas id="result" ref="result"></canvas>
+        <div ref="resultWrapper">
+          <div id="result" ref="result"
+               :style="{visibility: !existsTukiArt || isProcessing ? 'hidden' : 'visible'}"></div>
+        </div>
       </div>
     </div>
   </div>
 
   <script src="js/constants.js"></script>
-  <script src="js/canvas_utils.js"></script>
   <script src="js/monochrome_canvas.js"></script>
   <script src="js/tuki_art_generator.js"></script>
   <script src="js/main.js"></script>

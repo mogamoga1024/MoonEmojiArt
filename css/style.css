@@ -159,11 +159,30 @@ input[type="number"] {
   opacity: 0 !important;
 }
 
+#calc-width {
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  font-size: 1rem; /* #result.font-sizeと同じであること */
+}
+
 .not-exists-tuki-art {
   position: absolute;
   visibility: hidden;
   top: 0;
   left: 0;
+}
+
+#result {
+  display: inline-block;
+  background-color: white;
+  white-space: nowrap;
+  letter-spacing: 0;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  transform-origin: top left;
 }
 
 .yoko-canvas {
