@@ -60,7 +60,7 @@ const App = {
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(3000 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
             isProcessing: false,
-            shouldOverflowHidden: false,
+            // shouldOverflowHidden: false,
         }
     },
     created() {
@@ -232,7 +232,7 @@ const App = {
                 }
                 try {
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
-                    const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
+                    const tukiArt = tukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
                     this.displayTukiArt(tukiArt);
                     monoCanvas = null;
                     this.isProcessing = false;
@@ -265,7 +265,7 @@ const App = {
                         this.needOutline,
                         this.baseColorDistance
                     ).then(() => {
-                        this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
+                        this.displayTukiArt(tukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
                         monoCanvas = null;
                         this.isProcessing = false;
                     }).catch(e => {
@@ -298,51 +298,60 @@ const App = {
             return val;
         },
         clearResult() {
-            this.shouldOverflowHidden = true;
+            // this.shouldOverflowHidden = true;
             this.$refs.canvas.width = 0;
             this.$refs.canvas.height = 0;
-            this.$refs.result.style.transform = "scale(1)";
-            this.$refs.result.style.width = "0";
-            this.$refs.result.style.height = "0";
-            this.$refs.resultWrapper.style.width = "0";
-            this.$refs.resultWrapper.style.height = "0";
+            // this.$refs.result.style.transform = "scale(1)";
+            // this.$refs.result.style.width = "0";
+            // this.$refs.result.style.height = "0";
+            // this.$refs.resultWrapper.style.width = "0";
+            // this.$refs.resultWrapper.style.height = "0";
+            this.$refs.result.width = 0;
+            this.$refs.result.height = 0;
         },
         displayTukiArt(tukiArt) {
-            this.$refs.result.style.width = "";
-            this.$refs.result.style.height = "";
-            this.$refs.resultWrapper.style.width = "";
-            this.$refs.resultWrapper.style.height = "";
+            // this.$refs.result.style.width = "";
+            // this.$refs.result.style.height = "";
+            // this.$refs.resultWrapper.style.width = "";
+            // this.$refs.resultWrapper.style.height = "";
 
-            this.$refs.result.innerHTML = tukiArt;
+            // this.$refs.result.innerHTML = tukiArt;
 
-            const context = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
+            const monoContext = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
             if (this.mode === "image" && this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
                 const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
                 this.$refs.canvas.width = this.$refs.appWidth.clientWidth;
                 this.$refs.canvas.height = monoCanvas.canvas.height * rate;
-                context.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+                monoContext.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
             }
             else {
                 this.$refs.canvas.width = monoCanvas.canvas.width;
                 this.$refs.canvas.height = monoCanvas.canvas.height;
-                context.drawImage(monoCanvas.canvas, 0, 0);
+                monoContext.drawImage(monoCanvas.canvas, 0, 0);
             }
 
-            let scale = 1;
+            const tukiArtCanvas = tukiArtGenerator.createTukiArtCanvas(tukiArt);
+
+            const resultContext = this.$refs.result.getContext("2d", { willReadFrequently: true });
+            this.$refs.result.width = tukiArtCanvas.width / 2;
+            this.$refs.result.height = tukiArtCanvas.height / 2;
+            resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
+
+            // let scale = 1;
             if (this.mode === "text") {
                 this.wasTate = this.isTate;
-                this.shouldOverflowHidden = false;
+                // this.shouldOverflowHidden = false;
             }
             else {
                 this.wasTate = false;
-                if (this.$refs.appWidth.clientWidth < this.$refs.result.clientWidth) {
-                    scale = this.$refs.appWidth.clientWidth / this.$refs.result.clientWidth;
-                }
-                this.shouldOverflowHidden = true;
+                // if (this.$refs.appWidth.clientWidth < this.$refs.result.clientWidth) {
+                //     scale = this.$refs.appWidth.clientWidth / this.$refs.result.clientWidth;
+                // }
+                // this.shouldOverflowHidden = true;
             }
 
-            this.$refs.result.style.transform = `scale(${scale})`;
-            this.$refs.resultWrapper.style.height = `${this.$refs.result.clientHeight * scale}px`;
+            // this.$refs.result.style.transform = `scale(${scale})`;
+            // this.$refs.resultWrapper.style.height = `${this.$refs.result.clientHeight * scale}px`;
 
             this.debugText = debugText;
         }
