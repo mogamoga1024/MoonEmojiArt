@@ -165,7 +165,7 @@ input[type="number"] {
   top: 0;
   left: 0;
   white-space: nowrap;
-  font-size: 12px; /* #result.font-sizeと同じであること */
+  font-size: 1rem; /* #result.font-sizeと同じであること */
 }
 
 .not-exists-tuki-art {
