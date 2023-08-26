@@ -137,19 +137,10 @@
     <hr>
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
-    <!-- <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal',
-                  overflowX: shouldOverflowHidden ? 'hidden' : 'visible',
-                  overflowY: !wasTate ? 'hidden' : 'visible'}"
-         :class="{'not-exists-tuki-art': !existsTukiArt}"> -->
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
          :class="{'not-exists-tuki-art': !existsTukiArt}">
       <canvas ref="canvas" v-show="shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
-      <!-- <canvas id="canvas" style="margin-left: 8px;"></canvas> -->
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
-        <!-- <div ref="resultWrapper">
-          <div id="result" ref="result"
-               :style="{visibility: !existsTukiArt || isProcessing ? 'hidden' : 'visible'}"></div>
-        </div> -->
         <canvas id="result" ref="result"></canvas>
       </div>
     </div>
