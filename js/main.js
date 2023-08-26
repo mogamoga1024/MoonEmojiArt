@@ -5,7 +5,6 @@ function debug(text) {
 };
 
 let monoCanvas = null;
-let tukiArtGenerator = new TukiArtGenerator();
 
 const MSG_NO_INPUT_DATA = `・変換したい文か画像を決めて生成ボタンを押してね！
 ・サイズが小さいとクオリティが低くなるよ！
@@ -232,7 +231,7 @@ const App = {
                 }
                 try {
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
-                    const tukiArt = tukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
+                    const tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
                     this.displayTukiArt(tukiArt);
                     monoCanvas = null;
                     this.isProcessing = false;
@@ -265,7 +264,7 @@ const App = {
                         this.needOutline,
                         this.baseColorDistance
                     ).then(() => {
-                        this.displayTukiArt(tukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
+                        this.displayTukiArt(TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
                         monoCanvas = null;
                         this.isProcessing = false;
                     }).catch(e => {
@@ -330,7 +329,7 @@ const App = {
                 monoContext.drawImage(monoCanvas.canvas, 0, 0);
             }
 
-            const tukiArtCanvas = tukiArtGenerator.createTukiArtCanvas(tukiArt);
+            const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(tukiArt);
 
             const resultContext = this.$refs.result.getContext("2d", { willReadFrequently: true });
             this.$refs.result.width = tukiArtCanvas.width / 2;

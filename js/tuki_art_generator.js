@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    createTukiArt(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
+    static createTukiArt(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
         let text = "";
 
         const data = pixels.data;
@@ -35,7 +35,7 @@ class TukiArtGenerator {
         return text;
     }
 
-    createTukiArtCanvas(tukiArt) {
+    static createTukiArtCanvas(tukiArt) {
         const tmpCanvas = document.createElement("canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
     
@@ -86,11 +86,11 @@ class TukiArtGenerator {
         return rtnCanvas;
     }    
 
-    #colorToBit(color) {
+    static #colorToBit(color) {
         return color < 128 ? B : W;
     }
 
-    _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
+    static _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
         let rtnTuki = null;
         let hitCount = -1;
 
@@ -156,7 +156,7 @@ class TukiArtGenerator {
         return rtnTuki.emoji;
     }
 
-    #reverse(emoji) {
+    static #reverse(emoji) {
         switch (emoji) {
             case "🌑": return "🌕";
             case "🌒": return "🌖";
@@ -170,7 +170,7 @@ class TukiArtGenerator {
         }
     }
 
-    #tukiList = [
+    static #tukiList = [
         {
             emoji: "🌑",
             priority: 2,
