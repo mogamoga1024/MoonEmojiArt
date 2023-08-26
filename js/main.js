@@ -264,7 +264,8 @@ const App = {
                         this.needOutline,
                         this.baseColorDistance
                     ).then(() => {
-                        this.displayTukiArt(TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
+                        const tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp);
+                        this.displayTukiArt(tukiArt);
                         monoCanvas = null;
                         this.isProcessing = false;
                     }).catch(e => {
