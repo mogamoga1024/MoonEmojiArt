@@ -328,6 +328,18 @@ const App = {
             navigator.clipboard.writeText(this.tukiArt);
             this.toggle = !this.toggle;
         },
+        onClickDownLoadButton() {
+            if (this.tukiArt === "") {
+                return;
+            }
+            const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
+            const blob = new Blob([bom, this.tukiArt], {type:"text/plan"});
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "moon_art.txt";
+            link.click();
+            URL.revokeObjectURL(link.href);
+        },
         rangeCorrection(val, min, max) {
             if (val < min) {
                 return min;
