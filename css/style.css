@@ -176,7 +176,7 @@ input[type="number"] {
   width: 100px;
   height: 40px;
   top: 45px;
-  left: calc(-1 * (100px - 120px) / 2); /* 引く数は#copy-btn-wrapper.width */
+  left: calc(-1 * (100px - 90px) / 2); /* 引く数は#copy-btn-wrapper.width */
   font-size: 1.2rem;
   line-height: 40px;
   text-align: center;
