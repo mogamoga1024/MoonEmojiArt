@@ -28,6 +28,7 @@ const App = {
             timer: null,
             toggle: false, // この値自体には何の関心もない。ただのCSSの制御に利用する。
             resultMessage: MSG_NO_INPUT_DATA,
+            tukiArt: "",
             shouldDisplayMonochromeImage: false,
             mode: "text", // "text" | "image"
             text: "",
@@ -238,8 +239,8 @@ const App = {
                 }
                 try {
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
-                    const tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
-                    this.displayTukiArt(tukiArt);
+                    this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
+                    this.displayTukiArt();
                     monoCanvas = null;
                     this.isProcessing = false;
                 }
@@ -276,8 +277,8 @@ const App = {
                         this.needOutline,
                         this.baseColorDistance
                     ).then(() => {
-                        const tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp);
-                        this.displayTukiArt(tukiArt);
+                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp);
+                        this.displayTukiArt();
                         monoCanvas = null;
                         this.isProcessing = false;
                     }).catch(e => {
@@ -302,8 +303,7 @@ const App = {
             }
         },
         onClickCopyButton() {
-            // todo
-            navigator.clipboard.writeText(this.$refs.result.innerHTML.replaceAll("<br>", "\n"));
+            navigator.clipboard.writeText(this.tukiArt);
             this.toggle = !this.toggle;
         },
         rangeCorrection(val, min, max) {
@@ -321,7 +321,7 @@ const App = {
             this.$refs.result.width = 0;
             this.$refs.result.height = 0;
         },
-        displayTukiArt(tukiArt) {
+        displayTukiArt() {
             const monoContext = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
             if (this.mode === "image" && this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
                 const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
@@ -337,7 +337,7 @@ const App = {
 
             let tukiArtCanvas = null;
             try {
-                tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(tukiArt);
+                tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
                 const resultContext = this.$refs.result.getContext("2d", { willReadFrequently: true });
                 if (this.mode === "image" && this.$refs.appWidth.clientWidth < tukiArtCanvas.width) {
                     const rate = this.$refs.appWidth.clientWidth / tukiArtCanvas.width;
