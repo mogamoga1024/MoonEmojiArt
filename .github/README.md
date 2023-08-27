@@ -1,10 +1,11 @@
-# MoonEmojiArtDebug
-月文字ジェネレータDEBUG（JS版）  
+# MoonEmojiArt
+月文字ジェネレータ（JS版）  
 
-[https://mogamoga1024.github.io/MoonEmojiArtDebug/](https://mogamoga1024.github.io/MoonEmojiArtDebug/)
+https://mogamoga1024.github.io/MoonEmojiArt/
 
 個人的デバグ用  
-[https://mogamoga1024.github.io/MoonEmojiArtDebug/?isDebug=true](https://mogamoga1024.github.io/MoonEmojiArtDebug/?isDebug=true)
+https://mogamoga1024.github.io/MoonEmojiArt/?isDebug=true  
+https://github.com/mogamoga1024/MoonEmojiArtDebug
 
 ## MEMO
 
