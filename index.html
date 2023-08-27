@@ -24,12 +24,12 @@
   <div id="app">
     <div ref="appWidth"></div>
     <h1>月文字ジェネレーター（JS版）v1.0.10</h1>
-    <div>
+    <div class="item-list">
       <div class="radio-wrapper">
         <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
         <div class="radio" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
       </div>
-      <div id="btn-debug" class="btn" :class="{'selected': shouldDisplayMonochromeImage}" @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">一次加工確認</div>
+      <div class="btn" :class="{'selected': shouldDisplayMonochromeImage}" @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">一次加工確認</div>
     </div>
     <hr>
     <div id="setting" v-show="mode === 'text'">

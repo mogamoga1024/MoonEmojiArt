@@ -121,10 +121,6 @@ button, input, select, textarea {
   opacity: 0.7;
 }
 
-#btn-debug {
-  margin-left: 16px;
-}
-
 input[type="file"] {
   display: none;
 }
