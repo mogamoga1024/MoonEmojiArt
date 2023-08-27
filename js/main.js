@@ -24,8 +24,7 @@ const App = {
         return {
             isDebug: false,
             debugText: debugText,
-            timer: null,
-            toggle: false, // この値自体には何の関心もない。ただのCSSの制御に利用する。
+            canCopyButtonClick: true,
             resultMessage: MSG_NO_INPUT_DATA,
             tukiArt: "",
             shouldDisplayMonochromeImage: false,
@@ -325,8 +324,18 @@ const App = {
             }
         },
         onClickCopyButton() {
+            if (!this.canCopyButtonClick) {
+                return;
+            }
+            this.canCopyButtonClick = false;
+
             navigator.clipboard.writeText(this.tukiArt);
-            this.toggle = !this.toggle;
+            
+            this.$refs.copyMessage.classList.add("display-copy-message");
+            setTimeout(() => {
+                this.$refs.copyMessage.classList.remove("display-copy-message");
+                this.canCopyButtonClick = true;
+            }, 2000);
         },
         onClickDownLoadButton() {
             if (this.tukiArt === "") {

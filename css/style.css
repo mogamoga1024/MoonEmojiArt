@@ -134,29 +134,68 @@ input[type="number"] {
 }
 
 #generate-btn, #copy-btn, #download-btn {
+  height: 36px;
   font-size: 1.2rem;
 }
 
-#copy-btn, #download-btn {
-  margin-left: 8px;
+#generate-btn {
+  width: 55px;
 }
 
-#copied-messega {
-  margin-left: 8px;
-  font-weight: bold;
-  opacity: 0;
+#copy-btn-wrapper {
+  position: relative;
+  width: 72px;
 }
 
-.fadeout-enter-from, .fadeout-leave-from {
-  opacity: 1 !important;
+#copy-btn {
+  position: absolute;
+  width: 100%;
 }
 
-.fadeout-enter-active, .fadeout-leave-active {
-  transition: all 1.5s;
+#copy-message {
+  position: absolute;
+  visibility: hidden;
 }
 
-.fadeout-enter-to, .fadeout-leave-to {
-  opacity: 0 !important;
+.display-copy-message {
+  position: absolute;
+  visibility: visible !important;
+  width: 100px;
+  height: 40px;
+  top: 45px;
+  left: calc(-1 * (100px - 72px) / 2);
+  font-size: 1.2rem;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  animation: fade-out 2s ease-in forwards;
+  user-select: none;
+}
+
+@keyframes fade-out {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.display-copy-message::before {
+  position: absolute;
+  left: calc((100px - 40px) / 2);
+  top: -35px;
+  border: 20px solid transparent;
+  border-bottom: 20px solid black;
+  content: "";
+}
+
+#download-btn {
+  width: 130px;
 }
 
 .not-exists-tuki-art {
