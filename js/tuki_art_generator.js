@@ -74,7 +74,7 @@ class TukiArtGenerator {
             lineHeight = tmpCanvas.height + margin;
 
             rtnCanvasWidth = tmpContext.measureText(textList[0]).width;
-            rtnCanvasHeight = lineHeight * textList.length;
+            rtnCanvasHeight = lineHeight * (textList.length - 1);
 
             const isValidCanvas = canvasSize.test({
                 width : rtnCanvasWidth,
