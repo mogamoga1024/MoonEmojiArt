@@ -240,7 +240,14 @@ const App = {
                 try {
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
                     this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
-                    this.displayTukiArt();
+                    try {
+                        this.displayTukiArt();
+                    }
+                    catch (e) {
+                        console.error(e);
+                        this.resultMessage = MSG_TOO_MANY_CHARA;
+                    }
+                    this.wasTate = this.isTate;
                     monoCanvas = null;
                     this.isProcessing = false;
                 }
@@ -278,7 +285,14 @@ const App = {
                         this.baseColorDistance
                     ).then(() => {
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp);
-                        this.displayTukiArt();
+                        try {
+                            this.displayTukiArt();
+                        }
+                        catch (e) {
+                            console.error(e);
+                            this.resultMessage = MSG_TOO_MANY_CHARA;
+                        }
+                        this.wasTate = false;
                         monoCanvas = null;
                         this.isProcessing = false;
                     }).catch(e => {
@@ -335,32 +349,18 @@ const App = {
                 monoContext.drawImage(monoCanvas.canvas, 0, 0);
             }
 
-            let tukiArtCanvas = null;
-            try {
-                tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
-                const resultContext = this.$refs.result.getContext("2d", { willReadFrequently: true });
-                if (this.mode === "image" && this.$refs.appWidth.clientWidth < tukiArtCanvas.width) {
-                    const rate = this.$refs.appWidth.clientWidth / tukiArtCanvas.width;
-                    this.$refs.result.width = this.$refs.appWidth.clientWidth;
-                    this.$refs.result.height = tukiArtCanvas.height * rate;
-                    resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
-                }
-                else {
-                    this.$refs.result.width = tukiArtCanvas.width;
-                    this.$refs.result.height = tukiArtCanvas.height;
-                    resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
-                }
-            }
-            catch (e) {
-                console.error(e);
-                this.resultMessage = MSG_TOO_MANY_CHARA;
-            }
-
-            if (this.mode === "text") {
-                this.wasTate = this.isTate;
+            const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
+            const resultContext = this.$refs.result.getContext("2d", { willReadFrequently: true });
+            if (this.mode === "image" && this.$refs.appWidth.clientWidth < tukiArtCanvas.width) {
+                const rate = this.$refs.appWidth.clientWidth / tukiArtCanvas.width;
+                this.$refs.result.width = this.$refs.appWidth.clientWidth;
+                this.$refs.result.height = tukiArtCanvas.height * rate;
+                resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
             }
             else {
-                this.wasTate = false;
+                this.$refs.result.width = tukiArtCanvas.width;
+                this.$refs.result.height = tukiArtCanvas.height;
+                resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
             }
 
             this.debugText = debugText;
