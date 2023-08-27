@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    generate(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
+    static createTukiArt(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
         let text = "";
 
         const data = pixels.data;
@@ -29,17 +29,92 @@ class TukiArtGenerator {
                 const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine);
                 text += isImageColorReverse ? this.#reverse(emoji) : emoji;
             }
-            text += "<br>";
+            text += "\n";
         }
 
         return text;
     }
 
-    #colorToBit(color) {
+    static createTukiArtCanvas(tukiArt) {
+        const textList = tukiArt.split("\n");
+
+        const tmpCanvas = document.createElement("canvas");
+        const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
+    
+        let fontSize = 12;
+        let font = "";
+        let lineHeight = 0;
+        let rtnCanvasWidth = 0;
+        let rtnCanvasHeight = 0;
+        while (true) {
+            if (fontSize < 1) {
+                throw new Error("文字数多すぎ");
+            }
+
+            font = `400 ${fontSize}px 'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif`;
+        
+            tmpContext.font = font;
+            tmpContext.textBaseline = "top";
+            tmpContext.textAlign = "center";
+            const measure = tmpContext.measureText("🌑")
+            tmpCanvas.width = Math.ceil(measure.width);
+            tmpCanvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
+    
+            tmpContext.font = font;
+            tmpContext.fillStyle = "#fff";
+            tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
+            tmpContext.fillStyle = "#000";
+            tmpContext.textBaseline = "top";
+            tmpContext.textAlign = "center";
+            tmpContext.fillText("🌑", tmpCanvas.width / 2, 0);
+            const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
+            const trimmed = CanvasUtils.trimming(tmpPixels);
+        
+            const margin = tmpCanvas.width - trimmed.width;
+            lineHeight = tmpCanvas.height + margin;
+
+            rtnCanvasWidth = tmpContext.measureText(textList[0]).width;
+            rtnCanvasHeight = lineHeight * textList.length;
+
+            const isValidCanvas = canvasSize.test({
+                width : rtnCanvasWidth,
+                height: rtnCanvasHeight
+            });
+            if (isValidCanvas) {
+                break;
+            }
+
+            fontSize -= 1;
+        }
+
+        const rtnCanvas = document.createElement("canvas");
+        const rtnContext = rtnCanvas.getContext("2d", { willReadFrequently: true });
+    
+        rtnCanvas.width = rtnCanvasWidth;
+        rtnCanvas.height = rtnCanvasHeight;
+    
+        rtnContext.fillStyle = "#fff";
+        rtnContext.fillRect(0, 0, rtnCanvas.width, rtnCanvas.height);
+    
+        rtnContext.font = font;
+        rtnContext.fillStyle = "#000";
+        rtnContext.textBaseline = "top";
+        rtnContext.textAlign = "left";
+    
+        for (let i = 0; i < textList.length; i++) {
+            const text = textList[i];
+            const y = i * lineHeight;
+            rtnContext.fillText(text, 0, y);
+        }
+    
+        return rtnCanvas;
+    }    
+
+    static #colorToBit(color) {
         return color < 128 ? B : W;
     }
 
-    _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
+    static _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
         let rtnTuki = null;
         let hitCount = -1;
 
@@ -105,7 +180,7 @@ class TukiArtGenerator {
         return rtnTuki.emoji;
     }
 
-    #reverse(emoji) {
+    static #reverse(emoji) {
         switch (emoji) {
             case "🌑": return "🌕";
             case "🌒": return "🌖";
@@ -119,7 +194,7 @@ class TukiArtGenerator {
         }
     }
 
-    #tukiList = [
+    static #tukiList = [
         {
             emoji: "🌑",
             priority: 2,

@@ -5,13 +5,20 @@ function debug(text) {
 };
 
 let monoCanvas = null;
-let tukiArtGenerator = new TukiArtGenerator();
 
-const MSG_NO_INPUT_DATA = `・変換したい文か画像を決めて生成ボタンを押してね！
+const MSG_NO_INPUT_DATA = 
+`・変換したい文か画像を決めて生成ボタンを押してね！
 ・サイズが小さいとクオリティが低くなるよ！
 ・文に空白と絵文字は入れないでほしいな～
 ・ちなみにYouTubeに月文字を書き込むとスパム判定で表示されないよ！`;
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
+const MSG_FAILURE_TEXT_MONO = "文字数が多すぎて一次加工で失敗したよ。減らしてね。";
+const MSG_FAILURE_IMAGE_MONO = "画像サイズが大きすぎて一次加工で失敗したよ。減らしてね。";
+const MSG_TOO_MANY_CHARA = 
+`文字が多すぎて完成イメージが作れなかったよ。
+でもテキストデータだけは生きてるからコピーボタンから取得できるよ。
+クオリティが低下しても完成イメージが見たい場合はサイズを小さくしてね。
+ちなみに開発当時は文字をそのまま表示するスタンスだったけどスマホだと激重だったからやめたよ。`;
 
 const App = {
     data() {
@@ -60,7 +67,6 @@ const App = {
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(3000 * 10 / 100) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
             isProcessing: false,
-            shouldOverflowHidden: false,
         }
     },
     created() {
@@ -105,7 +111,7 @@ const App = {
     },
     computed: {
         existsTukiArt() {
-            return this.resultMessage === "";
+            return this.resultMessage === "" || this.resultMessage === MSG_TOO_MANY_CHARA;
         }
     },
     methods: {
@@ -232,14 +238,19 @@ const App = {
                 }
                 try {
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
-                    const tukiArt = tukiArtGenerator.generate(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
+                    const tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
                     this.displayTukiArt(tukiArt);
                     monoCanvas = null;
                     this.isProcessing = false;
                 }
                 catch(e) {
                     console.error(e);
-                    this.resultMessage = MSG_ERROR;
+                    if (e.constructor === TooLargeCanvasError) {
+                        this.resultMessage = MSG_FAILURE_TEXT_MONO;
+                    }
+                    else {
+                        this.resultMessage = MSG_ERROR;
+                    }
                     this.clearResult();
                     monoCanvas = null;
                     this.isProcessing = false;
@@ -265,12 +276,18 @@ const App = {
                         this.needOutline,
                         this.baseColorDistance
                     ).then(() => {
-                        this.displayTukiArt(tukiArtGenerator.generate(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp));
+                        const tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp);
+                        this.displayTukiArt(tukiArt);
                         monoCanvas = null;
                         this.isProcessing = false;
                     }).catch(e => {
                         console.error(e);
-                        this.resultMessage = MSG_ERROR;
+                        if (e.constructor === TooLargeCanvasError) {
+                            this.resultMessage = MSG_FAILURE_IMAGE_MONO;
+                        }
+                        else {
+                            this.resultMessage = MSG_ERROR;
+                        }
                         this.clearResult();
                         monoCanvas = null;
                         this.isProcessing = false;
@@ -285,6 +302,7 @@ const App = {
             }
         },
         onClickCopyButton() {
+            // todo
             navigator.clipboard.writeText(this.$refs.result.innerHTML.replaceAll("<br>", "\n"));
             this.toggle = !this.toggle;
         },
@@ -298,51 +316,52 @@ const App = {
             return val;
         },
         clearResult() {
-            this.shouldOverflowHidden = true;
             this.$refs.canvas.width = 0;
             this.$refs.canvas.height = 0;
-            this.$refs.result.style.transform = "scale(1)";
-            this.$refs.result.style.width = "0";
-            this.$refs.result.style.height = "0";
-            this.$refs.resultWrapper.style.width = "0";
-            this.$refs.resultWrapper.style.height = "0";
+            this.$refs.result.width = 0;
+            this.$refs.result.height = 0;
         },
         displayTukiArt(tukiArt) {
-            this.$refs.result.style.width = "";
-            this.$refs.result.style.height = "";
-            this.$refs.resultWrapper.style.width = "";
-            this.$refs.resultWrapper.style.height = "";
-
-            this.$refs.result.innerHTML = tukiArt;
-
-            const context = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
+            const monoContext = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
             if (this.mode === "image" && this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
                 const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
                 this.$refs.canvas.width = this.$refs.appWidth.clientWidth;
                 this.$refs.canvas.height = monoCanvas.canvas.height * rate;
-                context.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+                monoContext.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
             }
             else {
                 this.$refs.canvas.width = monoCanvas.canvas.width;
                 this.$refs.canvas.height = monoCanvas.canvas.height;
-                context.drawImage(monoCanvas.canvas, 0, 0);
+                monoContext.drawImage(monoCanvas.canvas, 0, 0);
             }
 
-            let scale = 1;
+            let tukiArtCanvas = null;
+            try {
+                tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(tukiArt);
+                const resultContext = this.$refs.result.getContext("2d", { willReadFrequently: true });
+                if (this.mode === "image" && this.$refs.appWidth.clientWidth < tukiArtCanvas.width) {
+                    const rate = this.$refs.appWidth.clientWidth / tukiArtCanvas.width;
+                    this.$refs.result.width = this.$refs.appWidth.clientWidth;
+                    this.$refs.result.height = tukiArtCanvas.height * rate;
+                    resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
+                }
+                else {
+                    this.$refs.result.width = tukiArtCanvas.width;
+                    this.$refs.result.height = tukiArtCanvas.height;
+                    resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
+                }
+            }
+            catch (e) {
+                console.error(e);
+                this.resultMessage = MSG_TOO_MANY_CHARA;
+            }
+
             if (this.mode === "text") {
                 this.wasTate = this.isTate;
-                this.shouldOverflowHidden = false;
             }
             else {
                 this.wasTate = false;
-                if (this.$refs.appWidth.clientWidth < this.$refs.result.clientWidth) {
-                    scale = this.$refs.appWidth.clientWidth / this.$refs.result.clientWidth;
-                }
-                this.shouldOverflowHidden = true;
             }
-
-            this.$refs.result.style.transform = `scale(${scale})`;
-            this.$refs.resultWrapper.style.height = `${this.$refs.result.clientHeight * scale}px`;
 
             this.debugText = debugText;
         }
