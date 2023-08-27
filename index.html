@@ -41,7 +41,7 @@
       </div>
       <div>
         <div class="item">
-          <div>{{isTate ? "幅文字数" : "高さ文字数"}}</div>
+          <div v-cloak>{{isTate ? "幅文字数" : "高さ文字数"}}</div>
           <input type="number"
                  :min="tukiCountMin"
                  :max="tukiCountMax"
@@ -74,7 +74,7 @@
     </div>
     <div id="setting" v-show="mode === 'image'">
       <div>
-        <div class="btn" @click="$refs.inputFile.click()">ファイルを選択</div><span style="margin-left: 8px;">{{file?.name}}</span>
+        <div class="btn" @click="$refs.inputFile.click()">ファイルを選択</div><span style="margin-left: 8px;" v-cloak>{{file?.name}}</span>
         <input type="file" ref="inputFile" @change="onChangeInputFile">
       </div>
       <div>
@@ -137,9 +137,9 @@
       <button id="download-btn" @click="onClickDownLoadButton">ダウンロード</button>
     </div>
     <hr>
-    <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
+    <div style="white-space: pre-wrap;" v-show="isDebug" v-cloak>{{debugText}}</div>
     <div ref="processing" style="display: none;">処理中だよ。ちょっと待ってね。</div>
-    <div style="white-space: pre-wrap;">{{resultMessage}}</div>
+    <div style="white-space: pre-wrap;" v-cloak>{{resultMessage}}</div>
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
          :class="{'not-exists-tuki-art': !canDisplayTukiArt}">
       <canvas ref="canvas" v-show="shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
