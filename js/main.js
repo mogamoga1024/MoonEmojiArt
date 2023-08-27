@@ -9,8 +9,7 @@ let monoCanvas = null;
 const MSG_NO_INPUT_DATA = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
 ・サイズが小さいとクオリティが低くなるよ！
-・文に空白と絵文字は入れないでほしいな～
-・ちなみにYouTubeに月文字を書き込むとスパム判定で表示されないよ！`;
+・文に空白と絵文字は入れないでほしいな～`;
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 const MSG_FAILURE_TEXT_MONO = "文字数が多すぎて一次加工で失敗したよ。減らしてね。";
 const MSG_FAILURE_IMAGE_MONO = "画像サイズが大きすぎて一次加工で失敗したよ。減らしてね。";
