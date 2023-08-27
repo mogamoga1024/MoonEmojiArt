@@ -139,7 +139,7 @@
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
-         :class="{'not-exists-tuki-art': !existsTukiArt}">
+         :class="{'not-exists-tuki-art': !canDisplayTukiArt}">
       <canvas ref="canvas" v-show="shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
         <canvas id="result" ref="result"></canvas>

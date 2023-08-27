@@ -110,8 +110,9 @@ const App = {
         }
     },
     computed: {
-        existsTukiArt() {
-            return this.resultMessage === "" || this.resultMessage === MSG_TOO_MANY_CHARA;
+        canDisplayTukiArt() {
+            return this.resultMessage === ""
+                || this.resultMessage === MSG_TOO_MANY_CHARA;
         }
     },
     methods: {
