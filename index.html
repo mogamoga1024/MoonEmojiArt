@@ -137,7 +137,7 @@
     </div>
     <hr>
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
-    <div v-show="isProcessing">処理中だよ。ちょっと待ってね。</div>
+    <div ref="processing" style="display: none;">処理中だよ。ちょっと待ってね。</div>
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
          :class="{'not-exists-tuki-art': !canDisplayTukiArt}">

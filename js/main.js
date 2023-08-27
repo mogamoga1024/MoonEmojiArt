@@ -107,6 +107,14 @@ const App = {
         imageSizeRate(newVal) {
             if (newVal === "") return;
             this.imageSizeRatePrev = newVal;
+        },
+        isProcessing(newVal) {
+            if (newVal) {
+                this.$refs.processing.style.display = "";
+            }
+            else {
+                this.$refs.processing.style.display = "none";
+            }
         }
     },
     computed: {
