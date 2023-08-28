@@ -111,14 +111,24 @@ button, input, select, textarea {
   background-color: mediumblue;
 }
 
-.btn:hover, .radio:hover {
-  background-color: lightcyan;
-  opacity: 0.7;
-}
-
-.btn.selected:hover, .radio.selected:hover {
-  background-color: mediumblue;
-  opacity: 0.7;
+@media (any-hover: hover) {
+  .btn, .radio {
+    transition: background-color 0.2s, opacity 0.2s;
+  }
+  
+  .btn.selected, .radio.selected {
+    transition: background-color 0.2s, opacity 0.2s;
+  }
+  
+  .btn:hover, .radio:hover {
+    background-color: lightcyan;
+    opacity: 0.7;
+  }
+  
+  .btn.selected:hover, .radio.selected:hover {
+    background-color: mediumblue;
+    opacity: 0.7;
+  }
 }
 
 input[type="file"] {
