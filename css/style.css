@@ -112,19 +112,19 @@ button, input, select, textarea {
 }
 
 @media (any-hover: hover) {
-  .btn, .radio {
+  .btn, .radio:not(.selected) {
     transition: background-color 0.2s;
   }
   
-  .btn:hover, .radio:hover {
+  .btn:hover, .radio:not(.selected):hover {
     background-color: lightcyan;
   }
 
-  .btn.selected, .radio.selected {
+  .btn.selected {
     transition: background-color 0.2s, opacity 0.2s;
   }
   
-  .btn.selected:hover, .radio.selected:hover {
+  .btn.selected:hover {
     background-color: mediumblue;
     opacity: 0.7;
   }
@@ -189,7 +189,7 @@ input[type="number"] {
 }
 
 #download-btn {
-  width: 160px;
+  width: 150px;
   height: 36px;
 }
 
