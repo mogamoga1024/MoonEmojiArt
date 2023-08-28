@@ -113,16 +113,15 @@ button, input, select, textarea {
 
 @media (any-hover: hover) {
   .btn, .radio {
-    transition: background-color 0.2s, opacity 0.2s;
-  }
-  
-  .btn.selected, .radio.selected {
-    transition: background-color 0.2s, opacity 0.2s;
+    transition: background-color 0.2s;
   }
   
   .btn:hover, .radio:hover {
     background-color: lightcyan;
-    opacity: 0.7;
+  }
+
+  .btn.selected, .radio.selected {
+    transition: background-color 0.2s, opacity 0.2s;
   }
   
   .btn.selected:hover, .radio.selected:hover {
@@ -143,16 +142,39 @@ input[type="number"] {
   width: 300px;
 }
 
-.btn-list {
+.action-btn-list {
   display: flex;
   flex-wrap: wrap;
   row-gap: 8px;
   column-gap: 8px;
 }
 
+.action-btn {
+  display: inline-block;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 5px;
+  border: 1px solid green;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  color: green;
+  background-color: white;
+  text-align: center;
+}
+
+@media (any-hover: hover) {
+  .action-btn {
+    transition: background-color 0.2s;
+  }
+  
+  .action-btn:hover {
+    background-color: palegreen;
+  }
+}
+
 #generate-btn {
   width: 80px;
-  height: 36px;
 }
 
 #copy-btn-wrapper {
@@ -162,7 +184,7 @@ input[type="number"] {
 
 #copy-btn {
   position: absolute;
-  width: 100%;
+  width: 90px;
   height: 36px;
 }
 
