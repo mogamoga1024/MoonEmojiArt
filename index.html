@@ -130,8 +130,8 @@
     <hr>
     <div class="action-btn-list">
       <div id="generate-btn" class="action-btn" @click="onClickGenerateButton">生成</div>
-      <div id="copy-btn-wrapper">
-        <div id="copy-btn" class="action-btn" @click="onClickCopyButton">コピー</div>
+      <div id="copy-btn-wrapper" class="action-btn">
+        <div id="copy-btn" @click="onClickCopyButton">コピー</div>
         <div id="copy-message" ref="copyMessage">Copied!</div>
       </div>
       <div id="download-btn" class="action-btn" @click="onClickDownLoadButton">ダウンロード</div>
