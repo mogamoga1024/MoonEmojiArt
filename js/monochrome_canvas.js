@@ -78,7 +78,7 @@ class MonochromeCanvas {
             tmpContext.textBaseline = "top";
             tmpContext.textAlign = "center";
             tmpContext.fillText("あ", tmpCanvas.width / 2, 0);
-            const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
+            const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height);
             return CanvasUtils.trimming(tmpPixels);
         })();
 
