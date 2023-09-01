@@ -60,11 +60,11 @@ const App = {
             imageWidth: 100,
             imageWidthPrev: 100,
             imageWidthMin: 10,
-            imageWidthMax: 3000,
+            imageWidthMax: 5000,
             imageSizeRate: 1,
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
-            imageSizeRateMax: Math.floor(3000 * 10 / 10) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
+            imageSizeRateMax: Math.floor(5000 * 10 / 10) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
             isProcessing: false,
         }
     },
