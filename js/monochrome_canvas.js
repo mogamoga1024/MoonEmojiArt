@@ -52,11 +52,11 @@ class MonochromeCanvas {
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
-        const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ「」()（）【】";
-        const rotateCharList = "「」()（）【】ー ～…";
+        const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ「」『』()（）【】";
+        const rotateCharList = "「」『』()（）【】ー ～…";
         const reverseCharList = "ー～";
         const centerJustifiedCharList = "()（）【】…";
-        const leftJustifiedCharList = "」";
+        const leftJustifiedCharList = "」』";
 
         let minCanvasHeight = 0;
         const {
