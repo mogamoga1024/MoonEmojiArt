@@ -52,7 +52,7 @@ class MonochromeCanvas {
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
-        const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ「」『』()（）【】";
+        const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ 「」『』()（）【】";
         const rotateCharList = "「」『』()（）【】ー ～…";
         const reverseCharList = "ー～";
         const centerJustifiedCharList = "()（）【】…";
@@ -165,7 +165,20 @@ class MonochromeCanvas {
 
             this.#context.fillText(char.value, this.#canvas.width / 2, this.#canvas.height / 2);
             // トリミング
-            const trimmed = CanvasUtils.trimming(this.pixels);
+            let trimmed = null;
+            try {
+                trimmed = CanvasUtils.trimming(this.pixels);
+            }
+            catch (e) {
+                trimmed = {
+                    x: 0, y: 0,
+                    width: standardCharWidth,
+                    height: standardCharHeight
+                };
+                if (char.value === " ") {
+                    trimmed.height /= 2;
+                }
+            }
 
             // 転写
             let dstX = (tmpCanvas.width - trimmed.width) / 2;
