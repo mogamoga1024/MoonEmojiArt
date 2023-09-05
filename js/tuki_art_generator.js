@@ -110,8 +110,17 @@ class TukiArtGenerator {
         return rtnCanvas;
     }    
 
-    static #colorToBit(color) {
-        return color < 128 ? B : W;
+    static #colorToBit(color, needGray = true) {
+        if (needGray) {
+            switch (color) {
+                case 0:   return B;
+                case 255: return W;
+                default:  return G;
+            }
+        }
+        else {
+            return color < 128 ? B : W;
+        }
     }
 
     static _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
@@ -125,6 +134,10 @@ class TukiArtGenerator {
             let tmpHitCount = 0;
             for (let row = 0; row < TUKI_SIDE_PIXEL_COUNT; row++) {
                 for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
+                    if (pixels[row][col] === G) {
+                        return "🌓";
+                    }
+
                     tmpHitCount += tuki.pixels[row][col] === pixels[row][col] ? 1 : 0;
                     if (!existsLightColList[col] && pixels[row][col] === B) {
                         existsLightColList[col] = true;

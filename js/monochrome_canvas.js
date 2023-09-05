@@ -326,11 +326,28 @@ class MonochromeCanvas {
         });
     }
 
-    #monochrome(pixels, i, baseAverageColor) {
+    #monochrome(pixels, i, baseAverageColor, needGray = true) {
         const data = pixels.data;
         const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
     
-        let newColor = avgColor < baseAverageColor ? 0 : 255;
+        let newColor = 255;
+        if (needGray) {
+            // if (avgColor < 255 / 3) {
+            //     newColor = 0;
+            // }
+            // else if (avgColor < 255 / 3 * 2) {
+            //     newColor = 127;
+            // }
+            if (avgColor < baseAverageColor / 1.5) {
+                newColor = 0;
+            }
+            else if (avgColor < baseAverageColor) {
+                newColor = 127;
+            }
+        }
+        else if (avgColor < baseAverageColor) {
+            newColor = 0;
+        }
     
         data[i] = data[i + 1] = data[i + 2] = newColor;
     };
