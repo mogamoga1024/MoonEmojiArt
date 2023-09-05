@@ -330,13 +330,25 @@ class MonochromeCanvas {
         const data = pixels.data;
         const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
     
-        let newColor = 255;
+        let newColor = COLOR_W;
         if (needGray) {
-            if (avgColor < baseAverageColor * 2/3) {
-                newColor = 0;
+            // if (avgColor < baseAverageColor * 2/3) {
+            //     newColor = 0;
+            // }
+            // else if (avgColor < baseAverageColor) {
+            //     newColor = 127;
+            // }
+            if (avgColor < baseAverageColor * 1/3) {
+                newColor = COLOR_B;
+            }
+            else if (avgColor < baseAverageColor * 2/3) {
+                newColor = COLOR_G1;
             }
             else if (avgColor < baseAverageColor) {
-                newColor = 127;
+                newColor = COLOR_G2;
+            }
+            else if (avgColor < baseAverageColor * 4/3) {
+                newColor = COLOR_G3;
             }
         }
         else if (avgColor < baseAverageColor) {

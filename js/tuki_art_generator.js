@@ -113,9 +113,12 @@ class TukiArtGenerator {
     static #colorToBit(color, needGray = true) {
         if (needGray) {
             switch (color) {
-                case 0:   return B;
-                case 255: return W;
-                default:  return G;
+                case COLOR_B: return B;
+                case COLOR_G1: return G1;
+                case COLOR_G2: return G2;
+                case COLOR_G3: return G3;
+                case COLOR_W: return W;
+                default: return W;
             }
         }
         else {
@@ -132,21 +135,44 @@ class TukiArtGenerator {
         let tukiWBBBHitCount = 0;
         for (const tuki of this.#tukiList) {
             let tmpHitCount = 0;
-            let isAllGray = true;
+            let existsWhite = false;
+            let g1Count = 0;
+            let g2Count = 0;
+            let g3Count = 0;
             for (let row = 0; row < TUKI_SIDE_PIXEL_COUNT; row++) {
                 for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
-                    if (pixels[row][col] !== G) {
-                        isAllGray = false;
+                    const color = pixels[row][col];
+                    if (!existsWhite) {
+                        if (color === W) {
+                            existsWhite = true;
+                        }
+                        else if (color === G1) {
+                            g1Count++;
+                        }
+                        else if (color === G2) {
+                            g2Count++;
+                        }
+                        else if (color === G3) {
+                            g3Count++;
+                        }
                     }
-
-                    tmpHitCount += tuki.pixels[row][col] === pixels[row][col] ? 1 : 0;
-                    if (!existsLightColList[col] && pixels[row][col] !== W) {
+                    tmpHitCount += tuki.pixels[row][col] === color ? 1 : 0;
+                    if (!existsLightColList[col] && color !== W) {
                         existsLightColList[col] = true;
                     }
                 }
             }
-            if (isAllGray) {
-                return "🌓";
+            if (!existsWhite && !(g1Count === 0 && g2Count === 0 && g3Count === 0)) {
+                const max = Math.max(g1Count, g2Count, g3Count);
+                if (g1Count === max) {
+                    return "🌒";
+                }
+                else if (g2Count === max) {
+                    return "🌓";
+                }
+                else if (g3Count === max) {
+                    return "🌔";
+                }
             }
             if (shouldDrawThinBlackTateLine) {
                 if (tuki.emoji === "🌒") {
