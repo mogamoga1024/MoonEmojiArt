@@ -41,6 +41,7 @@ const App = {
             isTextTateLinePowerUp: true,
             isImageYokoLinePowerUp: false,
             isImageTateLinePowerUp: false,
+            needGray: true,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -244,7 +245,7 @@ const App = {
                 }
                 try {
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
-                    this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp);
+                    this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, false);
                     try {
                         this.displayTukiArt();
                     }
@@ -287,9 +288,10 @@ const App = {
                         Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
                         this.baseAverageColor,
                         this.needOutline,
-                        this.baseColorDistance
+                        this.baseColorDistance,
+                        this.needGray
                     ).then(() => {
-                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp);
+                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.needGray);
                         try {
                             this.displayTukiArt();
                         }

@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    static createTukiArt(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false) {
+    static createTukiArt(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false, needGray = true) {
         let text = "";
 
         const data = pixels.data;
@@ -13,7 +13,7 @@ class TukiArtGenerator {
                         for (let k = 0; k < TUKI_SIDE_PIXEL_COUNT; k++) {
                             if (col + k < pixels.width) {
                                 const l = (row + j) * pixels.width * 4 + (col + k) * 4;
-                                tmpRow.push(this.#colorToBit(data[l]));
+                                tmpRow.push(this.#colorToBit(data[l], needGray));
                             }
                             else {
                                 tmpRow.push(tmpRow[tmpRow.length - 1]);
