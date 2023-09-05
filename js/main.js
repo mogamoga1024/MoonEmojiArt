@@ -41,13 +41,13 @@ const App = {
             isTextTateLinePowerUp: true,
             isImageYokoLinePowerUp: false,
             isImageTateLinePowerUp: false,
-            needGray: true,
+            colorCount: 3,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
             baseAverageColorPrev: 90,
-            baseAverageColorMin: 0,
-            baseAverageColorMax: 255,
+            baseAverageColorMin: COLOR_B,
+            baseAverageColorMax: COLOR_W,
             baseColorDistance: 50,
             baseColorDistancePrev: 50,
             baseColorDistanceMin: 0,
@@ -245,7 +245,7 @@ const App = {
                 }
                 try {
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
-                    this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, false);
+                    this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
                     try {
                         this.displayTukiArt();
                     }
@@ -289,9 +289,9 @@ const App = {
                         this.baseAverageColor,
                         this.needOutline,
                         this.baseColorDistance,
-                        this.needGray
+                        this.colorCount
                     ).then(() => {
-                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.needGray);
+                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.colorCount);
                         try {
                             this.displayTukiArt();
                         }

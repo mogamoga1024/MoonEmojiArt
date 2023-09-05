@@ -274,7 +274,7 @@ class MonochromeCanvas {
         this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50, needGray = true) {
+    image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50, colorCount = 2) {
         return new Promise((resolve, reject) => {
             if (this.#isProcessing) {
                 return reject(new Error("まだ前の処理をしている最中"));
@@ -312,7 +312,7 @@ class MonochromeCanvas {
                         if (needOutline) {
                             this.#outline(pixels, i, baseColorDistance);
                         }
-                        this.#monochrome(pixels, i, baseAverageColor, needGray);
+                        this.#monochrome(pixels, i, baseAverageColor, colorCount);
                     }
                 }
                 this.#context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
@@ -326,18 +326,12 @@ class MonochromeCanvas {
         });
     }
 
-    #monochrome(pixels, i, baseAverageColor, needGray = true) {
+    #monochrome(pixels, i, baseAverageColor, colorCount = 2) {
         const data = pixels.data;
         const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
     
         let newColor = COLOR_W;
-        if (needGray) {
-            // if (avgColor < baseAverageColor * 2/3) {
-            //     newColor = 0;
-            // }
-            // else if (avgColor < baseAverageColor) {
-            //     newColor = 127;
-            // }
+        if (colorCount === 5) {
             if (avgColor < baseAverageColor * 1/3) {
                 newColor = COLOR_B;
             }
@@ -351,8 +345,16 @@ class MonochromeCanvas {
                 newColor = COLOR_G3;
             }
         }
+        else if (colorCount === 3) {
+            if (avgColor < baseAverageColor * 2/3) {
+                newColor = COLOR_B;
+            }
+            else if (avgColor < baseAverageColor) {
+                newColor = COLOR_G2;
+            }
+        }
         else if (avgColor < baseAverageColor) {
-            newColor = 0;
+            newColor = COLOR_B;
         }
     
         data[i] = data[i + 1] = data[i + 2] = newColor;

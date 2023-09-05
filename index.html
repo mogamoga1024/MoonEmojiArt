@@ -23,7 +23,7 @@
   </a>
   <div id="app">
     <div ref="appWidth"></div>
-    <h1>月文字ジェネレーター（JS版）v1.0.13</h1>
+    <h1>月文字ジェネレーター（JS版）v1.0.14</h1>
     <div class="item-list">
       <div class="radio-wrapper">
         <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
@@ -91,12 +91,19 @@
                  @blur="onBlurBaseAverageColor">
         </div>
       </div>
+      <div class="item">
+        <div>色数</div>
+        <div class="radio-wrapper">
+          <div class="radio" :class="{'selected': colorCount === 2}" @click="colorCount = 2">2</div>
+          <div class="radio" :class="{'selected': colorCount === 3}" @click="colorCount = 3">3</div>
+          <div class="radio" :class="{'selected': colorCount === 5}" @click="colorCount = 5">5</div>
+        </div>
+      </div>
       <div class="item-list">
         <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
         <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
         <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横線強化</div>
         <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦線強化</div>
-        <div class="btn" :class="{'selected': needGray}" @click="needGray = !needGray">灰色使用</div>
       </div>
       <div v-show="needOutline">
         <div class="item">
