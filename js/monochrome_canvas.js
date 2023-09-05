@@ -332,7 +332,7 @@ class MonochromeCanvas {
     
         let newColor = 255;
         if (needGray) {
-            if (avgColor < baseAverageColor / 1.5) {
+            if (avgColor < baseAverageColor * 2/3) {
                 newColor = 0;
             }
             else if (avgColor < baseAverageColor) {
