@@ -132,17 +132,21 @@ class TukiArtGenerator {
         let tukiWBBBHitCount = 0;
         for (const tuki of this.#tukiList) {
             let tmpHitCount = 0;
+            let isAllGray = true;
             for (let row = 0; row < TUKI_SIDE_PIXEL_COUNT; row++) {
                 for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
-                    if (pixels[row][col] === G) {
-                        return "🌓";
+                    if (pixels[row][col] !== G) {
+                        isAllGray = false;
                     }
 
                     tmpHitCount += tuki.pixels[row][col] === pixels[row][col] ? 1 : 0;
-                    if (!existsLightColList[col] && pixels[row][col] === B) {
+                    if (!existsLightColList[col] && pixels[row][col] !== W) {
                         existsLightColList[col] = true;
                     }
                 }
+            }
+            if (isAllGray) {
+                return "🌓";
             }
             if (shouldDrawThinBlackTateLine) {
                 if (tuki.emoji === "🌒") {
@@ -181,7 +185,7 @@ class TukiArtGenerator {
                 let blackHitCount = 0;
                 for (let row = 0; row < TUKI_SIDE_PIXEL_COUNT; row++) {
                     for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
-                        blackHitCount += pixels[row][col] === B ? 1 : 0;
+                        blackHitCount += pixels[row][col] !== W ? 1 : 0;
                     }
                 }
                 if (blackHitCount < 3) {
