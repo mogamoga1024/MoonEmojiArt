@@ -3,10 +3,6 @@
 
 https://mogamoga1024.github.io/MoonEmojiArt/
 
-個人的デバグ用  
-https://mogamoga1024.github.io/MoonEmojiArt/?isDebug=true  
-https://github.com/mogamoga1024/MoonEmojiArtDebug
-
 ## MEMO
 
 テキストの絵文字が反映されないのは黒の要素がないためです。  
