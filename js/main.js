@@ -346,7 +346,7 @@ const App = {
             const blob = new Blob([bom, this.tukiArt], {type:"text/plan"});
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "moon_art.txt";
+            link.download = `moon_art${getStrCurrentDateTime()}.txt`;
             link.click();
             URL.revokeObjectURL(link.href);
         },
@@ -356,7 +356,7 @@ const App = {
             }
             const link = document.createElement("a");
             link.href = this.$refs.result.toDataURL("image/png");
-            link.download = "moon_art.png";
+            link.download = `moon_art${getStrCurrentDateTime()}.png`;
             link.click();
             URL.revokeObjectURL(link.href);
         },
