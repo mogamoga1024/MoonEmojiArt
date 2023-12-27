@@ -187,9 +187,35 @@ input[type="number"] {
   height: 36px;
 }
 
-#download-btn {
-  width: 150px;
+.download-icon {
+  width: 24px;
+  height: 100%;
+  background-image: url(./download-icon.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#download-text-btn {
   height: 36px;
+  padding: 0 8px;
+  > div {
+    display: inline-flex;
+    height: 36px;
+    column-gap: 2px;
+    align-items: center;
+  }
+}
+
+#download-image-btn {
+  height: 36px;
+  padding: 0 8px;
+  > div {
+    display: inline-flex;
+    height: 36px;
+    column-gap: 2px;
+    align-items: center;
+  }
 }
 
 #copy-message {

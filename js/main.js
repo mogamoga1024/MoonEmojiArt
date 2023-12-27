@@ -338,7 +338,7 @@ const App = {
                 this.canCopyButtonClick = true;
             }, 2000);
         },
-        onClickDownLoadButton() {
+        onClickDownLoadTextButton() {
             if (this.tukiArt === "") {
                 return;
             }
@@ -347,6 +347,16 @@ const App = {
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             link.download = "moon_art.txt";
+            link.click();
+            URL.revokeObjectURL(link.href);
+        },
+        onClickDownLoadImageButton() {
+            if (this.tukiArt === "") {
+                return;
+            }
+            const link = document.createElement("a");
+            link.href = this.$refs.canvas.toDataURL("image/png");
+            link.download = "moon_art.png";
             link.click();
             URL.revokeObjectURL(link.href);
         },
