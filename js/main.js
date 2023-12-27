@@ -355,7 +355,7 @@ const App = {
                 return;
             }
             const link = document.createElement("a");
-            link.href = this.$refs.canvas.toDataURL("image/png");
+            link.href = this.$refs.result.toDataURL("image/png");
             link.download = "moon_art.png";
             link.click();
             URL.revokeObjectURL(link.href);

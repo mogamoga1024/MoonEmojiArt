@@ -173,17 +173,17 @@ input[type="number"] {
 }
 
 #generate-btn {
-  width: 80px;
+  padding: 0 8px;
 }
 
 #copy-btn-wrapper {
   position: relative;
-  width: 90px;
+  width: 69px;
 }
 
 #copy-btn {
   position: absolute;
-  width: 90px;
+  width: 69px;
   height: 36px;
 }
 
@@ -229,7 +229,7 @@ input[type="number"] {
   width: 100px;
   height: 40px;
   top: 45px;
-  left: calc(-1 * (100px - 90px) / 2); /* 引く数は#copy-btn-wrapper.width */
+  left: calc(-1 * (100px - 69px) / 2); /* 引く数は#copy-btn-wrapper.width */
   font-size: 1.2rem;
   line-height: 40px;
   text-align: center;
