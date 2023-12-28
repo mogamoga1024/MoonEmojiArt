@@ -46,6 +46,8 @@ class TukiArtGenerator {
         let lineHeight = 0;
         let rtnCanvasWidth = 0;
         let rtnCanvasHeight = 0;
+        // なぜかスマホ（iPhoneXのChrome）だと一段目の絵文字の上の部分が見切れるので仕方なくマージンを入れる。意味不明。
+        const rtnCanvasTopMargin = 4;
         while (true) {
             if (fontSize < 1) {
                 throw new Error("文字数多すぎ");
@@ -74,7 +76,7 @@ class TukiArtGenerator {
             lineHeight = tmpCanvas.height + margin;
 
             rtnCanvasWidth = tmpContext.measureText(textList[0]).width;
-            rtnCanvasHeight = lineHeight * (textList.length - 1);
+            rtnCanvasHeight = lineHeight * (textList.length - 1) + rtnCanvasTopMargin;
 
             const isValidCanvas = canvasSize.test({
                 width : rtnCanvasWidth,
@@ -103,7 +105,7 @@ class TukiArtGenerator {
     
         for (let i = 0; i < textList.length; i++) {
             const text = textList[i];
-            const y = i * lineHeight;
+            const y = i * lineHeight + rtnCanvasTopMargin;
             rtnContext.fillText(text, 0, y);
         }
     
