@@ -3,6 +3,12 @@
 
 https://mogamoga1024.github.io/MoonEmojiArt/
 
+## 「横線強化」「縦線強化」ってなんだよｗと思っている技術者へ
+
+以下を読んでください。
+
+https://qiita.com/mogamoga1337/items/fa44faf390ebf5a45192
+
 ## MEMO
 
 テキストの絵文字が反映されないのは黒の要素がないためです。  
