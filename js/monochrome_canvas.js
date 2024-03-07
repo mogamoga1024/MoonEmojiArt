@@ -331,9 +331,7 @@ class MonochromeCanvas {
         const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
     
         let newColor = COLOR_W;
-        let lastBaseAverageColor = baseAverageColor; 
         if (colorCount === 5) {
-            lastBaseAverageColor = baseAverageColor * 4/3;
             if (avgColor < baseAverageColor * 1/3) {
                 newColor = COLOR_B;
             }
@@ -343,7 +341,7 @@ class MonochromeCanvas {
             else if (avgColor < baseAverageColor) {
                 newColor = COLOR_G2;
             }
-            else if (avgColor < lastBaseAverageColor) {
+            else if (avgColor < baseAverageColor * 4/3) {
                 newColor = COLOR_G3;
             }
         }
@@ -360,7 +358,7 @@ class MonochromeCanvas {
         }
 
         if (useNanameMikaduki && newColor === COLOR_W) {
-            if (avgColor >= lastBaseAverageColor + (COLOR_SW - lastBaseAverageColor) / 2) {
+            if (avgColor >= baseAverageColor * 4/3 + (COLOR_SW - baseAverageColor * 4/3) / 2) {
                 newColor = COLOR_SW;
             }
         }
