@@ -112,7 +112,9 @@ class TukiArtGenerator {
         return rtnCanvas;
     }    
 
-    static #colorToBit(color, colorCount = 2) {
+    static #colorToBit(color, colorCount = 2, useNanameMikaduki = false) {
+        // todo useNanameMikaduki
+
         if (colorCount > 2) {
             switch (color) {
                 case COLOR_B: return B;
@@ -224,6 +226,9 @@ class TukiArtGenerator {
         }
 
         // todo useNanameMikaduki
+        if (useNanameMikaduki) {
+
+        }
 
         return rtnTuki.emoji;
     }

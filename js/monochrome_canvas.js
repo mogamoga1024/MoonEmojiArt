@@ -326,7 +326,7 @@ class MonochromeCanvas {
         });
     }
 
-    #monochrome(pixels, i, baseAverageColor, colorCount = 2) {
+    #monochrome(pixels, i, baseAverageColor, colorCount = 2, useNanameMikaduki = false) {
         const data = pixels.data;
         const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
     
@@ -356,6 +356,8 @@ class MonochromeCanvas {
         else if (avgColor < baseAverageColor) {
             newColor = COLOR_B;
         }
+
+        // todo useNanameMikaduki
     
         data[i] = data[i + 1] = data[i + 2] = newColor;
     };
