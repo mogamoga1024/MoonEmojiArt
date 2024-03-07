@@ -43,6 +43,7 @@ const App = {
             isImageYokoLinePowerUp: false,
             isImageTateLinePowerUp: false,
             colorCount: 3,
+            useNanameMikaduki: true,
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 90,
@@ -292,7 +293,7 @@ const App = {
                         this.baseColorDistance,
                         this.colorCount
                     ).then(() => {
-                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.colorCount);
+                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.colorCount, this.useNanameMikaduki);
                         try {
                             this.displayTukiArt();
                         }
