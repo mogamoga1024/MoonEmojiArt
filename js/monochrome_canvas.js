@@ -274,7 +274,7 @@ class MonochromeCanvas {
         this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50, colorCount = 2) {
+    image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 90, needOutline = true, baseColorDistance = 50, colorCount = 2, useNanameMikaduki = false) {
         return new Promise((resolve, reject) => {
             if (this.#isProcessing) {
                 return reject(new Error("まだ前の処理をしている最中"));
@@ -312,7 +312,7 @@ class MonochromeCanvas {
                         if (needOutline) {
                             this.#outline(pixels, i, baseColorDistance);
                         }
-                        this.#monochrome(pixels, i, baseAverageColor, colorCount);
+                        this.#monochrome(pixels, i, baseAverageColor, colorCount, useNanameMikaduki);
                     }
                 }
                 this.#context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);

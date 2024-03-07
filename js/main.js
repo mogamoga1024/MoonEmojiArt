@@ -291,7 +291,8 @@ const App = {
                         this.baseAverageColor,
                         this.needOutline,
                         this.baseColorDistance,
-                        this.colorCount
+                        this.colorCount,
+                        this.useNanameMikaduki
                     ).then(() => {
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.colorCount, this.useNanameMikaduki);
                         try {
