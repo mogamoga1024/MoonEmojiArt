@@ -11,7 +11,7 @@ class CanvasUtils {
         for (let col = 0; col < pixels.width; col++) {
             for (let row = 0; row < pixels.height; row++) {
                 const i = row * pixels.width * 4 + col * 4;
-                if (data[i] !== COLOR_W) {
+                if (data[i] !== COLOR_SW) {
                     targetLeftX = col;
                     break;
                 }
@@ -29,7 +29,7 @@ class CanvasUtils {
         for (let col = pixels.width - 1; col >= 0; col--) {
             for (let row = 0; row < pixels.height; row++) {
                 const i = row * pixels.width * 4 + col * 4;
-                if (data[i] !== COLOR_W) {
+                if (data[i] !== COLOR_SW) {
                     targetRightX = col;
                     break;
                 }
@@ -43,7 +43,7 @@ class CanvasUtils {
         for (let row = 0; row < pixels.height; row++) {
             for (let col = targetLeftX; col <= targetRightX; col++) {
                 const i = row * pixels.width * 4 + col * 4;
-                if (data[i] !== COLOR_W) {
+                if (data[i] !== COLOR_SW) {
                     targetTopY = row;
                     break;
                 }
@@ -57,7 +57,7 @@ class CanvasUtils {
         for (let row = pixels.height - 1; row >= 0; row--) {
             for (let col = targetLeftX; col <= targetRightX; col++) {
                 const i = row * pixels.width * 4 + col * 4;
-                if (data[i] !== COLOR_W) {
+                if (data[i] !== COLOR_SW) {
                     targetBottomY = row;
                     break;
                 }
