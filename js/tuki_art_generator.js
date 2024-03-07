@@ -27,7 +27,12 @@ class TukiArtGenerator {
                 }
 
                 const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine, useNanameMikaduki);
-                text += isImageColorReverse ? this.#reverse(emoji) : emoji;
+                if (isImageColorReverse && !useNanameMikaduki) {
+                    text += this.#reverse(emoji);
+                }
+                else {
+                    text += emoji;
+                }
             }
             text += "\n";
         }

@@ -104,7 +104,7 @@
       </div>
       <div class="item-list">
         <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
-        <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
+        <div class="btn" v-show="!useNanameMikaduki" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
         <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横線強化</div>
         <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦線強化</div>
       </div>
