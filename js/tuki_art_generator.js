@@ -112,8 +112,10 @@ class TukiArtGenerator {
         return rtnCanvas;
     }    
 
-    static #colorToBit(color, colorCount = 2, useNanameMikaduki = false) {
-        // todo useNanameMikaduki
+    static #colorToBit(color, colorCount = 2) {
+        if (color === COLOR_SW) {
+            return SW;
+        }
 
         if (colorCount > 2) {
             switch (color) {
@@ -147,7 +149,7 @@ class TukiArtGenerator {
                 for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
                     const color = pixels[row][col];
                     if (!existsWhite) {
-                        if (color === W) {
+                        if (color >= W) {
                             existsWhite = true;
                         }
                         else if (color === G1) {
@@ -160,8 +162,13 @@ class TukiArtGenerator {
                             g3Count++;
                         }
                     }
-                    tmpHitCount += tuki.pixels[row][col] === color ? 1 : 0;
-                    if (!existsLightColList[col] && color !== W) {
+                    if (tuki.pixels[row][col] === color) {
+                        tmpHitCount++;
+                    }
+                    else if (color === SW && tuki.pixels[row][col] === W) {
+                        tmpHitCount++;
+                    }
+                    if (!existsLightColList[col] && color < W) {
                         existsLightColList[col] = true;
                     }
                 }
@@ -215,22 +222,42 @@ class TukiArtGenerator {
                 let blackHitCount = 0;
                 for (let row = 0; row < TUKI_SIDE_PIXEL_COUNT; row++) {
                     for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
-                        blackHitCount += pixels[row][col] !== W ? 1 : 0;
+                        blackHitCount += pixels[row][col] < W ? 1 : 0;
                     }
                 }
                 if (blackHitCount < 3) {
-                    // todo useNanameMikaduki
+                    if (useNanameMikaduki) {
+                        return this.#convertWhiteEmoji(pixels);
+                    }
                     return "🌕";
                 }
             }
         }
 
-        // todo useNanameMikaduki
-        if (useNanameMikaduki) {
-
+        if (useNanameMikaduki && rtnTuki.emoji === "🌕") {
+            return this.#convertWhiteEmoji(pixels);
         }
 
         return rtnTuki.emoji;
+    }
+
+    static #convertWhiteEmoji(pixels) {
+        let WCount = 0;
+        let SWCount = 0;
+        for (let row = 0; row < TUKI_SIDE_PIXEL_COUNT; row++) {
+            for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
+                if (pixels[row][col] === W) {
+                    WCount++;
+                }
+                else if (pixels[row][col] === SW) {
+                    SWCount++;
+                }
+            }
+        }
+        if (SWCount >= WCount) {
+            return "🌙";
+        }
+        return "🌕";
     }
 
     static #reverse(emoji) {

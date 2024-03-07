@@ -360,7 +360,7 @@ class MonochromeCanvas {
         }
 
         if (useNanameMikaduki && newColor === COLOR_W) {
-            if (avgColor >= (lastBaseAverageColor + COLOR_W) / 2) {
+            if (avgColor >= lastBaseAverageColor + (COLOR_SW - lastBaseAverageColor) / 2) {
                 newColor = COLOR_SW;
             }
         }

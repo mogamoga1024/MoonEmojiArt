@@ -288,7 +288,7 @@ const App = {
                         this.fileReader.result,
                         this.imageWidth,
                         Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
-                        this.baseAverageColor,
+                        Number(this.baseAverageColor),
                         this.needOutline,
                         this.baseColorDistance,
                         this.colorCount,
