@@ -49,7 +49,7 @@ const App = {
             baseAverageColor: 90,
             baseAverageColorPrev: 90,
             baseAverageColorMin: COLOR_B,
-            baseAverageColorMax: COLOR_W,
+            baseAverageColorMax: COLOR_SW,
             baseColorDistance: 30,
             baseColorDistancePrev: 30,
             baseColorDistanceMin: 0,

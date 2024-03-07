@@ -330,7 +330,7 @@ class MonochromeCanvas {
         const data = pixels.data;
         const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
     
-        let newColor = COLOR_W;
+        let newColor = COLOR_W; // todo りふぁくた
         if (colorCount === 5) {
             if (avgColor < baseAverageColor * 1/3) {
                 newColor = COLOR_B;
