@@ -260,6 +260,10 @@ input[type="number"] {
   content: "";
 }
 
+#detail-config-title {
+  font-weight: bold;
+}
+
 .not-exists-tuki-art {
   position: absolute;
   visibility: hidden;
