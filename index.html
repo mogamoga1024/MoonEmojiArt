@@ -161,7 +161,10 @@
     <div ref="processing" style="display: none;">処理中だよ。ちょっと待ってね。</div>
     <div style="white-space: pre-wrap;" v-cloak>{{resultMessage}}</div>
     <div v-show="canDisplayTukiArt">
-      <div id="detail-config-title">詳細設定</div>
+      <div id="detail-config-title">
+        詳細設定
+        <div class="caret-down-icon"></div>
+      </div>
       <hr>
     </div>
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"

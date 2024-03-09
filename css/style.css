@@ -190,7 +190,7 @@ input[type="number"] {
 .download-icon {
   width: 24px;
   height: 100%;
-  background-image: url(./download-icon.svg);
+  background-image: url(./download_icon.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -260,8 +260,30 @@ input[type="number"] {
   content: "";
 }
 
+.caret-down-icon {
+  width: 24px;
+  height: 100%;
+  background-image: url(./caret_down_icon.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.caret-up-icon {
+  width: 24px;
+  height: 100%;
+  background-image: url(./caret_up_icon.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 #detail-config-title {
   font-weight: bold;
+  display: inline-flex;
+  height: 36px;
+  column-gap: 2px;
+  align-items: center;
 }
 
 .not-exists-tuki-art {
