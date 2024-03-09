@@ -79,12 +79,12 @@ const App = {
     mounted() {
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
-            this.text = "「わーむほーる。」";
-            this.tukiCount = 13;
+            this.text = "あああああ";
+            this.tukiCount = 10;
             // this.fontFamily = "sans";
             this.fontFamily = "serif";
             // this.fontFamily = "default";
-            this.isBold = false;
+            this.isBold = true;
             this.isTextYokoLinePowerUp = true;
             this.isTextTateLinePowerUp = true;
             this.isTate = true;
