@@ -11,9 +11,8 @@ https://mogamoga1024.github.io/MoonEmojiArt/
 
 ## 「横線強化」「縦線強化」ってなんだよｗと思っている技術者へ
 
-以下を読んでください。
-
-https://qiita.com/mogamoga1337/items/fa44faf390ebf5a45192
+これをしている  
+[月文字に関する些細なこと（問題提起）- 横の黒要素は「🌑」にすればいーだろ](https://qiita.com/mogamoga1337/items/fa44faf390ebf5a45192#%E6%A8%AA%E3%81%AE%E9%BB%92%E8%A6%81%E7%B4%A0%E3%81%AF%E3%81%AB%E3%81%99%E3%82%8C%E3%81%B0%E3%81%84%E3%83%BC%E3%81%A0%E3%82%8D)
 
 ## MEMO
 
