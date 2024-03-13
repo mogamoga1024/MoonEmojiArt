@@ -70,6 +70,9 @@ const App = {
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(5000 * 10 / 10) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
+            tukiArtMarginMin: 0,
+            tukiArtMarginMax: 20,
+            tukiArtMargin: {top: 0, bottom: 0, left: 0, right: 0},
             isProcessing: false,
         }
     },
@@ -112,6 +115,7 @@ const App = {
             if (newVal === "") return;
             this.imageSizeRatePrev = newVal;
         },
+        // todo
         isProcessing(newVal) {
             if (newVal) {
                 this.$refs.processing.style.display = "";
