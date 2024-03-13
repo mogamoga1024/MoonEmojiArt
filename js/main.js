@@ -70,9 +70,10 @@ const App = {
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(5000 * 10 / 10) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
+            tukiArtMargin: {top: 0, bottom: 0, left: 0, right: 0},
+            tukiArtMarginPrev: {top: 0, bottom: 0, left: 0, right: 0},
             tukiArtMarginMin: 0,
             tukiArtMarginMax: 20,
-            tukiArtMargin: {top: 0, bottom: 0, left: 0, right: 0},
             isProcessing: false,
         }
     },
