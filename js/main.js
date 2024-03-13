@@ -161,7 +161,7 @@ const App = {
                 this.tukiCount = this.tukiCountPrev;
                 return;
             }
-            this.tukiCount = this.rangeCorrection(
+            this.tukiCount = this.clamp(
                 Number(e.target.value),
                 this.tukiCountMin,
                 this.tukiCountMax
@@ -184,7 +184,7 @@ const App = {
                 this.baseAverageColor = this.baseAverageColorPrev;
                 return;
             }
-            this.baseAverageColor = this.rangeCorrection(
+            this.baseAverageColor = this.clamp(
                 Number(e.target.value),
                 this.baseAverageColorMin,
                 this.baseAverageColorMax
@@ -195,7 +195,7 @@ const App = {
                 this.baseColorDistance = this.baseColorDistancePrev;
                 return;
             }
-            this.baseColorDistance = this.rangeCorrection(
+            this.baseColorDistance = this.clamp(
                 Number(e.target.value),
                 this.baseColorDistanceMin,
                 this.baseColorDistanceMax
@@ -206,7 +206,7 @@ const App = {
                 this.imageWidth = this.imageWidthPrev;
                 return;
             }
-            this.imageWidth = this.rangeCorrection(
+            this.imageWidth = this.clamp(
                 Number(e.target.value),
                 this.imageWidthMin,
                 this.imageWidthMax
@@ -220,7 +220,7 @@ const App = {
                 this.imageSizeRate = this.imageSizeRatePrev;
                 return;
             }
-            this.imageSizeRate = this.rangeCorrection(
+            this.imageSizeRate = this.clamp(
                 Number(e.target.value),
                 this.imageSizeRateMin,
                 this.imageSizeRateMax
@@ -364,7 +364,10 @@ const App = {
             link.click();
             URL.revokeObjectURL(link.href);
         },
-        rangeCorrection(val, min, max) {
+        onClickDetailConfigTitle() {
+            // todo
+        },
+        clamp(val, min, max) {
             if (val < min) {
                 return min;
             }

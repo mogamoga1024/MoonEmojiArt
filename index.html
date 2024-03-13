@@ -161,7 +161,7 @@
     <div ref="processing" style="display: none;">処理中だよ。ちょっと待ってね。</div>
     <div style="white-space: pre-wrap;" v-cloak>{{resultMessage}}</div>
     <div v-show="canDisplayTukiArt">
-      <div id="detail-config-title">
+      <div id="detail-config-title" @click="onClickDetailConfigTitle">
         微調整
         <div class="caret-down-icon"></div>
       </div>
