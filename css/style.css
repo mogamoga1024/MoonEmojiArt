@@ -284,6 +284,7 @@ input[type="number"] {
   height: 36px;
   column-gap: 2px;
   align-items: center;
+  cursor: pointer;
 }
 
 .not-exists-tuki-art {

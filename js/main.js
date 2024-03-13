@@ -30,6 +30,7 @@ const App = {
             resultMessage: MSG_NO_INPUT_DATA,
             tukiArt: "",
             shouldDisplayMonochromeImage: false,
+            shouldDisplayDetailConfig: false,
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "serif", // "default" | "sans" | "serif"
@@ -363,9 +364,6 @@ const App = {
             link.download = `moon_art${getStrCurrentDateTime()}.png`;
             link.click();
             URL.revokeObjectURL(link.href);
-        },
-        onClickDetailConfigTitle() {
-            // todo
         },
         clamp(val, min, max) {
             if (val < min) {
