@@ -160,30 +160,35 @@
     <div style="white-space: pre-wrap;" v-show="isDebug" v-cloak>{{debugText}}</div>
     <div ref="processing" style="display: none;">処理中だよ。ちょっと待ってね。</div>
     <div style="white-space: pre-wrap;" v-cloak>{{resultMessage}}</div>
-    <div v-show="canDisplayTukiArt">
+    <div v-show="mode === 'text' && canDisplayTukiArt">
       <div id="detail-config-title" @click="shouldDisplayDetailConfig = !shouldDisplayDetailConfig">
         余白の追加と削除
         <div :class="{'caret-down-icon': !shouldDisplayDetailConfig, 'caret-up-icon': shouldDisplayDetailConfig}"></div>
       </div>
-      <div v-show="shouldDisplayDetailConfig">
-        <div class="item">
-          <div>上</div>
-          <input type="number">
+      <div id="detail-config-container" v-show="shouldDisplayDetailConfig">
+        <div class="item-list">
+          <div class="item">
+            <div>上</div>
+            <input type="number">
+          </div>
+          <div class="item">
+            <div>下</div>
+            <input type="number">
+          </div>
         </div>
-        <div class="item">
-          <div>下</div>
-          <input type="number">
+        <div class="item-list">
+          <div class="item">
+            <div>左</div>
+            <input type="number">
+          </div>
+          <div class="item">
+            <div>右</div>
+            <input type="number">
+          </div>
         </div>
-        <div class="item">
-          <div>左</div>
-          <input type="number">
-        </div>
-        <div class="item">
-          <div>右</div>
-          <input type="number">
-        </div>
-        <div>
-          <!-- todo -->
+        <div class="action-btn-list">
+          <div class="action-btn">適用</div>
+          <div class="action-btn">クリア</div>
         </div>
       </div>
       <hr>

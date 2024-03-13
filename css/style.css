@@ -292,6 +292,17 @@ input[type="number"] {
   cursor: pointer;
 }
 
+#detail-config-container {
+  display: flex;
+  margin-top: 8px;
+  flex-direction: column;
+  row-gap: 8px;
+
+  .action-btn {
+    padding: 0 8px;
+  }
+}
+
 .not-exists-tuki-art {
   position: absolute;
   visibility: hidden;
