@@ -72,7 +72,7 @@ const App = {
             imageSizeRateMax: Math.floor(5000 * 10 / 10) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
             tukiArtMargin: {top: 0, bottom: 0, left: 0, right: 0},
             tukiArtMarginPrev: {top: 0, bottom: 0, left: 0, right: 0},
-            tukiArtMarginMin: 0,
+            tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
             isProcessing: false,
         }
@@ -116,7 +116,22 @@ const App = {
             if (newVal === "") return;
             this.imageSizeRatePrev = newVal;
         },
-        // todo
+        "tukiArtMargin.top"(newVal) {
+            if (newVal === "") return;
+            this.tukiArtMarginPrev.top = newVal;
+        },
+        "tukiArtMargin.bottom"(newVal) {
+            if (newVal === "") return;
+            this.tukiArtMarginPrev.bottom = newVal;
+        },
+        "tukiArtMargin.left"(newVal) {
+            if (newVal === "") return;
+            this.tukiArtMarginPrev.left = newVal;
+        },
+        "tukiArtMargin.right"(newVal) {
+            if (newVal === "") return;
+            this.tukiArtMarginPrev.right = newVal;
+        },
         isProcessing(newVal) {
             if (newVal) {
                 this.$refs.processing.style.display = "";
@@ -234,6 +249,17 @@ const App = {
             if (this.file !== null) {
                 this.imageWidth = Math.round(this.imageWidthOri * this.imageSizeRate);
             }
+        },
+        onBlurTukiArtMargin(e, name) {
+            if (e.target.value === "") {
+                this.tukiArtMargin[name] = this.tukiArtMarginPrev[name];
+                return;
+            }
+            this.tukiArtMargin[name] = this.clamp(
+                Number(e.target.value),
+                this.tukiArtMarginMin,
+                this.tukiArtMarginMax
+            );
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
