@@ -57,9 +57,9 @@ class TukiArtGenerator {
         }
 
         if (margin.top > 0) {
-            const text = tuki.repeat(yokoCount);
+            const marginText = tuki.repeat(yokoCount);
             for (let i = 0; i < margin.top; i++) {
-                newTextList.unshift(text);
+                newTextList.unshift(marginText);
             }
         }
         else if (margin.top < 0) {
@@ -67,18 +67,38 @@ class TukiArtGenerator {
         }
 
         if (margin.bottom > 0) {
-            const text = tuki.repeat(yokoCount);
+            const marginText = tuki.repeat(yokoCount);
             for (let i = 0; i < margin.bottom; i++) {
-                newTextList.push(text);
+                newTextList.push(marginText);
             }
         }
         else if (margin.bottom < 0) {
             newTextList.splice(Math.max(0, newTextList.length + margin.bottom), -margin.bottom);
         }
 
+        if (margin.left > 0) {
+            const marginText = tuki.repeat(margin.left);
+            for (let i = 0; i < newTextList.length; i++) {
+                newTextList[i] = marginText + newTextList[i];
+            }
+        }
+        else if (margin.left < 0) {
+            for (let i = 0; i < newTextList.length; i++) {
+                newTextList[i] = newTextList[i].slice(-margin.left * 2);
+            }
+        }
 
-
-        // todo
+        if (margin.right > 0) {
+            const marginText = tuki.repeat(margin.right);
+            for (let i = 0; i < newTextList.length; i++) {
+                newTextList[i] = newTextList[i] + marginText;
+            }
+        }
+        else if (margin.right < 0) {
+            for (let i = 0; i < newTextList.length; i++) {
+                newTextList[i] = newTextList[i].slice(0, margin.right * 2);
+            }
+        }
 
         let newTukiArt = newTextList.join("\n");
         if (newTukiArt === "") {

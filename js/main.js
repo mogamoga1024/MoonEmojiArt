@@ -311,6 +311,7 @@ const App = {
             this.tukiArtMargin.bottom = 0;
             this.tukiArtMargin.left = 0;
             this.tukiArtMargin.right = 0;
+            this.generateTukiArt(true);
         },
         clamp(val, min, max) {
             if (val < min) {
