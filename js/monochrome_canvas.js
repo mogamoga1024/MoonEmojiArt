@@ -233,22 +233,13 @@ class MonochromeCanvas {
     }
 
     #yokoText(text, font, tatePixelCount, letterSpacingLevel = 3) {
-        const letterSpacing = [
-            // "-0.1em",
-            "-0.5em",
-            "-0.05em",
-            "0",
-            "0.05em",
-            "0.1em",
-            "0.15em",
-        ][letterSpacingLevel - 1];
+        const letterSpacing = [-8, -4, 0, 4, 8, 12][letterSpacingLevel - 1];
 
         this.#context.font = font;
         this.#context.textBaseline = "top";
-        this.#context.letterSpacing = letterSpacing;
-        const measure = this.#context.measureText(text)
+        const measure = this.#context.measureText(text);
         // キャンバスのサイズ設定
-        this.#canvas.width = measure.width;
+        this.#canvas.width = measure.width + letterSpacing * ([...text].length - 1);
         this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
         const isValidCanvas = canvasSize.test({
             width : this.#canvas.width,
@@ -262,10 +253,9 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#fff";
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
         this.#context.fillStyle = "#000";
-        this.#context.textBaseline = "middle";
-        this.#context.textAlign = "center";
-        this.#context.letterSpacing = letterSpacing;        
-        this.#context.fillText(text, this.#canvas.width / 2, this.#canvas.height / 2);
+        this.#context.textBaseline = "top";
+        this.#context.letterSpacing = letterSpacing + "px";
+        this.#context.fillText(text, 0, 0);
 
         const trimmed = CanvasUtils.trimming(this.pixels);
         const pixels = this.#context.getImageData(0, trimmed.y, this.#canvas.width, trimmed.height);
