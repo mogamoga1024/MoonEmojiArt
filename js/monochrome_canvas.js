@@ -17,7 +17,7 @@ class MonochromeCanvas {
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true, letterSpacingLevel = 2) {
+    text(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true, letterSpacingLevel = 3) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80
@@ -43,7 +43,7 @@ class MonochromeCanvas {
             this.#tateText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin);
         }
         else {
-            this.#yokoText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount);
+            this.#yokoText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, letterSpacingLevel);
         }
     }
 
@@ -232,9 +232,20 @@ class MonochromeCanvas {
         this.#context.drawImage(tmpCanvas2, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    #yokoText(text, font, tatePixelCount) {
+    #yokoText(text, font, tatePixelCount, letterSpacingLevel = 3) {
+        const letterSpacing = [
+            // "-0.1em",
+            "-0.5em",
+            "-0.05em",
+            "0",
+            "0.05em",
+            "0.1em",
+            "0.15em",
+        ][letterSpacingLevel - 1];
+
         this.#context.font = font;
         this.#context.textBaseline = "top";
+        this.#context.letterSpacing = letterSpacing;
         const measure = this.#context.measureText(text)
         // キャンバスのサイズ設定
         this.#canvas.width = measure.width;
@@ -253,6 +264,7 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#000";
         this.#context.textBaseline = "middle";
         this.#context.textAlign = "center";
+        this.#context.letterSpacing = letterSpacing;        
         this.#context.fillText(text, this.#canvas.width / 2, this.#canvas.height / 2);
 
         const trimmed = CanvasUtils.trimming(this.pixels);

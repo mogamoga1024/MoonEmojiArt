@@ -39,7 +39,7 @@ const App = {
             tukiCountPrev: 13,
             tukiCountMin: 10,
             tukiCountMax: 50,
-            letterSpacingLevel: 2,
+            letterSpacingLevel: 3,
             isBold: false,
             isTate: true,
             wasTate: true,
@@ -87,15 +87,16 @@ const App = {
     mounted() {
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
-            this.text = "あああああ";
-            this.tukiCount = 10;
+            this.text = "ああ";
+            this.tukiCount = 20;
+            this.letterSpacingLevel = 1;
             // this.fontFamily = "sans";
             this.fontFamily = "serif";
             // this.fontFamily = "default";
             this.isBold = true;
             this.isTextYokoLinePowerUp = true;
             this.isTextTateLinePowerUp = true;
-            this.isTate = true;
+            this.isTate = false;
         }
     },
     watch: {
