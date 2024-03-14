@@ -42,7 +42,7 @@ class TukiArtGenerator {
         return text;
     }
 
-    static applyMargin(tukiArt, tukiArtMargin, isColorReverse) {
+    static applyMargin(tukiArt, margin, isColorReverse) {
         const newTextList = tukiArt.split("\n");
         const tateCount = newTextList.length;
         const yokoCount = newTextList[0].length / 2;
@@ -50,21 +50,23 @@ class TukiArtGenerator {
         let tuki = isColorReverse ? "🌑" : "🌕";
 
         if (
-            tukiArtMargin.top + tukiArtMargin.bottom <= -tateCount ||
-            tukiArtMargin.left + tukiArtMargin.right <= -yokoCount
+            margin.top + margin.bottom <= -tateCount ||
+            margin.left + margin.right <= -yokoCount
         ) {
             return TUKI_ART_EMPTY;
         }
 
-        if (tukiArtMargin.top > 0) {
+        if (margin.top > 0) {
             const text = tuki.repeat(yokoCount);
-            for (let i = 0; i < tukiArtMargin.top; i++) {
+            for (let i = 0; i < margin.top; i++) {
                 newTextList.unshift(text);
             }
         }
-        else if (tukiArtMargin.top < 0) {
-            newTextList.splice(0, -tukiArtMargin.top);
+        else if (margin.top < 0) {
+            newTextList.splice(0, -margin.top);
         }
+
+
 
         // todo
 
