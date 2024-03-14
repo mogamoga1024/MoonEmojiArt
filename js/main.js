@@ -39,6 +39,7 @@ const App = {
             tukiCountPrev: 13,
             tukiCountMin: 10,
             tukiCountMax: 50,
+            letterSpacingLevel: 2,
             isBold: false,
             isTate: true,
             wasTate: true,
