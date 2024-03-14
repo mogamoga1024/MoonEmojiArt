@@ -17,7 +17,7 @@ class MonochromeCanvas {
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true) {
+    text(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true, letterSpacingLevel = 2) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80

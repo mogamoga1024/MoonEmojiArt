@@ -350,12 +350,12 @@ const App = {
                 try {
                     if (needCustomMargin) {
                         const prev = this.tukiArtCondPrev;
-                        monoCanvas.text(prev.text, prev.fontFamily, prev.tukiCount, prev.isBold, prev.isTate);
+                        monoCanvas.text(prev.text, prev.fontFamily, prev.tukiCount, prev.isBold, prev.isTate, prev.letterSpacingLevel);
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prev.isTextColorReverse, prev.isTextYokoLinePowerUp, prev.isTextTateLinePowerUp, 2);
                         this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, this.tukiArtMargin, prev.isTextColorReverse);
                     }
                     else {
-                        monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
+                        monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate, this.letterSpacingLevel);
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
                     }
                     try {
@@ -373,6 +373,7 @@ const App = {
                             tukiCount: this.tukiCount,
                             isBold: this.isBold,
                             isTate: this.isTate,
+                            letterSpacingLevel: this.letterSpacingLevel,
                             isTextColorReverse: this.isTextColorReverse,
                             isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
                             isTextTateLinePowerUp: this.isTextTateLinePowerUp
