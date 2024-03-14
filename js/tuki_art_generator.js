@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    static createTukiArt(pixels, isImageColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false, colorCount = 2, useNanameMikaduki = false) {
+    static createTukiArt(pixels, isColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false, colorCount = 2, useNanameMikaduki = false) {
         let text = "";
 
         const data = pixels.data;
@@ -27,7 +27,7 @@ class TukiArtGenerator {
                 }
 
                 const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine, useNanameMikaduki);
-                if (isImageColorReverse && !useNanameMikaduki) {
+                if (isColorReverse && !useNanameMikaduki) {
                     text += this.#reverse(emoji);
                 }
                 else {
@@ -43,9 +43,24 @@ class TukiArtGenerator {
     }
 
     static applyMargin(tukiArt, tukiArtMargin) {
+        const newTextList = tukiArt.split("\n");
+        const tateCount = newTextList.length;
+        const yokoCount = newTextList[0].length / 2;
+
+        if (tukiArtMargin.top >= 0) {
+
+        }
+        else {
+
+        }
+
         // todo
 
-        return TUKI_ART_EMPTY;
+        let newTukiArt = newTextList.join("");
+        if (newTukiArt === "") {
+            return TUKI_ART_EMPTY;
+        }
+        return newTukiArt;
     }
 
     static createTukiArtCanvas(tukiArt) {
