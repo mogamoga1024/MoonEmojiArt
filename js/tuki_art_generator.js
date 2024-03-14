@@ -66,6 +66,16 @@ class TukiArtGenerator {
             newTextList.splice(0, -margin.top);
         }
 
+        if (margin.bottom > 0) {
+            const text = tuki.repeat(yokoCount);
+            for (let i = 0; i < margin.bottom; i++) {
+                newTextList.push(text);
+            }
+        }
+        else if (margin.bottom < 0) {
+            newTextList.splice(Math.max(0, newTextList.length + margin.bottom), -margin.bottom);
+        }
+
 
 
         // todo
