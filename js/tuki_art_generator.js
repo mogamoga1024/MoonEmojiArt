@@ -42,16 +42,27 @@ class TukiArtGenerator {
         return text;
     }
 
-    static applyMargin(tukiArt, tukiArtMargin) {
+    static applyMargin(tukiArt, tukiArtMargin, isColorReverse) {
         const newTextList = tukiArt.split("\n");
         const tateCount = newTextList.length;
         const yokoCount = newTextList[0].length / 2;
 
-        if (tukiArtMargin.top >= 0) {
+        let tuki = isColorReverse ? "🌑" : "🌕";
 
+        if (
+            tukiArtMargin.top + tukiArtMargin.bottom <= -tateCount ||
+            tukiArtMargin.left + tukiArtMargin.right <= -yokoCount
+        ) {
+            return TUKI_ART_EMPTY;
+        }
+
+        if (tukiArtMargin.top >= 0) {
+            for (let i = 0; i < tukiArtMargin.top; i++) {
+                // todo
+            }
         }
         else {
-
+            // todo
         }
 
         // todo

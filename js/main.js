@@ -60,6 +60,7 @@ const App = {
             baseColorDistanceMax: 200,
             needOutline: true,
             isTextColorReverse: true,
+            wasTextColorReverse: true,
             isImageColorReverse: false,
             imageWidthOri: 0,
             imageHeightOri: 100,
@@ -292,6 +293,7 @@ const App = {
                         this.resultMessage = MSG_TOO_MANY_CHARA;
                     }
                     this.wasTate = this.isTate;
+                    this.wasTextColorReverse = this.isTextColorReverse;
                     monoCanvas = null;
                     this.isProcessing = false;
                 }
@@ -399,7 +401,7 @@ const App = {
             URL.revokeObjectURL(link.href);
         },
         onClickTukiArtMarginApplyButton() {
-            this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, this.tukiArtMargin);
+            this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, this.tukiArtMargin, this.wasTextColorReverse);
             try {
                 this.displayTukiArt(false);
             }
