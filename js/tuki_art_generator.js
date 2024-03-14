@@ -56,13 +56,14 @@ class TukiArtGenerator {
             return TUKI_ART_EMPTY;
         }
 
-        if (tukiArtMargin.top >= 0) {
+        if (tukiArtMargin.top > 0) {
+            const text = tuki.repeat(yokoCount);
             for (let i = 0; i < tukiArtMargin.top; i++) {
-                // todo
+                newTextList.unshift(text);
             }
         }
-        else {
-            // todo
+        else if (tukiArtMargin.top < 0) {
+            newTextList.splice(0, -tukiArtMargin.top);
         }
 
         // todo
