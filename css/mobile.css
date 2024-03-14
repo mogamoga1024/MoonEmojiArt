@@ -1,9 +1,5 @@
 
 @media screen and (max-width: 480px) {
-  .mobile-br {
-    display: inline;
-  }
-
   #app {
     padding: 0;
   }
