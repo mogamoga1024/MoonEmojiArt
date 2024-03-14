@@ -88,8 +88,8 @@ const App = {
     mounted() {
         if (this.isDebug) {
             this.shouldDisplayMonochromeImage = true;
-            this.text = "ああ";
-            this.tukiCount = 20;
+            this.text = "あああああ";
+            this.tukiCount = 10;
             this.letterSpacingLevel = 1;
             // this.fontFamily = "sans";
             this.fontFamily = "serif";
@@ -97,7 +97,7 @@ const App = {
             this.isBold = true;
             this.isTextYokoLinePowerUp = true;
             this.isTextTateLinePowerUp = true;
-            this.isTate = false;
+            this.isTate = true;
         }
         
         const canvas = document.createElement("canvas");
