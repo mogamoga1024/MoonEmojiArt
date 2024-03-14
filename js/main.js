@@ -39,6 +39,7 @@ const App = {
             tukiCountPrev: 13,
             tukiCountMin: 10,
             tukiCountMax: 50,
+            canUseContextLetterSpacing: false,
             letterSpacingLevel: 3,
             isBold: false,
             isTate: true,
@@ -98,6 +99,10 @@ const App = {
             this.isTextTateLinePowerUp = true;
             this.isTate = false;
         }
+        
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        this.canUseContextLetterSpacing = "letterSpacing" in context;
     },
     watch: {
         tukiCount(newVal) {
