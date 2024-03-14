@@ -265,6 +265,79 @@ const App = {
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
+            this.generateTukiArt();
+        },
+        onClickCopyButton() {
+            if (!this.canCopyButtonClick) {
+                return;
+            }
+            this.canCopyButtonClick = false;
+
+            navigator.clipboard.writeText(this.tukiArt);
+            
+            this.$refs.copyMessage.classList.add("display-copy-message");
+            setTimeout(() => {
+                this.$refs.copyMessage.classList.remove("display-copy-message");
+                this.canCopyButtonClick = true;
+            }, 2000);
+        },
+        onClickDownLoadTextButton() {
+            if (this.tukiArt === "") {
+                return;
+            }
+            const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
+            const blob = new Blob([bom, this.tukiArt], {type:"text/plan"});
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `moon_art${getStrCurrentDateTime()}.txt`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        },
+        onClickDownLoadImageButton() {
+            if (this.tukiArt === "") {
+                return;
+            }
+            const link = document.createElement("a");
+            link.href = this.$refs.result.toDataURL("image/png");
+            link.download = `moon_art${getStrCurrentDateTime()}.png`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        },
+        onClickTukiArtMarginApplyButton() {
+            // todo
+
+
+            // this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, this.tukiArtMargin, this.tukiArtCondPrev.isTextColorReverse);
+            // try {
+            //     this.displayTukiArt();
+            // }
+            // catch (e) {
+            //     console.error(e);
+            //     this.resultMessage = MSG_TOO_MANY_CHARA;
+            // }
+        },
+        onClickTukiArtMarginClearButton() {
+            this.tukiArtMargin.top = 0;
+            this.tukiArtMargin.bottom = 0;
+            this.tukiArtMargin.left = 0;
+            this.tukiArtMargin.right = 0;
+        },
+        clamp(val, min, max) {
+            if (val < min) {
+                return min;
+            }
+            else if (val > max) {
+                return max;
+            }
+            return val;
+        },
+        clearResult() {
+            this.$refs.canvas.width = 0;
+            this.$refs.canvas.height = 0;
+            this.$refs.result.width = 0;
+            this.$refs.result.height = 0;
+        },
+        generateTukiArt() {
             if (this.isProcessing) {
                 return;
             }
@@ -372,76 +445,6 @@ const App = {
                     this.isProcessing = false;
                 };
             }
-        },
-        onClickCopyButton() {
-            if (!this.canCopyButtonClick) {
-                return;
-            }
-            this.canCopyButtonClick = false;
-
-            navigator.clipboard.writeText(this.tukiArt);
-            
-            this.$refs.copyMessage.classList.add("display-copy-message");
-            setTimeout(() => {
-                this.$refs.copyMessage.classList.remove("display-copy-message");
-                this.canCopyButtonClick = true;
-            }, 2000);
-        },
-        onClickDownLoadTextButton() {
-            if (this.tukiArt === "") {
-                return;
-            }
-            const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
-            const blob = new Blob([bom, this.tukiArt], {type:"text/plan"});
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = `moon_art${getStrCurrentDateTime()}.txt`;
-            link.click();
-            URL.revokeObjectURL(link.href);
-        },
-        onClickDownLoadImageButton() {
-            if (this.tukiArt === "") {
-                return;
-            }
-            const link = document.createElement("a");
-            link.href = this.$refs.result.toDataURL("image/png");
-            link.download = `moon_art${getStrCurrentDateTime()}.png`;
-            link.click();
-            URL.revokeObjectURL(link.href);
-        },
-        onClickTukiArtMarginApplyButton() {
-            // todo
-
-
-            // this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, this.tukiArtMargin, this.tukiArtCondPrev.isTextColorReverse);
-            // try {
-            //     this.displayTukiArt();
-            // }
-            // catch (e) {
-            //     console.error(e);
-            //     this.resultMessage = MSG_TOO_MANY_CHARA;
-            // }
-        },
-        onClickTukiArtMarginClearButton() {
-            this.tukiArtMargin.top = 0;
-            this.tukiArtMargin.bottom = 0;
-            this.tukiArtMargin.left = 0;
-            this.tukiArtMargin.right = 0;
-        },
-        clamp(val, min, max) {
-            if (val < min) {
-                return min;
-            }
-            else if (val > max) {
-                return max;
-            }
-            return val;
-        },
-        clearResult() {
-            this.$refs.canvas.width = 0;
-            this.$refs.canvas.height = 0;
-            this.$refs.result.width = 0;
-            this.$refs.result.height = 0;
         },
         displayTukiArt() {
             const monoContext = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
