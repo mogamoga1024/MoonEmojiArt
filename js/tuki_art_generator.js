@@ -34,10 +34,18 @@ class TukiArtGenerator {
                     text += emoji;
                 }
             }
-            text += "\n";
+            if (row + 4 < pixels.height) {
+                text += "\n";
+            }
         }
 
         return text;
+    }
+
+    static applyMargin(tukiArt, tukiArtMargin) {
+        // todo
+
+        return TUKI_ART_EMPTY;
     }
 
     static createTukiArtCanvas(tukiArt) {
@@ -81,7 +89,7 @@ class TukiArtGenerator {
             lineHeight = tmpCanvas.height + margin;
 
             rtnCanvasWidth = tmpContext.measureText(textList[0]).width;
-            rtnCanvasHeight = lineHeight * (textList.length - 1) + rtnCanvasTopMargin;
+            rtnCanvasHeight = lineHeight * textList.length + rtnCanvasTopMargin;
 
             const isValidCanvas = canvasSize.test({
                 width : rtnCanvasWidth,

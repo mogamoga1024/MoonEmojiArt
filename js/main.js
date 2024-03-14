@@ -399,7 +399,14 @@ const App = {
             URL.revokeObjectURL(link.href);
         },
         onClickTukiArtMarginApplyButton() {
-            // todo
+            this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, this.tukiArtMargin);
+            try {
+                this.displayTukiArt(false);
+            }
+            catch (e) {
+                console.error(e);
+                this.resultMessage = MSG_TOO_MANY_CHARA;
+            }
         },
         onClickTukiArtMarginClearButton() {
             this.tukiArtMargin.top = 0;
@@ -422,20 +429,22 @@ const App = {
             this.$refs.result.width = 0;
             this.$refs.result.height = 0;
         },
-        displayTukiArt() {
-            const monoContext = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
-            if (this.mode === "image" && this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
-                const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
-                this.$refs.canvas.width = this.$refs.appWidth.clientWidth;
-                this.$refs.canvas.height = monoCanvas.canvas.height * rate;
-                monoContext.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+        displayTukiArt(needMonoCanvas = true) {
+            if (needMonoCanvas) {
+                const monoContext = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
+                if (this.mode === "image" && this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
+                    const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
+                    this.$refs.canvas.width = this.$refs.appWidth.clientWidth;
+                    this.$refs.canvas.height = monoCanvas.canvas.height * rate;
+                    monoContext.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+                }
+                else {
+                    this.$refs.canvas.width = monoCanvas.canvas.width;
+                    this.$refs.canvas.height = monoCanvas.canvas.height;
+                    monoContext.drawImage(monoCanvas.canvas, 0, 0);
+                }
             }
-            else {
-                this.$refs.canvas.width = monoCanvas.canvas.width;
-                this.$refs.canvas.height = monoCanvas.canvas.height;
-                monoContext.drawImage(monoCanvas.canvas, 0, 0);
-            }
-
+            
             const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
             const resultContext = this.$refs.result.getContext("2d", { willReadFrequently: true });
             if (this.mode === "image" && this.$refs.appWidth.clientWidth < tukiArtCanvas.width) {
@@ -450,7 +459,7 @@ const App = {
                 resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
             }
 
-            this.debugText = debugText;
+            // this.debugText = debugText;
         }
     }
 };
