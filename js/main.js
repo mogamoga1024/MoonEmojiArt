@@ -398,6 +398,15 @@ const App = {
             link.click();
             URL.revokeObjectURL(link.href);
         },
+        onClickTukiArtMarginApplyButton() {
+            // todo
+        },
+        onClickTukiArtMarginClearButton() {
+            this.tukiArtMargin.top = 0;
+            this.tukiArtMargin.bottom = 0;
+            this.tukiArtMargin.left = 0;
+            this.tukiArtMargin.right = 0;
+        },
         clamp(val, min, max) {
             if (val < min) {
                 return min;

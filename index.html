@@ -152,7 +152,7 @@
     <div style="white-space: pre-wrap;" v-cloak>{{resultMessage}}</div>
     <div v-show="mode === 'text' && tukiArtType === 'text' && canDisplayTukiArt">
       <div id="detail-config-title" @click="shouldDisplayDetailConfig = !shouldDisplayDetailConfig">
-        余白の追加と削除
+        余白の追加(+)と削除(-)
         <div :class="{'caret-down-icon': !shouldDisplayDetailConfig, 'caret-up-icon': shouldDisplayDetailConfig}"></div>
       </div>
       <div id="detail-config-container" v-show="shouldDisplayDetailConfig">
@@ -193,8 +193,8 @@
           </div>
         </div>
         <div class="action-btn-list">
-          <div class="action-btn">適用</div>
-          <div class="action-btn">クリア</div>
+          <div class="action-btn" @click="onClickTukiArtMarginApplyButton">適用</div>
+          <div class="action-btn" @click="onClickTukiArtMarginClearButton">クリア</div>
         </div>
       </div>
       <hr>
