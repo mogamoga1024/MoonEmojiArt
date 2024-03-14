@@ -304,17 +304,7 @@ const App = {
             URL.revokeObjectURL(link.href);
         },
         onClickTukiArtMarginApplyButton() {
-            // todo
-
-
-            // this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, this.tukiArtMargin, this.tukiArtCondPrev.isTextColorReverse);
-            // try {
-            //     this.displayTukiArt();
-            // }
-            // catch (e) {
-            //     console.error(e);
-            //     this.resultMessage = MSG_TOO_MANY_CHARA;
-            // }
+            this.generateTukiArt(true);
         },
         onClickTukiArtMarginClearButton() {
             this.tukiArtMargin.top = 0;
@@ -337,7 +327,7 @@ const App = {
             this.$refs.result.width = 0;
             this.$refs.result.height = 0;
         },
-        generateTukiArt() {
+        generateTukiArt(needCustomMargin = false) {
             if (this.isProcessing) {
                 return;
             }
@@ -356,8 +346,16 @@ const App = {
                     return;
                 }
                 try {
-                    monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
-                    this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
+                    if (needCustomMargin) {
+                        const prev = this.tukiArtCondPrev;
+                        monoCanvas.text(prev.text, prev.fontFamily, prev.tukiCount, prev.isBold, prev.isTate);
+                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prev.isTextColorReverse, prev.isTextYokoLinePowerUp, prev.isTextTateLinePowerUp, 2);
+                        this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, this.tukiArtMargin, prev.isTextColorReverse);
+                    }
+                    else {
+                        monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate);
+                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
+                    }
                     try {
                         this.displayTukiArt();
                     }
@@ -366,16 +364,18 @@ const App = {
                         this.resultMessage = MSG_TOO_MANY_CHARA;
                     }
                     this.wasTate = this.isTate;
-                    this.tukiArtCondPrev = {
-                        text: this.text,
-                        fontFamily: this.fontFamily,
-                        tukiCount: this.tukiCount,
-                        isBold: this.isBold,
-                        isTate: this.isTate,
-                        isTextColorReverse: this.isTextColorReverse,
-                        isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
-                        isTextTateLinePowerUp: this.isTextTateLinePowerUp
-                    };
+                    if (!needCustomMargin) {
+                        this.tukiArtCondPrev = {
+                            text: this.text,
+                            fontFamily: this.fontFamily,
+                            tukiCount: this.tukiCount,
+                            isBold: this.isBold,
+                            isTate: this.isTate,
+                            isTextColorReverse: this.isTextColorReverse,
+                            isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
+                            isTextTateLinePowerUp: this.isTextTateLinePowerUp
+                        };
+                    }
                     monoCanvas = null;
                     this.isProcessing = false;
                 }

@@ -67,7 +67,7 @@ class TukiArtGenerator {
 
         // todo
 
-        let newTukiArt = newTextList.join("");
+        let newTukiArt = newTextList.join("\n");
         if (newTukiArt === "") {
             return TUKI_ART_EMPTY;
         }
