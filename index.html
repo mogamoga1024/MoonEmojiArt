@@ -150,7 +150,7 @@
     <div style="white-space: pre-wrap;" v-show="isDebug" v-cloak>{{debugText}}</div>
     <div ref="processing" style="display: none;">処理中だよ。ちょっと待ってね。</div>
     <div style="white-space: pre-wrap;" v-cloak>{{resultMessage}}</div>
-    <div v-show="mode === 'text' && canDisplayTukiArt">
+    <div v-show="mode === 'text' && tukiArtType === 'text' && canDisplayTukiArt">
       <div id="detail-config-title" @click="shouldDisplayDetailConfig = !shouldDisplayDetailConfig">
         余白の追加と削除
         <div :class="{'caret-down-icon': !shouldDisplayDetailConfig, 'caret-up-icon': shouldDisplayDetailConfig}"></div>

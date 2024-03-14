@@ -29,6 +29,7 @@ const App = {
             canCopyButtonClick: true,
             resultMessage: MSG_NO_INPUT_DATA,
             tukiArt: "",
+            tukiArtType: "", // "text" | "image"
             shouldDisplayMonochromeImage: false,
             shouldDisplayDetailConfig: false,
             mode: "text", // "text" | "image"
@@ -269,8 +270,9 @@ const App = {
             this.isProcessing = true;
 
             monoCanvas = new MonochromeCanvas();
-
+            this.tukiArtType = this.mode;
             this.resultMessage = "";
+
             if (this.mode === "text") {
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
