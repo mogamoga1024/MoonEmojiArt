@@ -87,11 +87,10 @@
                :min="baseAverageColorMin"
                :max="baseAverageColorMax"
                v-model="baseAverageColor">
-        <input type="number"
-               :min="baseAverageColorMin"
-               :max="baseAverageColorMax"
-               v-model="baseAverageColor"
-               @blur="onBlurBaseAverageColor">
+        <plus-minus-input-numbur
+          :min="baseAverageColorMin"
+          :max="baseAverageColorMax"
+          v-model="baseAverageColor">
       </div>
       <div class="item-list">
         <div class="item">

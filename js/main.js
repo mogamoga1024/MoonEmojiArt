@@ -56,7 +56,6 @@ const App = {
             file: null,
             fileReader: new FileReader(),
             baseAverageColor: 110,
-            baseAverageColorPrev: 110,
             baseAverageColorMin: COLOR_B,
             baseAverageColorMax: COLOR_SW,
             baseColorDistance: 30,
@@ -110,10 +109,6 @@ const App = {
         }
     },
     watch: {
-        baseAverageColor(newVal) {
-            if (newVal === "") return;
-            this.baseAverageColorPrev = newVal;
-        },
         baseColorDistance(newVal) {
             if (newVal === "") return;
             this.baseColorDistancePrev = newVal;
@@ -182,17 +177,6 @@ const App = {
                 this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
             }
-        },
-        onBlurBaseAverageColor(e) {
-            if (e.target.value === "") {
-                this.baseAverageColor = this.baseAverageColorPrev;
-                return;
-            }
-            this.baseAverageColor = this.clamp(
-                Number(e.target.value),
-                this.baseAverageColorMin,
-                this.baseAverageColorMax
-            );
         },
         onBlurBaseColorDistance(e) {
             if (e.target.value === "") {
