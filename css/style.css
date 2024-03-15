@@ -40,7 +40,7 @@ button, input, select, textarea {
 
 #setting {
   display: flex;
-  max-width: calc(140px + 190px + 50px); /* name 140px + input 190px + item-listを横並びにするためのおまけ */
+  max-width: calc(140px + 190px + 60px); /* name 140px + input 190px + item-listを横並びにするためのおまけ */
   margin: 16px 0;
   flex-direction: column;
   row-gap: 16px;
