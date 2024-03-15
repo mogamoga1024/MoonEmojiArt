@@ -3,15 +3,6 @@
 
 https://mogamoga1024.github.io/MoonEmojiArt/
 
-## 自慢
-
-月文字で🌙を使ったのは私が最初だろうな。  
-というかそれ以前に黄色と黒の2色以上に色分けできることに気付いて実現させたのも私だろうな。  
-へへーん。
-
-https://github.com/mogamoga1024/MoonEmojiArt/compare/4fca6fd...635ad47
-https://github.com/mogamoga1024/MoonEmojiArt/compare/5a1ab48...cbe63ee
-
 ## todo
 
 細かい編集ができるようにしたい。（書き足し、消しゴム）
@@ -32,4 +23,11 @@ https://github.com/mogamoga1024/MoonEmojiArt/compare/5a1ab48...cbe63ee
 画像をダウンロードすると表示している環境のサイズでダウンロードされます。  
 大きすぎてエラーが発生する可能性があるから致し方ない！
 
+## 自慢
 
+月文字で🌙を使ったのは私が最初だろうな。  
+というかそれ以前に黄色と黒の2色以上に色分けできることに気付いて実現させたのも私だろうな。  
+へへーん。
+
+https://github.com/mogamoga1024/MoonEmojiArt/compare/4fca6fd...635ad47
+https://github.com/mogamoga1024/MoonEmojiArt/compare/5a1ab48...cbe63ee
