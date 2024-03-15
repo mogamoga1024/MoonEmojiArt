@@ -5,7 +5,9 @@ https://mogamoga1024.github.io/MoonEmojiArt/
 
 ## 自慢
 
-月文字で🌙を使ったのは私が最初だろうな。
+月文字で🌙を使ったのは私が最初だろうな。  
+というかそれ以前に黄色と黒の2色以上に色分けできることに気付いて実現させたのも私だろうな。  
+へへーん。
 
 https://github.com/mogamoga1024/MoonEmojiArt/compare/4fca6fd...635ad47
 
