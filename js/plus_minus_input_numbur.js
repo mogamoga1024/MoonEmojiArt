@@ -1,7 +1,7 @@
 
 const PlusMinusInputNumbur = {
     props: {
-        modelValue: Number | String,
+        modelValue: Number,
         min: Number,
         max: Number,
     },
@@ -25,25 +25,23 @@ const PlusMinusInputNumbur = {
         }
     },
     created() {
-        this.modelPrev = Number(this.modelValue);
+        this.modelPrev = this.modelValue;
     },
     watch: {
         modelValue(newVal) {
             if (newVal === "") return;
-            this.modelPrev = Number(newVal);
+            this.modelPrev = newVal;
         },
     },
     methods: {
         onClickMinusButton() {
-            const modelValue = Number(this.modelValue);
-            if (modelValue > this.min) {
-                this.$emit("update:modelValue", modelValue - 1);
+            if (this.modelValue > this.min) {
+                this.$emit("update:modelValue", this.modelValue - 1);
             }
         },
         onClickPlusButton() {
-            const modelValue = Number(this.modelValue);
-            if (modelValue < this.max) {
-                this.$emit("update:modelValue", modelValue + 1);
+            if (this.modelValue < this.max) {
+                this.$emit("update:modelValue", this.modelValue + 1);
             }
         },
         onBlurInputNumber(e) {
