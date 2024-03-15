@@ -48,7 +48,7 @@ button, input, select, textarea {
   display: flex;
   flex-wrap: wrap;
   row-gap: 8px;
-  column-gap: 16px;
+  column-gap: 4px;
 }
 
 .item {
