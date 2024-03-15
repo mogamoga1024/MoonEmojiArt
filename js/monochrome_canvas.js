@@ -40,14 +40,16 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate || text.length === 1) {
-            this.#tateText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin);
+            this.#tateText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin, letterSpacingLevel);
         }
         else {
             this.#yokoText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, letterSpacingLevel);
         }
     }
 
-    #tateText(text, font, yokoPixelCount, tateMargin = 4) {
+    #tateText(text, font, yokoPixelCount, tateMargin = 4, letterSpacingLevel = 3) {
+        const letterSpacing = Math.floor(tateMargin / 2 * (letterSpacingLevel - 1));
+
         const tmpCanvas = document.createElement("canvas");
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
@@ -115,7 +117,7 @@ class MonochromeCanvas {
         }
 
         tmpCanvas.width = Math.ceil(tmpCanvasWidth);
-        tmpCanvas.height = Math.ceil(tmpCanvasHeight) + tateMargin * (charList.length - 1);
+        tmpCanvas.height = Math.ceil(tmpCanvasHeight) + letterSpacing * (charList.length - 1);
 
         const isValidCanvas = canvasSize.test({
             width : tmpCanvas.width,
@@ -130,7 +132,7 @@ class MonochromeCanvas {
 
         let dstY = 0;
         let maxWidth = standardCharWidth;
-        let totalHeight = tateMargin * (charList.length - 1);
+        let totalHeight = letterSpacing * (charList.length - 1);
         for (const char of charList) {
             const isSmallChar = smallCharList.includes(char.value);
             const isRotateCar = rotateCharList.includes(char.value);
@@ -203,11 +205,11 @@ class MonochromeCanvas {
 
             if (isLargeMarginChar) {
                 dstY = prevDestY;
-                dstY += standardCharHeight + tateMargin;
+                dstY += standardCharHeight + letterSpacing;
                 totalHeight += standardCharHeight;
             }
             else {
-                dstY += trimmed.height + tateMargin;
+                dstY += trimmed.height + letterSpacing;
                 totalHeight += trimmed.height;
             }
 

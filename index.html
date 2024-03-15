@@ -46,7 +46,7 @@
                  v-model="tukiCount"
                  @blur="onBlurTukiCount">
         </div>
-        <div class="item" v-if="canUseContextLetterSpacing">
+        <div class="item" v-if="canUseContextLetterSpacing || isTate">
           <div class="name">文字間隔Lv.</div>
           <div class="radio-wrapper" v-cloak>
             <div v-for="num in [1, 2, 3, 4, 5, 6]"
