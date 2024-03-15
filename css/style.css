@@ -44,6 +44,10 @@ button, input, select, textarea {
   row-gap: 16px;
 }
 
+.item-list-wrapper {
+  margin-left: 32px;
+}
+
 .item-list {
   display: flex;
   flex-wrap: wrap;
@@ -55,13 +59,17 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  column-gap: 4px;
 }
 
 .item .name {
-  display: flex;
   width: 180px;
-  align-items: center;
+  text-align: center;
+}
+
+.item .input {
+  display: flex;
+  width: 300px;
+  justify-content: center;
 }
 
 .item.wrap {
@@ -88,11 +96,13 @@ button, input, select, textarea {
 }
 
 .radio:first-of-type {
+  padding-left: 10px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 
 .radio:last-of-type {
+  padding-right: 10px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
