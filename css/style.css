@@ -39,7 +39,7 @@ button, input, select, textarea {
 
 #setting {
   display: flex;
-  max-width: calc(180px + 190px + 10px); /* name 180px + input 190px + item-listを横並びにするためのおまけ */
+  max-width: calc(140px + 190px + 50px); /* name 140px + input 190px + item-listを横並びにするためのおまけ */
   margin: 16px 0;
   flex-direction: column;
   row-gap: 16px;
@@ -66,7 +66,7 @@ button, input, select, textarea {
 }
 
 .item .name {
-  width: 180px;
+  width: 140px;
   text-align: center;
 
   span {
@@ -94,6 +94,7 @@ button, input, select, textarea {
   border: 1px solid mediumblue;
   font-weight: 600;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   color: mediumblue;
   background-color: white;
@@ -121,6 +122,7 @@ button, input, select, textarea {
   border: 1px solid mediumblue;
   font-weight: 600;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   color: mediumblue;
   background-color: white;
@@ -208,6 +210,7 @@ input[type="file"] {
   border: 2px solid #ccc;
   font-weight: 600;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   color: black;
   background-color: #cfc;
@@ -228,6 +231,7 @@ input[type="file"] {
   border: 2px solid #ccc;
   font-weight: 600;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   color: black;
   background-color: #fcc;
@@ -243,7 +247,7 @@ input[type="file"] {
 }
 
 #input-file {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .action-btn-list {
@@ -261,6 +265,7 @@ input[type="file"] {
   border: 1px solid green;
   font-weight: 600;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   color: green;
   background-color: white;
@@ -342,6 +347,7 @@ input[type="file"] {
   color: white;
   background-color: black;
   animation: fade-out 2s ease-in forwards;
+  -webkit-user-select: none;
   user-select: none;
 }
 
