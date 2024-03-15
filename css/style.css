@@ -39,13 +39,15 @@ button, input, select, textarea {
 
 #setting {
   display: flex;
+  max-width: 480px; /* name 180px + input 300px */
   margin: 16px 0;
   flex-direction: column;
   row-gap: 16px;
 }
 
 .item-list-wrapper {
-  margin-left: 32px;
+  display: flex;
+  justify-content: center;
 }
 
 .item-list {
@@ -70,10 +72,6 @@ button, input, select, textarea {
   display: flex;
   width: 300px;
   justify-content: center;
-}
-
-.item.wrap {
-  flex-wrap: wrap;
 }
 
 .radio-wrapper {
@@ -234,7 +232,7 @@ input[type="file"] {
 }
 
 #input-text {
-  width: 300px;
+  width: 100%;
 }
 
 .action-btn-list {

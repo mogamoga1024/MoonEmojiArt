@@ -33,10 +33,11 @@
     </div>
     <hr>
     <div id="setting" v-if="mode === 'text'">
-      <div class="item wrap">
-        <div class="name">変換したい文</div>
-        <input type="text" id="input-text" :class="['font-' + fontFamily, {'bold': isBold}]" v-model="text">
-      </div>
+      <input type="text"
+             id="input-text"
+             :class="['font-' + fontFamily, {'bold': isBold}]"
+             v-model="text"
+             placeholder="変換したい文をいれてね">
       <div class="item">
         <div class="name">{{isTate ? "幅文字数" : "高さ文字数"}}</div>
         <div class="input">
