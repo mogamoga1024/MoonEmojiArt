@@ -60,6 +60,7 @@ button, input, select, textarea {
 
 .item .name {
   display: flex;
+  width: 120px;
   align-items: center;
 }
 
@@ -134,6 +135,11 @@ button, input, select, textarea {
     background-color: mediumblue;
     opacity: 0.7;
   }
+}
+
+select {
+  height: 34px;
+  box-sizing: border-box;
 }
 
 input {
