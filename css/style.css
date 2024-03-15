@@ -68,6 +68,11 @@ button, input, select, textarea {
 .item .name {
   width: 180px;
   text-align: center;
+
+  span {
+    margin-left: 2px;
+    font-size: 0.7em;
+  }
 }
 
 .item .input {

@@ -89,7 +89,7 @@
         <input type="file" ref="inputFile" @change="onChangeInputFile">
       </div>
       <div class="item">
-        <div class="name">黒 {{baseAverageColorMin}}(少)～{{baseAverageColorMax}}(多)</div>
+        <div class="name">黒<span>{{baseAverageColorMin}}(少)～{{baseAverageColorMax}}(多)</span></div>
         <plus-minus-input-numbur
           :min="baseAverageColorMin"
           :max="baseAverageColorMax"
@@ -113,7 +113,7 @@
         </div>
       </div>
       <div class="item" v-show="needOutline">
-        <div class="name">輪郭 {{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</div>
+        <div class="name">輪郭<span>{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</span></div>
         <plus-minus-input-numbur
           :min="baseColorDistanceMin"
           :max="baseColorDistanceMax"
