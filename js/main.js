@@ -108,10 +108,6 @@ const App = {
         }
     },
     watch: {
-        tukiCount(newVal) {
-            if (newVal === "") return;
-            this.tukiCountPrev = newVal;
-        },
         baseAverageColor(newVal) {
             if (newVal === "") return;
             this.baseAverageColorPrev = newVal;
@@ -188,17 +184,6 @@ const App = {
             };
 
             img.src = URL.createObjectURL(this.file);
-        },
-        onBlurTukiCount(e) {
-            if (e.target.value === "") {
-                this.tukiCount = this.tukiCountPrev;
-                return;
-            }
-            this.tukiCount = this.clamp(
-                Number(e.target.value),
-                this.tukiCountMin,
-                this.tukiCountMax
-            );
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {

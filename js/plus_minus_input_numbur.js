@@ -53,7 +53,6 @@ const PlusMinusInputNumbur = {
 
             if (e.target.value === "") {
                 this.mutModelValue = this.modelPrev;
-                this.$forceUpdate();
             }
             else if (newVal < this.min) {
                 this.mutModelValue = this.min;
@@ -64,7 +63,9 @@ const PlusMinusInputNumbur = {
             else {
                 this.mutModelValue = newVal;
             }
-            
+
+            this.$forceUpdate();
+
             this.$emit("update:modelValue", this.mutModelValue);
         }
     }
