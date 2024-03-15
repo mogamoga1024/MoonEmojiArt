@@ -110,16 +110,6 @@
           </div>
         </div>
       </div>
-      <div class="item-list-wrapper">
-        <div class="item-list">
-          <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
-          <div class="btn" v-show="!useNanameMikaduki" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
-        </div>
-        <div class="item-list">
-          <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
-          <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦強化</div>
-        </div>
-      </div>
       <div class="item" v-show="needOutline">
         <div class="name">輪郭<span>{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</span></div>
         <div class="input">
@@ -136,6 +126,16 @@
             :min="imageWidthMin"
             :max="imageWidthMax"
             v-model="imageWidth">
+        </div>
+      </div>
+      <div class="item-list-wrapper">
+        <div class="item-list">
+          <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
+          <div class="btn" v-show="!useNanameMikaduki" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
+        </div>
+        <div class="item-list">
+          <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
+          <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦強化</div>
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@ button, input, select, textarea {
 
 #setting {
   display: flex;
-  max-width: 480px; /* name 180px + input 300px */
+  max-width: calc(180px + 190px + 10px); /* name 180px + input 190px + item-listを横並びにするためのおまけ */
   margin: 16px 0;
   flex-direction: column;
   row-gap: 16px;
@@ -77,7 +77,7 @@ button, input, select, textarea {
 
 .item .input {
   display: flex;
-  width: 300px;
+  width: 190px;
   justify-content: center;
 }
 
