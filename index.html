@@ -40,7 +40,11 @@
       <div class="item-list">
         <div class="item">
           <div class="name" v-cloak>{{isTate ? "幅文字数" : "高さ文字数"}}</div>
-          <div class="plus-minus-input-numbur">
+          <plus-minus-input-numbur
+            :min="tukiCountMin"
+            :max="tukiCountMax"
+            v-model="tukiCount">
+          <!-- <div class="plus-minus-input-numbur">
             <div class="minus-btn">-</div>
             <input type="number"
                    :min="tukiCountMin"
@@ -48,7 +52,7 @@
                    v-model="tukiCount"
                    @blur="onBlurTukiCount">
             <div class="plus-btn">+</div>
-          </div>
+          </div> -->
         </div>
         <div class="item" v-if="canUseContextLetterSpacing || isTate">
           <div class="name">文字間隔Lv.</div>
@@ -229,6 +233,7 @@
   <script src="js/common_utils.js"></script>
   <script src="js/constants.js"></script>
   <script src="js/custom_errors.js"></script>
+  <script src="js/plus_minus_input_numbur.js"></script>
   <script src="js/canvas_utils.js"></script>
   <script src="js/monochrome_canvas.js"></script>
   <script src="js/tuki_art_generator.js"></script>

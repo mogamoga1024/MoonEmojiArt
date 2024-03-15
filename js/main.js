@@ -22,6 +22,9 @@ const MSG_TOO_MANY_CHARA =
 ちなみに開発当時は文字をそのまま表示するスタンスだったけどスマホだと激重だったからやめたよ。`;
 
 const App = {
+    components: {
+        PlusMinusInputNumbur
+    },
     data() {
         return {
             isDebug: false,
