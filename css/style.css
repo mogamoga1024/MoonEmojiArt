@@ -52,6 +52,7 @@ button, input, select, textarea {
 
 .item {
   display: flex;
+  align-items: center;
   flex-wrap: nowrap;
   column-gap: 4px;
 }
@@ -134,8 +135,27 @@ button, input, select, textarea {
   }
 }
 
+input {
+  height: 24px;
+}
+
 input[type="file"] {
   display: none;
+}
+
+.plus-minus-input-numbur {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.plus-btn {
+  /* todo */
+}
+
+.minus-btn {
+  /* todo */
 }
 
 input[type="number"] {
