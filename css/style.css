@@ -60,7 +60,7 @@ button, input, select, textarea {
 
 .item .name {
   display: flex;
-  width: 120px;
+  width: 180px;
   align-items: center;
 }
 

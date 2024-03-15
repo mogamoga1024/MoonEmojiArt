@@ -80,17 +80,11 @@
         <input type="file" ref="inputFile" @change="onChangeInputFile">
       </div>
       <div class="item">
-        <div class="name">黒：少 - 多</div>
-        <div>
-          <input type="range"
-               :min="baseAverageColorMin"
-               :max="baseAverageColorMax"
-               v-model="baseAverageColor">
-          <plus-minus-input-numbur
-            :min="baseAverageColorMin"
-            :max="baseAverageColorMax"
-            v-model="baseAverageColor">
-        </div>
+        <div class="name">黒 {{baseAverageColorMin}}(少)～{{baseAverageColorMax}}(多)</div>
+        <plus-minus-input-numbur
+          :min="baseAverageColorMin"
+          :max="baseAverageColorMax"
+          v-model="baseAverageColor">
       </div>
       <div class="item">
         <div class="name">色数</div>
@@ -110,17 +104,11 @@
         </div>
       </div>
       <div class="item" v-show="needOutline">
-        <div class="name">輪郭：強 - 弱</div>
-        <div>
-          <input type="range"
-               :min="baseColorDistanceMin"
-               :max="baseColorDistanceMax"
-               v-model="baseColorDistance">
-          <plus-minus-input-numbur
-            :min="baseColorDistanceMin"
-            :max="baseColorDistanceMax"
-            v-model="baseColorDistance">
-        </div>
+        <div class="name">輪郭 {{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</div>
+        <plus-minus-input-numbur
+          :min="baseColorDistanceMin"
+          :max="baseColorDistanceMax"
+          v-model="baseColorDistance">
       </div>
       <div class="item">
         <div class="name">幅</div>
