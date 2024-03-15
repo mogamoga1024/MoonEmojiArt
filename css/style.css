@@ -39,8 +39,9 @@ button, input, select, textarea {
 
 #setting {
   display: flex;
+  margin: 16px 0;
   flex-direction: column;
-  row-gap: 8px;
+  row-gap: 16px;
 }
 
 .item-list {
@@ -178,7 +179,7 @@ input[type="file"] {
 
 .plus-btn {
   display: inline-block;
-  width: 18px;
+  width: 24px;
   height: 28px; /* borderの幅を加えて32pxになるように調整した値 */
   line-height: 28px;
   border-top-right-radius: 3px;
@@ -198,7 +199,7 @@ input[type="file"] {
 
 .minus-btn {
   display: inline-block;
-  width: 18px;
+  width: 24px;
   height: 28px; /* borderの幅を加えて32pxになるように調整した値 */
   line-height: 28px;
   border-top-left-radius: 3px;

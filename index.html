@@ -32,7 +32,7 @@
       <div class="btn" :class="{'selected': shouldDisplayMonochromeImage}" @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">一次加工確認</div>
     </div>
     <hr>
-    <div id="setting" v-show="mode === 'text'">
+    <div id="setting" v-if="mode === 'text'">
       <div class="item wrap">
         <div class="name">変換したい文</div>
         <input type="text" id="input-text" :class="['font-' + fontFamily, {'bold': isBold}]" v-model="text">
@@ -76,21 +76,23 @@
         <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="isTextTateLinePowerUp = !isTextTateLinePowerUp">縦線強化</div>
       </div>
     </div>
-    <div id="setting" v-show="mode === 'image'">
+    <div id="setting" v-if="mode === 'image'">
       <div>
         <div class="btn" @click="$refs.inputFile.click()">ファイルを選択</div><span style="margin-left: 8px;" v-cloak>{{file?.name}}</span>
         <input type="file" ref="inputFile" @change="onChangeInputFile">
       </div>
       <div class="item">
         <div class="name">黒：少 - 多</div>
-        <input type="range"
+        <div>
+          <input type="range"
                :min="baseAverageColorMin"
                :max="baseAverageColorMax"
                v-model="baseAverageColor">
-        <plus-minus-input-numbur
-          :min="baseAverageColorMin"
-          :max="baseAverageColorMax"
-          v-model="baseAverageColor">
+          <plus-minus-input-numbur
+            :min="baseAverageColorMin"
+            :max="baseAverageColorMax"
+            v-model="baseAverageColor">
+        </div>
       </div>
       <div class="item-list">
         <div class="item">
@@ -111,14 +113,16 @@
       </div>
       <div class="item" v-show="needOutline">
         <div class="name">輪郭：強 - 弱</div>
-        <input type="range"
+        <div>
+          <input type="range"
                :min="baseColorDistanceMin"
                :max="baseColorDistanceMax"
                v-model="baseColorDistance">
-        <plus-minus-input-numbur
-          :min="baseColorDistanceMin"
-          :max="baseColorDistanceMax"
-          v-model="baseColorDistance">
+          <plus-minus-input-numbur
+            :min="baseColorDistanceMin"
+            :max="baseColorDistanceMax"
+            v-model="baseColorDistance">
+        </div>
       </div>
       <div class="item">
         <div class="name">幅</div>
