@@ -67,7 +67,6 @@ const App = {
             imageWidthOri: 0,
             imageHeightOri: 100,
             imageWidth: 100,
-            imageWidthPrev: 100,
             imageWidthMin: 10,
             imageWidthMax: 5000,
             tukiArtMarginTop: 0,
@@ -104,10 +103,6 @@ const App = {
         }
     },
     watch: {
-        imageWidth(newVal) {
-            if (newVal === "") return;
-            this.imageWidthPrev = newVal;
-        },
         isProcessing(newVal) {
             if (newVal) {
                 this.$refs.processing.style.display = "";
@@ -161,17 +156,6 @@ const App = {
                 this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
             }
-        },
-        onBlurImageWidth(e) {
-            if (e.target.value === "") {
-                this.imageWidth = this.imageWidthPrev;
-                return;
-            }
-            this.imageWidth = this.clamp(
-                Number(e.target.value),
-                this.imageWidthMin,
-                this.imageWidthMax
-            );
         },
         // 生成ボタン押下時
         onClickGenerateButton() {

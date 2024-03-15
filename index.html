@@ -122,9 +122,10 @@
       </div>
       <div class="item">
         <div class="name">幅</div>
-        <input type="number" :min="imageWidthMin" :max="imageWidthMax"
-               v-model="imageWidth"
-               @blur="onBlurImageWidth">
+        <plus-minus-input-numbur
+          :min="imageWidthMin"
+          :max="imageWidthMax"
+          v-model="imageWidth">
       </div>
     </div>
     <hr>
