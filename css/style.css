@@ -242,6 +242,10 @@ input[type="file"] {
   width: 100%;
 }
 
+#input-file {
+  margin-left: 20px;
+}
+
 .action-btn-list {
   display: flex;
   flex-wrap: wrap;
