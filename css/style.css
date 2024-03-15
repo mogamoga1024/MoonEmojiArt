@@ -161,6 +161,8 @@ input[type="file"] {
     border-left-width: 0;
     border-right-width: 0;
 
+    text-align: center;
+
     -moz-appearance: textfield;
     appearance: none;
     &::-webkit-outer-spin-button,
