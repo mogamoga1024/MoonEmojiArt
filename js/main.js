@@ -33,6 +33,7 @@ const App = {
             tukiArtType: "", // "text" | "image"
             shouldDisplayMonochromeImage: false,
             shouldDisplayDetailConfig: false,
+            needDetailConfig: false,
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "serif", // "default" | "sans" | "serif"

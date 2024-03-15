@@ -29,6 +29,7 @@
         <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
         <div class="radio" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
       </div>
+      <div class="btn" :class="{'selected': needDetailConfig}" @click="needDetailConfig = !needDetailConfig">詳細</div>
     </div>
     <hr>
     <div id="setting" v-if="mode === 'text'">
