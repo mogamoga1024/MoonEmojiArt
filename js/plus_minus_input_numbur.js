@@ -14,6 +14,7 @@ const PlusMinusInputNumbur = {
                  :min="min"
                  :max="max"
                  :value="modelValue"
+                 @focus="$event.target.select()"
                  @blur="onBlurInputNumber">
           <div class="plus-btn"
                @click="onClickPlusButton">+</div>
