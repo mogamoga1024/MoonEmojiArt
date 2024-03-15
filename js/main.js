@@ -59,7 +59,6 @@ const App = {
             baseAverageColorMin: COLOR_B,
             baseAverageColorMax: COLOR_SW,
             baseColorDistance: 30,
-            baseColorDistancePrev: 30,
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
             needOutline: true,
@@ -109,10 +108,6 @@ const App = {
         }
     },
     watch: {
-        baseColorDistance(newVal) {
-            if (newVal === "") return;
-            this.baseColorDistancePrev = newVal;
-        },
         imageWidth(newVal) {
             if (newVal === "") return;
             this.imageWidthPrev = newVal;
@@ -177,17 +172,6 @@ const App = {
                 this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
             }
-        },
-        onBlurBaseColorDistance(e) {
-            if (e.target.value === "") {
-                this.baseColorDistance = this.baseColorDistancePrev;
-                return;
-            }
-            this.baseColorDistance = this.clamp(
-                Number(e.target.value),
-                this.baseColorDistanceMin,
-                this.baseColorDistanceMax
-            );
         },
         onBlurImageWidth(e) {
             if (e.target.value === "") {

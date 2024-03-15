@@ -115,11 +115,10 @@
                :min="baseColorDistanceMin"
                :max="baseColorDistanceMax"
                v-model="baseColorDistance">
-        <input type="number"
-               :min="baseColorDistanceMin"
-               :max="baseColorDistanceMax"
-               v-model="baseColorDistance"
-               @blur="onBlurBaseColorDistance">
+        <plus-minus-input-numbur
+          :min="baseColorDistanceMin"
+          :max="baseColorDistanceMax"
+          v-model="baseColorDistance">
       </div>
       <div class="item-list">
         <div class="item">
