@@ -183,9 +183,13 @@ input[type="file"] {
   font-weight: 600;
   cursor: pointer;
   user-select: none;
-  color: mediumblue;
-  background-color: white;
+  color: black;
+  background-color: #cfc;
   text-align: center;
+
+  &:hover {
+    background-color: #95ff95;
+  }
 }
 
 .minus-btn {
@@ -199,9 +203,13 @@ input[type="file"] {
   font-weight: 600;
   cursor: pointer;
   user-select: none;
-  color: mediumblue;
-  background-color: white;
+  color: black;
+  background-color: #fcc;
   text-align: center;
+
+  &:hover {
+    background-color: #ff9595;
+  }
 }
 
 /* todo remove */
