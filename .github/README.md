@@ -3,6 +3,10 @@
 
 https://mogamoga1024.github.io/MoonEmojiArt/
 
+## 自慢
+
+月文字で🌙を使ったのは私が最初だろうな。
+
 ## todo
 
 細かい編集ができるようにしたい。（書き足し、消しゴム）
