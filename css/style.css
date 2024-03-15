@@ -136,8 +136,12 @@ button, input, select, textarea {
 }
 
 input {
-  height: 24px;
+  height: 32px;
   border: 2px solid #ccc;
+
+  border-radius: 0;
+
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
@@ -151,7 +155,7 @@ input[type="file"] {
 
 .plus-minus-input-numbur {
   display: flex;
-  height: 30px;
+  height: 32px;
   align-items: center;
   flex-wrap: nowrap;
 
@@ -175,8 +179,8 @@ input[type="file"] {
 .plus-btn {
   display: inline-block;
   width: 18px;
-  height: 26px;
-  line-height: 26px;
+  height: 28px; /* borderの幅を加えて32pxになるように調整した値 */
+  line-height: 28px;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border: 2px solid #ccc;
@@ -195,8 +199,8 @@ input[type="file"] {
 .minus-btn {
   display: inline-block;
   width: 18px;
-  height: 26px;
-  line-height: 26px;
+  height: 28px; /* borderの幅を加えて32pxになるように調整した値 */
+  line-height: 28px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border: 2px solid #ccc;

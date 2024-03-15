@@ -13,6 +13,10 @@
     width: 100%;
   }
 
+  .plus-minus-input-numbur input[type="number"] {
+    width: 60px;
+  }
+
   #detail-config-title {
     width: 100%;
     justify-content: space-between;
