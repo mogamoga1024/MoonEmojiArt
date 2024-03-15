@@ -7,6 +7,8 @@ https://mogamoga1024.github.io/MoonEmojiArt/
 
 月文字で🌙を使ったのは私が最初だろうな。
 
+https://github.com/mogamoga1024/MoonEmojiArt/compare/4fca6fd...635ad47
+
 ## todo
 
 細かい編集ができるようにしたい。（書き足し、消しゴム）
