@@ -4,9 +4,13 @@
     padding: 0;
   }
 
+  h1 {
+    font-size: 24px;
+  }
+
   .github-corner > svg {
-    width: 50px;
-    height: 50px;
+    width: 20px;
+    height: 20px;
   }
 
   .plus-minus-input-numbur input[type="number"] {
