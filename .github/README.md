@@ -31,3 +31,13 @@ https://mogamoga1024.github.io/MoonEmojiArt/
 
 https://github.com/mogamoga1024/MoonEmojiArt/compare/4fca6fd...635ad47
 https://github.com/mogamoga1024/MoonEmojiArt/compare/5a1ab48...cbe63ee
+
+## さらなるアイディア
+
+🌕🌗🌕🌗🌕🌗🌕🌗  
+🌗🌕🌗🌕🌗🌕🌗🌕  
+🌕🌗🌕🌗🌕🌗🌕🌗  
+🌗🌕🌗🌕🌗🌕🌗🌕  
+
+みたいなパターンとかも取り入れたらもっと色のバリエーションが増えるよね。  
+黒何パーセント使ってるかで、そういうパターンは簡単に作れるし、実現可能だよね。  
