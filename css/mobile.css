@@ -13,8 +13,19 @@
     width: 60px;
   }
 
+  #setting .item-list-wrapper, #setting  .item-list {
+    column-gap: 2px;
+  }
+
   #detail-config-title {
     width: 100%;
     justify-content: space-between;
+  }
+}
+
+/* Galaxy Fold */
+@media screen and (max-width: 280px) {
+  .item .radio {
+    padding: 4px;
   }
 }
