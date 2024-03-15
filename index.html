@@ -120,20 +120,11 @@
           :max="baseColorDistanceMax"
           v-model="baseColorDistance">
       </div>
-      <div class="item-list">
-        <div class="item">
-          <div class="name">幅</div>
-          <input type="number" :min="imageWidthMin" :max="imageWidthMax"
-                 v-model="imageWidth"
-                 @blur="onBlurImageWidth">
-        </div>
-        <div class="item">
-          <div class="name">倍率</div>
-          <input type="number" :min="imageSizeRateMin" :max="imageSizeRateMax"
-                 step="0.1"
-                 v-model="imageSizeRate"
-                 @blur="onBlurImageSizeRate">
-        </div>
+      <div class="item">
+        <div class="name">幅</div>
+        <input type="number" :min="imageWidthMin" :max="imageWidthMax"
+               v-model="imageWidth"
+               @blur="onBlurImageWidth">
       </div>
     </div>
     <hr>

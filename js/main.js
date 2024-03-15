@@ -70,10 +70,6 @@ const App = {
             imageWidthPrev: 100,
             imageWidthMin: 10,
             imageWidthMax: 5000,
-            imageSizeRate: 1,
-            imageSizeRatePrev: 1,
-            imageSizeRateMin: 0.1,
-            imageSizeRateMax: Math.floor(5000 * 10 / 10) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
             tukiArtMarginTop: 0,
             tukiArtMarginBottom: 0,
             tukiArtMarginLeft: 0,
@@ -112,10 +108,6 @@ const App = {
             if (newVal === "") return;
             this.imageWidthPrev = newVal;
         },
-        imageSizeRate(newVal) {
-            if (newVal === "") return;
-            this.imageSizeRatePrev = newVal;
-        },
         isProcessing(newVal) {
             if (newVal) {
                 this.$refs.processing.style.display = "";
@@ -148,10 +140,7 @@ const App = {
                 else {
                     this.imageWidth = this.imageWidthOri = img.width;
                     this.imageHeightOri = img.height;
-                    this.imageSizeRateMin = Math.ceil(this.imageWidthMin * 10 / this.imageWidth) / 10;
-                    this.imageSizeRateMax = Math.floor(this.imageWidthMax * 10 / this.imageWidth) / 10;
                 }
-                this.imageSizeRate = 1;
                 
                 URL.revokeObjectURL(img.src);
             };
@@ -183,23 +172,6 @@ const App = {
                 this.imageWidthMin,
                 this.imageWidthMax
             );
-            if (this.file !== null) {
-                this.imageSizeRate = Math.floor(this.imageWidth * 10 / this.imageWidthOri) / 10;
-            }
-        },
-        onBlurImageSizeRate(e) {
-            if (e.target.value === "") {
-                this.imageSizeRate = this.imageSizeRatePrev;
-                return;
-            }
-            this.imageSizeRate = this.clamp(
-                Number(e.target.value),
-                this.imageSizeRateMin,
-                this.imageSizeRateMax
-            );
-            if (this.file !== null) {
-                this.imageWidth = Math.round(this.imageWidthOri * this.imageSizeRate);
-            }
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
