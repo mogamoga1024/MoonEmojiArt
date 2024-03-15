@@ -76,8 +76,10 @@ const App = {
             imageSizeRatePrev: 1,
             imageSizeRateMin: 0.1,
             imageSizeRateMax: Math.floor(5000 * 10 / 10) / 10, // Math.floor(imageWidthMax * 10 / imageWidthMin) / 10
-            tukiArtMargin: {top: 0, bottom: 0, left: 0, right: 0},
-            tukiArtMarginPrev: {top: 0, bottom: 0, left: 0, right: 0},
+            tukiArtMarginTop: 0,
+            tukiArtMarginBottom: 0,
+            tukiArtMarginLeft: 0,
+            tukiArtMarginRight: 0,
             tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
             tukiArtCondPrev: null,
@@ -123,22 +125,6 @@ const App = {
         imageSizeRate(newVal) {
             if (newVal === "") return;
             this.imageSizeRatePrev = newVal;
-        },
-        "tukiArtMargin.top"(newVal) {
-            if (newVal === "") return;
-            this.tukiArtMarginPrev.top = newVal;
-        },
-        "tukiArtMargin.bottom"(newVal) {
-            if (newVal === "") return;
-            this.tukiArtMarginPrev.bottom = newVal;
-        },
-        "tukiArtMargin.left"(newVal) {
-            if (newVal === "") return;
-            this.tukiArtMarginPrev.left = newVal;
-        },
-        "tukiArtMargin.right"(newVal) {
-            if (newVal === "") return;
-            this.tukiArtMarginPrev.right = newVal;
         },
         isProcessing(newVal) {
             if (newVal) {
@@ -247,17 +233,6 @@ const App = {
                 this.imageWidth = Math.round(this.imageWidthOri * this.imageSizeRate);
             }
         },
-        onBlurTukiArtMargin(e, name) {
-            if (e.target.value === "") {
-                this.tukiArtMargin[name] = this.tukiArtMarginPrev[name];
-                return;
-            }
-            this.tukiArtMargin[name] = this.clamp(
-                Number(e.target.value),
-                this.tukiArtMarginMin,
-                this.tukiArtMarginMax
-            );
-        },
         // 生成ボタン押下時
         onClickGenerateButton() {
             this.generateTukiArt();
@@ -302,10 +277,10 @@ const App = {
             this.generateTukiArt(true);
         },
         onClickTukiArtMarginClearButton() {
-            this.tukiArtMargin.top = 0;
-            this.tukiArtMargin.bottom = 0;
-            this.tukiArtMargin.left = 0;
-            this.tukiArtMargin.right = 0;
+            this.tukiArtMarginTop = 0;
+            this.tukiArtMarginBottom = 0;
+            this.tukiArtMarginLeft = 0;
+            this.tukiArtMarginRight = 0;
             this.generateTukiArt(true);
         },
         clamp(val, min, max) {
@@ -343,10 +318,14 @@ const App = {
                 }
                 try {
                     if (needCustomMargin) {
+                        const tukiArtMargin = {
+                            top: this.tukiArtMarginTop, bottom: this.tukiArtMarginBottom,
+                            left: this.tukiArtMarginLeft, right: this.tukiArtMarginRight
+                        };
                         const prev = this.tukiArtCondPrev;
                         monoCanvas.text(prev.text, prev.fontFamily, prev.tukiCount, prev.isBold, prev.isTate, prev.letterSpacingLevel);
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prev.isTextColorReverse, prev.isTextYokoLinePowerUp, prev.isTextTateLinePowerUp, 2);
-                        this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, this.tukiArtMargin, prev.isTextColorReverse);
+                        this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, tukiArtMargin, prev.isTextColorReverse);
                     }
                     else {
                         monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate, this.letterSpacingLevel);
