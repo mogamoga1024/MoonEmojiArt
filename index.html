@@ -29,7 +29,6 @@
         <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
         <div class="radio" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
       </div>
-      <div class="btn" :class="{'selected': shouldDisplayMonochromeImage}" @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">一次加工確認</div>
     </div>
     <hr>
     <div id="setting" v-if="mode === 'text'">
@@ -133,6 +132,7 @@
         <div class="item-list">
           <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
           <div class="btn" v-show="!useNanameMikaduki" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
+          <div class="btn" :class="{'selected': shouldDisplayMonochromeImage}" @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">画像確認</div>
         </div>
         <div class="item-list">
           <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
@@ -212,7 +212,7 @@
 
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
          :class="{'not-exists-tuki-art': !canDisplayTukiArt}">
-      <canvas ref="canvas" v-show="shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
+      <canvas ref="canvas" v-show="mode === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
         <canvas id="result" ref="result"></canvas>
       </div>
