@@ -37,22 +37,20 @@
         <div class="name">変換したい文</div>
         <input type="text" id="input-text" :class="['font-' + fontFamily, {'bold': isBold}]" v-model="text">
       </div>
-      <div class="item-list">
-        <div class="item">
-          <div class="name" v-cloak>{{isTate ? "幅文字数" : "高さ文字数"}}</div>
-          <plus-minus-input-numbur
-            :min="tukiCountMin"
-            :max="tukiCountMax"
-            v-model="tukiCount">
-        </div>
-        <div class="item" v-if="canUseContextLetterSpacing || isTate">
-          <div class="name">文字間隔Lv.</div>
-          <div class="radio-wrapper" v-cloak>
-            <div v-for="num in [1, 2, 3, 4, 5, 6]"
-                 class="radio"
-                 :class="{'selected': letterSpacingLevel === num}"
-                 @click="letterSpacingLevel = num">{{num}}</div>
-          </div>
+      <div class="item">
+        <div class="name" v-cloak>{{isTate ? "幅文字数" : "高さ文字数"}}</div>
+        <plus-minus-input-numbur
+          :min="tukiCountMin"
+          :max="tukiCountMax"
+          v-model="tukiCount">
+      </div>
+      <div class="item" v-if="canUseContextLetterSpacing || isTate">
+        <div class="name">文字間隔Lv.</div>
+        <div class="radio-wrapper" v-cloak>
+          <div v-for="num in [1, 2, 3, 4, 5, 6]"
+               class="radio"
+               :class="{'selected': letterSpacingLevel === num}"
+               @click="letterSpacingLevel = num">{{num}}</div>
         </div>
       </div>
       <div class="item">
