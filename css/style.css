@@ -137,6 +137,12 @@ button, input, select, textarea {
 
 input {
   height: 24px;
+  border: 2px solid #ccc;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+  }
 }
 
 input[type="file"] {
@@ -148,16 +154,55 @@ input[type="file"] {
   height: 30px;
   align-items: center;
   flex-wrap: nowrap;
+
+  input[type="number"] {
+    width: 60px;
+
+    border-left-width: 0;
+    border-right-width: 0;
+
+    -moz-appearance: textfield;
+    appearance: none;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  }
 }
 
 .plus-btn {
-  /* todo */
+  display: inline-block;
+  width: 18px;
+  height: 26px;
+  line-height: 26px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border: 2px solid #ccc;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  color: mediumblue;
+  background-color: white;
+  text-align: center;
 }
 
 .minus-btn {
-  /* todo */
+  display: inline-block;
+  width: 18px;
+  height: 26px;
+  line-height: 26px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border: 2px solid #ccc;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  color: mediumblue;
+  background-color: white;
+  text-align: center;
 }
 
+/* todo remove */
 input[type="number"] {
   width: 60px;
 }

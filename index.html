@@ -41,13 +41,13 @@
         <div class="item">
           <div class="name" v-cloak>{{isTate ? "幅文字数" : "高さ文字数"}}</div>
           <div class="plus-minus-input-numbur">
-            <div class="btn">-</div>
+            <div class="minus-btn">-</div>
             <input type="number"
                    :min="tukiCountMin"
                    :max="tukiCountMax"
                    v-model="tukiCount"
                    @blur="onBlurTukiCount">
-            <div class="btn">+</div>
+            <div class="plus-btn">+</div>
           </div>
         </div>
         <div class="item" v-if="canUseContextLetterSpacing || isTate">
