@@ -76,7 +76,7 @@ button, input, select, textarea {
   display: inline-block;
   height: 25px;
   line-height: 25px;
-  padding: 0 8px;
+  padding: 4px 8px;
   border: 1px solid mediumblue;
   font-weight: 600;
   cursor: pointer;
@@ -100,7 +100,7 @@ button, input, select, textarea {
   display: inline-block;
   height: 25px;
   line-height: 25px;
-  padding: 0 8px;
+  padding: 4px 8px;
   border-radius: 5px;
   border: 1px solid mediumblue;
   font-weight: 600;
@@ -137,7 +137,7 @@ button, input, select, textarea {
 }
 
 input {
-  height: 32px;
+  height: 34px;
   border: 2px solid #ccc;
 
   border-radius: 0;
@@ -156,7 +156,7 @@ input[type="file"] {
 
 .plus-minus-input-numbur {
   display: flex;
-  height: 32px;
+  height: 34px;
   align-items: center;
   flex-wrap: nowrap;
 
@@ -180,8 +180,8 @@ input[type="file"] {
 .plus-btn {
   display: inline-block;
   width: 24px;
-  height: 28px; /* borderの幅を加えて32pxになるように調整した値 */
-  line-height: 28px;
+  height: 30px; /* borderの幅を加えて34pxになるように調整した値 */
+  line-height: 30px;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border: 2px solid #ccc;
@@ -200,8 +200,8 @@ input[type="file"] {
 .minus-btn {
   display: inline-block;
   width: 24px;
-  height: 28px; /* borderの幅を加えて32pxになるように調整した値 */
-  line-height: 28px;
+  height: 30px; /* borderの幅を加えて34pxになるように調整した値 */
+  line-height: 30px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border: 2px solid #ccc;
