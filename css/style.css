@@ -212,11 +212,6 @@ input[type="file"] {
   }
 }
 
-/* todo remove */
-input[type="number"] {
-  width: 60px;
-}
-
 #input-text {
   width: 300px;
 }
