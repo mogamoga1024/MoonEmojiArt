@@ -1,7 +1,7 @@
 
 const PlusMinusInputNumbur = {
     props: {
-        modelValue: Number,
+        modelValue: Number | String,
         min: Number,
         max: Number,
     },
@@ -13,7 +13,7 @@ const PlusMinusInputNumbur = {
           <input type="number"
                  :min="min"
                  :max="max"
-                 :value="mutModelValue"
+                 :value="modelValue"
                  @blur="onBlurInputNumber">
           <div class="plus-btn"
                @click="onClickPlusButton">+</div>
@@ -21,52 +21,49 @@ const PlusMinusInputNumbur = {
     `,
     data() {
         return {
-            mutModelValue: 0,
             modelPrev: 0
         }
     },
     created() {
-        this.mutModelValue = this.modelValue;
-        this.modelPrev = this.modelValue;
+        this.modelPrev = Number(this.modelValue);
     },
     watch: {
-        mutModelValue(newVal) {
+        modelValue(newVal) {
             if (newVal === "") return;
             this.modelPrev = Number(newVal);
         },
     },
     methods: {
         onClickMinusButton() {
-            if (this.mutModelValue > this.min) {
-                this.mutModelValue -= 1;
-                this.$emit("update:modelValue", this.mutModelValue);
+            const modelValue = Number(this.modelValue);
+            if (modelValue > this.min) {
+                this.$emit("update:modelValue", modelValue - 1);
             }
         },
         onClickPlusButton() {
-            if (this.mutModelValue < this.max) {
-                this.mutModelValue += 1;
-                this.$emit("update:modelValue", this.mutModelValue);
+            const modelValue = Number(this.modelValue);
+            if (modelValue < this.max) {
+                this.$emit("update:modelValue", modelValue + 1);
             }
         },
         onBlurInputNumber(e) {
             const newVal = Number(e.target.value);
 
+            let newModelValue = newVal;
+
             if (e.target.value === "") {
-                this.mutModelValue = this.modelPrev;
+                newModelValue = this.modelPrev;
             }
             else if (newVal < this.min) {
-                this.mutModelValue = this.min;
+                newModelValue = this.min;
             }
             else if (newVal > this.max) {
-                this.mutModelValue = this.max;
-            }
-            else {
-                this.mutModelValue = newVal;
+                newModelValue = this.max;
             }
 
             this.$forceUpdate();
 
-            this.$emit("update:modelValue", this.mutModelValue);
+            this.$emit("update:modelValue", newModelValue);
         }
     }
 };
