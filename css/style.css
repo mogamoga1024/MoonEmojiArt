@@ -47,13 +47,15 @@ button, input, select, textarea {
 
 .item-list-wrapper {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  column-gap: 4px;
+  row-gap: 4px;
 }
 
 .item-list {
   display: flex;
-  flex-wrap: wrap;
-  row-gap: 8px;
+  flex-wrap: nowrap;
   column-gap: 4px;
 }
 
