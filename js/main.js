@@ -82,6 +82,10 @@ const App = {
         }
     },
     created() {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        this.canUseContextLetterSpacing = "letterSpacing" in context;
+
         const params = (new URL(window.location.href)).searchParams;
         this.isDebug = params.get("isDebug") === "true";
     },
@@ -99,10 +103,6 @@ const App = {
             this.isTextTateLinePowerUp = true;
             this.isTate = true;
         }
-        
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        this.canUseContextLetterSpacing = "letterSpacing" in context;
     },
     watch: {
         tukiCount(newVal) {
