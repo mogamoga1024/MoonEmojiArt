@@ -48,7 +48,7 @@
             v-model="tukiCount">
         </div>
       </div>
-      <div class="item" v-if="canUseContextLetterSpacing || isTate">
+      <div class="item" v-if="needDetailConfig && (canUseContextLetterSpacing || isTate)">
         <div class="name">文字間隔Lv.</div>
         <div class="input">
           <div class="radio-wrapper">
@@ -69,6 +69,44 @@
           </select>
         </div>
       </div>
+      <template v-if="needDetailConfig">
+        <div class="item">
+          <div class="name">上の余白</div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="tukiArtMarginMin"
+              :max="tukiArtMarginMax"
+              v-model="tukiArtMarginTop">
+          </div>
+        </div>
+        <div class="item">
+          <div class="name">下の余白</div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="tukiArtMarginMin"
+              :max="tukiArtMarginMax"
+              v-model="tukiArtMarginBottom">
+          </div>
+        </div>
+        <div class="item">
+          <div class="name">左の余白</div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="tukiArtMarginMin"
+              :max="tukiArtMarginMax"
+              v-model="tukiArtMarginLeft">
+          </div>
+        </div>
+        <div class="item">
+          <div class="name">右の余白</div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="tukiArtMarginMin"
+              :max="tukiArtMarginMax"
+              v-model="tukiArtMarginRight">
+          </div>
+        </div>
+      </template>
       <div class="item-list-wrapper">
         <div class="item-list">
           <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
@@ -141,7 +179,9 @@
         </div>
       </div>
     </div>
+
     <hr>
+    
     <div class="action-btn-list">
       <div id="generate-btn" class="action-btn" @click="onClickGenerateButton">生成</div>
       <div id="copy-btn-wrapper" class="action-btn">
@@ -159,54 +199,9 @@
         </div>
       </div>
     </div>
+    
     <hr>
     
-    <div v-show="mode === 'text' && tukiArtType === 'text' && canDisplayTukiArt">
-      <div id="detail-config-title" @click="shouldDisplayDetailConfig = !shouldDisplayDetailConfig">
-        余白の追加(+)と削除(-)
-        <div :class="{'caret-down-icon': !shouldDisplayDetailConfig, 'caret-up-icon': shouldDisplayDetailConfig}"></div>
-      </div>
-      <div id="detail-config-container" v-show="shouldDisplayDetailConfig">
-        <div class="item-list">
-          <div class="item">
-            <div>上</div>
-            <plus-minus-input-numbur
-              :min="tukiArtMarginMin"
-              :max="tukiArtMarginMax"
-              v-model="tukiArtMarginTop">
-          </div>
-          <div class="item">
-            <div>下</div>
-            <plus-minus-input-numbur
-              :min="tukiArtMarginMin"
-              :max="tukiArtMarginMax"
-              v-model="tukiArtMarginBottom">
-          </div>
-        </div>
-        <div class="item-list">
-          <div class="item">
-            <div>左</div>
-            <plus-minus-input-numbur
-              :min="tukiArtMarginMin"
-              :max="tukiArtMarginMax"
-              v-model="tukiArtMarginLeft">
-          </div>
-          <div class="item">
-            <div>右</div>
-            <plus-minus-input-numbur
-              :min="tukiArtMarginMin"
-              :max="tukiArtMarginMax"
-              v-model="tukiArtMarginRight">
-          </div>
-        </div>
-        <div class="action-btn-list">
-          <div class="action-btn" @click="onClickTukiArtMarginApplyButton">適用</div>
-          <div class="action-btn" @click="onClickTukiArtMarginClearButton">初期化</div>
-        </div>
-      </div>
-      <hr>
-    </div>
-
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
     <div ref="processing" style="display: none;">処理中だよ。ちょっと待ってね。</div>
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>

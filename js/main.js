@@ -30,9 +30,7 @@ const App = {
             canCopyButtonClick: true,
             resultMessage: MSG_NO_INPUT_DATA,
             tukiArt: "",
-            tukiArtType: "", // "text" | "image"
             shouldDisplayMonochromeImage: false,
-            shouldDisplayDetailConfig: false,
             needDetailConfig: false,
             mode: "text", // "text" | "image"
             text: "",
@@ -197,23 +195,16 @@ const App = {
             URL.revokeObjectURL(link.href);
         },
         onClickTukiArtMarginApplyButton() {
+            // todo remove
             this.generateTukiArt(true);
         },
         onClickTukiArtMarginClearButton() {
+            // todo remove
             this.tukiArtMarginTop = 0;
             this.tukiArtMarginBottom = 0;
             this.tukiArtMarginLeft = 0;
             this.tukiArtMarginRight = 0;
             this.generateTukiArt(true);
-        },
-        clamp(val, min, max) {
-            if (val < min) {
-                return min;
-            }
-            else if (val > max) {
-                return max;
-            }
-            return val;
         },
         clearResult() {
             this.$refs.canvas.width = 0;
@@ -228,7 +219,6 @@ const App = {
             this.isProcessing = true;
 
             monoCanvas = new MonochromeCanvas();
-            this.tukiArtType = this.mode;
             this.resultMessage = "";
 
             if (this.mode === "text") {

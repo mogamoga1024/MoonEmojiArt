@@ -20,11 +20,6 @@
   #setting .item-list-wrapper, #setting  .item-list {
     column-gap: 2px;
   }
-
-  #detail-config-title {
-    width: 100%;
-    justify-content: space-between;
-  }
 }
 
 /* Galaxy Fold */
