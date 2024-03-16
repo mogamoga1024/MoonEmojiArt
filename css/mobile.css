@@ -22,7 +22,7 @@
   }
 
   .config-area {
-    padding: 0 24px;
+    margin-left: 24px;
   }
 
   #setting {
@@ -39,7 +39,7 @@
   }
 
   .item .input {
-    width: calc(100% - 140px); /* .nameのwidthを引いている */
+    width: calc(100% - 200px); /* .nameのwidthを引いている */
   }
 
   .action-btn-list {
