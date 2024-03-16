@@ -33,7 +33,8 @@ const App = {
             tukiArt: "",
             tukiArtType: "", // "text" | "image"
             shouldDisplayMonochromeImage: false,
-            needDetailConfig: false,
+            needDetailConfigLetterSpacingLevel: false,
+            needDetailConfigTukiArtMargin: false,
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "serif", // "default" | "sans" | "serif"
@@ -255,12 +256,12 @@ const App = {
                     return;
                 }
                 try {
-                    const letterSpacingLevel = this.needDetailConfig ? this.letterSpacingLevel : this.letterSpacingLevelDefault;
+                    const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : this.letterSpacingLevelDefault;
 
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate, letterSpacingLevel);
                     this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
 
-                    if (this.needDetailConfig) {
+                    if (this.needDetailConfigTukiArtMargin) {
                         const tukiArtMargin = {
                             top: this.tukiArtMarginTop, bottom: this.tukiArtMarginBottom,
                             left: this.tukiArtMarginLeft, right: this.tukiArtMarginRight
