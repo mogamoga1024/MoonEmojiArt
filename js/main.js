@@ -41,6 +41,7 @@ const App = {
             tukiCountMax: 50,
             canUseContextLetterSpacing: false,
             letterSpacingLevel: 3,
+            letterSpacingLevelDefault: 3,
             isBold: false,
             isTate: true,
             wasTate: true,
@@ -72,7 +73,6 @@ const App = {
             tukiArtMarginRight: 0,
             tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
-            tukiArtCondPrev: null,
             isProcessing: false,
         }
     },
@@ -194,25 +194,13 @@ const App = {
             link.click();
             URL.revokeObjectURL(link.href);
         },
-        onClickTukiArtMarginApplyButton() {
-            // todo remove
-            this.generateTukiArt(true);
-        },
-        onClickTukiArtMarginClearButton() {
-            // todo remove
-            this.tukiArtMarginTop = 0;
-            this.tukiArtMarginBottom = 0;
-            this.tukiArtMarginLeft = 0;
-            this.tukiArtMarginRight = 0;
-            this.generateTukiArt(true);
-        },
         clearResult() {
             this.$refs.canvas.width = 0;
             this.$refs.canvas.height = 0;
             this.$refs.result.width = 0;
             this.$refs.result.height = 0;
         },
-        generateTukiArt(needCustomMargin = false) {
+        generateTukiArt() {
             if (this.isProcessing) {
                 return;
             }
@@ -230,20 +218,19 @@ const App = {
                     return;
                 }
                 try {
-                    if (needCustomMargin) {
+                    const letterSpacingLevel = this.needDetailConfig ? this.letterSpacingLevel : this.letterSpacingLevelDefault;
+
+                    monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate, letterSpacingLevel);
+                    this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
+
+                    if (this.needDetailConfig) {
                         const tukiArtMargin = {
                             top: this.tukiArtMarginTop, bottom: this.tukiArtMarginBottom,
                             left: this.tukiArtMarginLeft, right: this.tukiArtMarginRight
                         };
-                        const prev = this.tukiArtCondPrev;
-                        monoCanvas.text(prev.text, prev.fontFamily, prev.tukiCount, prev.isBold, prev.isTate, prev.letterSpacingLevel);
-                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prev.isTextColorReverse, prev.isTextYokoLinePowerUp, prev.isTextTateLinePowerUp, 2);
-                        this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, tukiArtMargin, prev.isTextColorReverse);
+                        this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, tukiArtMargin, this.isTextColorReverse);
                     }
-                    else {
-                        monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate, this.letterSpacingLevel);
-                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
-                    }
+
                     try {
                         this.displayTukiArt();
                     }
@@ -252,19 +239,6 @@ const App = {
                         this.resultMessage = MSG_TOO_MANY_CHARA;
                     }
                     this.wasTate = this.isTate;
-                    if (!needCustomMargin) {
-                        this.tukiArtCondPrev = {
-                            text: this.text,
-                            fontFamily: this.fontFamily,
-                            tukiCount: this.tukiCount,
-                            isBold: this.isBold,
-                            isTate: this.isTate,
-                            letterSpacingLevel: this.letterSpacingLevel,
-                            isTextColorReverse: this.isTextColorReverse,
-                            isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
-                            isTextTateLinePowerUp: this.isTextTateLinePowerUp
-                        };
-                    }
                     monoCanvas = null;
                     this.isProcessing = false;
                 }
@@ -297,7 +271,7 @@ const App = {
                         this.fileReader.result,
                         this.imageWidth,
                         Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
-                        Number(this.baseAverageColor),
+                        Number(this.baseAverageColor), // todo Numberはいらない。と思うが、不安なので放置。時間があったら確かめる。
                         this.needOutline,
                         this.baseColorDistance,
                         this.colorCount,
