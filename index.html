@@ -122,18 +122,14 @@
         </div>
       </template>
       <div class="input-check-area">
-        <div class="item-list">
-          <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
-          <div class="btn" :class="{'selected': isTextColorReverse}" @click="isTextColorReverse = !isTextColorReverse">色反転</div>
-          <div class="radio-wrapper">
-            <div class="radio" :class="{'selected': isTate}" @click="isTate = true">縦</div>
-            <div class="radio" :class="{'selected': !isTate}" @click="isTate = false">横</div>
-          </div>
+        <div class="btn" :class="{'selected': isBold}" @click="isBold = !isBold">太字</div>
+        <div class="btn" :class="{'selected': isTextColorReverse}" @click="isTextColorReverse = !isTextColorReverse">色反転</div>
+        <div class="radio-wrapper">
+          <div class="radio" :class="{'selected': isTate}" @click="isTate = true">縦</div>
+          <div class="radio" :class="{'selected': !isTate}" @click="isTate = false">横</div>
         </div>
-        <div class="item-list">
-          <div class="btn" :class="{'selected': isTextYokoLinePowerUp}" @click="isTextYokoLinePowerUp = !isTextYokoLinePowerUp">横強化</div>
-          <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="isTextTateLinePowerUp = !isTextTateLinePowerUp">縦強化</div>
-        </div>
+        <div class="btn" :class="{'selected': isTextYokoLinePowerUp}" @click="isTextYokoLinePowerUp = !isTextYokoLinePowerUp">横強化</div>
+        <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="isTextTateLinePowerUp = !isTextTateLinePowerUp">縦強化</div>
       </div>
     </div>
     <div id="setting" v-if="mode === 'image'">
@@ -188,15 +184,11 @@
         </div>
       </div>
       <div class="input-check-area">
-        <div class="item-list">
-          <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
-          <div class="btn" v-show="!useNanameMikaduki" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
-          <div class="btn" :class="{'selected': shouldDisplayMonochromeImage}" @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">画像確認</div>
-        </div>
-        <div class="item-list">
-          <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
-          <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦強化</div>
-        </div>
+        <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
+        <div class="btn" v-show="!useNanameMikaduki" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
+        <div class="btn" :class="{'selected': shouldDisplayMonochromeImage}" @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">画像確認</div>
+        <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
+        <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦強化</div>
       </div>
     </div>
 

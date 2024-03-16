@@ -6,6 +6,7 @@
 :root {
   --item-name-width: 140px;
   --item-input-width: 190px;
+  --copy-btn-width: 69px;
 }
 
 body {
@@ -310,12 +311,12 @@ input[type="file"] {
 
 #copy-btn-wrapper {
   position: relative;
-  width: 69px;
+  width: var(--copy-btn-width);
 }
 
 #copy-btn {
   position: absolute;
-  width: 69px;
+  width: var(--copy-btn-width);
   height: 36px;
 }
 
@@ -361,7 +362,7 @@ input[type="file"] {
   width: 100px;
   height: 40px;
   top: 45px;
-  left: calc(-1 * (100px - 69px) / 2); /* 引く数は#copy-btn-wrapper.width */
+  left: calc(-1 * (100px - var(--copy-btn-width)) / 2);
   font-size: 1.2rem;
   line-height: 40px;
   text-align: center;

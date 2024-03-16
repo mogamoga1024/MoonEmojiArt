@@ -18,7 +18,8 @@
   }
 
   #setting .input-check-area, #setting .item-list {
-    justify-content: center;
+    /* justify-content: center; */
+    justify-content: space-evenly;
     column-gap: 2px;
   }
 
@@ -51,8 +52,9 @@
 
 /* Galaxy S8+ */
 @media screen and (max-width: 360px) {
-  #setting .input-check-area {
-    font-size: 0.95em;
+  #setting .input-check-area * {
+    padding-left: 4px;
+    padding-right: 4px;
   }
 }
 
@@ -79,6 +81,29 @@
   }
 
   #setting .input-check-area {
-    font-size: 0.85em;
+    font-size: 0.88em;
+
+    * {
+      padding-left: 1px;
+      padding-right: 1px;
+    }
+  }
+
+  .action-btn-list .action-btn {
+    font-size: 0.88em;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+  }
+
+  .download-icon {
+    width: 18px;
+  }
+
+  #copy-btn-wrapper, #copy-btn {
+    width: 50px;
+  }
+
+  .display-copy-message {
+    left: calc(-1 * (100px - 50px) / 2);
   }
 }
