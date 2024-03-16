@@ -15,6 +15,10 @@ body {
   touch-action: manipulation;
 }
 
+img {
+  touch-action: auto;
+}
+
 body:not(h1) {
   font-size: 18px;
 }
