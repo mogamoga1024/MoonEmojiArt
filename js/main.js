@@ -78,6 +78,7 @@ const App = {
             tukiArtMarginMax: 20,
             isLoadingInputImage: false,
             isGeneratingTukiArt: false,
+            canDisplayTukiArt: false,
         }
     },
     created() {
@@ -111,12 +112,6 @@ const App = {
             else {
                 this.$refs.processing.style.display = "none";
             }
-        }
-    },
-    computed: {
-        canDisplayTukiArt() {
-            return this.resultMessage === ""
-                || this.resultMessage === MSG_TOO_MANY_CHARA;
         }
     },
     methods: {
@@ -242,7 +237,7 @@ const App = {
                 return;
             }
             const link = document.createElement("a");
-            link.href = this.$refs.result.toDataURL("image/png");
+            link.href = this.$refs.result.src;
             link.download = `moon_art${getStrCurrentDateTime()}.png`;
             link.click();
             URL.revokeObjectURL(link.href);
@@ -250,8 +245,6 @@ const App = {
         clearResult() {
             this.$refs.canvas.width = 0;
             this.$refs.canvas.height = 0;
-            this.$refs.result.width = 0;
-            this.$refs.result.height = 0;
         },
         generateTukiArt() {
             if (
@@ -272,6 +265,7 @@ const App = {
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
+                    this.canDisplayTukiArt = false;
                     return;
                 }
                 try {
@@ -294,6 +288,7 @@ const App = {
                     catch (e) {
                         console.error(e);
                         this.resultMessage = MSG_TOO_MANY_CHARA;
+                        this.canDisplayTukiArt = false;
                     }
                     this.wasTate = this.isTate;
                     this.tukiArtType = this.mode;
@@ -312,6 +307,7 @@ const App = {
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
+                    this.canDisplayTukiArt = false;
                 }
             }
             else if (this.mode === "image") {
@@ -321,6 +317,7 @@ const App = {
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
+                    this.canDisplayTukiArt = false;
                     return;
                 }
             
@@ -345,6 +342,7 @@ const App = {
                         catch (e) {
                             console.error(e);
                             this.resultMessage = MSG_TOO_MANY_CHARA;
+                            this.canDisplayTukiArt = false;
                         }
                         this.wasTate = false;
                         this.tukiArtType = this.mode;
@@ -362,6 +360,7 @@ const App = {
                         this.tukiArtType = this.mode;
                         monoCanvas = null;
                         this.isGeneratingTukiArt = false;
+                        this.canDisplayTukiArt = false;
                     });
                 };
                 this.fileReader.onerror = () => {
@@ -370,6 +369,7 @@ const App = {
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
+                    this.canDisplayTukiArt = false;
                 };
             }
         },
@@ -388,18 +388,20 @@ const App = {
             }
             
             const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
-            const resultContext = this.$refs.result.getContext("2d", { willReadFrequently: true });
+            const tmpCanvas = document.createElement("canvas");
+            const tmpContext = tmpCanvas.getContext("2d");
             if (this.shouldShrinkImage && this.mode === "image" && this.$refs.appWidth.clientWidth < tukiArtCanvas.width) {
                 const rate = this.$refs.appWidth.clientWidth / tukiArtCanvas.width;
-                this.$refs.result.width = this.$refs.appWidth.clientWidth;
-                this.$refs.result.height = tukiArtCanvas.height * rate;
-                resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
+                tmpCanvas.width = this.$refs.appWidth.clientWidth;
+                tmpCanvas.height = tukiArtCanvas.height * rate;
+                tmpContext.drawImage(tukiArtCanvas, 0, 0, tmpCanvas.width, tmpCanvas.height);
+                this.$refs.result.src = tmpCanvas.toDataURL("image/png");
             }
             else {
-                this.$refs.result.width = tukiArtCanvas.width;
-                this.$refs.result.height = tukiArtCanvas.height;
-                resultContext.drawImage(tukiArtCanvas, 0, 0, this.$refs.result.width, this.$refs.result.height);
+                this.$refs.result.src = tukiArtCanvas.toDataURL("image/png");
             }
+
+            this.canDisplayTukiArt = true;
 
             // this.debugText = debugText;
         }

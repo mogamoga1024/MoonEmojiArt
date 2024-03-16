@@ -220,18 +220,25 @@
         </div>
       </div>
     </div>
-    
+
     <hr>
     
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
-    <div ref="processing" style="display: none;">処理中だよ。ちょっと待ってね。</div>
+    <div ref="processing" style="display: none;">
+      処理中だよ。ちょっと待ってね。
+      <hr>
+    </div>
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
 
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
          :class="{'not-exists-tuki-art': !canDisplayTukiArt}">
+      <div v-show="canDisplayTukiArt" style="white-space: normal;">
+        画像がダウンロードできないときは画像を長押ししてダウンロードしてください…
+        <hr>
+      </div>
       <canvas ref="canvas" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
-        <canvas id="result" ref="result"></canvas>
+        <img ref="result">
       </div>
     </div>
   </div>
