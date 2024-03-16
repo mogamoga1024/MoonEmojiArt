@@ -20,6 +20,11 @@
   #setting .item-list-wrapper, #setting  .item-list {
     column-gap: 2px;
   }
+
+  .action-btn-list {
+    width: fit-content;
+    margin: 0 auto;
+  }
 }
 
 /* Galaxy Fold */

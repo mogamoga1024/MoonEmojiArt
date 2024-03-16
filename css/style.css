@@ -156,6 +156,7 @@ button, input, select, textarea {
 }
 
 #reset-btn {
+  margin-left: 32px;
   border: 1px solid #ff5733;
   color: #ff5733;
   background-color: white;
