@@ -155,6 +155,22 @@ button, input, select, textarea {
   }
 }
 
+#reset-btn {
+  border: 1px solid #ff5733;
+  color: #ff5733;
+  background-color: white;
+}
+
+@media (any-hover: hover) {
+  #reset-btn {
+    transition: background-color 0.2s;
+  }
+  
+  #reset-btn:hover {
+    background-color: #f7ff7f;
+  }
+}
+
 select {
   height: 34px;
   box-sizing: border-box;

@@ -33,6 +33,7 @@
            class="btn"
            :class="{'selected': needDetailConfig}"
            @click="needDetailConfig = !needDetailConfig">詳細</div>
+      <div id="reset-btn" class="btn" @click="onClickResetButton">リセット</div>
     </div>
     <hr>
     <div id="setting" v-if="mode === 'text'">

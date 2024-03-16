@@ -156,6 +156,9 @@ const App = {
                 this.isTextTateLinePowerUp = false;
             }
         },
+        onClickResetButton() {
+            // todo
+        },
         // 生成ボタン押下時
         onClickGenerateButton() {
             this.generateTukiArt();
