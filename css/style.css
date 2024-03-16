@@ -3,6 +3,11 @@
   display: none !important;
 }
 
+:root {
+  --item-name-width: 140px;
+  --item-input-width: 190px;
+}
+
 body {
   font-family: Verdana, Roboto, "Droid Sans", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", sans-serif;
   background-color: #f4f4f4;
@@ -40,7 +45,6 @@ button, input, select, textarea {
 
 #setting {
   display: flex;
-  max-width: calc(200px + 190px + 0px); /* name 200px + input 190px + item-listを横並びにするためのおまけ */
   margin: 16px 0;
   flex-direction: column;
   row-gap: 16px;
@@ -49,7 +53,6 @@ button, input, select, textarea {
 .item-list-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   column-gap: 8px;
   row-gap: 8px;
 }
@@ -67,18 +70,17 @@ button, input, select, textarea {
 }
 
 .item .name {
-  width: 200px;
+  width: var(--item-name-width);
   text-align: center;
 
-  span {
-    margin-left: 2px;
+  .hosoku {
     font-size: 0.7em;
   }
 }
 
 .item .input {
   display: flex;
-  width: 190px;
+  width: var(--item-input-width);
   justify-content: center;
 }
 
@@ -261,7 +263,7 @@ input[type="file"] {
 }
 
 #input-text {
-  width: 100%;
+  width: calc(var(--item-name-width) + var(--item-input-width) + 60px);
 }
 
 #input-file {

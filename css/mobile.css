@@ -18,6 +18,7 @@
   }
 
   #setting .item-list-wrapper, #setting  .item-list {
+    justify-content: center;
     column-gap: 2px;
   }
 
@@ -39,7 +40,7 @@
   }
 
   .item .input {
-    width: calc(100% - 200px); /* .nameのwidthを引いている */
+    width: calc(100% - var(--item-name-width));
   }
 
   .action-btn-list {
@@ -62,13 +63,13 @@
     width: 100%;
   }
 
-  .item .name {
+  /* .item .name {
     width: 140px;
   }
 
   .item .input {
     width: calc(100% - 140px); /* .nameのwidthを引いている */
-  }
+  } */
 
   .plus-minus-input-numbur input[type="number"] {
     width: 60px;

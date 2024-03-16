@@ -143,7 +143,10 @@
         <input type="file" ref="inputFile" @change="onChangeInputFile">
       </div>
       <div class="item">
-        <div class="name">黒<span>{{baseAverageColorMin}}(少)～{{baseAverageColorMax}}(多)</span></div>
+        <div class="name">
+          <div>黒</div>
+          <div class="hosoku">{{baseAverageColorMin}}(少)～{{baseAverageColorMax}}(多)</div>
+        </div>
         <div class="input">
           <plus-minus-input-numbur
             :min="baseAverageColorMin"
@@ -165,7 +168,10 @@
         </div>
       </div>
       <div class="item" v-show="needOutline">
-        <div class="name">輪郭<span>{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</span></div>
+        <div class="name">
+          <div>輪郭</div>
+          <div class="hosoku">{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</div>
+        </div>
         <div class="input">
           <plus-minus-input-numbur
             :min="baseColorDistanceMin"
