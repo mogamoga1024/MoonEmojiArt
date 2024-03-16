@@ -23,8 +23,13 @@
   }
 
   #setting .input-check-area, #setting .item-list {
-    justify-content: space-evenly;
-    column-gap: 2px;
+    justify-content: center;
+    column-gap: 4px;
+  }
+
+  #setting .input-check-area .btn {
+    padding-left: 4px;
+    padding-right: 4px;
   }
 
   .config-area {
@@ -84,12 +89,17 @@
     width: 60px;
   }
 
+  #setting .input-check-area, #setting .item-list {
+    justify-content: space-evenly;
+    column-gap: 2px;
+  }
+
   #setting .input-check-area {
     font-size: 0.88em;
 
     * {
-      padding-left: 1px;
-      padding-right: 1px;
+      padding-left: 1px !important;
+      padding-right: 1px !important;
     }
   }
 
