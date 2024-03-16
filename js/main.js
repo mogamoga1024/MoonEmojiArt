@@ -320,7 +320,8 @@ const App = {
                         this.needOutline,
                         this.baseColorDistance,
                         this.colorCount,
-                        this.useNanameMikaduki
+                        this.useNanameMikaduki,
+                        this.isImageColorReverse
                     ).then(() => {
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.colorCount, this.useNanameMikaduki);
                         try {

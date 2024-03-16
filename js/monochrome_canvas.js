@@ -278,7 +278,7 @@ class MonochromeCanvas {
         this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false) {
+    image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
         return new Promise((resolve, reject) => {
             if (this.#isProcessing) {
                 return reject(new Error("まだ前の処理をしている最中"));
@@ -316,7 +316,7 @@ class MonochromeCanvas {
                         if (needOutline) {
                             this.#outline(pixels, i, baseColorDistance);
                         }
-                        this.#monochrome(pixels, i, baseAverageColor, colorCount, useNanameMikaduki);
+                        this.#monochrome(pixels, i, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
                     }
                 }
                 this.#context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
@@ -330,9 +330,15 @@ class MonochromeCanvas {
         });
     }
 
-    #monochrome(pixels, i, baseAverageColor, colorCount = 2, useNanameMikaduki = false) {
+    #monochrome(pixels, i, baseAverageColor, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
         const data = pixels.data;
-        const avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
+        let avgColor = 0;
+        if (useNanameMikaduki && isImageColorReverse) {
+            avgColor = Math.floor(((255 - data[i]) + (255 - data[i + 1]) + (255 - data[i + 2])) / 3);
+        }
+        else {
+            avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
+        }
     
         let newColor = COLOR_W; // todo りふぁくた
         if (colorCount === 5) {
