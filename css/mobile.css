@@ -49,6 +49,13 @@
   }
 }
 
+/* Galaxy S8+ */
+@media screen and (max-width: 360px) {
+  #setting .input-check-area {
+    font-size: 0.95em;
+  }
+}
+
 /* Galaxy Fold */
 @media screen and (max-width: 280px) {
   .item .radio {
