@@ -21,6 +21,27 @@
     column-gap: 2px;
   }
 
+  .config-area {
+    padding: 0 24px;
+  }
+
+  #setting {
+    max-width: none;
+  }
+
+  #input-text {
+    width: calc(100% - 24px * 2);
+    margin: 0 auto;
+  }
+
+  #input-file {
+    margin-left: 24px;
+  }
+
+  .item .input {
+    width: calc(100% - 140px); /* .nameのwidthを引いている */
+  }
+
   .action-btn-list {
     width: fit-content;
     margin: 0 auto;
@@ -31,5 +52,13 @@
 @media screen and (max-width: 280px) {
   .item .radio {
     padding: 4px;
+  }
+
+  .config-area {
+    padding: 0;
+  }
+
+  #input-text {
+    width: 100%;
   }
 }

@@ -25,7 +25,7 @@
   <div id="app" v-cloak>
     <div ref="appWidth"></div>
     <h1>月文字ジェネレーター（JS版）</h1>
-    <div class="item-list">
+    <div class="config-area item-list">
       <div class="radio-wrapper">
         <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
         <div class="radio" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
@@ -36,7 +36,7 @@
     <hr>
     
     <div v-show="mode === 'text'">
-      <div class="item-list">
+      <div class="config-area item-list">
         <div class="btn"
              :class="{'selected': needDetailConfigLetterSpacingLevel}"
              @click="needDetailConfigLetterSpacingLevel = !needDetailConfigLetterSpacingLevel">文字間隔</div>
