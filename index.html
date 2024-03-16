@@ -208,7 +208,7 @@
 
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
          :class="{'not-exists-tuki-art': !canDisplayTukiArt}">
-      <canvas ref="canvas" v-show="mode === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
+      <canvas ref="canvas" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
         <canvas id="result" ref="result"></canvas>
       </div>

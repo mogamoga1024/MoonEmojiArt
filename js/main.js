@@ -30,6 +30,7 @@ const App = {
             canCopyButtonClick: true,
             resultMessage: MSG_NO_INPUT_DATA,
             tukiArt: "",
+            tukiArtType: "", // "text" | "image"
             shouldDisplayMonochromeImage: false,
             needDetailConfig: false,
             mode: "text", // "text" | "image"
@@ -213,6 +214,7 @@ const App = {
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.clearResult();
+                    this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isProcessing = false;
                     return;
@@ -239,6 +241,7 @@ const App = {
                         this.resultMessage = MSG_TOO_MANY_CHARA;
                     }
                     this.wasTate = this.isTate;
+                    this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isProcessing = false;
                 }
@@ -251,6 +254,7 @@ const App = {
                         this.resultMessage = MSG_ERROR;
                     }
                     this.clearResult();
+                    this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isProcessing = false;
                 }
@@ -259,6 +263,7 @@ const App = {
                 if (this.file == null || this.imageWidth === 0) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.clearResult();
+                    this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isProcessing = false;
                     return;
@@ -286,6 +291,7 @@ const App = {
                             this.resultMessage = MSG_TOO_MANY_CHARA;
                         }
                         this.wasTate = false;
+                        this.tukiArtType = this.mode;
                         monoCanvas = null;
                         this.isProcessing = false;
                     }).catch(e => {
@@ -297,6 +303,7 @@ const App = {
                             this.resultMessage = MSG_ERROR;
                         }
                         this.clearResult();
+                        this.tukiArtType = this.mode;
                         monoCanvas = null;
                         this.isProcessing = false;
                     });
@@ -304,6 +311,7 @@ const App = {
                 this.fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
                     this.clearResult();
+                    this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isProcessing = false;
                 };
