@@ -55,10 +55,22 @@
   }
 
   .config-area {
-    padding: 0;
+    margin-left: 0;
   }
 
   #input-text {
     width: 100%;
+  }
+
+  .item .name {
+    width: 140px;
+  }
+
+  .item .input {
+    width: calc(100% - 140px); /* .nameのwidthを引いている */
+  }
+
+  .plus-minus-input-numbur input[type="number"] {
+    width: 60px;
   }
 }
