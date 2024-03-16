@@ -159,14 +159,12 @@ const App = {
         onClickResetButton() {
             if (this.mode === "text") {
                 const tmpText = this.text;
-                
+
                 this.text = "";
                 this.tukiCount = 13;
                 this.letterSpacingLevel = 3;
                 this.fontFamily = "serif";
                 this.isBold = false;
-                this.isTate = true;
-                this.wasTate = true;
                 this.isTextYokoLinePowerUp = true;
                 this.isTextTateLinePowerUp = true;
                 this.isTextColorReverse = true;
