@@ -75,7 +75,8 @@ const App = {
             tukiArtMarginRight: 0,
             tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
-            isProcessing: false,
+            isLoadingInputImage: false,
+            isGeneratingTukiArt: false,
         }
     },
     created() {
@@ -102,7 +103,7 @@ const App = {
         }
     },
     watch: {
-        isProcessing(newVal) {
+        isGeneratingTukiArt(newVal) {
             if (newVal) {
                 this.$refs.processing.style.display = "";
             }
@@ -119,13 +120,15 @@ const App = {
     },
     methods: {
         onChangeInputFile(e) {
+            if (this.isLoadingInputImage) {
+                return;
+            }
+            this.isLoadingInputImage = true;
+
             this.file = e.target.files[0];
             e.target.value = "";
 
-            // todo await
-
             const img = new Image();
-
             img.onload = () => {
                 if (img.width < this.imageWidthMin || img.width > this.imageWidthMax) {
                     alert(`画像の幅は${this.imageWidthMin}px以上${this.imageWidthMax}px以下の必要があります`);
@@ -139,10 +142,15 @@ const App = {
                 }
                 
                 URL.revokeObjectURL(img.src);
+                this.isLoadingInputImage = false;
             };
             img.onerror = () => {
                 alert("画像の読み込みに失敗しました");
+                this.$refs.inputFile.value = "";
+                this.file = null;
+                this.imageWidth = this.imageWidthMin;
                 URL.revokeObjectURL(img.src);
+                this.isLoadingInputImage = false;
             };
 
             img.src = URL.createObjectURL(this.file);
@@ -245,10 +253,13 @@ const App = {
             this.$refs.result.height = 0;
         },
         generateTukiArt() {
-            if (this.isProcessing) {
+            if (
+                this.isGeneratingTukiArt ||
+                this.mode === "image" && this.isLoadingInputImage
+            ) {
                 return;
             }
-            this.isProcessing = true;
+            this.isGeneratingTukiArt = true;
 
             monoCanvas = new MonochromeCanvas();
             this.resultMessage = "";
@@ -259,7 +270,7 @@ const App = {
                     this.clearResult();
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
-                    this.isProcessing = false;
+                    this.isGeneratingTukiArt = false;
                     return;
                 }
                 try {
@@ -286,7 +297,7 @@ const App = {
                     this.wasTate = this.isTate;
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
-                    this.isProcessing = false;
+                    this.isGeneratingTukiArt = false;
                 }
                 catch(e) {
                     console.error(e);
@@ -299,7 +310,7 @@ const App = {
                     this.clearResult();
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
-                    this.isProcessing = false;
+                    this.isGeneratingTukiArt = false;
                 }
             }
             else if (this.mode === "image") {
@@ -308,7 +319,7 @@ const App = {
                     this.clearResult();
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
-                    this.isProcessing = false;
+                    this.isGeneratingTukiArt = false;
                     return;
                 }
             
@@ -337,7 +348,7 @@ const App = {
                         this.wasTate = false;
                         this.tukiArtType = this.mode;
                         monoCanvas = null;
-                        this.isProcessing = false;
+                        this.isGeneratingTukiArt = false;
                     }).catch(e => {
                         console.error(e);
                         if (e.constructor === TooLargeCanvasError) {
@@ -349,7 +360,7 @@ const App = {
                         this.clearResult();
                         this.tukiArtType = this.mode;
                         monoCanvas = null;
-                        this.isProcessing = false;
+                        this.isGeneratingTukiArt = false;
                     });
                 };
                 this.fileReader.onerror = () => {
@@ -357,7 +368,7 @@ const App = {
                     this.clearResult();
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
-                    this.isProcessing = false;
+                    this.isGeneratingTukiArt = false;
                 };
             }
         },
