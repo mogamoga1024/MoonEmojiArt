@@ -38,7 +38,7 @@ const App = {
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "serif", // "default" | "sans" | "serif"
-            tukiCount: 13,
+            tukiCount: 13, // Twitterが絵文字13文字で改行されるから
             tukiCountMin: 10,
             tukiCountMax: 50,
             canUseContextLetterSpacing: false,
