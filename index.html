@@ -47,6 +47,15 @@
       <hr>
     </div>
 
+    <div v-show="mode === 'image'">
+      <div class="config-area">
+        <div class="btn"
+             :class="{'selected': shouldShrinkImage}"
+             @click="shouldShrinkImage = !shouldShrinkImage">変換後に画像を画面幅に縮小する</div>
+      </div>
+      <hr>
+    </div>
+
     <div id="setting" v-if="mode === 'text'">
       <input type="text"
              id="input-text"

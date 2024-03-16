@@ -35,6 +35,7 @@ const App = {
             shouldDisplayMonochromeImage: false,
             needDetailConfigLetterSpacingLevel: false,
             needDetailConfigTukiArtMargin: false,
+            shouldShrinkImage: true,
             mode: "text", // "text" | "image"
             text: "",
             fontFamily: "serif", // "default" | "sans" | "serif"
@@ -388,7 +389,7 @@ const App = {
             
             const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
             const resultContext = this.$refs.result.getContext("2d", { willReadFrequently: true });
-            if (this.mode === "image" && this.$refs.appWidth.clientWidth < tukiArtCanvas.width) {
+            if (this.shouldShrinkImage && this.mode === "image" && this.$refs.appWidth.clientWidth < tukiArtCanvas.width) {
                 const rate = this.$refs.appWidth.clientWidth / tukiArtCanvas.width;
                 this.$refs.result.width = this.$refs.appWidth.clientWidth;
                 this.$refs.result.height = tukiArtCanvas.height * rate;
