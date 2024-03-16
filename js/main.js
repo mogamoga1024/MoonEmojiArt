@@ -64,8 +64,8 @@ const App = {
             needOutline: true,
             isTextColorReverse: true,
             isImageColorReverse: false,
-            imageWidthOri: 0,
-            imageHeightOri: 100,
+            imageWidthOri: 100,
+            imageHeightOri: 0,
             imageWidth: 100,
             imageWidthMin: 10,
             imageWidthMax: 5000,
@@ -158,6 +158,8 @@ const App = {
         },
         onClickResetButton() {
             if (this.mode === "text") {
+                const tmpText = this.text;
+                
                 this.text = "";
                 this.tukiCount = 13;
                 this.letterSpacingLevel = 3;
@@ -172,9 +174,13 @@ const App = {
                 this.tukiArtMarginBottom = 0;
                 this.tukiArtMarginLeft = 0;
                 this.tukiArtMarginRight = 0;
+                
+                this.generateTukiArt();
+                this.text = tmpText;
             }
             else if (this.mode === "image") {
-                this.$refs.inputFile.value = "";
+                const tmpFile = this.file;
+
                 this.file = null;
                 this.colorCount = 3;
                 this.useNanameMikaduki = true;
@@ -182,14 +188,14 @@ const App = {
                 this.baseColorDistance = 30;
                 this.needOutline = true;
                 this.isImageColorReverse = false;
-                this.imageWidthOri = 0;
-                this.imageHeightOri = 100;
-                this.imageWidth = 100;
+                this.imageWidth = this.imageWidthOri;
                 this.isImageYokoLinePowerUp = false;
                 this.isImageTateLinePowerUp = false;
                 this.shouldDisplayMonochromeImage = false;
+
+                this.generateTukiArt();
+                this.file = tmpFile;
             }
-            this.generateTukiArt();
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
