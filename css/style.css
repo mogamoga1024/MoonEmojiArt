@@ -222,9 +222,10 @@ input[type="file"] {
 
 .plus-btn {
   display: inline-block;
-  width: 30px;
-  height: 30px; /* borderの幅を加えて34pxになるように調整した値 */
-  line-height: 30px;
+  box-sizing: border-box;
+  width: 34px;
+  height: 34px;
+  line-height: calc(34px - 2px * 2);
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border: 2px solid #ccc;
@@ -243,9 +244,10 @@ input[type="file"] {
 
 .minus-btn {
   display: inline-block;
-  width: 30px;
-  height: 30px; /* borderの幅を加えて34pxになるように調整した値 */
-  line-height: 30px;
+  box-sizing: border-box;
+  width: 34px;
+  height: 34px;
+  line-height: calc(34px - 2px * 2);
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border: 2px solid #ccc;
