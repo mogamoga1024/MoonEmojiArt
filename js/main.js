@@ -38,7 +38,6 @@ const App = {
             text: "",
             fontFamily: "serif", // "default" | "sans" | "serif"
             tukiCount: 13,
-            tukiCountPrev: 13,
             tukiCountMin: 10,
             tukiCountMax: 50,
             canUseContextLetterSpacing: false,
@@ -157,7 +156,39 @@ const App = {
             }
         },
         onClickResetButton() {
-            // todo
+            if (this.mode === "text") {
+                this.text = "";
+                this.tukiCount = 13;
+                this.letterSpacingLevel = 3;
+                this.fontFamily = "serif";
+                this.isBold = false;
+                this.isTate = true;
+                this.wasTate = true;
+                this.isTextYokoLinePowerUp = true;
+                this.isTextTateLinePowerUp = true;
+                this.isTextColorReverse = true;
+                this.tukiArtMarginTop = 0;
+                this.tukiArtMarginBottom = 0;
+                this.tukiArtMarginLeft = 0;
+                this.tukiArtMarginRight = 0;
+            }
+            else if (this.mode === "image") {
+                this.$refs.inputFile.value = "";
+                this.file = null;
+                this.colorCount = 3;
+                this.useNanameMikaduki = true;
+                this.baseAverageColor = 110;
+                this.baseColorDistance = 30;
+                this.needOutline = true;
+                this.isImageColorReverse = false;
+                this.imageWidthOri = 0;
+                this.imageHeightOri = 100;
+                this.imageWidth = 100;
+                this.isImageYokoLinePowerUp = false;
+                this.isImageTateLinePowerUp = false;
+                this.shouldDisplayMonochromeImage = false;
+            }
+            this.generateTukiArt();
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
