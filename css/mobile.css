@@ -17,7 +17,7 @@
     width: 70px;
   }
 
-  #setting .item-list-wrapper, #setting  .item-list {
+  #setting .input-check-area, #setting .item-list {
     justify-content: center;
     column-gap: 2px;
   }
@@ -63,15 +63,15 @@
     width: 100%;
   }
 
-  /* .item .name {
-    width: 140px;
+  #input-file {
+    margin-left: 0;
   }
-
-  .item .input {
-    width: calc(100% - 140px); /* .nameのwidthを引いている */
-  } */
 
   .plus-minus-input-numbur input[type="number"] {
     width: 60px;
+  }
+
+  #setting .input-check-area {
+    font-size: 0.85em;
   }
 }

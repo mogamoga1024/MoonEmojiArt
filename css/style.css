@@ -50,7 +50,7 @@ button, input, select, textarea {
   row-gap: 16px;
 }
 
-.item-list-wrapper {
+.input-check-area {
   display: flex;
   flex-wrap: wrap;
   column-gap: 8px;
@@ -270,10 +270,6 @@ input[type="file"] {
 
 #input-text {
   width: calc(var(--item-name-width) + var(--item-input-width) + 60px);
-}
-
-#input-file {
-  margin-left: 10px;
 }
 
 .action-btn-list {
