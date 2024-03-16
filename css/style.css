@@ -202,7 +202,7 @@ input[type="file"] {
   flex-wrap: nowrap;
 
   input[type="number"] {
-    width: 50px;
+    width: 60px;
 
     border-left-width: 0;
     border-right-width: 0;
