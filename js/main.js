@@ -122,6 +122,8 @@ const App = {
             this.file = e.target.files[0];
             e.target.value = "";
 
+            // todo await
+
             const img = new Image();
 
             img.onload = () => {
@@ -139,6 +141,7 @@ const App = {
                 URL.revokeObjectURL(img.src);
             };
             img.onerror = () => {
+                alert("画像の読み込みに失敗しました");
                 URL.revokeObjectURL(img.src);
             };
 
