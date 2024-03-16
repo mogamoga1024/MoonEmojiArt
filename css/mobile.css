@@ -13,18 +13,22 @@
     height: 20px;
   }
 
+  #config-area1 {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .plus-minus-input-numbur input[type="number"] {
     width: 70px;
   }
 
   #setting .input-check-area, #setting .item-list {
-    /* justify-content: center; */
     justify-content: space-evenly;
     column-gap: 2px;
   }
 
   .config-area {
-    margin-left: 24px;
+    padding: 0 24px;
   }
 
   #setting {
@@ -65,7 +69,7 @@
   }
 
   .config-area {
-    margin-left: 0;
+    padding: 0;
   }
 
   #input-text {
