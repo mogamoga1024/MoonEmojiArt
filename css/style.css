@@ -95,6 +95,7 @@ button, input, select, textarea {
   line-height: 25px;
   padding: 4px 8px;
   border: 1px solid mediumblue;
+  border-right-width: 0;
   font-weight: 600;
   cursor: pointer;
   -webkit-user-select: none;
@@ -112,6 +113,9 @@ button, input, select, textarea {
 
 .radio:last-of-type {
   padding-right: 10px;
+
+  border-right-width: 1px;
+
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
