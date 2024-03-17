@@ -269,8 +269,10 @@ const App = {
             URL.revokeObjectURL(link.href);
         },
         clearResult() {
-            this.$refs.monochrome.src = 0;
-            this.$refs.result.src = 0;
+            URL.revokeObjectURL(this.$refs.monochrome.src);
+            URL.revokeObjectURL(this.$refs.result.src);
+            this.$refs.monochrome.src = "";
+            this.$refs.result.src = "";
         },
         generateTukiArt() {
             if (
@@ -400,6 +402,9 @@ const App = {
             }
         },
         displayTukiArt() {
+            URL.revokeObjectURL(this.$refs.monochrome.src);
+            URL.revokeObjectURL(this.$refs.result.src);
+
             this.$refs.monochrome.src = monoCanvas.canvas.toDataURL("image/png");
             this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
 
