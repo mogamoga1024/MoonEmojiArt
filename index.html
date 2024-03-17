@@ -149,11 +149,11 @@
       </div>
     </div>
 
-    <template v-if="mode === 'image'">
+    <template v-else-if="mode === 'image'">
       <div class="input-file-container">
         <div class="input-file">
-          <div class="btn" @click="$refs.inputFile.click()">ファイルを選択</div>
-          <input type="file" ref="inputFile" @change="onChangeInputFile">
+          <div class="btn" @click="$refs.inputImageFile.click()">ファイルを選択</div>
+          <input type="file" ref="inputImageFile" @change="onChangeInputFile">
         </div>
         <div class="file-name">{{imageFile?.name}}</div>
       </div>
@@ -212,6 +212,16 @@
         </div>
       </div>
     </template>
+
+    <div v-else-if="mode === 'movie'"
+         class="input-file-container"
+         style="margin-bottom: 16px;">
+      <div class="input-file">
+        <div class="btn" @click="$refs.inputMovieFile.click()">ファイルを選択</div>
+        <input type="file" ref="inputMovieFile" @change="onChangeInputFile">
+      </div>
+      <div class="file-name">{{inputMovieFile?.name}}</div>
+    </div>
     
     <hr>
     

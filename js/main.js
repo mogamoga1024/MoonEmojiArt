@@ -153,7 +153,7 @@ const App = {
             img.onload = () => {
                 if (img.width < this.imageWidthMin || img.width > this.imageWidthMax) {
                     alert(`画像の幅は${this.imageWidthMin}px以上${this.imageWidthMax}px以下の必要があります`);
-                    this.$refs.inputFile.value = "";
+                    this.$refs.inputImageFile.value = "";
                     this.imageFile = null;
                     this.imageWidth = this.imageWidthMin;
                 }
@@ -167,7 +167,7 @@ const App = {
             };
             img.onerror = () => {
                 alert("画像の読み込みに失敗しました");
-                this.$refs.inputFile.value = "";
+                this.$refs.inputImageFile.value = "";
                 this.imageFile = null;
                 this.imageWidth = this.imageWidthMin;
                 URL.revokeObjectURL(img.src);
