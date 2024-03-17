@@ -56,7 +56,8 @@ const App = {
             isImageTateLinePowerUp: false,
             colorCount: 3,
             useNanameMikaduki: true,
-            file: null,
+            imageFile: null,
+            movieFile: null,
             fileReader: new FileReader(),
             baseAverageColor: 110,
             baseAverageColorMin: COLOR_B,
@@ -145,7 +146,7 @@ const App = {
             }
             this.isLoadingInputImage = true;
 
-            this.file = e.target.files[0];
+            this.imageFile = e.target.files[0];
             e.target.value = "";
 
             const img = new Image();
@@ -153,7 +154,7 @@ const App = {
                 if (img.width < this.imageWidthMin || img.width > this.imageWidthMax) {
                     alert(`画像の幅は${this.imageWidthMin}px以上${this.imageWidthMax}px以下の必要があります`);
                     this.$refs.inputFile.value = "";
-                    this.file = null;
+                    this.imageFile = null;
                     this.imageWidth = this.imageWidthMin;
                 }
                 else {
@@ -167,13 +168,13 @@ const App = {
             img.onerror = () => {
                 alert("画像の読み込みに失敗しました");
                 this.$refs.inputFile.value = "";
-                this.file = null;
+                this.imageFile = null;
                 this.imageWidth = this.imageWidthMin;
                 URL.revokeObjectURL(img.src);
                 this.isLoadingInputImage = false;
             };
 
-            img.src = URL.createObjectURL(this.file);
+            img.src = URL.createObjectURL(this.imageFile);
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
@@ -208,9 +209,9 @@ const App = {
                 this.text = tmpText;
             }
             else if (this.mode === "image") {
-                const tmpFile = this.file;
+                const tmpFile = this.imageFile;
 
-                this.file = null;
+                this.imageFile = null;
                 this.colorCount = 3;
                 this.useNanameMikaduki = true;
                 this.baseAverageColor = 110;
@@ -223,7 +224,7 @@ const App = {
                 this.shouldDisplayMonochromeImage = false;
 
                 this.generateTukiArt();
-                this.file = tmpFile;
+                this.imageFile = tmpFile;
             }
         },
         // 生成ボタン押下時
@@ -343,7 +344,7 @@ const App = {
                 }
             }
             else if (this.mode === "image") {
-                if (this.file == null || this.imageWidth === 0) {
+                if (this.imageFile == null || this.imageWidth === 0) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.clearResult();
                     this.tukiArtType = this.mode;
@@ -353,7 +354,7 @@ const App = {
                     return;
                 }
             
-                this.fileReader.readAsDataURL(this.file);
+                this.fileReader.readAsDataURL(this.imageFile);
             
                 this.fileReader.onload = () => {
                     monoCanvas.image(
