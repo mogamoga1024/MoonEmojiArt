@@ -247,7 +247,7 @@
       <img ref="monochrome" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}">
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
         <img ref="result"
-             :style="{width: mode === 'image' && shouldShrinkImage ? '100%' : 'auto'}">
+             :style="{width: tukiArtType === 'image' && shouldShrinkImage ? '100%' : 'auto'}">
       </div>
     </div>
   </div>

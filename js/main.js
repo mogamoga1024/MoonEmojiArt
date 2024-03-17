@@ -96,7 +96,7 @@ const App = {
     mounted() {
         if (this.isDebug) {
             // this.shouldDisplayMonochromeImage = true;
-            // this.text = "あああああ";
+            this.text = "ピピコピコピコピコピッピ！";
             // this.tukiCount = 10;
             // this.letterSpacingLevel = 1;
             // // this.fontFamily = "sans";
@@ -105,8 +105,8 @@ const App = {
             // this.isBold = true;
             // this.isTextYokoLinePowerUp = true;
             // this.isTextTateLinePowerUp = true;
-            // this.isTate = true;
-            this.isMobile = true;
+            this.isTate = false;
+            // this.isMobile = true;
         }
 
         this.$refs.monochrome.style.width = "100%";
