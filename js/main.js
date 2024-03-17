@@ -140,7 +140,7 @@ const App = {
         }
     },
     methods: {
-        onChangeInputFile(e) {
+        onChangeInputImageFile(e) {
             if (this.isLoadingInputImage) {
                 return;
             }
@@ -175,6 +175,9 @@ const App = {
             };
 
             img.src = URL.createObjectURL(this.imageFile);
+        },
+        onChangeInputMovieFile(e) {
+            // todo
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
