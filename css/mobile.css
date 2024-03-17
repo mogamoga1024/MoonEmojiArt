@@ -26,11 +26,11 @@
   #setting .input-check-area {
     justify-content: center;
     column-gap: 4px;
-  }
 
-  #setting .input-check-area .btn {
-    padding-left: 4px;
-    padding-right: 4px;
+    .btn {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
   }
 
   .config-area {
@@ -68,7 +68,7 @@
 
 /* Galaxy S8+ */
 @media screen and (max-width: 360px) {
-  #setting .input-check-area * {
+  #setting .input-check-area .radio {
     padding-left: 4px;
     padding-right: 4px;
   }
@@ -108,12 +108,10 @@
   #setting .input-check-area {
     justify-content: space-evenly;
     column-gap: 2px;
-  }
 
-  #setting .input-check-area {
     font-size: 0.88em;
 
-    * {
+    .btn, .radio {
       padding-left: 1px !important;
       padding-right: 1px !important;
     }
