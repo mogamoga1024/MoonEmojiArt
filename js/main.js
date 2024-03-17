@@ -202,6 +202,15 @@ const App = {
                 this.file = tmpFile;
             }
         },
+        onClickShouldShrinkImageButton() {
+            this.shouldShrinkImage = !this.shouldShrinkImage;
+            if (this.shouldShrinkImage) {
+                this.$refs.result.style.width = "100%";
+            }
+            else {
+                this.$refs.result.style.width = "";
+            }
+        },
         // 生成ボタン押下時
         onClickGenerateButton() {
             this.generateTukiArt();
@@ -388,19 +397,8 @@ const App = {
             }
             
             const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
-            const tmpCanvas = document.createElement("canvas");
-            const tmpContext = tmpCanvas.getContext("2d");
-            if (this.shouldShrinkImage && this.mode === "image" && this.$refs.appWidth.clientWidth < tukiArtCanvas.width) {
-                const rate = this.$refs.appWidth.clientWidth / tukiArtCanvas.width;
-                tmpCanvas.width = this.$refs.appWidth.clientWidth;
-                tmpCanvas.height = tukiArtCanvas.height * rate;
-                tmpContext.drawImage(tukiArtCanvas, 0, 0, tmpCanvas.width, tmpCanvas.height);
-                this.$refs.result.src = tmpCanvas.toDataURL("image/png");
-            }
-            else {
-                this.$refs.result.src = tukiArtCanvas.toDataURL("image/png");
-            }
-
+            this.$refs.result.src = tukiArtCanvas.toDataURL("image/png");
+            
             this.canDisplayTukiArt = true;
 
             // this.debugText = debugText;
