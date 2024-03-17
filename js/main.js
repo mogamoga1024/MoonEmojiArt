@@ -391,6 +391,7 @@ const App = {
 
             const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
             this.$refs.result.src = tukiArtCanvas.toDataURL("image/png");
+            this.$refs.result.style.maxWidth = tukiArtCanvas.width + "px";
             
             this.canDisplayTukiArt = true;
 
