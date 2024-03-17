@@ -211,12 +211,18 @@
         <div id="copy-btn" @click="onClickCopyButton">コピー</div>
         <div id="copy-message" ref="copyMessage">Copied!</div>
       </div>
-      <div id="download-text-btn" class="action-btn" @click="onClickDownLoadTextButton">
+      <div v-if="!isMobile"
+           id="download-text-btn"
+           class="action-btn"
+           @click="onClickDownLoadTextButton">
         <div>
           <div class="download-icon"></div>テキスト
         </div>
       </div>
-      <div id="download-image-btn" class="action-btn" @click="onClickDownLoadImageButton">
+      <div v-if="!isMobile"
+           id="download-image-btn"
+           class="action-btn"
+           @click="onClickDownLoadImageButton">
         <div>
           <div class="download-icon"></div>画像
         </div>
@@ -234,8 +240,8 @@
 
     <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
          :class="{'not-exists-tuki-art': !canDisplayTukiArt}">
-      <div v-show="canDisplayTukiArt" style="white-space: normal;">
-        画像がダウンロードできないときは画像を長押ししてダウンロードしてください…
+      <div v-show="isMobile && canDisplayTukiArt" style="white-space: normal;">
+        画像は長押しするとダウンロードできます。
         <hr>
       </div>
       <img ref="monochrome" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}">

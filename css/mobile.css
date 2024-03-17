@@ -54,8 +54,7 @@
   }
 
   .action-btn-list {
-    width: fit-content;
-    margin: 0 auto;
+    margin-left: 24px;
   }
 }
 
@@ -103,21 +102,7 @@
     }
   }
 
-  .action-btn-list .action-btn {
-    font-size: 0.88em;
-    padding-left: 2px !important;
-    padding-right: 2px !important;
-  }
-
-  .download-icon {
-    width: 18px;
-  }
-
-  #copy-btn-wrapper, #copy-btn {
-    width: 50px;
-  }
-
-  .display-copy-message {
-    left: calc(-1 * (100px - 50px) / 2);
+  .action-btn-list {
+    margin-left: 0;
   }
 }

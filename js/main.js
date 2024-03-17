@@ -95,17 +95,18 @@ const App = {
     },
     mounted() {
         if (this.isDebug) {
-            this.shouldDisplayMonochromeImage = true;
-            this.text = "あああああ";
-            this.tukiCount = 10;
-            this.letterSpacingLevel = 1;
-            // this.fontFamily = "sans";
-            this.fontFamily = "serif";
-            // this.fontFamily = "default";
-            this.isBold = true;
-            this.isTextYokoLinePowerUp = true;
-            this.isTextTateLinePowerUp = true;
-            this.isTate = true;
+            // this.shouldDisplayMonochromeImage = true;
+            // this.text = "あああああ";
+            // this.tukiCount = 10;
+            // this.letterSpacingLevel = 1;
+            // // this.fontFamily = "sans";
+            // this.fontFamily = "serif";
+            // // this.fontFamily = "default";
+            // this.isBold = true;
+            // this.isTextYokoLinePowerUp = true;
+            // this.isTextTateLinePowerUp = true;
+            // this.isTate = true;
+            this.isMobile = true;
         }
 
         this.$refs.monochrome.style.width = "100%";
