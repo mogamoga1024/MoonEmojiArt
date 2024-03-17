@@ -148,71 +148,77 @@
         <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="isTextTateLinePowerUp = !isTextTateLinePowerUp">縦強化</div>
       </div>
     </div>
-    <div id="setting" v-if="mode === 'image'">
-      <div id="input-file">
-        <div class="btn" @click="$refs.inputFile.click()">ファイルを選択</div><span style="margin-left: 8px;">{{file?.name}}</span>
-        <input type="file" ref="inputFile" @change="onChangeInputFile">
-      </div>
-      <div class="item">
-        <div class="name">
-          <div>黒</div>
-          <div class="hosoku">{{baseAverageColorMin}}(少)～{{baseAverageColorMax}}(多)</div>
+
+    <template v-if="mode === 'image'">
+      <div class="input-file-container">
+        <div class="input-file">
+          <div class="btn" @click="$refs.inputFile.click()">ファイルを選択</div>
+          <input type="file" ref="inputFile" @change="onChangeInputFile">
         </div>
-        <div class="input">
-          <plus-minus-input-numbur
-            :min="baseAverageColorMin"
-            :max="baseAverageColorMax"
-            v-model="baseAverageColor">
-        </div>
+        <div class="file-name">{{file?.name}}</div>
       </div>
-      <div class="item">
-        <div class="name">色数</div>
-        <div class="input">
-          <div class="item-list">
-            <div class="radio-wrapper">
-              <div class="radio" :class="{'selected': colorCount === 2}" @click="colorCount = 2">2</div>
-              <div class="radio" :class="{'selected': colorCount === 3}" @click="colorCount = 3">3</div>
-              <div class="radio" :class="{'selected': colorCount === 5}" @click="colorCount = 5">5</div>
-            </div>
-            <div class="btn" :class="{'selected': useNanameMikaduki}" @click="useNanameMikaduki = !useNanameMikaduki">🌙</div>
+      <div id="setting">
+        <div class="item">
+          <div class="name">
+            <div>黒</div>
+            <div class="hosoku">{{baseAverageColorMin}}(少)～{{baseAverageColorMax}}(多)</div>
+          </div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="baseAverageColorMin"
+              :max="baseAverageColorMax"
+              v-model="baseAverageColor">
           </div>
         </div>
-      </div>
-      <div class="item" v-show="needOutline">
-        <div class="name">
-          <div>輪郭</div>
-          <div class="hosoku">{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</div>
+        <div class="item">
+          <div class="name">色数</div>
+          <div class="input">
+            <div class="item-list">
+              <div class="radio-wrapper">
+                <div class="radio" :class="{'selected': colorCount === 2}" @click="colorCount = 2">2</div>
+                <div class="radio" :class="{'selected': colorCount === 3}" @click="colorCount = 3">3</div>
+                <div class="radio" :class="{'selected': colorCount === 5}" @click="colorCount = 5">5</div>
+              </div>
+              <div class="btn" :class="{'selected': useNanameMikaduki}" @click="useNanameMikaduki = !useNanameMikaduki">🌙</div>
+            </div>
+          </div>
         </div>
-        <div class="input">
-          <plus-minus-input-numbur
-            :min="baseColorDistanceMin"
-            :max="baseColorDistanceMax"
-            v-model="baseColorDistance">
+        <div class="item" v-show="needOutline">
+          <div class="name">
+            <div>輪郭</div>
+            <div class="hosoku">{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</div>
+          </div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="baseColorDistanceMin"
+              :max="baseColorDistanceMax"
+              v-model="baseColorDistance">
+          </div>
+        </div>
+        <div class="item">
+          <div class="name">幅</div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="imageWidthMin"
+              :max="imageWidthMax"
+              v-model="imageWidth">
+          </div>
+        </div>
+        <div class="input-check-area">
+          <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
+          <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
+          <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
+          <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦強化</div>
         </div>
       </div>
-      <div class="item">
-        <div class="name">幅</div>
-        <div class="input">
-          <plus-minus-input-numbur
-            :min="imageWidthMin"
-            :max="imageWidthMax"
-            v-model="imageWidth">
-        </div>
-      </div>
-      <div class="input-check-area">
-        <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
-        <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
-        <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
-        <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦強化</div>
-      </div>
-    </div>
-
+    </template>
+    
     <hr>
     
     <div class="action-btn-list">
-      <div id="generate-btn" class="action-btn" @click="onClickGenerateButton">生成</div>
-      <div id="copy-btn-wrapper" class="action-btn">
-        <div id="copy-btn" @click="onClickCopyButton">コピー</div>
+      <div id="generate-btn" class="action-btn" ref="generateBtn" @click="onClickGenerateButton">生成</div>
+      <div id="copy-btn-wrapper" class="action-btn" ref="copyBtnWrapper">
+        <div id="copy-btn" ref="copyBtn" @click="onClickCopyButton">コピー</div>
         <div id="copy-message" ref="copyMessage">Copied!</div>
       </div>
       <div v-if="!isMobile"

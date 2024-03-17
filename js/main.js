@@ -20,6 +20,9 @@ const MSG_TOO_MANY_CHARA =
 クオリティが低下しても完成イメージが見たい場合はサイズを小さくしてね。
 ちなみに開発当時は文字をそのまま表示するスタンスだったけどスマホだと激重だったからやめたよ。`;
 
+const mobileGenerateBtnWidth = "110px";
+const mobileCopyBtnWidth = "126px"; // 生成ボタンのwidthとpaddingを足した値
+
 const App = {
     components: {
         PlusMinusInputNumbur
@@ -84,7 +87,10 @@ const App = {
         }
     },
     created() {
-        this.isMobile = navigator.userAgent.match(/iPhone|Android.+Mobile/);
+        const mobileRegex = /iphone;|(android|nokia|blackberry|bb10;).+mobile|android.+fennec|opera.+mobi|windows phone|symbianos/i;
+        const isMobileByUa = mobileRegex.test(navigator.userAgent);;
+        const isMobileByClientHint = navigator.userAgentData && navigator.userAgentData.mobile;
+        this.isMobile = isMobileByUa || isMobileByClientHint;
 
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
@@ -111,6 +117,12 @@ const App = {
             // this.isTextTateLinePowerUp = true;
             this.isTate = false;
             // this.isMobile = true;
+        }
+
+        if (this.isMobile) {
+            this.$refs.generateBtn.style.width = mobileGenerateBtnWidth;
+            this.$refs.copyBtnWrapper.style.width = mobileCopyBtnWidth;
+            this.$refs.copyBtn.style.width = mobileCopyBtnWidth;
         }
 
         this.$refs.monochrome.style.width = "100%";
@@ -227,8 +239,14 @@ const App = {
             navigator.clipboard.writeText(this.tukiArt);
             
             this.$refs.copyMessage.classList.add("display-copy-message");
+            if (this.isMobile) {
+                this.$refs.copyMessage.style.left = `calc(-1 * (100px - ${mobileCopyBtnWidth}) / 2)`;
+            }
             setTimeout(() => {
                 this.$refs.copyMessage.classList.remove("display-copy-message");
+                if (this.isMobile) {
+                    this.$refs.copyMessage.style.left = "";
+                }
                 this.canCopyButtonClick = true;
             }, 2000);
         },

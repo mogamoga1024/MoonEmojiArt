@@ -202,8 +202,28 @@ input {
   }
 }
 
-input[type="file"] {
+.input-file input[type="file"] {
   display: none;
+}
+
+.input-file-container {
+  display: flex;
+  margin-top: 16px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.input-file {
+  white-space: nowrap;
+}
+
+.file-name {
+  width: 350px;
+  margin-left: 18px;
+  
+  white-space: wrap;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .plus-minus-input-numbur {
