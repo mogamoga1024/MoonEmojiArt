@@ -1,5 +1,9 @@
 
 @media screen and (max-width: 480px) {
+  :root {
+    --input-file-width: 145px;
+  }
+
   #app {
     padding: 0;
   }
@@ -46,8 +50,13 @@
     margin: 0 auto;
   }
 
-  #input-file {
+  .input-file {
     margin-left: 24px;
+  }
+
+  .file-name {
+    width: calc(100% - var(--input-file-width) - 24px - 8px);
+    margin-left: 8px;
   }
 
   .item .input {
@@ -81,8 +90,12 @@
     width: 100%;
   }
 
-  #input-file {
+  .input-file {
     margin-left: 0;
+  }
+
+  .file-name {
+    width: calc(100% - var(--input-file-width) - 8px);
   }
 
   .plus-minus-input-numbur input[type="number"] {

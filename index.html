@@ -145,9 +145,12 @@
       </div>
     </div>
     <div id="setting" v-if="mode === 'image'">
-      <div id="input-file">
-        <div class="btn" @click="$refs.inputFile.click()">ファイルを選択</div><span style="margin-left: 8px;">{{file?.name}}</span>
-        <input type="file" ref="inputFile" @change="onChangeInputFile">
+      <div class="item">
+        <div class="input-file">
+          <div class="btn" @click="$refs.inputFile.click()">ファイルを選択</div>
+          <input type="file" ref="inputFile" @change="onChangeInputFile">
+        </div>
+        <div class="file-name">{{file?.name}}</div>
       </div>
       <div class="item">
         <div class="name">
