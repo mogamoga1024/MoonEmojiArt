@@ -103,6 +103,8 @@ const App = {
             this.isTextTateLinePowerUp = true;
             this.isTate = true;
         }
+
+        this.$refs.result.style.width = "100%";
     },
     watch: {
         isGeneratingTukiArt(newVal) {
