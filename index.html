@@ -55,7 +55,7 @@
              @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">モノクロ画像表示</div><br>
         <div class="btn"
              :class="{'selected': shouldShrinkImage}"
-             @click="onClickShouldShrinkImageButton">月文字画像を画面内に収める</div>
+             @click="this.shouldShrinkImage = !this.shouldShrinkImage">月文字画像を画面内に収める</div>
       </div>
       <hr>
     </div>
@@ -241,7 +241,8 @@
       </div>
       <img ref="monochrome" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}">
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
-        <img ref="result">
+        <img ref="result"
+             :style="{width: mode === 'image' && shouldShrinkImage ? '100%' : 'auto'}">
       </div>
     </div>
   </div>

@@ -205,15 +205,6 @@ const App = {
                 this.file = tmpFile;
             }
         },
-        onClickShouldShrinkImageButton() {
-            this.shouldShrinkImage = !this.shouldShrinkImage;
-            if (this.shouldShrinkImage) {
-                this.$refs.result.style.width = "100%";
-            }
-            else {
-                this.$refs.result.style.width = "";
-            }
-        },
         // 生成ボタン押下時
         onClickGenerateButton() {
             this.generateTukiArt();
