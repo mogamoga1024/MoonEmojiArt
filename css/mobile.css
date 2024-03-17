@@ -23,7 +23,7 @@
     width: 70px;
   }
 
-  #setting .input-check-area, #setting .item-list {
+  #setting .input-check-area {
     justify-content: center;
     column-gap: 4px;
   }
@@ -105,7 +105,7 @@
     width: 60px;
   }
 
-  #setting .input-check-area, #setting .item-list {
+  #setting .input-check-area {
     justify-content: space-evenly;
     column-gap: 2px;
   }
