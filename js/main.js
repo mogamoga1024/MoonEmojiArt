@@ -84,7 +84,10 @@ const App = {
         }
     },
     created() {
-        this.isMobile = navigator.userAgent.match(/iPhone|Android.+Mobile/);
+        const mobileRegex = /iphone;|(android|nokia|blackberry|bb10;).+mobile|android.+fennec|opera.+mobi|windows phone|symbianos/i;
+        const isMobileByUa = mobileRegex.test(navigator.userAgent);;
+        const isMobileByClientHint = navigator.userAgentData && navigator.userAgentData.mobile;
+        this.isMobile = isMobileByUa || isMobileByClientHint;
 
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
