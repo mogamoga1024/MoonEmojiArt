@@ -45,6 +45,15 @@
     max-width: none;
   }
 
+  .item {
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .item .input {
+    margin-left: 32px;
+  }
+  
   #input-text {
     width: calc(100% - 24px * 2);
     margin: 0 auto;
@@ -57,10 +66,6 @@
   .file-name {
     width: calc(100% - var(--input-file-width) - 24px - 8px);
     margin-left: 8px;
-  }
-
-  .item .input {
-    width: calc(100% - var(--item-name-width));
   }
 
   .action-btn-list {
@@ -84,6 +89,11 @@
 
   .config-area {
     padding: 0;
+  }
+
+  .item .input {
+    width: calc(100% - var(--item-name-width));
+    margin-left: 0;
   }
 
   #input-text {
