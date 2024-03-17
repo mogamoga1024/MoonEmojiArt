@@ -229,6 +229,9 @@ const App = {
                 this.generateTukiArt();
                 this.imageFile = tmpFile;
             }
+            else if (this.mode === 'movie') {
+                // todo
+            }
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
@@ -291,13 +294,14 @@ const App = {
             }
             this.isGeneratingTukiArt = true;
 
-            monoCanvas = new MonochromeCanvas();
             this.resultMessage = "";
+            this.clearResult();
 
             if (this.mode === "text") {
+                monoCanvas = new MonochromeCanvas();
+
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
-                    this.clearResult();
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
@@ -339,7 +343,6 @@ const App = {
                     else {
                         this.resultMessage = MSG_ERROR;
                     }
-                    this.clearResult();
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
@@ -347,9 +350,10 @@ const App = {
                 }
             }
             else if (this.mode === "image") {
+                monoCanvas = new MonochromeCanvas();
+
                 if (this.imageFile == null || this.imageWidth === 0) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
-                    this.clearResult();
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
@@ -392,7 +396,6 @@ const App = {
                         else {
                             this.resultMessage = MSG_ERROR;
                         }
-                        this.clearResult();
                         this.tukiArtType = this.mode;
                         monoCanvas = null;
                         this.isGeneratingTukiArt = false;
@@ -401,12 +404,18 @@ const App = {
                 };
                 this.fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
-                    this.clearResult();
                     this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                     this.canDisplayTukiArt = false;
                 };
+            }
+            else if (this.mode === "movie") {
+                // todo
+
+                this.tukiArtType = this.mode;
+                this.isGeneratingTukiArt = false;
+                this.canDisplayTukiArt = true;
             }
         },
         displayTukiArt() {

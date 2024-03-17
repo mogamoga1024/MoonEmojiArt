@@ -258,7 +258,11 @@
     </div>
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
 
-    <div :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
+    <div v-show="tukiArtType === 'movie'">
+      <video ref="video" controls></video>
+    </div>
+    <div v-show="tukiArtType !== 'movie'"
+         :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
          :class="{'not-exists-tuki-art': !canDisplayTukiArt}">
       <div v-show="isMobile && canDisplayTukiArt" style="white-space: normal;">
         画像は長押しするとダウンロードできます。
