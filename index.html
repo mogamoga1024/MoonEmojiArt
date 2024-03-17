@@ -236,7 +236,7 @@
         画像がダウンロードできないときは画像を長押ししてダウンロードしてください…
         <hr>
       </div>
-      <canvas ref="canvas" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}"></canvas>
+      <img ref="monochrome" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}">
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
         <img ref="result">
       </div>

@@ -104,6 +104,7 @@ const App = {
             this.isTate = true;
         }
 
+        this.$refs.monochrome.style.width = "100%";
         this.$refs.result.style.width = "100%";
     },
     watch: {
@@ -254,8 +255,7 @@ const App = {
             URL.revokeObjectURL(link.href);
         },
         clearResult() {
-            this.$refs.canvas.width = 0;
-            this.$refs.canvas.height = 0;
+            // todo remove
         },
         generateTukiArt() {
             if (
@@ -385,19 +385,9 @@ const App = {
             }
         },
         displayTukiArt() {
-            const monoContext = this.$refs.canvas.getContext("2d", { willReadFrequently: true });
-            if (this.mode === "image" && this.$refs.appWidth.clientWidth < monoCanvas.canvas.width) {
-                const rate = this.$refs.appWidth.clientWidth / monoCanvas.canvas.width;
-                this.$refs.canvas.width = this.$refs.appWidth.clientWidth;
-                this.$refs.canvas.height = monoCanvas.canvas.height * rate;
-                monoContext.drawImage(monoCanvas.canvas, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
-            }
-            else {
-                this.$refs.canvas.width = monoCanvas.canvas.width;
-                this.$refs.canvas.height = monoCanvas.canvas.height;
-                monoContext.drawImage(monoCanvas.canvas, 0, 0);
-            }
-            
+            this.$refs.monochrome.src = monoCanvas.canvas.toDataURL("image/png");
+            this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
+
             const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
             this.$refs.result.src = tukiArtCanvas.toDataURL("image/png");
             
