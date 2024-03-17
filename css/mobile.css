@@ -65,7 +65,8 @@
   }
 
   .action-btn-list {
-    margin-left: 24px;
+    justify-content: space-evenly;
+    column-gap: 0;
   }
 }
 
@@ -120,9 +121,5 @@
       padding-left: 1px !important;
       padding-right: 1px !important;
     }
-  }
-
-  .action-btn-list {
-    margin-left: 0;
   }
 }
