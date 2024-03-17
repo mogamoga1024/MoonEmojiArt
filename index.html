@@ -28,6 +28,10 @@
       <div class="radio-wrapper">
         <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
         <div class="radio" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
+        <div v-if="!isMobile"
+             class="radio"
+             :class="{'selected': mode === 'movie'}"
+             @click="mode = 'movie'">動画</div>
       </div>
       <div id="reset-btn" class="btn" @click="onClickResetButton">リセット</div>
     </div>

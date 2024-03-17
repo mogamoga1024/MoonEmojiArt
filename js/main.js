@@ -31,12 +31,12 @@ const App = {
             canCopyButtonClick: true,
             resultMessage: MSG_NO_INPUT_DATA,
             tukiArt: "",
-            tukiArtType: "", // "text" | "image"
+            tukiArtType: "", // "text" | "image" | "movie"
             shouldDisplayMonochromeImage: false,
             needDetailConfigLetterSpacingLevel: false,
             needDetailConfigTukiArtMargin: false,
             shouldShrinkImage: true,
-            mode: "text", // "text" | "image"
+            mode: "text", // "text" | "image" | "movie"
             text: "",
             fontFamily: "serif", // "default" | "sans" | "serif"
             tukiCount: 13, // Twitterが絵文字13文字で改行されるから
@@ -90,8 +90,12 @@ const App = {
         const context = canvas.getContext("2d");
         this.canUseContextLetterSpacing = "letterSpacing" in context;
 
+        // デバッグ用 & PCでスマホのUIを確認したい
         const params = (new URL(window.location.href)).searchParams;
-        this.isDebug = params.get("isDebug") === "true";
+        this.isDebug = params.has("d");
+        if (!this.isMobile) {
+            this.isMobile = params.has("m");
+        }
     },
     mounted() {
         if (this.isDebug) {
