@@ -80,6 +80,7 @@ const App = {
             tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
             isLoadingInputImage: false,
+            isLoadingInputVideo: false,
             isGeneratingTukiArt: false,
             canDisplayTukiArt: false,
 
@@ -177,7 +178,28 @@ const App = {
             img.src = URL.createObjectURL(this.imageFile);
         },
         onChangeInputMovieFile(e) {
-            // todo
+            if (this.isLoadingInputVideo) {
+                return;
+            }
+            this.isLoadingInputVideo = true;
+
+            this.movieFile = e.target.files[0];
+            e.target.value = "";
+
+            const video = this.$refs.video;
+
+            video.onloadeddata = () => {
+                this.isLoadingInputVideo = false;
+            };
+            video.onerror = () => {
+                alert("動画の読み込みに失敗しました");
+                this.$refs.inputMovieFile.value = "";
+                this.movieFile = null;
+                URL.revokeObjectURL(video.src);
+                this.isLoadingInputVideo = false;
+            };
+
+            video.src = URL.createObjectURL(this.movieFile);
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
@@ -288,7 +310,8 @@ const App = {
         generateTukiArt() {
             if (
                 this.isGeneratingTukiArt ||
-                this.mode === "image" && this.isLoadingInputImage
+                this.mode === "image" && this.isLoadingInputImage ||
+                this.mode === "movie" && this.isLoadingInputVideo
             ) {
                 return;
             }
