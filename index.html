@@ -50,6 +50,10 @@
     <div v-show="mode === 'image'">
       <div class="config-area">
         <div class="btn"
+             :class="{'selected': shouldDisplayMonochromeImage}"
+             style="display: inline-block; margin-bottom: 8px;"
+             @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">モノクロ画像表示</div><br>
+        <div class="btn"
              :class="{'selected': shouldShrinkImage}"
              @click="onClickShouldShrinkImageButton">変換後に画像を画面幅に縮小する</div>
       </div>
@@ -195,7 +199,6 @@
       <div class="input-check-area">
         <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
         <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
-        <div class="btn" :class="{'selected': shouldDisplayMonochromeImage}" @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">画像確認</div>
         <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
         <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦強化</div>
       </div>
