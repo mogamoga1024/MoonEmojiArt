@@ -25,7 +25,6 @@
 
   #setting .input-check-area {
     justify-content: center;
-    column-gap: 4px;
 
     .btn {
       padding-left: 4px;
@@ -74,8 +73,20 @@
   }
 }
 
+@media screen and (max-width: 350px) {
+  #setting .input-check-area {
+    font-size: 0.88em;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #setting .input-check-area {
+    column-gap: 4px;
+  }
+}
+
 /* Galaxy Fold */
-@media screen and (max-width: 280px) {
+@media screen and (max-width: 300px) {
   .item .radio {
     padding: 4px;
   }
@@ -108,8 +119,6 @@
   #setting .input-check-area {
     justify-content: space-evenly;
     column-gap: 2px;
-
-    font-size: 0.88em;
 
     .btn, .radio {
       padding-left: 1px !important;
