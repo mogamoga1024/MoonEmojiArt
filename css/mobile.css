@@ -45,10 +45,6 @@
     width: fit-content;
     margin: 0 auto;
   }
-
-  .item .input {
-    margin-left: 32px;
-  }
   
   #input-text {
     width: calc(100% - 24px * 2);
