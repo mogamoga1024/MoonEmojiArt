@@ -255,7 +255,8 @@ const App = {
             URL.revokeObjectURL(link.href);
         },
         clearResult() {
-            // todo remove
+            this.$refs.monochrome.src = 0;
+            this.$refs.result.src = 0;
         },
         generateTukiArt() {
             if (
