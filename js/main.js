@@ -42,7 +42,6 @@ const App = {
             tukiCount: 13, // Twitterが絵文字13文字で改行されるから
             tukiCountMin: 10,
             tukiCountMax: 50,
-            canUseContextLetterSpacing: false,
             letterSpacingLevel: 3,
             letterSpacingLevelDefault: 3,
             isBold: false,
@@ -79,9 +78,14 @@ const App = {
             isLoadingInputImage: false,
             isGeneratingTukiArt: false,
             canDisplayTukiArt: false,
+
+            isMobile: false,
+            canUseContextLetterSpacing: false,
         }
     },
     created() {
+        this.isMobile = navigator.userAgent.match(/iPhone|Android.+Mobile/);
+
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
         this.canUseContextLetterSpacing = "letterSpacing" in context;
