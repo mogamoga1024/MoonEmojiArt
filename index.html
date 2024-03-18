@@ -213,15 +213,60 @@
       </div>
     </template>
 
-    <div v-else-if="mode === 'video'"
-         class="input-file-container"
-         style="margin-bottom: 16px;">
-      <div class="input-file">
-        <div class="btn" @click="$refs.inputVideoFile.click()">ファイルを選択</div>
-        <input type="file" ref="inputVideoFile" @change="onChangeInputVideoFile">
+    <template v-else-if="mode === 'video'">
+      <div class="input-file-container">
+        <div class="input-file">
+          <div class="btn" @click="$refs.inputVideoFile.click()">ファイルを選択</div>
+          <input type="file" ref="inputVideoFile" @change="onChangeInputVideoFile">
+        </div>
+        <div class="file-name">{{videoFile?.name}}</div>
       </div>
-      <div class="file-name">{{videoFile?.name}}</div>
-    </div>
+      <div id="setting">
+        <div class="item">
+          <div class="name">
+            <div>黒</div>
+            <div class="hosoku">{{baseAverageColorMin}}(少)～{{baseAverageColorMax}}(多)</div>
+          </div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="baseAverageColorMin"
+              :max="baseAverageColorMax"
+              v-model="videoBaseAverageColor">
+          </div>
+        </div>
+        <div class="item">
+          <div class="name">色数</div>
+          <div class="input">
+            <div class="item-list">
+              <div class="radio-wrapper">
+                <div class="radio" :class="{'selected': videoColorCount === 2}" @click="videoColorCount = 2">2</div>
+                <div class="radio" :class="{'selected': videoColorCount === 3}" @click="videoColorCount = 3">3</div>
+                <div class="radio" :class="{'selected': videoColorCount === 5}" @click="videoColorCount = 5">5</div>
+              </div>
+              <div class="btn" :class="{'selected': useVideoNanameMikaduki}" @click="useVideoNanameMikaduki = !useVideoNanameMikaduki">🌙</div>
+            </div>
+          </div>
+        </div>
+        <div class="item" v-show="needVideoOutline">
+          <div class="name">
+            <div>輪郭</div>
+            <div class="hosoku">{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</div>
+          </div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="baseColorDistanceMin"
+              :max="baseColorDistanceMax"
+              v-model="videoBaseColorDistance">
+          </div>
+        </div>
+        <div class="input-check-area">
+          <div class="btn" :class="{'selected': needVideoOutline}" @click="needVideoOutline = !needVideoOutline">輪郭</div>
+          <div class="btn" :class="{'selected': isVideoColorReverse}" @click="isVideoColorReverse = !isVideoColorReverse">色反転</div>
+          <div class="btn" :class="{'selected': isVideoYokoLinePowerUp}" @click="isVideoYokoLinePowerUp = !isVideoYokoLinePowerUp">横強化</div>
+          <div class="btn" :class="{'selected': isVideoTateLinePowerUp}" @click="isVideoTateLinePowerUp = !isVideoTateLinePowerUp">縦強化</div>
+        </div>
+      </div>
+    </template>
     
     <hr>
     
