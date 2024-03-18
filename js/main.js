@@ -504,21 +504,21 @@ const App = {
                             video,
                             resizeVideoWidth,
                             resizeVideoHeight,
-                            110, // imageBaseAverageColor
-                            true, // needImageOutline
-                            30, // imageBaseColorDistance
-                            5, // imageColorCount
-                            true, // useImageNanameMikaduki
-                            false // isVideoColorReverse
+                            this.videoBaseAverageColor, 
+                            this.needVideoOutline,
+                            this.videoBaseColorDistance,
+                            this.videoColorCount,
+                            this.useVideoNanameMikaduki,
+                            this.isVideoColorReverse
                         );
 
                         const tukiArt = TukiArtGenerator.createTukiArt(
                             monoCanvas.pixels,
-                            false, // isImageColorReverse
-                            false, // isImageYokoLinePowerUp
-                            false, // isImageTateLinePowerUp
-                            5, // imageColorCount
-                            true // useImageNanameMikaduki
+                            this.isVideoColorReverse,
+                            this.isVideoYokoLinePowerUp,
+                            this.isVideoTateLinePowerUp, 
+                            this.videoColorCount,
+                            this.useVideoNanameMikaduki
                         );
 
                         ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, isFirst));
