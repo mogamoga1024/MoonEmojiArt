@@ -6,6 +6,7 @@ function debug(text) {
 
 let monoCanvas = null;
 let resultVideoContext = null;
+let timer = 0;
 
 const MSG_NO_INPUT_DATA = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
@@ -81,7 +82,6 @@ const App = {
             tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
             isLoadingInputImage: false,
-            isLoadingInputVideo: false,
             isGeneratingTukiArt: false,
             canDisplayTukiArt: false,
 
@@ -181,28 +181,8 @@ const App = {
             img.src = URL.createObjectURL(this.imageFile);
         },
         onChangeInputVideoFile(e) {
-            if (this.isLoadingInputVideo) {
-                return;
-            }
-            this.isLoadingInputVideo = true;
-
             this.videoFile = e.target.files[0];
             e.target.value = "";
-
-            const video = this.$refs.video;
-
-            video.onloadeddata = () => {
-                this.isLoadingInputVideo = false;
-            };
-            video.onerror = () => {
-                alert("動画の読み込みに失敗しました");
-                this.$refs.inputVideoFile.value = "";
-                this.videoFile = null;
-                URL.revokeObjectURL(video.src);
-                this.isLoadingInputVideo = false;
-            };
-
-            video.src = URL.createObjectURL(this.videoFile);
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
@@ -313,12 +293,18 @@ const App = {
         generateTukiArt() {
             if (
                 this.isGeneratingTukiArt ||
-                this.mode === "image" && this.isLoadingInputImage ||
-                this.mode === "video" && this.isLoadingInputVideo
+                this.mode === "image" && this.isLoadingInputImage
             ) {
                 return;
             }
             this.isGeneratingTukiArt = true;
+
+            if (this.tukiArtType === "video") {
+                clearInterval(timer);
+                URL.revokeObjectURL(this.$refs.video.src);
+                this.$refs.resultVideo.width = 0;
+                this.$refs.resultVideo.height = 0;
+            }
 
             this.resultMessage = "";
             this.clearResult();
@@ -386,9 +372,7 @@ const App = {
                     this.canDisplayTukiArt = false;
                     return;
                 }
-            
-                this.fileReader.readAsDataURL(this.imageFile);
-            
+
                 this.fileReader.onload = () => {
                     monoCanvas.image(
                         this.fileReader.result,
@@ -435,56 +419,72 @@ const App = {
                     this.isGeneratingTukiArt = false;
                     this.canDisplayTukiArt = false;
                 };
+
+                this.fileReader.readAsDataURL(this.imageFile);
             }
             else if (this.mode === "video") {
-                monoCanvas = new MonochromeCanvas(); // todo 開放
-
                 const video = this.$refs.video;
 
-                video.volume = 0.2;
+                video.onloadeddata = () => {
+                    monoCanvas = new MonochromeCanvas(); // todo 開放
 
-                this.$refs.resultVideo.style.maxWidth = (video.videoWidth < 1200 ? video.videoWidth : 1200) + "px";
-                
-                let isFirst = true;
-                // const maxArea = 400 * 300; // 軽い
-                const maxArea = 800 * 450; // 多分大丈夫
-                const rate = video.videoHeight / video.videoWidth;
-                const resizeVideoWidth = Math.floor(Math.sqrt(maxArea / rate));
-                const resizeVideoHeight = resizeVideoWidth * rate;
-                let font = "";
-                let lineHeight = 0;
-                setInterval(() => { // todo clear
-                    monoCanvas.video(
-                        video,
-                        resizeVideoWidth,
-                        resizeVideoHeight,
-                        110, // baseAverageColor
-                        true, // needOutline
-                        30, // baseColorDistance
-                        5, // colorCount
-                        true, // useNanameMikaduki
-                        false // isVideoColorReverse
-                    );
+                    video.volume = 0.2;
 
-                    const tukiArt = TukiArtGenerator.createTukiArt(
-                        monoCanvas.pixels,
-                        false, // isImageColorReverse
-                        false, // isImageYokoLinePowerUp
-                        false, // isImageTateLinePowerUp
-                        5, // colorCount
-                        true // useNanameMikaduki
-                    );
+                    this.$refs.resultVideo.style.maxWidth = (video.videoWidth < 1200 ? video.videoWidth : 1200) + "px";
+                    
+                    let isFirst = true;
+                    // const maxArea = 400 * 300; // 軽い
+                    const maxArea = 800 * 450; // 多分大丈夫
+                    const rate = video.videoHeight / video.videoWidth;
+                    const resizeVideoWidth = Math.floor(Math.sqrt(maxArea / rate));
+                    const resizeVideoHeight = resizeVideoWidth * rate;
+                    let font = "";
+                    let lineHeight = 0;
+                    
+                    timer = setInterval(() => { // todo clear
+                        monoCanvas.video(
+                            video,
+                            resizeVideoWidth,
+                            resizeVideoHeight,
+                            110, // baseAverageColor
+                            true, // needOutline
+                            30, // baseColorDistance
+                            5, // colorCount
+                            true, // useNanameMikaduki
+                            false // isVideoColorReverse
+                        );
 
-                    ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, isFirst));
+                        const tukiArt = TukiArtGenerator.createTukiArt(
+                            monoCanvas.pixels,
+                            false, // isImageColorReverse
+                            false, // isImageYokoLinePowerUp
+                            false, // isImageTateLinePowerUp
+                            5, // colorCount
+                            true // useNanameMikaduki
+                        );
 
-                    if (isFirst) {
-                        isFirst = false;
-                    }
-                }, 1000/30);
+                        ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, isFirst));
 
-                this.tukiArtType = this.mode;
-                this.isGeneratingTukiArt = false;
-                this.canDisplayTukiArt = true;
+                        if (isFirst) {
+                            isFirst = false;
+                        }
+                    }, 1000/30);
+
+                    this.tukiArtType = this.mode;
+                    this.isGeneratingTukiArt = false;
+                    this.canDisplayTukiArt = true;
+                };
+                video.onerror = () => {
+                    alert("動画の読み込みに失敗しました");
+                    this.$refs.inputVideoFile.value = "";
+                    this.videoFile = null;
+                    URL.revokeObjectURL(video.src);
+                    this.tukiArtType = this.mode;
+                    this.isGeneratingTukiArt = false;
+                    this.canDisplayTukiArt = false;
+                };
+
+                video.src = URL.createObjectURL(this.videoFile);
             }
         },
         displayTukiArt() {
