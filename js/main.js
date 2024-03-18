@@ -474,7 +474,7 @@ const App = {
                     );
 
                     // todo tukiArtCanvasを介さずに直接使わせるようにする
-                    const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(tukiArt);
+                    const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(tukiArt);
 
                     if (isFirst) {
                         isFirst = false;
@@ -497,7 +497,7 @@ const App = {
             this.$refs.monochrome.src = monoCanvas.canvas.toDataURL("image/png");
             this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
 
-            const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
+            const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
             this.$refs.resultImage.src = tukiArtCanvas.toDataURL("image/png");
             this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
             

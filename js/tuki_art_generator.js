@@ -107,13 +107,13 @@ class TukiArtGenerator {
         return newTukiArt;
     }
 
-    static createTukiArtCanvas(tukiArt) {
+    static createTukiArtCanvas(tukiArt, canvas = null, _fontSize = 12) {
         const textList = tukiArt.split("\n");
 
         const tmpCanvas = document.createElement("canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
     
-        let fontSize = 12;
+        let fontSize = _fontSize;
         let font = "";
         let lineHeight = 0;
         let rtnCanvasWidth = 0;
@@ -181,8 +181,8 @@ class TukiArtGenerator {
             rtnContext.fillText(text, 0, y);
         }
     
-        return rtnCanvas;
-    }    
+        return {canvas: rtnCanvas, fontSize};
+    }
 
     static #colorToBit(color, colorCount = 2) {
         if (color === COLOR_SW) {
