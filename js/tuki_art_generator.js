@@ -107,65 +107,73 @@ class TukiArtGenerator {
         return newTukiArt;
     }
 
-    static createTukiArtCanvas(tukiArt, canvas = null, _fontSize = 12) {
+    static createTukiArtCanvas(tukiArt, canvas = null, context = null, _font = "", _lineHeight = 0, isFirst = true) {
         const textList = tukiArt.split("\n");
 
-        const tmpCanvas = document.createElement("canvas");
-        const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
-    
-        let fontSize = _fontSize;
-        let font = "";
-        let lineHeight = 0;
+        let fontSize = 12;
+        let font = _font;
+        let lineHeight = _lineHeight;
         let rtnCanvasWidth = 0;
         let rtnCanvasHeight = 0;
         // なぜかスマホ（iPhoneXのChrome）だと一段目の絵文字の上の部分が見切れるので仕方なくマージンを入れる。意味不明。
         const rtnCanvasTopMargin = 4;
-        while (true) {
-            if (fontSize < 1) {
-                throw new Error("文字数多すぎ");
-            }
 
-            font = `400 ${fontSize}px 'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif`;
+        if (isFirst) {
+            const tmpCanvas = document.createElement("canvas");
+            const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
+            while (true) {
+                if (fontSize < 1) {
+                    throw new Error("文字数多すぎ");
+                }
+
+                font = `400 ${fontSize}px 'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif`;
+            
+                tmpContext.font = font;
+                tmpContext.textBaseline = "top";
+                tmpContext.textAlign = "center";
+                const measure = tmpContext.measureText("🌑")
+                tmpCanvas.width = Math.ceil(measure.width);
+                tmpCanvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
         
-            tmpContext.font = font;
-            tmpContext.textBaseline = "top";
-            tmpContext.textAlign = "center";
-            const measure = tmpContext.measureText("🌑")
-            tmpCanvas.width = Math.ceil(measure.width);
-            tmpCanvas.height = Math.ceil(Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent);
-    
-            tmpContext.font = font;
-            tmpContext.fillStyle = "#fff";
-            tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
-            tmpContext.fillStyle = "#000";
-            tmpContext.textBaseline = "top";
-            tmpContext.textAlign = "center";
-            tmpContext.fillText("🌑", tmpCanvas.width / 2, 0);
-            const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
-            const trimmed = CanvasUtils.trimming(tmpPixels);
-        
-            const margin = tmpCanvas.width - trimmed.width;
-            lineHeight = tmpCanvas.height + margin;
+                tmpContext.font = font;
+                tmpContext.fillStyle = "#fff";
+                tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
+                tmpContext.fillStyle = "#000";
+                tmpContext.textBaseline = "top";
+                tmpContext.textAlign = "center";
+                tmpContext.fillText("🌑", tmpCanvas.width / 2, 0);
+                const tmpPixels = tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height)
+                const trimmed = CanvasUtils.trimming(tmpPixels);
+            
+                const margin = tmpCanvas.width - trimmed.width;
+                lineHeight = tmpCanvas.height + margin;
 
-            rtnCanvasWidth = tmpContext.measureText(textList[0]).width;
-            rtnCanvasHeight = lineHeight * textList.length + rtnCanvasTopMargin;
+                rtnCanvasWidth = tmpContext.measureText(textList[0]).width;
+                rtnCanvasHeight = lineHeight * textList.length + rtnCanvasTopMargin;
 
-            const isValidCanvas = canvasSize.test({
-                width : rtnCanvasWidth,
-                height: rtnCanvasHeight
-            });
-            if (isValidCanvas) {
-                break;
+                if (!isFirst) {
+                    break;
+                }
+
+                const isValidCanvas = canvasSize.test({
+                    width : rtnCanvasWidth,
+                    height: rtnCanvasHeight
+                });
+                if (isValidCanvas) {
+                    break;
+                }
+
+                fontSize -= 1;
             }
-
-            fontSize -= 1;
         }
 
         let rtnCanvas = canvas === null ? document.createElement("canvas") : canvas;
-        const rtnContext = rtnCanvas.getContext("2d", { willReadFrequently: true });
+        let rtnContext = context === null ? rtnCanvas.getContext("2d", { willReadFrequently: true }) : context;
     
-        rtnCanvas.width = rtnCanvasWidth;
-        rtnCanvas.height = rtnCanvasHeight;
+        if (isFirst) {
+            rtnCanvas.width = rtnCanvasWidth;
+            rtnCanvas.height = rtnCanvasHeight;
+        }
     
         rtnContext.fillStyle = "#fff";
         rtnContext.fillRect(0, 0, rtnCanvas.width, rtnCanvas.height);
@@ -181,7 +189,7 @@ class TukiArtGenerator {
             rtnContext.fillText(text, 0, y);
         }
     
-        return {canvas: rtnCanvas, fontSize};
+        return {canvas: rtnCanvas, font, lineHeight};
     }
 
     static #colorToBit(color, colorCount = 2) {

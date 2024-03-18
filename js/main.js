@@ -5,7 +5,7 @@ function debug(text) {
 };
 
 let monoCanvas = null;
-// let resultVideoContext = null;
+let resultVideoContext = null;
 
 const MSG_NO_INPUT_DATA = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
@@ -131,7 +131,7 @@ const App = {
         this.$refs.monochrome.style.width = "100%";
         this.$refs.resultImage.style.width = "100%";
 
-        // resultVideoContext = this.$refs.resultVideo.getContext("2d");
+        resultVideoContext = this.$refs.resultVideo.getContext("2d");
     },
     watch: {
         isGeneratingTukiArt(newVal) {
@@ -443,15 +443,16 @@ const App = {
 
                 video.volume = 0.2;
 
-                this.$refs.resultVideo.style.maxWidth = video.videoWidth < 1200 ? video.videoWidth : 1200 + "px";
+                this.$refs.resultVideo.style.maxWidth = (video.videoWidth < 1200 ? video.videoWidth : 1200) + "px";
                 
-                // let isFirst = true;
+                let isFirst = true;
                 const maxArea = 400 * 300; // 軽い
                 // const maxArea = 800 * 450; // 多分大丈夫
                 const rate = video.videoHeight / video.videoWidth;
                 const resizeVideoWidth = Math.floor(Math.sqrt(maxArea / rate));
                 const resizeVideoHeight = resizeVideoWidth * rate;
-                let fontSize = 12;
+                let font = "";
+                let lineHeight = 0;
                 setInterval(() => { // todo clear
                     monoCanvas.video(
                         video,
@@ -474,17 +475,11 @@ const App = {
                         true // useNanameMikaduki
                     );
 
-                    // todo tukiArtCanvasを介さずに直接使わせるようにする
-                    // const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(tukiArt);
-                    ({fontSize} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, fontSize));
+                    ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, isFirst));
 
-                    // if (isFirst) {
-                    //     isFirst = false;
-                    //     this.$refs.resultVideo.width = tukiArtCanvas.width;
-                    //     this.$refs.resultVideo.height = tukiArtCanvas.height;
-                    // }
-                    
-                    // resultVideoContext.drawImage(tukiArtCanvas, 0, 0, tukiArtCanvas.width, tukiArtCanvas.height);
+                    if (isFirst) {
+                        isFirst = false;
+                    }
                 }, 1000/30);
 
                 this.tukiArtType = this.mode;
