@@ -322,6 +322,7 @@
       <img ref="monochrome" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}">
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
         <img ref="resultImage"
+             v-show="tukiArtType === 'text' || tukiArtType === 'image'"
              :style="{width: tukiArtType === 'image' && shouldShrinkImage ? '100%' : 'auto'}">
       </div>
     </div>
