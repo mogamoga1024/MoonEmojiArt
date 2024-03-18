@@ -128,7 +128,7 @@ const App = {
         }
 
         this.$refs.monochrome.style.width = "100%";
-        this.$refs.result.style.width = "100%";
+        this.$refs.resultImage.style.width = "100%";
     },
     watch: {
         isGeneratingTukiArt(newVal) {
@@ -296,16 +296,16 @@ const App = {
                 return;
             }
             const link = document.createElement("a");
-            link.href = this.$refs.result.src;
+            link.href = this.$refs.resultImage.src;
             link.download = `moon_art${getStrCurrentDateTime()}.png`;
             link.click();
             URL.revokeObjectURL(link.href);
         },
         clearResult() {
             URL.revokeObjectURL(this.$refs.monochrome.src);
-            URL.revokeObjectURL(this.$refs.result.src);
+            URL.revokeObjectURL(this.$refs.resultImage.src);
             this.$refs.monochrome.src = "";
-            this.$refs.result.src = "";
+            this.$refs.resultImage.src = "";
         },
         generateTukiArt() {
             if (
@@ -443,14 +443,14 @@ const App = {
         },
         displayTukiArt() {
             URL.revokeObjectURL(this.$refs.monochrome.src);
-            URL.revokeObjectURL(this.$refs.result.src);
+            URL.revokeObjectURL(this.$refs.resultImage.src);
 
             this.$refs.monochrome.src = monoCanvas.canvas.toDataURL("image/png");
             this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
 
             const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
-            this.$refs.result.src = tukiArtCanvas.toDataURL("image/png");
-            this.$refs.result.style.maxWidth = tukiArtCanvas.width + "px";
+            this.$refs.resultImage.src = tukiArtCanvas.toDataURL("image/png");
+            this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
             
             this.canDisplayTukiArt = true;
 

@@ -260,6 +260,7 @@
 
     <div v-show="tukiArtType === 'movie'">
       <video ref="video" height="480" controls></video>
+      <canvas ref="resultVideo"></canvas>
     </div>
     <div v-show="tukiArtType !== 'movie'"
          :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
@@ -270,7 +271,7 @@
       </div>
       <img ref="monochrome" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}">
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
-        <img ref="result"
+        <img ref="resultImage"
              :style="{width: tukiArtType === 'image' && shouldShrinkImage ? '100%' : 'auto'}">
       </div>
     </div>
