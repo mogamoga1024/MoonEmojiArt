@@ -13,7 +13,7 @@ const MSG_NO_INPUT_DATA =
 `・変換したい文か画像を決めて生成ボタンを押してね！
 ・サイズが小さいとクオリティが低くなるよ！
 ・ちなみにYouTubeのコメントに使うとスパム判定で表示されないよ。悲しいね。
-・UIをいろいろいじって大してテストせずにリリースしたからバグったらゴメンね。(24/03/16)
+・大がかりな改造をしたからバグったらゴメンね。(24/03/19)
 ・PCではお遊びとして動画も月文字にできるようにしてるよ。`;
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 const MSG_FAILURE_TEXT_MONO = "文字数が多すぎて一次加工で失敗したよ。減らしてね。";
@@ -653,7 +653,7 @@ const App = {
             const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
             this.$refs.resultImage.src = tukiArtCanvas.toDataURL("image/png");
             this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
-            
+
             // this.debugText = debugText;
         }
     }
