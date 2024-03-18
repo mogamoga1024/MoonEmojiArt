@@ -339,7 +339,6 @@ const App = {
             }
 
             this.resultMessage = "";
-            this.clearResult();
             
             if (this.mode === "text") {
                 monoCanvas = new MonochromeCanvas();
@@ -347,6 +346,7 @@ const App = {
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.tukiArtType = "none";
+                    this.clearResult();
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                     return;
@@ -373,6 +373,7 @@ const App = {
                         console.error(e);
                         this.resultMessage = MSG_TOO_MANY_CHARA;
                         this.tukiArtType = "none";
+                        this.clearResult();
                     }
                     this.wasTate = this.isTate;
                     monoCanvas = null;
@@ -386,8 +387,9 @@ const App = {
                     else {
                         this.resultMessage = MSG_ERROR;
                     }
-                    monoCanvas = null;
                     this.tukiArtType = "none";
+                    this.clearResult();
+                    monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                 }
             }
@@ -397,6 +399,7 @@ const App = {
                 if (this.imageFile == null || this.imageWidth === 0) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.tukiArtType = "none";
+                    this.clearResult();
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                     return;
@@ -423,6 +426,7 @@ const App = {
                             console.error(e);
                             this.resultMessage = MSG_TOO_MANY_CHARA;
                             this.tukiArtType = "none";
+                            this.clearResult();
                         }
                         this.wasTate = false;
                         monoCanvas = null;
@@ -436,6 +440,7 @@ const App = {
                             this.resultMessage = MSG_ERROR;
                         }
                         this.tukiArtType = "none";
+                        this.clearResult();
                         monoCanvas = null;
                         this.isGeneratingTukiArt = false;
                     });
@@ -443,6 +448,7 @@ const App = {
                 this.fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
                     this.tukiArtType = "none";
+                    this.clearResult();
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                 };
@@ -453,6 +459,7 @@ const App = {
                 if (this.videoFile == null) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.tukiArtType = "none";
+                    this.clearResult();
                     this.isGeneratingTukiArt = false;
                     return;
                 }
@@ -522,6 +529,7 @@ const App = {
                     alert("動画の読み込みに失敗しました");
                     this.resultMessage = MSG_ERROR;
                     this.tukiArtType = "none";
+                    this.clearResult();
                     this.$refs.inputVideoFile.value = "";
                     this.videoFile = null;
                     URL.revokeObjectURL(video.src);
