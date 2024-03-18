@@ -7,6 +7,7 @@ function debug(text) {
 let monoCanvas = null;
 let resultVideoContext = null;
 let timer = 0;
+let isVideoStopped = true;
 
 const MSG_NO_INPUT_DATA = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
@@ -455,7 +456,11 @@ const App = {
                     let font = "";
                     let lineHeight = 0;
 
-                    timer = setInterval(() => { // todo clear
+                    timer = setInterval(() => {
+                        if (!isFirst && isVideoStopped) {
+                            return;
+                        }
+
                         monoCanvas.video(
                             video,
                             resizeVideoWidth,
@@ -497,7 +502,14 @@ const App = {
                     this.isGeneratingTukiArt = false;
                     this.canDisplayTukiArt = false;
                 };
+                video.onpause = () => {
+                    isVideoStopped = true;
+                };
+                video.onplay = () => {
+                    isVideoStopped = false;
+                };
 
+                isVideoStopped = true;
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
