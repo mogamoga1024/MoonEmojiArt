@@ -447,12 +447,15 @@ const App = {
                 
                 let isFirst = true;
                 setInterval(() => { // todo clear
+                    const resizeVideoWidth = 300;
+                    const resizeVideoHeight = resizeVideoWidth * video.videoHeight / video.videoWidth;
+
                     monoCanvas.video(
                         video,
-                        video.videoWidth * 0.3,
-                        video.videoHeight * 0.3,
+                        resizeVideoWidth,
+                        resizeVideoHeight,
                         110, // baseAverageColor
-                        false, // needOutline
+                        true, // needOutline
                         30, // baseColorDistance
                         5, // colorCount
                         true, // useNanameMikaduki
