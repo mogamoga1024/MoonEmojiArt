@@ -5,6 +5,7 @@ function debug(text) {
 };
 
 let monoCanvas = null;
+let resultVideoContext = null;
 
 const MSG_NO_INPUT_DATA = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
@@ -129,6 +130,8 @@ const App = {
 
         this.$refs.monochrome.style.width = "100%";
         this.$refs.resultImage.style.width = "100%";
+
+        resultVideoContext = this.$refs.resultVideo.getContext("2d");
     },
     watch: {
         isGeneratingTukiArt(newVal) {
@@ -434,7 +437,12 @@ const App = {
                 };
             }
             else if (this.mode === "video") {
-                // todo
+                const video = this.$refs.video;
+                this.$refs.resultVideo.width = video.videoWidth;
+                this.$refs.resultVideo.height = video.videoHeight;
+                setInterval(() => { // todo clear
+                    resultVideoContext.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+                }, 1000/30);
 
                 this.tukiArtType = this.mode;
                 this.isGeneratingTukiArt = false;
