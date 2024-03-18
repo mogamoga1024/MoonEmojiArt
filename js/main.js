@@ -437,17 +437,48 @@ const App = {
                 };
             }
             else if (this.mode === "video") {
+                monoCanvas = new MonochromeCanvas(); // todo 開放
+
                 const video = this.$refs.video;
 
                 video.volume = 0.2;
 
                 this.$refs.resultVideo.style.maxWidth = video.videoWidth + "px";
-                this.$refs.resultVideo.width = video.videoWidth;
-                this.$refs.resultVideo.height = video.videoHeight;
-
+                
+                let isFirst = true;
                 setInterval(() => { // todo clear
-                    resultVideoContext.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-                }, 1000/60);
+                    monoCanvas.video(
+                        video,
+                        video.videoWidth * 0.3,
+                        video.videoHeight * 0.3,
+                        110, // baseAverageColor
+                        false, // needOutline
+                        30, // baseColorDistance
+                        5, // colorCount
+                        true, // useNanameMikaduki
+                        false // isVideoColorReverse
+                    );
+
+                    const tukiArt = TukiArtGenerator.createTukiArt(
+                        monoCanvas.pixels,
+                        false, // isImageColorReverse
+                        false, // isImageYokoLinePowerUp
+                        false, // isImageTateLinePowerUp
+                        5, // colorCount
+                        true // useNanameMikaduki
+                    );
+
+                    // todo tukiArtCanvasを介さずに直接使わせるようにする
+                    const tukiArtCanvas = TukiArtGenerator.createTukiArtCanvas(tukiArt);
+
+                    if (isFirst) {
+                        isFirst = false;
+                        this.$refs.resultVideo.width = tukiArtCanvas.width;
+                        this.$refs.resultVideo.height = tukiArtCanvas.height;
+                    }
+                    
+                    resultVideoContext.drawImage(tukiArtCanvas, 0, 0, tukiArtCanvas.width, tukiArtCanvas.height);
+                }, 1000/30);
 
                 this.tukiArtType = this.mode;
                 this.isGeneratingTukiArt = false;

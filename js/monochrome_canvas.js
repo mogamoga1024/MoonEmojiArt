@@ -315,8 +315,8 @@ class MonochromeCanvas {
         });
     }
 
-    video(video) {
-        // todo
+    video(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isVideoColorReverse = false) {
+        this.#pasteImageToCanvas(video, video.videoWidth, video.videoHeight, resizeVideoWidth, resizeVideoHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isVideoColorReverse);
     }
 
     #pasteImageToCanvas(image, imageWidth, imageHeight, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
