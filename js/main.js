@@ -153,6 +153,14 @@ const App = {
             this.imageFile = e.target.files[0];
             e.target.value = "";
 
+            if (!this.imageFile.type.startsWith("image")) {
+                alert("画像ファイルを選択してください");
+                this.imageFile = null;
+                this.imageWidth = this.imageWidthMin;
+                this.isLoadingInputImage = false;
+                return;
+            }
+
             const img = new Image();
             img.onload = () => {
                 if (img.width < this.imageWidthMin || img.width > this.imageWidthMax) {
@@ -183,6 +191,12 @@ const App = {
         onChangeInputVideoFile(e) {
             this.videoFile = e.target.files[0];
             e.target.value = "";
+
+            if (!this.videoFile.type.startsWith("video")) {
+                alert("動画ファイルを選択してください");
+                this.videoFile = null;
+                return;
+            }
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
@@ -440,7 +454,7 @@ const App = {
                     const resizeVideoHeight = resizeVideoWidth * rate;
                     let font = "";
                     let lineHeight = 0;
-                    
+
                     timer = setInterval(() => { // todo clear
                         monoCanvas.video(
                             video,
