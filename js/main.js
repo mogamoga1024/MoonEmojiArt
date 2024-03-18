@@ -20,7 +20,7 @@ const MSG_TOO_MANY_CHARA =
 `文字が多すぎて完成イメージが作れなかったよ。
 でもテキストデータだけは生きてるからコピーボタンかダウンロードボタンから取得できるよ。
 クオリティが低下しても完成イメージが見たい場合はサイズを小さくしてね。
-ちなみに開発当時は文字をそのまま表示するスタンスだったけどスマホだと激重だったからやめたよ。`;
+ちなみに開発当時は文字をそのまま表示するスタンスだったけどスマホだと激重だったからやめたよ。`; // todo mobile
 
 const mobileGenerateBtnWidth = "110px";
 const mobileCopyBtnWidth = "126px"; // 生成ボタンのwidthとpaddingを足した値
@@ -83,7 +83,6 @@ const App = {
             tukiArtMarginMax: 20,
             isLoadingInputImage: false,
             isGeneratingTukiArt: false,
-            canDisplayTukiArt: false,
 
             isMobile: false,
             canUseContextLetterSpacing: false,
@@ -325,6 +324,7 @@ const App = {
 
             if (this.tukiArtType === "video") {
                 clearInterval(timer);
+                monoCanvas = null;
                 URL.revokeObjectURL(this.$refs.video.src);
                 this.$refs.resultVideo.width = 0;
                 this.$refs.resultVideo.height = 0;
@@ -341,7 +341,6 @@ const App = {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
-                    this.canDisplayTukiArt = false;
                     return;
                 }
                 try {
@@ -365,7 +364,6 @@ const App = {
                     catch (e) {
                         console.error(e);
                         this.resultMessage = MSG_TOO_MANY_CHARA;
-                        this.canDisplayTukiArt = false;
                     }
                     this.wasTate = this.isTate;
                     monoCanvas = null;
@@ -381,7 +379,6 @@ const App = {
                     }
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
-                    this.canDisplayTukiArt = false;
                 }
             }
             else if (this.mode === "image") {
@@ -391,7 +388,6 @@ const App = {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
-                    this.canDisplayTukiArt = false;
                     return;
                 }
 
@@ -415,7 +411,6 @@ const App = {
                         catch (e) {
                             console.error(e);
                             this.resultMessage = MSG_TOO_MANY_CHARA;
-                            this.canDisplayTukiArt = false;
                         }
                         this.wasTate = false;
                         monoCanvas = null;
@@ -430,14 +425,12 @@ const App = {
                         }
                         monoCanvas = null;
                         this.isGeneratingTukiArt = false;
-                        this.canDisplayTukiArt = false;
                     });
                 };
                 this.fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
-                    this.canDisplayTukiArt = false;
                 };
 
                 this.fileReader.readAsDataURL(this.imageFile);
@@ -446,7 +439,6 @@ const App = {
                 if (this.videoFile == null) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.isGeneratingTukiArt = false;
-                    this.canDisplayTukiArt = false;
                     return;
                 }
 
@@ -510,7 +502,6 @@ const App = {
 
                     this.tukiArtType = this.mode;
                     this.isGeneratingTukiArt = false;
-                    this.canDisplayTukiArt = true;
                 };
                 video.onerror = () => {
                     alert("動画の読み込みに失敗しました");
@@ -518,7 +509,6 @@ const App = {
                     this.videoFile = null;
                     URL.revokeObjectURL(video.src);
                     this.isGeneratingTukiArt = false;
-                    this.canDisplayTukiArt = false;
                 };
                 video.onpause = () => {
                     isVideoStopped = true;
@@ -541,8 +531,6 @@ const App = {
             this.$refs.resultImage.src = tukiArtCanvas.toDataURL("image/png");
             this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
             
-            this.canDisplayTukiArt = true;
-
             // this.debugText = debugText;
         }
     }
