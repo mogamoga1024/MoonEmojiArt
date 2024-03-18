@@ -404,7 +404,7 @@ const App = {
                         this.fileReader.result,
                         this.imageWidth,
                         Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
-                        Number(this.baseAverageColor), // todo Numberはいらない。と思うが、不安なので放置。時間があったら確かめる。
+                        this.baseAverageColor,
                         this.needOutline,
                         this.baseColorDistance,
                         this.colorCount,
