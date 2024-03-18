@@ -48,6 +48,7 @@ const App = {
             needDetailConfigTukiArtMargin: false,
             shouldShrinkImage: true,
             mode: "text", // "text" | "image" | "video"
+
             text: "",
             fontFamily: "serif", // "default" | "sans" | "serif"
             tukiCount: 13, // Twitterが絵文字13文字で改行されるから
@@ -58,15 +59,18 @@ const App = {
             isBold: false,
             isTate: true,
             wasTate: true,
+
+            imageFile: null,
+            videoFile: null,
+            fileReader: new FileReader(),
+
             isTextYokoLinePowerUp: true,
             isTextTateLinePowerUp: true,
             isImageYokoLinePowerUp: false,
             isImageTateLinePowerUp: false,
+            
             colorCount: 3,
             useNanameMikaduki: true,
-            imageFile: null,
-            videoFile: null,
-            fileReader: new FileReader(),
             baseAverageColor: 110,
             baseAverageColorMin: COLOR_B,
             baseAverageColorMax: COLOR_SW,
@@ -74,19 +78,23 @@ const App = {
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
             needOutline: true,
+
             isTextColorReverse: true,
             isImageColorReverse: false,
+
             imageWidthOri: 100,
             imageHeightOri: 0,
             imageWidth: 100,
             imageWidthMin: 10,
             imageWidthMax: 5000,
+
             tukiArtMarginTop: 0,
             tukiArtMarginBottom: 0,
             tukiArtMarginLeft: 0,
             tukiArtMarginRight: 0,
             tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
+
             isLoadingInputImage: false,
             isGeneratingTukiArt: false,
 
