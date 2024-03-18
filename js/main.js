@@ -36,7 +36,7 @@ const App = {
             canCopyButtonClick: true,
             resultMessage: MSG_NO_INPUT_DATA,
             tukiArt: "",
-            tukiArtType: "", // "text" | "image" | "video"
+            tukiArtType: "none", // "none" | "text" | "image" | "video"
             shouldDisplayMonochromeImage: false,
             needDetailConfigLetterSpacingLevel: false,
             needDetailConfigTukiArtMargin: false,
@@ -249,7 +249,17 @@ const App = {
                 this.imageFile = tmpFile;
             }
             else if (this.mode === 'video') {
-                // todo
+                clearInterval(timer);
+                monoCanvas = null;
+                URL.revokeObjectURL(this.$refs.video.src);
+                this.$refs.resultVideo.width = 0;
+                this.$refs.resultVideo.height = 0;
+
+                const tmpFile = this.videoFile;
+                this.videoFile = null;
+
+                this.generateTukiArt();
+                this.videoFile = tmpFile;
             }
         },
         // 生成ボタン押下時
@@ -328,7 +338,7 @@ const App = {
 
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
-                    this.tukiArtType = this.mode;
+                    this.tukiArtType = "none";
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                     this.canDisplayTukiArt = false;
@@ -350,14 +360,15 @@ const App = {
 
                     try {
                         this.displayTukiArt();
+                        this.tukiArtType = this.mode;
                     }
                     catch (e) {
                         console.error(e);
                         this.resultMessage = MSG_TOO_MANY_CHARA;
                         this.canDisplayTukiArt = false;
+                        this.tukiArtType = "none";
                     }
                     this.wasTate = this.isTate;
-                    this.tukiArtType = this.mode;
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                 }
@@ -369,7 +380,7 @@ const App = {
                     else {
                         this.resultMessage = MSG_ERROR;
                     }
-                    this.tukiArtType = this.mode;
+                    this.tukiArtType = "none";
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                     this.canDisplayTukiArt = false;
@@ -380,7 +391,7 @@ const App = {
 
                 if (this.imageFile == null || this.imageWidth === 0) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
-                    this.tukiArtType = this.mode;
+                    this.tukiArtType = "none";
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                     this.canDisplayTukiArt = false;
@@ -402,14 +413,15 @@ const App = {
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.colorCount, this.useNanameMikaduki);
                         try {
                             this.displayTukiArt();
+                            this.tukiArtType = this.mode;
                         }
                         catch (e) {
                             console.error(e);
                             this.resultMessage = MSG_TOO_MANY_CHARA;
                             this.canDisplayTukiArt = false;
+                            this.tukiArtType = "none";
                         }
                         this.wasTate = false;
-                        this.tukiArtType = this.mode;
                         monoCanvas = null;
                         this.isGeneratingTukiArt = false;
                     }).catch(e => {
@@ -420,7 +432,7 @@ const App = {
                         else {
                             this.resultMessage = MSG_ERROR;
                         }
-                        this.tukiArtType = this.mode;
+                        this.tukiArtType = "none";
                         monoCanvas = null;
                         this.isGeneratingTukiArt = false;
                         this.canDisplayTukiArt = false;
@@ -428,7 +440,7 @@ const App = {
                 };
                 this.fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
-                    this.tukiArtType = this.mode;
+                    this.tukiArtType = "none";
                     monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                     this.canDisplayTukiArt = false;
@@ -437,11 +449,19 @@ const App = {
                 this.fileReader.readAsDataURL(this.imageFile);
             }
             else if (this.mode === "video") {
+                if (this.videoFile == null) {
+                    this.resultMessage = MSG_NO_INPUT_DATA;
+                    this.tukiArtType = "none";
+                    this.isGeneratingTukiArt = false;
+                    this.canDisplayTukiArt = false;
+                    return;
+                }
+
                 const video = this.$refs.video;
                 let isVideoStopped = true;
 
                 video.onloadeddata = () => {
-                    monoCanvas = new MonochromeCanvas(); // todo 開放
+                    monoCanvas = new MonochromeCanvas();
 
                     video.volume = 0.2;
 
@@ -504,7 +524,7 @@ const App = {
                     this.$refs.inputVideoFile.value = "";
                     this.videoFile = null;
                     URL.revokeObjectURL(video.src);
-                    this.tukiArtType = this.mode;
+                    this.tukiArtType = "none";
                     this.isGeneratingTukiArt = false;
                     this.canDisplayTukiArt = false;
                 };
