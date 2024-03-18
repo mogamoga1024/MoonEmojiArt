@@ -30,8 +30,8 @@
         <div class="radio" :class="{'selected': mode === 'image'}" @click="mode = 'image'">画像</div>
         <div v-if="!isMobile"
              class="radio"
-             :class="{'selected': mode === 'movie'}"
-             @click="mode = 'movie'">動画</div>
+             :class="{'selected': mode === 'video'}"
+             @click="mode = 'video'">動画</div>
       </div>
       <div id="reset-btn" class="btn" @click="onClickResetButton">リセット</div>
     </div>
@@ -213,7 +213,7 @@
       </div>
     </template>
 
-    <div v-else-if="mode === 'movie'"
+    <div v-else-if="mode === 'video'"
          class="input-file-container"
          style="margin-bottom: 16px;">
       <div class="input-file">
@@ -258,11 +258,11 @@
     </div>
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
 
-    <div v-show="tukiArtType === 'movie'">
+    <div v-show="tukiArtType === 'video'">
       <video ref="video" height="480" controls></video>
       <canvas ref="resultVideo"></canvas>
     </div>
-    <div v-show="tukiArtType !== 'movie'"
+    <div v-show="tukiArtType !== 'video'"
          :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
          :class="{'not-exists-tuki-art': !canDisplayTukiArt}">
       <div v-show="isMobile && canDisplayTukiArt" style="white-space: normal;">

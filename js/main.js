@@ -34,12 +34,12 @@ const App = {
             canCopyButtonClick: true,
             resultMessage: MSG_NO_INPUT_DATA,
             tukiArt: "",
-            tukiArtType: "", // "text" | "image" | "movie"
+            tukiArtType: "", // "text" | "image" | "video"
             shouldDisplayMonochromeImage: false,
             needDetailConfigLetterSpacingLevel: false,
             needDetailConfigTukiArtMargin: false,
             shouldShrinkImage: true,
-            mode: "text", // "text" | "image" | "movie"
+            mode: "text", // "text" | "image" | "video"
             text: "",
             fontFamily: "serif", // "default" | "sans" | "serif"
             tukiCount: 13, // Twitterが絵文字13文字で改行されるから
@@ -251,7 +251,7 @@ const App = {
                 this.generateTukiArt();
                 this.imageFile = tmpFile;
             }
-            else if (this.mode === 'movie') {
+            else if (this.mode === 'video') {
                 // todo
             }
         },
@@ -311,7 +311,7 @@ const App = {
             if (
                 this.isGeneratingTukiArt ||
                 this.mode === "image" && this.isLoadingInputImage ||
-                this.mode === "movie" && this.isLoadingInputVideo
+                this.mode === "video" && this.isLoadingInputVideo
             ) {
                 return;
             }
@@ -433,7 +433,7 @@ const App = {
                     this.canDisplayTukiArt = false;
                 };
             }
-            else if (this.mode === "movie") {
+            else if (this.mode === "video") {
                 // todo
 
                 this.tukiArtType = this.mode;
