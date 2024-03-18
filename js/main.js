@@ -443,13 +443,15 @@ const App = {
 
                 video.volume = 0.2;
 
-                this.$refs.resultVideo.style.maxWidth = video.videoWidth + "px";
+                this.$refs.resultVideo.style.maxWidth = video.videoWidth < 1200 ? video.videoWidth : 1200 + "px";
                 
                 let isFirst = true;
+                const maxArea = 400 * 300; // 軽い
+                // const maxArea = 800 * 450; // 多分大丈夫
+                const rate = video.videoHeight / video.videoWidth;
+                const resizeVideoWidth = Math.floor(Math.sqrt(maxArea / rate));
+                const resizeVideoHeight = resizeVideoWidth * rate;
                 setInterval(() => { // todo clear
-                    const resizeVideoWidth = 400;
-                    const resizeVideoHeight = resizeVideoWidth * video.videoHeight / video.videoWidth;
-
                     monoCanvas.video(
                         video,
                         resizeVideoWidth,
