@@ -18,6 +18,7 @@ const MSG_NO_INPUT_DATA =
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 const MSG_FAILURE_TEXT_MONO = "文字数が多すぎて一次加工で失敗したよ。減らしてね。";
 const MSG_FAILURE_IMAGE_MONO = "画像サイズが大きすぎて一次加工で失敗したよ。減らしてね。";
+const MSG_FAILURE_VIDEO_MONO = "画面サイズが大きすぎて一次加工で失敗したよ。ごめんね。";
 let MSG_TOO_MANY_CHARA = "";
 const MSG_TOO_MANY_CHARA_PC = 
 `文字が多すぎて完成イメージが作れなかったよ。
@@ -536,6 +537,21 @@ const App = {
                     let font = "";
                     let lineHeight = 0;
 
+                    const isValidCanvas = canvasSize.test({
+                        width : resizeVideoWidth,
+                        height: resizeVideoHeight
+                    });
+                    if (!isValidCanvas) {
+                        this.resultMessage = MSG_FAILURE_VIDEO_MONO;
+                        this.tukiArtType = "none";
+                        this.clearResult();
+                        this.$refs.inputVideoFile.value = "";
+                        this.videoFile = null;
+                        URL.revokeObjectURL(video.src);
+                        this.isGeneratingTukiArt = false;
+                        return;
+                    }
+
                     const drawTukiArtFrame = () => {
                         monoCanvas.video(
                             video,
@@ -562,7 +578,20 @@ const App = {
                     };
 
                     video.onseeked = () => {
-                        drawTukiArtFrame();
+                        try {
+                            drawTukiArtFrame();
+                        }
+                        catch (e) {
+                            console.error(e);
+                            clearInterval(timer);
+                            this.resultMessage = MSG_ERROR;
+                            this.tukiArtType = "none";
+                            this.clearResult();
+                            this.$refs.inputVideoFile.value = "";
+                            this.videoFile = null;
+                            URL.revokeObjectURL(video.src);
+                            this.isGeneratingTukiArt = false;
+                        }
                     };
 
                     isVideoParamChanged = false;
@@ -572,7 +601,20 @@ const App = {
                             return;
                         }
                         isVideoParamChanged = false;
-                        drawTukiArtFrame();
+                        try {
+                            drawTukiArtFrame();
+                        }
+                        catch (e) {
+                            console.error(e);
+                            clearInterval(timer);
+                            this.resultMessage = MSG_ERROR;
+                            this.tukiArtType = "none";
+                            this.clearResult();
+                            this.$refs.inputVideoFile.value = "";
+                            this.videoFile = null;
+                            URL.revokeObjectURL(video.src);
+                            this.isGeneratingTukiArt = false;
+                        }
                         if (isFirst) {
                             isFirst = false;
                         }

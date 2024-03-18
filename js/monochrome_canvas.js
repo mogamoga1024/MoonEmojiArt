@@ -316,6 +316,7 @@ class MonochromeCanvas {
     }
 
     video(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isVideoColorReverse = false) {
+        // canvasSize.testをいちいち実行するのは遅くなる原因になるので呼び出し元でおこなうこと
         this.#pasteImageToCanvas(video, video.videoWidth, video.videoHeight, resizeVideoWidth, resizeVideoHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isVideoColorReverse);
     }
 
