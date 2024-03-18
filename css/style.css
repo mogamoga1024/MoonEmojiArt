@@ -439,3 +439,9 @@ input {
   vertical-align: top;
 }
 
+#result-video {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+

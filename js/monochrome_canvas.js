@@ -330,6 +330,10 @@ class MonochromeCanvas {
         });
     }
 
+    video(video) {
+
+    }
+
     #monochrome(pixels, i, baseAverageColor, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
         const data = pixels.data;
         let avgColor = 0;
