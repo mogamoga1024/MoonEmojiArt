@@ -294,6 +294,7 @@ class MonochromeCanvas {
                     resizeImageWidth = img.width;
                     resizeImageHeight = img.height;
                 }
+                
                 const isValidCanvas = canvasSize.test({
                     width : resizeImageWidth,
                     height: resizeImageHeight
@@ -301,25 +302,9 @@ class MonochromeCanvas {
                 if (!isValidCanvas) {
                     return reject(new TooLargeCanvasError("キャンバスでかすぎ"));
                 }
-                this.#canvas.width = resizeImageWidth;
-                this.#canvas.height = resizeImageHeight;
-                this.#context.fillStyle = "#fff"; // 透過画像対策
-                this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-                this.#context.drawImage(img, 0, 0, img.width, img.height, 0, 0, resizeImageWidth, resizeImageHeight);
+                
+                this.#imageToCanvas(img, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
 
-                // 画像の各ピクセルをグレースケールに変換する
-                const pixels = this.pixels;
-                for (let row = 0; row < pixels.height; row++) {
-                    for (let col = 0; col < pixels.width; col++) {
-                        const i = row * pixels.width * 4 + col * 4;
-
-                        if (needOutline) {
-                            this.#outline(pixels, i, baseColorDistance);
-                        }
-                        this.#monochrome(pixels, i, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
-                    }
-                }
-                this.#context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
                 this.#isProcessing = false;
                 resolve();
             };
@@ -331,7 +316,29 @@ class MonochromeCanvas {
     }
 
     video(video) {
+        // todo
+    }
 
+    #imageToCanvas(image, imageWidth, imageHeight, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
+        this.#canvas.width = resizeImageWidth;
+        this.#canvas.height = resizeImageHeight;
+        this.#context.fillStyle = "#fff"; // 透過画像対策
+        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+        this.#context.drawImage(image, 0, 0, imageWidth, imageHeight, 0, 0, resizeImageWidth, resizeImageHeight);
+
+        // 画像の各ピクセルをグレースケールに変換する
+        const pixels = this.pixels;
+        for (let row = 0; row < pixels.height; row++) {
+            for (let col = 0; col < pixels.width; col++) {
+                const i = row * pixels.width * 4 + col * 4;
+
+                if (needOutline) {
+                    this.#outline(pixels, i, baseColorDistance);
+                }
+                this.#monochrome(pixels, i, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
+            }
+        }
+        this.#context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
     }
 
     #monochrome(pixels, i, baseAverageColor, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
