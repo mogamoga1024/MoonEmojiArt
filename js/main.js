@@ -7,6 +7,7 @@ function debug(text) {
 let monoCanvas = null;
 let resultVideoContext = null;
 let timer = 0;
+let isVideoParamChanged = false;
 
 const MSG_NO_INPUT_DATA = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
@@ -164,7 +165,31 @@ const App = {
             else {
                 this.$refs.processing.style.display = "none";
             }
-        }
+        },
+        isVideoYokoLinePowerUp() {
+            isVideoParamChanged = true;
+        },
+        isVideoTateLinePowerUp() {
+            isVideoParamChanged = true;
+        },
+        videoColorCount() {
+            isVideoParamChanged = true;
+        },
+        useVideoNanameMikaduki() {
+            isVideoParamChanged = true;
+        },
+        videoBaseAverageColor() {
+            isVideoParamChanged = true;
+        },
+        videoBaseColorDistance() {
+            isVideoParamChanged = true;
+        },
+        needVideoOutline() {
+            isVideoParamChanged = true;
+        },
+        isVideoColorReverse() {
+            isVideoParamChanged = true;
+        },
     },
     methods: {
         onChangeInputImageFile(e) {
@@ -528,10 +553,13 @@ const App = {
                         drawTukiArtFrame();
                     };
 
+                    isVideoParamChanged = false;
+
                     timer = setInterval(() => {
-                        if (!isFirst && isVideoStopped) {
+                        if (!isFirst && isVideoStopped && !isVideoParamChanged) {
                             return;
                         }
+                        isVideoParamChanged = false;
                         drawTukiArtFrame();
                         if (isFirst) {
                             isFirst = false;
