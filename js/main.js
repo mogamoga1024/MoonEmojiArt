@@ -16,11 +16,17 @@ const MSG_NO_INPUT_DATA =
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 const MSG_FAILURE_TEXT_MONO = "文字数が多すぎて一次加工で失敗したよ。減らしてね。";
 const MSG_FAILURE_IMAGE_MONO = "画像サイズが大きすぎて一次加工で失敗したよ。減らしてね。";
-const MSG_TOO_MANY_CHARA = 
+let MSG_TOO_MANY_CHARA = "";
+const MSG_TOO_MANY_CHARA_PC = 
 `文字が多すぎて完成イメージが作れなかったよ。
 でもテキストデータだけは生きてるからコピーボタンかダウンロードボタンから取得できるよ。
 クオリティが低下しても完成イメージが見たい場合はサイズを小さくしてね。
-ちなみに開発当時は文字をそのまま表示するスタンスだったけどスマホだと激重だったからやめたよ。`; // todo mobile
+ちなみに開発当時は文字をそのまま表示するスタンスだったけどスマホだと激重だったからやめたよ。`;
+const MSG_TOO_MANY_CHARA_MOBILE = 
+`文字が多すぎて完成イメージが作れなかったよ。
+でもテキストデータだけは生きてるからコピーボタンで取得できるよ。
+クオリティが低下しても完成イメージが見たい場合はサイズを小さくしてね。
+ちなみに開発当時は文字をそのまま表示するスタンスだったけどスマホだと激重だったからやめたよ。`;
 
 const mobileGenerateBtnWidth = "110px";
 const mobileCopyBtnWidth = "126px"; // 生成ボタンのwidthとpaddingを足した値
@@ -104,6 +110,8 @@ const App = {
         if (!this.isMobile) {
             this.isMobile = params.has("m");
         }
+
+        MSG_TOO_MANY_CHARA = this.isMobile ? MSG_TOO_MANY_CHARA_MOBILE : MSG_TOO_MANY_CHARA_PC;
     },
     mounted() {
         if (this.isDebug) {
