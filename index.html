@@ -259,8 +259,10 @@
     <div style="white-space: pre-wrap;">{{resultMessage}}</div>
 
     <div v-show="tukiArtType === 'video'">
-      <video ref="video" height="480" controls></video>
-      <canvas ref="resultVideo"></canvas>
+      <div>
+        <video ref="video" height="240" controls></video>
+      </div>
+      <canvas ref="resultVideo" style="width: 100%;"></canvas>
     </div>
     <div v-show="tukiArtType !== 'video'"
          :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"

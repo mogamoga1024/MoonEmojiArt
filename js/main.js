@@ -438,11 +438,16 @@ const App = {
             }
             else if (this.mode === "video") {
                 const video = this.$refs.video;
+
+                video.volume = 0.2;
+
+                this.$refs.resultVideo.style.maxWidth = video.videoWidth + "px";
                 this.$refs.resultVideo.width = video.videoWidth;
                 this.$refs.resultVideo.height = video.videoHeight;
+
                 setInterval(() => { // todo clear
                     resultVideoContext.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-                }, 1000/30);
+                }, 1000/60);
 
                 this.tukiArtType = this.mode;
                 this.isGeneratingTukiArt = false;
