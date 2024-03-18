@@ -245,6 +245,8 @@ const App = {
                 this.videoFile = null;
                 return;
             }
+
+            this.generateTukiArt();
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
@@ -305,9 +307,18 @@ const App = {
 
                 const tmpFile = this.videoFile;
                 this.videoFile = null;
+                this.videoColorCount = 3;
+                this.useVideoNanameMikaduki = true;
+                this.videoBaseAverageColor = 110;
+                this.videoBaseColorDistance = 30;
+                this.needVideoOutline = true;
+                this.isVideoColorReverse = false;
+                this.isVideoYokoLinePowerUp = false;
+                this.isVideoTateLinePowerUp = false;
 
                 this.generateTukiArt();
                 this.videoFile = tmpFile;
+                this.generateTukiArt();
             }
         },
         // 生成ボタン押下時
