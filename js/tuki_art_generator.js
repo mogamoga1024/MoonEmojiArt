@@ -161,7 +161,7 @@ class TukiArtGenerator {
             fontSize -= 1;
         }
 
-        const rtnCanvas = document.createElement("canvas");
+        let rtnCanvas = canvas === null ? document.createElement("canvas") : canvas;
         const rtnContext = rtnCanvas.getContext("2d", { willReadFrequently: true });
     
         rtnCanvas.width = rtnCanvasWidth;

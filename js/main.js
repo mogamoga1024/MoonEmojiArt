@@ -5,7 +5,7 @@ function debug(text) {
 };
 
 let monoCanvas = null;
-let resultVideoContext = null;
+// let resultVideoContext = null;
 
 const MSG_NO_INPUT_DATA = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
@@ -58,7 +58,7 @@ const App = {
             colorCount: 3,
             useNanameMikaduki: true,
             imageFile: null,
-            movieFile: null,
+            videoFile: null,
             fileReader: new FileReader(),
             baseAverageColor: 110,
             baseAverageColorMin: COLOR_B,
@@ -131,7 +131,7 @@ const App = {
         this.$refs.monochrome.style.width = "100%";
         this.$refs.resultImage.style.width = "100%";
 
-        resultVideoContext = this.$refs.resultVideo.getContext("2d");
+        // resultVideoContext = this.$refs.resultVideo.getContext("2d");
     },
     watch: {
         isGeneratingTukiArt(newVal) {
@@ -180,13 +180,13 @@ const App = {
 
             img.src = URL.createObjectURL(this.imageFile);
         },
-        onChangeInputMovieFile(e) {
+        onChangeInputVideoFile(e) {
             if (this.isLoadingInputVideo) {
                 return;
             }
             this.isLoadingInputVideo = true;
 
-            this.movieFile = e.target.files[0];
+            this.videoFile = e.target.files[0];
             e.target.value = "";
 
             const video = this.$refs.video;
@@ -196,13 +196,13 @@ const App = {
             };
             video.onerror = () => {
                 alert("動画の読み込みに失敗しました");
-                this.$refs.inputMovieFile.value = "";
-                this.movieFile = null;
+                this.$refs.inputVideoFile.value = "";
+                this.videoFile = null;
                 URL.revokeObjectURL(video.src);
                 this.isLoadingInputVideo = false;
             };
 
-            video.src = URL.createObjectURL(this.movieFile);
+            video.src = URL.createObjectURL(this.videoFile);
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
@@ -445,12 +445,13 @@ const App = {
 
                 this.$refs.resultVideo.style.maxWidth = video.videoWidth < 1200 ? video.videoWidth : 1200 + "px";
                 
-                let isFirst = true;
+                // let isFirst = true;
                 const maxArea = 400 * 300; // 軽い
                 // const maxArea = 800 * 450; // 多分大丈夫
                 const rate = video.videoHeight / video.videoWidth;
                 const resizeVideoWidth = Math.floor(Math.sqrt(maxArea / rate));
                 const resizeVideoHeight = resizeVideoWidth * rate;
+                let fontSize = 12;
                 setInterval(() => { // todo clear
                     monoCanvas.video(
                         video,
@@ -474,15 +475,16 @@ const App = {
                     );
 
                     // todo tukiArtCanvasを介さずに直接使わせるようにする
-                    const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(tukiArt);
+                    // const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(tukiArt);
+                    ({fontSize} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, fontSize));
 
-                    if (isFirst) {
-                        isFirst = false;
-                        this.$refs.resultVideo.width = tukiArtCanvas.width;
-                        this.$refs.resultVideo.height = tukiArtCanvas.height;
-                    }
+                    // if (isFirst) {
+                    //     isFirst = false;
+                    //     this.$refs.resultVideo.width = tukiArtCanvas.width;
+                    //     this.$refs.resultVideo.height = tukiArtCanvas.height;
+                    // }
                     
-                    resultVideoContext.drawImage(tukiArtCanvas, 0, 0, tukiArtCanvas.width, tukiArtCanvas.height);
+                    // resultVideoContext.drawImage(tukiArtCanvas, 0, 0, tukiArtCanvas.width, tukiArtCanvas.height);
                 }, 1000/30);
 
                 this.tukiArtType = this.mode;
