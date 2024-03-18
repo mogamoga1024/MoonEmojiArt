@@ -7,7 +7,6 @@ function debug(text) {
 let monoCanvas = null;
 let resultVideoContext = null;
 let timer = 0;
-let isVideoStopped = true;
 
 const MSG_NO_INPUT_DATA = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
@@ -439,6 +438,7 @@ const App = {
             }
             else if (this.mode === "video") {
                 const video = this.$refs.video;
+                let isVideoStopped = true;
 
                 video.onloadeddata = () => {
                     monoCanvas = new MonochromeCanvas(); // todo 開放
@@ -456,11 +456,7 @@ const App = {
                     let font = "";
                     let lineHeight = 0;
 
-                    timer = setInterval(() => {
-                        if (!isFirst && isVideoStopped) {
-                            return;
-                        }
-
+                    const drawTukiArtFrame = () => {
                         monoCanvas.video(
                             video,
                             resizeVideoWidth,
@@ -483,7 +479,17 @@ const App = {
                         );
 
                         ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, isFirst));
+                    };
 
+                    video.onseeked = () => {
+                        drawTukiArtFrame();
+                    };
+
+                    timer = setInterval(() => {
+                        if (!isFirst && isVideoStopped) {
+                            return;
+                        }
+                        drawTukiArtFrame();
                         if (isFirst) {
                             isFirst = false;
                         }
@@ -508,8 +514,7 @@ const App = {
                 video.onplay = () => {
                     isVideoStopped = false;
                 };
-
-                isVideoStopped = true;
+                
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
