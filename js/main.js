@@ -447,7 +447,7 @@ const App = {
                 
                 let isFirst = true;
                 setInterval(() => { // todo clear
-                    const resizeVideoWidth = 300;
+                    const resizeVideoWidth = 400;
                     const resizeVideoHeight = resizeVideoWidth * video.videoHeight / video.videoWidth;
 
                     monoCanvas.video(
