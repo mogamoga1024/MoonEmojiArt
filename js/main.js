@@ -68,19 +68,27 @@ const App = {
             isTextTateLinePowerUp: true,
             isImageYokoLinePowerUp: false,
             isImageTateLinePowerUp: false,
-            
-            colorCount: 3,
-            useNanameMikaduki: true,
-            baseAverageColor: 110,
+            isVideoYokoLinePowerUp: false,
+            isVideoTateLinePowerUp: false,
+
+            imageColorCount: 3,
+            videoColorCount: 3,
+            useImageNanameMikaduki: true,
+            useVideoNanameMikaduki: true,
+            imageBaseAverageColor: 110,
+            videoBaseAverageColor: 110,
             baseAverageColorMin: COLOR_B,
             baseAverageColorMax: COLOR_SW,
-            baseColorDistance: 30,
+            imageBaseColorDistance: 30,
+            videoBaseColorDistance: 30,
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
-            needOutline: true,
+            needImageOutline: true,
+            needVideoOutline: true,
 
             isTextColorReverse: true,
             isImageColorReverse: false,
+            isVideoColorReverse: false,
 
             imageWidthOri: 100,
             imageHeightOri: 0,
@@ -249,11 +257,11 @@ const App = {
                 const tmpFile = this.imageFile;
 
                 this.imageFile = null;
-                this.colorCount = 3;
-                this.useNanameMikaduki = true;
-                this.baseAverageColor = 110;
-                this.baseColorDistance = 30;
-                this.needOutline = true;
+                this.imageColorCount = 3;
+                this.useImageNanameMikaduki = true;
+                this.imageBaseAverageColor = 110;
+                this.imageBaseColorDistance = 30;
+                this.needImageOutline = true;
                 this.isImageColorReverse = false;
                 this.imageWidth = this.imageWidthOri;
                 this.isImageYokoLinePowerUp = false;
@@ -418,14 +426,14 @@ const App = {
                         this.fileReader.result,
                         this.imageWidth,
                         Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
-                        this.baseAverageColor,
-                        this.needOutline,
-                        this.baseColorDistance,
-                        this.colorCount,
-                        this.useNanameMikaduki,
+                        this.imageBaseAverageColor,
+                        this.needImageOutline,
+                        this.imageBaseColorDistance,
+                        this.imageColorCount,
+                        this.useImageNanameMikaduki,
                         this.isImageColorReverse
                     ).then(() => {
-                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.colorCount, this.useNanameMikaduki);
+                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
                         try {
                             this.displayTukiArt();
                             this.tukiArtType = this.mode;
@@ -496,11 +504,11 @@ const App = {
                             video,
                             resizeVideoWidth,
                             resizeVideoHeight,
-                            110, // baseAverageColor
-                            true, // needOutline
-                            30, // baseColorDistance
-                            5, // colorCount
-                            true, // useNanameMikaduki
+                            110, // imageBaseAverageColor
+                            true, // needImageOutline
+                            30, // imageBaseColorDistance
+                            5, // imageColorCount
+                            true, // useImageNanameMikaduki
                             false // isVideoColorReverse
                         );
 
@@ -509,8 +517,8 @@ const App = {
                             false, // isImageColorReverse
                             false, // isImageYokoLinePowerUp
                             false, // isImageTateLinePowerUp
-                            5, // colorCount
-                            true // useNanameMikaduki
+                            5, // imageColorCount
+                            true // useImageNanameMikaduki
                         );
 
                         ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, isFirst));

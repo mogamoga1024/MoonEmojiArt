@@ -167,7 +167,7 @@
             <plus-minus-input-numbur
               :min="baseAverageColorMin"
               :max="baseAverageColorMax"
-              v-model="baseAverageColor">
+              v-model="imageBaseAverageColor">
           </div>
         </div>
         <div class="item">
@@ -175,15 +175,15 @@
           <div class="input">
             <div class="item-list">
               <div class="radio-wrapper">
-                <div class="radio" :class="{'selected': colorCount === 2}" @click="colorCount = 2">2</div>
-                <div class="radio" :class="{'selected': colorCount === 3}" @click="colorCount = 3">3</div>
-                <div class="radio" :class="{'selected': colorCount === 5}" @click="colorCount = 5">5</div>
+                <div class="radio" :class="{'selected': imageColorCount === 2}" @click="imageColorCount = 2">2</div>
+                <div class="radio" :class="{'selected': imageColorCount === 3}" @click="imageColorCount = 3">3</div>
+                <div class="radio" :class="{'selected': imageColorCount === 5}" @click="imageColorCount = 5">5</div>
               </div>
-              <div class="btn" :class="{'selected': useNanameMikaduki}" @click="useNanameMikaduki = !useNanameMikaduki">🌙</div>
+              <div class="btn" :class="{'selected': useImageNanameMikaduki}" @click="useImageNanameMikaduki = !useImageNanameMikaduki">🌙</div>
             </div>
           </div>
         </div>
-        <div class="item" v-show="needOutline">
+        <div class="item" v-show="needImageOutline">
           <div class="name">
             <div>輪郭</div>
             <div class="hosoku">{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</div>
@@ -192,7 +192,7 @@
             <plus-minus-input-numbur
               :min="baseColorDistanceMin"
               :max="baseColorDistanceMax"
-              v-model="baseColorDistance">
+              v-model="imageBaseColorDistance">
           </div>
         </div>
         <div class="item">
@@ -205,7 +205,7 @@
           </div>
         </div>
         <div class="input-check-area">
-          <div class="btn" :class="{'selected': needOutline}" @click="needOutline = !needOutline">輪郭</div>
+          <div class="btn" :class="{'selected': needImageOutline}" @click="needImageOutline = !needImageOutline">輪郭</div>
           <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
           <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
           <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦強化</div>
