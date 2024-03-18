@@ -294,7 +294,7 @@ class MonochromeCanvas {
                     resizeImageWidth = img.width;
                     resizeImageHeight = img.height;
                 }
-                
+
                 const isValidCanvas = canvasSize.test({
                     width : resizeImageWidth,
                     height: resizeImageHeight
@@ -303,7 +303,7 @@ class MonochromeCanvas {
                     return reject(new TooLargeCanvasError("キャンバスでかすぎ"));
                 }
                 
-                this.#imageToCanvas(img, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
+                this.#pasteImageToCanvas(img, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
 
                 this.#isProcessing = false;
                 resolve();
@@ -319,7 +319,7 @@ class MonochromeCanvas {
         // todo
     }
 
-    #imageToCanvas(image, imageWidth, imageHeight, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
+    #pasteImageToCanvas(image, imageWidth, imageHeight, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
         this.#canvas.width = resizeImageWidth;
         this.#canvas.height = resizeImageHeight;
         this.#context.fillStyle = "#fff"; // 透過画像対策
