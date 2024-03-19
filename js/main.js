@@ -46,6 +46,7 @@ const App = {
             resultMessage: MSG_NO_INPUT_DATA,
             tukiArt: "",
             tukiArtType: "none", // "none" | "text" | "image" | "video"
+            shouldDisplaySample: true,
             shouldDisplayMonochromeImage: false,
             needDetailConfigLetterSpacingLevel: false,
             needDetailConfigTukiArtMargin: false,
@@ -154,12 +155,21 @@ const App = {
             this.$refs.copyBtn.style.width = mobileCopyBtnWidth;
         }
 
-        this.$refs.monochrome.style.width = "100%";
-        this.$refs.resultImage.style.width = "100%";
+        this.displaySample();
 
         resultVideoContext = this.$refs.resultVideo.getContext("2d");
     },
     watch: {
+        mode(newVal) {
+            if (this.tukiArtType === "none") {
+                if (newVal === "video") {
+                    this.clearResult();
+                }
+                else {
+                    this.displaySample();
+                }
+            }
+        },
         isGeneratingTukiArt(newVal) {
             if (newVal) {
                 this.$refs.processing.style.display = "";
@@ -365,11 +375,31 @@ const App = {
             link.click();
             URL.revokeObjectURL(link.href);
         },
+        displaySample() {
+            if (this.mode === "text") {
+                this.shouldDisplaySample = true;
+                URL.revokeObjectURL(this.$refs.resultImage.src);
+                this.$refs.resultImage.src = "../css/sample_text.png";
+                this.$refs.resultImage.style.maxWidth = "247px";
+            }
+            else if (this.mode === "image") {
+                this.shouldDisplaySample = true;
+                URL.revokeObjectURL(this.$refs.resultImage.src);
+                this.$refs.resultImage.src = "../css/sample_image.png";
+                this.$refs.resultImage.style.maxWidth = "494px";
+            }
+        },
         clearResult() {
             URL.revokeObjectURL(this.$refs.monochrome.src);
-            URL.revokeObjectURL(this.$refs.resultImage.src);
             this.$refs.monochrome.src = "";
-            this.$refs.resultImage.src = "";
+
+            if (this.mode === "video") {
+                URL.revokeObjectURL(this.$refs.resultImage.src);
+                this.$refs.resultImage.src = "";
+            }
+            else {
+                this.displaySample();
+            }
         },
         generateTukiArt() {
             if (
@@ -417,6 +447,7 @@ const App = {
                         this.displayTukiArt();
                         this.resultMessage = "";
                         this.tukiArtType = this.mode;
+                        this.shouldDisplaySample = false;
                     }
                     catch (e) {
                         console.error(e);
@@ -471,6 +502,7 @@ const App = {
                             this.displayTukiArt();
                             this.resultMessage = "";
                             this.tukiArtType = this.mode;
+                            this.shouldDisplaySample = false;
                         }
                         catch (e) {
                             console.error(e);
@@ -612,6 +644,7 @@ const App = {
 
                     this.resultMessage = "";
                     this.tukiArtType = this.mode;
+                    this.shouldDisplaySample = false;
                     this.isGeneratingTukiArt = false;
                 };
                 video.onerror = () => {

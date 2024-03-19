@@ -311,7 +311,11 @@
       処理中だよ。ちょっと待ってね。
       <hr>
     </div>
-    <div style="white-space: pre-wrap;">{{resultMessage}}</div>
+    <div v-show="resultMessage !== ''"
+         style="white-space: pre-wrap;">
+      {{resultMessage}}
+      <hr>
+    </div>
 
     <div v-show="tukiArtType === 'video'"
          id="result-video">
@@ -320,17 +324,19 @@
       </div>
       <canvas ref="resultVideo" style="width: 100%;"></canvas>
     </div>
-    <div v-show="tukiArtType !== 'video'"
-         :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}"
-         :class="{'not-exists-tuki-art': tukiArtType === 'none'}">
-      <div v-show="isMobile && tukiArtType !== 'none'" style="white-space: normal;">
+
+    <div v-show="tukiArtType === 'text' || tukiArtType === 'image' || shouldDisplaySample"
+         :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}">
+      <div v-show="isMobile" style="white-space: normal;">
         画像は長押しするとダウンロードできます。
         <hr>
       </div>
-      <img ref="monochrome" v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage" :class="{'tate-canvas': wasTate}">
+      <img ref="monochrome"
+           v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage"
+           :class="{'tate-canvas': wasTate}"
+           style="width: 100%;">
       <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
         <img ref="resultImage"
-             v-show="tukiArtType === 'text' || tukiArtType === 'image'"
              :style="{width: tukiArtType === 'image' && shouldShrinkImage ? '100%' : 'auto'}">
       </div>
     </div>
