@@ -204,7 +204,7 @@ const App = {
             e.target.value = "";
 
             if (!this.imageFile.type.startsWith("image")) {
-                alert("画像ファイルを選択してください");
+                alert("画像ファイルを選択してね。");
                 this.imageFile = null;
                 this.imageWidth = this.imageWidthMin;
                 this.isLoadingInputImage = false;
@@ -214,7 +214,7 @@ const App = {
             const img = new Image();
             img.onload = () => {
                 if (img.width < this.imageWidthMin || img.width > this.imageWidthMax) {
-                    alert(`画像の幅は${this.imageWidthMin}px以上${this.imageWidthMax}px以下の必要があります`);
+                    alert(`画像の幅は${this.imageWidthMin}px以上${this.imageWidthMax}px以下の必要があるよ。`);
                     this.$refs.inputImageFile.value = "";
                     this.imageFile = null;
                     this.imageWidth = this.imageWidthMin;
@@ -228,7 +228,7 @@ const App = {
                 this.isLoadingInputImage = false;
             };
             img.onerror = () => {
-                alert("画像の読み込みに失敗しました");
+                alert("画像の読み込みに失敗したよ。");
                 this.$refs.inputImageFile.value = "";
                 this.imageFile = null;
                 this.imageWidth = this.imageWidthMin;
@@ -243,7 +243,7 @@ const App = {
             e.target.value = "";
 
             if (!this.videoFile.type.startsWith("video")) {
-                alert("動画ファイルを選択してください");
+                alert("動画ファイルを選択してね。");
                 this.videoFile = null;
                 return;
             }
@@ -624,7 +624,7 @@ const App = {
                     this.isGeneratingTukiArt = false;
                 };
                 video.onerror = () => {
-                    alert("動画の読み込みに失敗しました");
+                    alert("動画の読み込みに失敗したよ。");
                     this.resultMessage = MSG_ERROR;
                     this.tukiArtType = "none";
                     this.clearResult();

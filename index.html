@@ -270,33 +270,37 @@
     
     <hr>
     
-    <div v-show="mode !== 'video'">
-      <div class="action-btn-list">
-        <div id="generate-btn" class="action-btn" ref="generateBtn" @click="onClickGenerateButton">生成</div>
-        <div id="copy-btn-wrapper" class="action-btn" ref="copyBtnWrapper">
-          <div id="copy-btn" ref="copyBtn" @click="onClickCopyButton">コピー</div>
-          <div id="copy-message" ref="copyMessage">Copied!</div>
-        </div>
-        <div v-if="!isMobile"
-             id="download-text-btn"
-             class="action-btn"
-             @click="onClickDownLoadTextButton">
-          <div>
-            <div class="download-icon"></div>テキスト
-          </div>
-        </div>
-        <div v-if="!isMobile"
-             id="download-image-btn"
-             class="action-btn"
-             @click="onClickDownLoadImageButton">
-          <div>
-            <div class="download-icon"></div>画像
-          </div>
+    <div class="action-btn-list">
+      <div id="generate-btn" class="action-btn" ref="generateBtn" @click="onClickGenerateButton">生成</div>
+      
+      <div v-show="mode !== 'video'"
+           id="copy-btn-wrapper"
+           class="action-btn"
+           ref="copyBtnWrapper">
+        <div id="copy-btn" ref="copyBtn" @click="onClickCopyButton">コピー</div>
+        <div id="copy-message" ref="copyMessage">Copied!</div>
+      </div>
+      <div v-if="!isMobile"
+           v-show="mode !== 'video'"
+           id="download-text-btn"
+           class="action-btn"
+           @click="onClickDownLoadTextButton">
+        <div>
+          <div class="download-icon"></div>テキスト
         </div>
       </div>
-  
-      <hr>
+      <div v-if="!isMobile"
+           v-show="mode !== 'video'"
+           id="download-image-btn"
+           class="action-btn"
+           @click="onClickDownLoadImageButton">
+        <div>
+          <div class="download-icon"></div>画像
+        </div>
+      </div>
     </div>
+
+    <hr>
     
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
     <div ref="processing" style="display: none;">
