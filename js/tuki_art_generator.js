@@ -111,8 +111,8 @@ class TukiArtGenerator {
         const textList = tukiArt.split("\n");
 
         let fontSize = 12;
-        let font = _font;
-        let lineHeight = _lineHeight;
+        let font = isFirst ? "" : _font;
+        let lineHeight = isFirst ? 0 : _lineHeight;
         let rtnCanvasWidth = 0;
         let rtnCanvasHeight = 0;
         // なぜかスマホ（iPhoneXのChrome）だと一段目の絵文字の上の部分が見切れるので仕方なくマージンを入れる。意味不明。
