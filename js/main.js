@@ -545,8 +545,6 @@ const App = {
                         this.resultMessage = MSG_FAILURE_VIDEO_MONO;
                         this.tukiArtType = "none";
                         this.clearResult();
-                        this.$refs.inputVideoFile.value = "";
-                        this.videoFile = null;
                         URL.revokeObjectURL(video.src);
                         this.isGeneratingTukiArt = false;
                         return;
@@ -587,8 +585,6 @@ const App = {
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
                             this.clearResult();
-                            this.$refs.inputVideoFile.value = "";
-                            this.videoFile = null;
                             URL.revokeObjectURL(video.src);
                             this.isGeneratingTukiArt = false;
                         }
@@ -610,8 +606,6 @@ const App = {
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
                             this.clearResult();
-                            this.$refs.inputVideoFile.value = "";
-                            this.videoFile = null;
                             URL.revokeObjectURL(video.src);
                             this.isGeneratingTukiArt = false;
                         }

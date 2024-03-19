@@ -271,7 +271,11 @@
     <hr>
     
     <div class="action-btn-list">
-      <div id="generate-btn" class="action-btn" ref="generateBtn" @click="onClickGenerateButton">生成</div>
+      <div v-show="mode !== 'video' || (mode === 'video' && tukiArtType !== 'video')"
+           id="generate-btn"
+           class="action-btn"
+           ref="generateBtn"
+           @click="onClickGenerateButton">生成</div>
       
       <div v-show="mode !== 'video'"
            id="copy-btn-wrapper"
@@ -300,7 +304,7 @@
       </div>
     </div>
 
-    <hr>
+    <hr v-show="mode !== 'video' || (mode === 'video' && tukiArtType !== 'video')">
     
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
     <div ref="processing" style="display: none;">
