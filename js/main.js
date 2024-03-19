@@ -379,13 +379,13 @@ const App = {
             if (this.mode === "text") {
                 this.shouldDisplaySample = true;
                 URL.revokeObjectURL(this.$refs.resultImage.src);
-                this.$refs.resultImage.src = "https://mogamoga1024.github.io/MoonEmojiArt/css/sample_text.png";
+                this.$refs.resultImage.src = "./css/sample_text.png";
                 this.$refs.resultImage.style.maxWidth = "247px";
             }
             else if (this.mode === "image") {
                 this.shouldDisplaySample = true;
                 URL.revokeObjectURL(this.$refs.resultImage.src);
-                this.$refs.resultImage.src = "https://mogamoga1024.github.io/MoonEmojiArt/css/sample_image.png";
+                this.$refs.resultImage.src = "./css/sample_image.png";
                 this.$refs.resultImage.style.maxWidth = "494px";
             }
         },
