@@ -307,8 +307,6 @@ const App = {
                 this.$refs.resultVideo.width = 0;
                 this.$refs.resultVideo.height = 0;
 
-                const tmpFile = this.videoFile;
-                this.videoFile = null;
                 this.videoColorCount = 3;
                 this.useVideoNanameMikaduki = true;
                 this.videoBaseAverageColor = 110;
@@ -318,8 +316,6 @@ const App = {
                 this.isVideoYokoLinePowerUp = false;
                 this.isVideoTateLinePowerUp = false;
 
-                this.generateTukiArt();
-                this.videoFile = tmpFile;
                 this.generateTukiArt();
             }
         },
