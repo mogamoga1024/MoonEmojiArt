@@ -45,7 +45,7 @@ button, input, select, textarea {
 }
 
 #app {
-  padding: 0 32px;
+  padding: 0 32px 32px;
 }
 
 #setting {
