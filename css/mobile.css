@@ -10,8 +10,7 @@
   }
 
   .github-corner > svg {
-    width: 20px;
-    height: 20px;
+    display: none;
   }
 
   #config-area1 {
