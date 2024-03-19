@@ -388,8 +388,6 @@ const App = {
                 this.$refs.resultVideo.height = 0;
             }
 
-            this.resultMessage = "";
-            
             if (this.mode === "text") {
                 monoCanvas = new MonochromeCanvas();
 
@@ -417,6 +415,7 @@ const App = {
 
                     try {
                         this.displayTukiArt();
+                        this.resultMessage = "";
                         this.tukiArtType = this.mode;
                     }
                     catch (e) {
@@ -470,6 +469,7 @@ const App = {
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
                         try {
                             this.displayTukiArt();
+                            this.resultMessage = "";
                             this.tukiArtType = this.mode;
                         }
                         catch (e) {
@@ -610,6 +610,7 @@ const App = {
                         }
                     }, 1000/30);
 
+                    this.resultMessage = "";
                     this.tukiArtType = this.mode;
                     this.isGeneratingTukiArt = false;
                 };
