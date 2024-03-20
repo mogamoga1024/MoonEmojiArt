@@ -24,7 +24,8 @@
   </a>
   <div id="app" v-cloak>
     <div id="app-title"
-         @click="onClickAppTitle">
+         @dblclick="onDblClickAppTitle"
+         @touchstart.prevent="onTouchAppTitle">
       <div class="title-part">
         <h1>月文字ジェネレーターJS</h1>
       </div>

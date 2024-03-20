@@ -6,6 +6,8 @@ function debug(text) {
 
 const domGitCat = document.getElementById("git-cat");
 
+let appTitleTouchCount = 0;
+
 let monoCanvas = null;
 let resultVideoContext = null;
 let timer = 0;
@@ -18,7 +20,7 @@ const MSG_NO_INPUT_DATA =
 ・大がかりな改造をしたからバグったらゴメンね。(24/03/19)
 ・PCではお遊びとして動画も月文字にできるようにしてるよ。
 ・白黒の動画を月文字にするときは輪郭をOFFにすることをオススメするよ。
-・タイトルを押すと裏になるよ。`; // todo 文言
+・タイトルを素早く2回押すと裏モードになるよ。`; // todo 文言
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 const MSG_FAILURE_TEXT_MONO = "文字数が多すぎて一次加工で失敗したよ。減らしてね。";
 const MSG_FAILURE_IMAGE_MONO = "画像サイズが大きすぎて一次加工で失敗したよ。減らしてね。";
@@ -209,28 +211,18 @@ const App = {
         },
     },
     methods: {
-        onClickAppTitle() {
-            if (this.isSafety) {
-                const res = confirm("裏モードは文の文字数、画像の幅、動画の幅などがほぼ無制限に指定できるようになるけど、処理が重くてフリーズするかも。OK？");
-                if (!res) {
-                    return;
-                }
-            }
-            
-            // todo
-            this.isSafety = !this.isSafety;
+        onDblClickAppTitle() {
+            this.changeSafety();
+        },
+        onTouchAppTitle() {
+            appTitleTouchCount++;
 
-            if (!this.isMobile) {
-                const tmpGitCatFill = domGitCat.style.fill;
-                domGitCat.style.fill = domGitCat.style.color;
-                domGitCat.style.color = tmpGitCatFill;
-            }
+            setTimeout(() => {
+                appTitleTouchCount = 0;
+            }, 300);
 
-            if (this.isSafety) {
-                document.body.classList.remove("dark");
-            }
-            else {
-                document.body.classList.add("dark");
+            if (appTitleTouchCount >= 2) {
+                this.changeSafety();
             }
         },
         onChangeInputImageFile(e) {
@@ -403,6 +395,30 @@ const App = {
             link.download = `moon_art${getStrCurrentDateTime()}.png`;
             link.click();
             URL.revokeObjectURL(link.href);
+        },
+        changeSafety() {
+            if (this.isSafety) {
+                const res = confirm("裏モードは文の文字数、画像の幅、動画の幅などがほぼ無制限に指定できるようになるけど、処理が重くてフリーズするかも。OK？");
+                if (!res) {
+                    return;
+                }
+            }
+            
+            // todo
+            this.isSafety = !this.isSafety;
+
+            if (!this.isMobile) {
+                const tmpGitCatFill = domGitCat.style.fill;
+                domGitCat.style.fill = domGitCat.style.color;
+                domGitCat.style.color = tmpGitCatFill;
+            }
+
+            if (this.isSafety) {
+                document.body.classList.remove("dark");
+            }
+            else {
+                document.body.classList.add("dark");
+            }
         },
         displaySample() {
             if (this.mode === "text") {

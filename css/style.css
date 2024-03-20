@@ -60,6 +60,8 @@ button, input, select, textarea {
   margin: 24px 0;
   column-gap: 8px;
   cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 
   .title-part {
     display: flex;
