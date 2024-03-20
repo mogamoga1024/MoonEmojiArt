@@ -67,8 +67,8 @@
   }
 }
 
-/* Galaxy S8+ */
-@media screen and (max-width: 360px) {
+/* Galaxy S8+ 360px */
+@media screen and (max-width: 370px) {
   #setting .input-check-area .radio {
     padding-left: 4px;
     padding-right: 4px;
@@ -76,6 +76,10 @@
 }
 
 @media screen and (max-width: 350px) {
+  #app-title .title-part h1, #app-title .title-part ruby {
+    font-size: 20px;
+  }
+
   #setting .input-check-area {
     font-size: 0.88em;
   }
@@ -87,8 +91,8 @@
   }
 }
 
-/* Galaxy Fold */
-@media screen and (max-width: 300px) {
+/* Galaxy Fold 280px */
+@media screen and (max-width: 310px) {
   .item .radio {
     padding: 4px;
   }

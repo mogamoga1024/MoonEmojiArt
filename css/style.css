@@ -127,7 +127,7 @@ button, input, select, textarea {
   height: 25px;
   line-height: 25px;
   padding: 4px 8px;
-  border: 1px solid mediumblue;
+  border: 2px solid mediumblue;
   border-right-width: 0;
   font-weight: 600;
   cursor: pointer;
@@ -147,7 +147,7 @@ button, input, select, textarea {
 .radio:last-of-type {
   padding-right: 10px;
 
-  border-right-width: 1px;
+  border-right-width: 2px;
 
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -159,7 +159,7 @@ button, input, select, textarea {
   line-height: 25px;
   padding: 4px 8px;
   border-radius: 5px;
-  border: 1px solid mediumblue;
+  border: 2px solid mediumblue;
   font-weight: 600;
   cursor: pointer;
   -webkit-user-select: none;
@@ -194,7 +194,7 @@ button, input, select, textarea {
 
 #reset-btn {
   margin-left: 32px;
-  border: 1px solid #ff5733;
+  border: 2px solid #ff5733;
   color: #ff5733;
   background-color: white;
   transition: background-color 0.2s, transform 0.2s;
@@ -354,7 +354,7 @@ input {
   height: 36px;
   line-height: 36px;
   border-radius: 5px;
-  border: 1px solid green;
+  border: 2px solid green;
   font-weight: 600;
   cursor: pointer;
   -webkit-user-select: none;
