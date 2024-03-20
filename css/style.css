@@ -127,13 +127,13 @@ button, input, select, textarea {
   height: 25px;
   line-height: 25px;
   padding: 4px 8px;
-  border: 2px solid mediumblue;
+  border: 2px solid #007BAE;
   border-right-width: 0;
   font-weight: 600;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
-  color: mediumblue;
+  color: #007BAE;
   background-color: white;
   text-align: center;
 }
@@ -159,20 +159,20 @@ button, input, select, textarea {
   line-height: 25px;
   padding: 4px 8px;
   border-radius: 5px;
-  border: 2px solid mediumblue;
+  border: 2px solid #007BAE;
   font-weight: 600;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
-  color: mediumblue;
+  color: #007BAE;
   background-color: white;
   text-align: center;
 }
 
 .btn.selected, .radio.selected {
   color: white;
-  border-color: mediumblue;
-  background-color: mediumblue;
+  border-color: #007BAE;
+  background-color: #007BAE;
 }
 
 @media (any-hover: hover) {
@@ -187,7 +187,7 @@ button, input, select, textarea {
     background-color: lightcyan;
   } 
   .btn.selected:hover {
-    background-color: mediumblue;
+    background-color: #007BAE;
     opacity: 0.7;
   }
 }
