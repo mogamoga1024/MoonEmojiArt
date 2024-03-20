@@ -556,15 +556,12 @@ const App = {
 
                     this.$refs.resultVideo.style.maxWidth = (video.videoWidth < 1200 ? video.videoWidth : 1200) + "px";
                     
-                    let isFirst = true;
                     const maxArea = 400 * 300; // 軽い
                     // const maxArea = 800 * 450; // 多分大丈夫
                     const rate = video.videoHeight / video.videoWidth;
                     const resizeVideoWidth = Math.floor(Math.sqrt(maxArea / rate));
                     const resizeVideoHeight = resizeVideoWidth * rate;
-                    let font = "";
-                    let lineHeight = 0;
-
+                    
                     const isValidCanvas = canvasSize.test({
                         width : resizeVideoWidth,
                         height: resizeVideoHeight
@@ -577,6 +574,11 @@ const App = {
                         this.isGeneratingTukiArt = false;
                         return;
                     }
+
+                    // 何故かサムネが表示されないことがあるので数フレーム回す
+                    let waitFrameCount = 5;
+                    let font = "";
+                    let lineHeight = 0;
 
                     const drawTukiArtFrame = () => {
                         monoCanvas.video(
@@ -600,7 +602,7 @@ const App = {
                             this.useVideoNanameMikaduki
                         );
 
-                        ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, isFirst));
+                        ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, waitFrameCount > 0));
                     };
 
                     video.onseeked = () => {
@@ -621,7 +623,7 @@ const App = {
                     isVideoParamChanged = false;
 
                     timer = setInterval(() => {
-                        if (!isFirst && isVideoStopped && !isVideoParamChanged) {
+                        if (waitFrameCount <= 0 && isVideoStopped && !isVideoParamChanged) {
                             return;
                         }
                         isVideoParamChanged = false;
@@ -637,8 +639,8 @@ const App = {
                             URL.revokeObjectURL(video.src);
                             this.isGeneratingTukiArt = false;
                         }
-                        if (isFirst) {
-                            isFirst = false;
+                        if (waitFrameCount > 0) {
+                            waitFrameCount--;
                         }
                     }, 1000/30);
 
