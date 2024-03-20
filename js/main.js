@@ -6,7 +6,7 @@ function debug(text) {
 
 const domGitCat = document.getElementById("git-cat");
 
-let appTitleTouchCount = 0;
+let appTitleClickCount = 0;
 
 let monoCanvas = null;
 let resultVideoContext = null;
@@ -20,7 +20,7 @@ const MSG_NO_INPUT_DATA =
 ・大がかりな改造をしたからバグったらゴメンね。(24/03/19)
 ・PCではお遊びとして動画も月文字にできるようにしてるよ。
 ・白黒の動画を月文字にするときは輪郭をOFFにすることをオススメするよ。
-・タイトルを素早く2回押すと裏モードになるよ。`; // todo 文言
+・一般ユーザーはサイトタイトルを連打しちゃダメだよ。`; // todo 文言
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 const MSG_FAILURE_TEXT_MONO = "文字数が多すぎて一次加工で失敗したよ。減らしてね。";
 const MSG_FAILURE_IMAGE_MONO = "画像サイズが大きすぎて一次加工で失敗したよ。減らしてね。";
@@ -211,17 +211,21 @@ const App = {
         },
     },
     methods: {
-        onDblClickAppTitle() {
-            this.changeSafety();
-        },
-        onTouchAppTitle() {
-            appTitleTouchCount++;
+        onClickAppTitle() {
+            if (!this.isSafety) {
+                this.changeSafety();
+                return;
+            }
 
-            setTimeout(() => {
-                appTitleTouchCount = 0;
-            }, 300);
+            if (appTitleClickCount === 0) {
+                setTimeout(() => {
+                    appTitleClickCount = 0;
+                }, 1000);
+            }
 
-            if (appTitleTouchCount >= 2) {
+            appTitleClickCount++;
+
+            if (appTitleClickCount >= 5) {
                 this.changeSafety();
             }
         },
