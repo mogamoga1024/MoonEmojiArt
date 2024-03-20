@@ -338,9 +338,9 @@
       </div>
       <img ref="monochrome"
            v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage"
-           :class="{'tate-canvas': wasTate}"
+           :class="{'tate-canvas': wasTate && isDebug}"
            style="width: 100%;">
-      <div :class="wasTate ? 'tate-canvas' : 'yoko-canvas'">
+      <div :class="wasTate && isDebug ? 'tate-canvas' : 'yoko-canvas'">
         <img ref="resultImage"
              :style="{width: (tukiArtType === 'image' || mode === 'image' && shouldDisplaySample) && shouldShrinkImage ? '100%' : 'auto'}">
       </div>
