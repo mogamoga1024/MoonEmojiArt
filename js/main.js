@@ -18,7 +18,7 @@ const MSG_NO_INPUT_DATA =
 ・大がかりな改造をしたからバグったらゴメンね。(24/03/19)
 ・PCではお遊びとして動画も月文字にできるようにしてるよ。
 ・白黒の動画を月文字にするときは輪郭をOFFにすることをオススメするよ。
-・タイトルを押すと裏になるよ。`;
+・タイトルを押すと裏になるよ。`; // todo 文言
 const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 const MSG_FAILURE_TEXT_MONO = "文字数が多すぎて一次加工で失敗したよ。減らしてね。";
 const MSG_FAILURE_IMAGE_MONO = "画像サイズが大きすぎて一次加工で失敗したよ。減らしてね。";
@@ -210,6 +210,13 @@ const App = {
     },
     methods: {
         onClickAppTitle() {
+            if (this.isSafety) {
+                const res = confirm("裏モードは文の文字数、画像の幅、動画の幅などがほぼ無制限に指定できるようになるけど、処理が重くてフリーズするかも。OK？");
+                if (!res) {
+                    return;
+                }
+            }
+            
             // todo
             this.isSafety = !this.isSafety;
 
