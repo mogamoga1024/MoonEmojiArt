@@ -13,6 +13,7 @@ body {
   font-family: Verdana, Roboto, "Droid Sans", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", sans-serif;
   background-color: #f4f4f4;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 img {
@@ -170,7 +171,6 @@ button, input, select, textarea {
   color: #ff5733;
   background-color: white;
   transition: background-color 0.2s, transform 0.2s;
-  -webkit-tap-highlight-color: transparent;
 }
 
 @media (any-hover: hover) {
@@ -268,7 +268,6 @@ input {
   background-color: #cfc;
   text-align: center;
   transition: background-color 0.2s;
-  -webkit-tap-highlight-color: transparent;
 
   @media (any-hover: hover) {
     &:hover {
@@ -299,7 +298,6 @@ input {
   background-color: #fcc;
   text-align: center;
   transition: background-color 0.2s;
-  -webkit-tap-highlight-color: transparent;
 
   @media (any-hover: hover) {
     &:hover {
@@ -338,7 +336,6 @@ input {
   background-color: white;
   text-align: center;
   transition: background-color 0.2s, transform 0.2s;
-  -webkit-tap-highlight-color: transparent;
 }
 
 @media (any-hover: hover) {
