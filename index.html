@@ -23,12 +23,13 @@
     </svg>
   </a>
   <div id="app" v-cloak>
-    <div id="app-title">
+    <div id="app-title"
+         @click="onClickAppTitle">
       <div class="title-part">
-        <h1>月文字ジェネレーターJS </h1>
+        <h1>月文字ジェネレーターJS</h1>
       </div>
       <div class="title-part">
-        <ruby>表<rt>おもて</rt></ruby>
+        <ruby>{{isSafety ? "表" : "裏"}}<rt>{{isSafety ? "おもて" : "うら"}}</rt></ruby>
       </div>
     </div>
     <div id="config-area1" class="config-area item-list">

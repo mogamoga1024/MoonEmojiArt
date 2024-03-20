@@ -114,6 +114,7 @@ const App = {
 
             isMobile: false,
             canUseContextLetterSpacing: false,
+            isSafety: true,
         }
     },
     created() {
@@ -206,6 +207,10 @@ const App = {
         },
     },
     methods: {
+        onClickAppTitle() {
+            // todo
+            this.isSafety = !this.isSafety;
+        },
         onChangeInputImageFile(e) {
             if (this.isLoadingInputImage) {
                 return;
