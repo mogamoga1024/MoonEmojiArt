@@ -185,29 +185,6 @@ button, input, select, textarea {
   }
 }
 
-#safety-btn {
-  border: 1px solid #ff1493;
-  color: #ff1493;
-  background-color: white;
-  transition: background-color 0.2s;
-}
-#safety-btn.selected {
-  color: white;
-  border-color: #ff1493;
-  background-color: #ff1493;
-  transition: background-color 0.2s, opacity 0.2s;
-}
-
-@media (any-hover: hover) {
-  #safety-btn:hover {
-    background-color: #ffd9e6;
-  } 
-  #safety-btn.selected:hover {
-    background-color: #ff1493;
-    opacity: 0.7;
-  }
-}
-
 select {
   height: 34px;
   box-sizing: border-box;
