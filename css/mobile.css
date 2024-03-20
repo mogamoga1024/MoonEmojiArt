@@ -85,14 +85,8 @@
   }
 }
 
-@media screen and (max-width: 320px) {
-  #setting .input-check-area {
-    column-gap: 4px;
-  }
-}
-
 /* Galaxy Fold 280px */
-@media screen and (max-width: 310px) {
+@media screen and (max-width: 320px) {
   .item .radio {
     padding: 4px;
   }
