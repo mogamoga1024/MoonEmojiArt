@@ -214,12 +214,14 @@ button, input, select, textarea {
 
 select {
   height: 34px;
+  border: 2px solid #999;
+  
   box-sizing: border-box;
 }
 
 input {
   height: 34px;
-  border: 2px solid #ccc;
+  border: 2px solid #999;
 
   border-radius: 0;
 
@@ -286,7 +288,7 @@ input {
   line-height: calc(34px - 2px * 2);
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-  border: 2px solid #ccc;
+  border: 2px solid #999;
   font-weight: 600;
   cursor: pointer;
   -webkit-user-select: none;
@@ -316,7 +318,7 @@ input {
   line-height: calc(34px - 2px * 2);
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  border: 2px solid #ccc;
+  border: 2px solid #999;
   font-weight: 600;
   cursor: pointer;
   -webkit-user-select: none;
