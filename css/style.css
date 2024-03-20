@@ -134,8 +134,12 @@ button, input, select, textarea {
   -webkit-user-select: none;
   user-select: none;
   color: #007BAE;
-  background-color: transparent;
+  background-color: white;
   text-align: center;
+}
+
+.dark .radio {
+  background-color: transparent;
 }
 
 .radio:first-of-type {
@@ -165,8 +169,12 @@ button, input, select, textarea {
   -webkit-user-select: none;
   user-select: none;
   color: #007BAE;
-  background-color: transparent;
+  background-color: white;
   text-align: center;
+}
+
+.dark .btn {
+  background-color: transparent;
 }
 
 .btn.selected, .radio.selected {
@@ -202,8 +210,12 @@ button, input, select, textarea {
   margin-left: 32px;
   border: 2px solid #ff5733;
   color: #ff5733;
-  background-color: transparent;
+  background-color: white;
   transition: background-color 0.2s, transform 0.2s;
+}
+
+.dark #reset-btn {
+  background-color: transparent;
 }
 
 @media (any-hover: hover) {
@@ -368,9 +380,13 @@ input {
   -webkit-user-select: none;
   user-select: none;
   color: green;
-  background-color: transparent;
+  background-color: white;
   text-align: center;
   transition: background-color 0.2s, transform 0.2s;
+}
+
+.dark .action-btn {
+  background-color: transparent;
 }
 
 @media (any-hover: hover) {
