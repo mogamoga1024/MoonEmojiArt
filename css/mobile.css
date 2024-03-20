@@ -4,9 +4,12 @@
     padding: 0 0 32px;
   }
 
-  h1 {
-    font-size: 24px;
-    text-align: center;
+  #app-title {
+    margin: 12px auto;
+
+    .title-part h1, .title-part ruby {
+      font-size: 24px;
+    }
   }
 
   .github-corner > svg {

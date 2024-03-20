@@ -23,7 +23,14 @@
     </svg>
   </a>
   <div id="app" v-cloak>
-    <h1>月文字ジェネレーター JS版</h1>
+    <div id="app-title">
+      <div class="title-part">
+        <h1>月文字ジェネレーターJS </h1>
+      </div>
+      <div class="title-part">
+        <ruby>表<rt>おもて</rt></ruby>
+      </div>
+    </div>
     <div id="config-area1" class="config-area item-list">
       <div class="radio-wrapper">
         <div class="radio" :class="{'selected': mode === 'text'}" @click="mode = 'text'">文字</div>
