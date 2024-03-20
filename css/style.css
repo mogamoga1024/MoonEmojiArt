@@ -151,15 +151,13 @@ button, input, select, textarea {
   .btn, .radio:not(.selected) {
     transition: background-color 0.2s;
   }
-  
-  .btn:hover, .radio:not(.selected):hover {
-    background-color: lightcyan;
-  }
-
   .btn.selected {
     transition: background-color 0.2s, opacity 0.2s;
   }
   
+  .btn:hover, .radio:not(.selected):hover {
+    background-color: lightcyan;
+  } 
   .btn.selected:hover {
     background-color: mediumblue;
     opacity: 0.7;
@@ -171,14 +169,16 @@ button, input, select, textarea {
   border: 1px solid #ff5733;
   color: #ff5733;
   background-color: white;
+  transition: background-color 0.2s;
 }
 
 @media (any-hover: hover) {
-  #reset-btn {
-    transition: background-color 0.2s;
-  }
-  
   #reset-btn:hover {
+    background-color: #f7ff7f;
+  }
+}
+@media (any-hover: none) {
+  #reset-btn:active {
     background-color: #f7ff7f;
   }
 }
@@ -266,8 +266,15 @@ input {
   background-color: #cfc;
   text-align: center;
 
-  &:hover {
-    background-color: #95ff95;
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: #95ff95;
+    }
+  }
+  @media (any-hover: none) {
+    &:active {
+      background-color: #95ff95;
+    }
   }
 }
 
@@ -288,8 +295,15 @@ input {
   background-color: #fcc;
   text-align: center;
 
-  &:hover {
-    background-color: #ff9595;
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: #ff9595;
+    }
+  }
+  @media (any-hover: none) {
+    &:active {
+      background-color: #ff9595;
+    }
   }
 }
 
@@ -317,14 +331,16 @@ input {
   color: green;
   background-color: white;
   text-align: center;
+  transition: background-color 0.2s;
 }
 
 @media (any-hover: hover) {
-  .action-btn {
-    transition: background-color 0.2s;
-  }
-  
   .action-btn:hover {
+    background-color: palegreen;
+  }
+}
+@media (any-hover: none) {
+  .action-btn:active {
     background-color: palegreen;
   }
 }

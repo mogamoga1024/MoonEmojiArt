@@ -9,6 +9,7 @@ const PlusMinusInputNumbur = {
     template: `
         <div class="plus-minus-input-numbur">
           <div class="minus-btn"
+               ontouchstart=""
                @click="onClickMinusButton">-</div>
           <input type="number"
                  :min="min"
@@ -17,6 +18,7 @@ const PlusMinusInputNumbur = {
                  @focus="$event.target.select()"
                  @blur="onBlurInputNumber">
           <div class="plus-btn"
+               ontouchstart=""
                @click="onClickPlusButton">+</div>
         </div>
     `,

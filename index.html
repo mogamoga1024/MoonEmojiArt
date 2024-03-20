@@ -33,7 +33,10 @@
              :class="{'selected': mode === 'video'}"
              @click="mode = 'video'">動画</div>
       </div>
-      <div id="reset-btn" class="btn" @click="onClickResetButton">リセット</div>
+      <div id="reset-btn"
+           class="btn"
+           ontouchstart=""
+           @click="onClickResetButton">リセット</div>
     </div>
 
     <hr>
@@ -275,12 +278,14 @@
            id="generate-btn"
            class="action-btn"
            ref="generateBtn"
+           ontouchstart=""
            @click="onClickGenerateButton">生成</div>
       
       <div v-show="mode !== 'video'"
            id="copy-btn-wrapper"
            class="action-btn"
-           ref="copyBtnWrapper">
+           ref="copyBtnWrapper"
+           ontouchstart="">
         <div id="copy-btn" ref="copyBtn" @click="onClickCopyButton">コピー</div>
         <div id="copy-message" ref="copyMessage">Copied!</div>
       </div>
@@ -288,6 +293,7 @@
            v-show="mode !== 'video'"
            id="download-text-btn"
            class="action-btn"
+           ontouchstart=""
            @click="onClickDownLoadTextButton">
         <div>
           <div class="download-icon"></div>テキスト
@@ -297,6 +303,7 @@
            v-show="mode !== 'video'"
            id="download-image-btn"
            class="action-btn"
+           ontouchstart=""
            @click="onClickDownLoadImageButton">
         <div>
           <div class="download-icon"></div>画像
