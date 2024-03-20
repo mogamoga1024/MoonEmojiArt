@@ -46,7 +46,7 @@ button, input, select, textarea {
 }
 
 .dark {
-  background-color: #444;
+  background-color: #000;
   color: #fff;
 }
 
@@ -134,7 +134,7 @@ button, input, select, textarea {
   -webkit-user-select: none;
   user-select: none;
   color: #007BAE;
-  background-color: white;
+  background-color: transparent;
   text-align: center;
 }
 
@@ -165,12 +165,18 @@ button, input, select, textarea {
   -webkit-user-select: none;
   user-select: none;
   color: #007BAE;
-  background-color: white;
+  background-color: transparent;
   text-align: center;
 }
 
 .btn.selected, .radio.selected {
   color: white;
+  border-color: #007BAE;
+  background-color: #007BAE;
+}
+
+.dark .btn.selected, .dark .radio.selected {
+  color: black;
   border-color: #007BAE;
   background-color: #007BAE;
 }
@@ -196,7 +202,7 @@ button, input, select, textarea {
   margin-left: 32px;
   border: 2px solid #ff5733;
   color: #ff5733;
-  background-color: white;
+  background-color: transparent;
   transition: background-color 0.2s, transform 0.2s;
 }
 
@@ -362,7 +368,7 @@ input {
   -webkit-user-select: none;
   user-select: none;
   color: green;
-  background-color: white;
+  background-color: transparent;
   text-align: center;
   transition: background-color 0.2s, transform 0.2s;
 }
@@ -441,7 +447,7 @@ input {
   line-height: 40px;
   text-align: center;
   border-radius: 5px;
-  color: white;
+  color: transparent;
   background-color: black;
   animation: fade-out 2s ease-in forwards;
   -webkit-user-select: none;
