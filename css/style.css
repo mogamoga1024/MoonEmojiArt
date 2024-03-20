@@ -180,6 +180,7 @@ button, input, select, textarea {
 }
 @media (any-hover: none) {
   #reset-btn:active {
+    background-color: #f7ff7f;
     transform: scale(0.9);
   }
 }
@@ -347,6 +348,7 @@ input {
 }
 @media (any-hover: none) {
   .action-btn:active {
+    background-color: palegreen;
     transform: scale(0.9);
   }
 }
