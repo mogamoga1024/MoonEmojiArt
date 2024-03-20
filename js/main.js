@@ -4,6 +4,8 @@ function debug(text) {
     debugText += text + "\n";
 };
 
+const domGitCat = document.getElementById("git-cat");
+
 let monoCanvas = null;
 let resultVideoContext = null;
 let timer = 0;
@@ -210,6 +212,19 @@ const App = {
         onClickAppTitle() {
             // todo
             this.isSafety = !this.isSafety;
+
+            if (!this.isMobile) {
+                const tmpGitCatFill = domGitCat.style.fill;
+                domGitCat.style.fill = domGitCat.style.color;
+                domGitCat.style.color = tmpGitCatFill;
+            }
+
+            if (this.isSafety) {
+                document.body.classList.remove("dark");
+            }
+            else {
+                document.body.classList.add("dark");
+            }
         },
         onChangeInputImageFile(e) {
             if (this.isLoadingInputImage) {

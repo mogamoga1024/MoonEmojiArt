@@ -45,6 +45,11 @@ button, input, select, textarea {
   font-weight: 700;
 }
 
+.dark {
+  background-color: #444;
+  color: #fff;
+}
+
 #app {
   padding: 0 32px 32px;
 }
