@@ -40,6 +40,7 @@ const mobileCopyBtnWidth = "126px"; // 生成ボタンのwidthとpaddingを足�
 const textLengthSafeMax = 20;
 const tukiCountSafeMaxDefault = 30;
 const tukiCountUnSafeMaxDefault = 100;
+const letterSpacingLevelDefault = 3;
 
 const imageWidthMaxDefault = 5000;
 let imageWidthOri = 100;
@@ -70,7 +71,6 @@ const App = {
             tukiCountMin: 10,
             tukiCountMax: tukiCountSafeMaxDefault,
             letterSpacingLevel: 3,
-            letterSpacingLevelDefault: 3,
             isBold: false,
             isTate: true,
             wasTate: true,
@@ -513,7 +513,7 @@ const App = {
                 }
 
                 try {
-                    const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : this.letterSpacingLevelDefault;
+                    const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault;
 
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate, letterSpacingLevel);
                     this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
