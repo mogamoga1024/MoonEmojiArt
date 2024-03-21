@@ -477,7 +477,7 @@ input {
   line-height: 40px;
   text-align: center;
   border-radius: 5px;
-  color: transparent;
+  color: white;
   background-color: black;
   animation: fade-out 2s ease-in forwards;
   -webkit-user-select: none;
@@ -502,6 +502,15 @@ input {
   border: 20px solid transparent;
   border-bottom: 20px solid black;
   content: "";
+}
+
+.dark .display-copy-message {
+  color: black;
+  background-color: white;
+}
+
+.dark .display-copy-message::before {
+  border-bottom-color: white;
 }
 
 .yoko-canvas {
