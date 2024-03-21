@@ -358,8 +358,7 @@ const App = {
             else if (this.mode === 'video') {
                 clearInterval(timer);
                 monoCanvas = null;
-                URL.revokeObjectURL(this.$refs.video.src);
-                // this.$refs.video.src = "";
+                this.clearVideo();
 
                 this.videoColorCount = 3;
                 this.useVideoNanameMikaduki = true;
@@ -465,6 +464,11 @@ const App = {
                 this.$refs.resultImage.style.maxWidth = "494px";
             }
         },
+        clearVideo() {
+            if (this.$refs.videoWrapper.firstChild != null) {
+                this.$refs.videoWrapper.removeChild(this.$refs.videoWrapper.firstChild);
+            }
+        },
         clearResult() {
             URL.revokeObjectURL(this.$refs.monochrome.src);
             this.$refs.monochrome.src = "";
@@ -494,8 +498,7 @@ const App = {
             if (this.tukiArtType === "video") {
                 clearInterval(timer);
                 monoCanvas = null;
-                URL.revokeObjectURL(this.$refs.video.src);
-                // this.$refs.video.src = "";
+                this.clearVideo();
             }
 
             if (this.mode === "text") {
@@ -634,7 +637,12 @@ const App = {
                     return;
                 }
 
-                const video = this.$refs.video;
+                const video = document.createElement("video");
+                video.setAttribute("height", "240");
+                video.setAttribute("controls", "");
+                this.clearVideo();
+                this.$refs.videoWrapper.appendChild(video);
+
                 let isVideoStopped = true;
 
                 video.onloadeddata = () => {
