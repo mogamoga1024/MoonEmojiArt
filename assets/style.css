@@ -29,10 +29,6 @@ button, input, select, textarea {
   font-size: 18px;
 }
 
-select {
-  font-weight: bold;
-}
-
 .dark input[type="text"], .dark input[type="number"], .dark select {
   color: white;
   background-color: #121212;
