@@ -358,8 +358,7 @@ const App = {
             else if (this.mode === 'video') {
                 clearInterval(timer);
                 monoCanvas = null;
-                this.clearVideo();
-
+                
                 this.videoColorCount = 3;
                 this.useVideoNanameMikaduki = true;
                 this.videoBaseAverageColor = 110;
@@ -498,7 +497,6 @@ const App = {
             if (this.tukiArtType === "video") {
                 clearInterval(timer);
                 monoCanvas = null;
-                this.clearVideo();
             }
 
             if (this.mode === "text") {
@@ -632,6 +630,7 @@ const App = {
                 if (this.videoFile == null) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.tukiArtType = "none";
+                    this.clearVideo();
                     this.clearResult();
                     this.isGeneratingTukiArt = false;
                     return;
@@ -640,9 +639,7 @@ const App = {
                 const video = document.createElement("video");
                 video.setAttribute("height", "240");
                 video.setAttribute("controls", "");
-                this.clearVideo();
-                this.$refs.videoWrapper.appendChild(video);
-
+                
                 let isVideoStopped = true;
 
                 video.onloadeddata = () => {
@@ -653,6 +650,7 @@ const App = {
                         this.videoWidth = videoWidthOri = this.videoWidthMin;
                         this.resultMessage = MSG_NO_INPUT_DATA;
                         this.tukiArtType = "none";
+                        this.clearVideo();
                         this.clearResult();
                         this.isGeneratingTukiArt = false;
                         return;
@@ -688,6 +686,7 @@ const App = {
                     if (!isValidCanvas) {
                         this.resultMessage = MSG_FAILURE_VIDEO_MONO;
                         this.tukiArtType = "none";
+                        this.clearVideo();
                         this.clearResult();
                         this.isGeneratingTukiArt = false;
                         return;
@@ -734,6 +733,7 @@ const App = {
                             clearInterval(timer);
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
+                            this.clearVideo();
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
                         }
@@ -754,6 +754,7 @@ const App = {
                             clearInterval(timer);
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
+                            this.clearVideo();
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
                         }
@@ -761,6 +762,9 @@ const App = {
                             forceRunFrameCount--;
                         }
                     }, 1000/30); // todo fps
+
+                    this.clearVideo();
+                    this.$refs.videoWrapper.appendChild(video);
 
                     this.resultMessage = "";
                     this.tukiArtType = this.mode;
@@ -771,6 +775,7 @@ const App = {
                     alert("動画の読み込みに失敗したよ。");
                     this.resultMessage = MSG_ERROR;
                     this.tukiArtType = "none";
+                    this.clearVideo();
                     this.clearResult();
                     this.$refs.inputVideoFile.value = "";
                     this.videoFile = null;
