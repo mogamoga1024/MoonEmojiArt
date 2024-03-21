@@ -1,6 +1,6 @@
 
 /* 一般的なスマホ 375px */
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 560px) {
   #app {
     padding: 0 0 32px;
   }
