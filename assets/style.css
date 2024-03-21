@@ -432,10 +432,15 @@ input {
 .download-icon {
   width: 24px;
   height: 100%;
+  margin-right: 4px;
   background-image: url(./download_icon.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.dark .download-icon {
+  background-image: url(./download_icon_dark.svg);
 }
 
 #download-text-btn {
