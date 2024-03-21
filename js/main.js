@@ -252,6 +252,8 @@ const App = {
                     this.imageWidth = this.imageWidthMin;
                 }
                 else {
+                    // todo safety
+
                     this.imageWidth = this.imageWidthOri = img.width;
                     this.imageHeightOri = img.height;
                 }
