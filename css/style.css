@@ -29,7 +29,11 @@ button, input, select, textarea {
   font-size: 18px;
 }
 
-.dark input[type="text"], .dark input[type="number"], select {
+select {
+  font-weight: bold;
+}
+
+.dark input[type="text"], .dark input[type="number"], .dark select {
   color: white;
   background-color: #121212;
 }
@@ -138,7 +142,7 @@ button, input, select, textarea {
   padding: 4px 8px;
   border: 2px solid #007BAE;
   border-right-width: 0;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
@@ -173,7 +177,7 @@ button, input, select, textarea {
   padding: 4px 8px;
   border-radius: 5px;
   border: 2px solid #007BAE;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
@@ -316,7 +320,7 @@ input {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border: 2px solid #999;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
@@ -346,7 +350,7 @@ input {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border: 2px solid #999;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
@@ -384,7 +388,7 @@ input {
   line-height: 36px;
   border-radius: 5px;
   border: 2px solid green;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
