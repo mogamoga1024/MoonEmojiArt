@@ -371,6 +371,10 @@ input {
   }
 }
 
+.dark .plus-btn, .dark .minus-btn {
+  color: #121212;
+}
+
 #input-text {
   width: calc(var(--item-name-width) + var(--item-input-width) + 60px);
 }
