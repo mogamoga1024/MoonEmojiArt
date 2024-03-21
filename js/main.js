@@ -37,6 +37,10 @@ const MSG_TOO_MANY_CHARA_MOBILE =
 const mobileGenerateBtnWidth = "110px";
 const mobileCopyBtnWidth = "126px"; // 生成ボタンのwidthとpaddingを足した値
 
+const textLengthSafeMax = 20;
+const tukiCountSafeMaxDefault = 30;
+const tukiCountUnSafeMaxDefault = 100;
+
 const imageWidthMaxDefault = 5000;
 let imageWidthOri = 100;
 let imageHeightRate = 1;
@@ -64,7 +68,7 @@ const App = {
             fontFamily: "serif", // "default" | "sans" | "serif"
             tukiCount: 13, // Twitterが絵文字13文字で改行されるから
             tukiCountMin: 10,
-            tukiCountMax: 50,
+            tukiCountMax: tukiCountSafeMaxDefault,
             letterSpacingLevel: 3,
             letterSpacingLevelDefault: 3,
             isBold: false,
@@ -446,10 +450,12 @@ const App = {
             }
 
             if (this.isSafety) {
-                // todo claer
+                // todo claer 上限更新
+                this.tukiCountMax = tukiCountSafeMaxDefault;
             }
             else {
                 // todo 上限更新
+                this.tukiCountMax = tukiCountUnSafeMaxDefault;
                 this.imageWidthMax = imageWidthMaxDefault;
             }
         },
@@ -507,6 +513,14 @@ const App = {
                     this.isGeneratingTukiArt = false;
                     return;
                 }
+
+                if (this.isSafety) {
+                    const charArray = [...this.text];
+                    if (charArray.length > textLengthSafeMax) {
+                        this.text = charArray.slice(0, textLengthSafeMax).join("");
+                    }
+                }
+
                 try {
                     const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : this.letterSpacingLevelDefault;
 
