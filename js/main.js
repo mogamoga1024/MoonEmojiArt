@@ -37,6 +37,8 @@ const MSG_TOO_MANY_CHARA_MOBILE =
 const mobileGenerateBtnWidth = "110px";
 const mobileCopyBtnWidth = "126px"; // 生成ボタンのwidthとpaddingを足した値
 
+const imageWidthMaxDefault = 5000;
+
 const App = {
     components: {
         PlusMinusInputNumbur
@@ -101,7 +103,7 @@ const App = {
             imageHeightOri: 0,
             imageWidth: 100,
             imageWidthMin: 10,
-            imageWidthMax: 5000,
+            imageWidthMax: imageWidthMaxDefault,
 
             tukiArtMarginTop: 0,
             tukiArtMarginBottom: 0,
@@ -245,17 +247,33 @@ const App = {
 
             const img = new Image();
             img.onload = () => {
-                if (img.width < this.imageWidthMin || img.width > this.imageWidthMax) {
-                    alert(`画像の幅は${this.imageWidthMin}px以上${this.imageWidthMax}px以下の必要があるよ。`);
+                if (img.width < this.imageWidthMin || img.width > imageWidthMaxDefault) {
+                    alert(`画像の幅は${this.imageWidthMin}px以上${imageWidthMaxDefault}px以下の必要があるよ。`);
                     this.$refs.inputImageFile.value = "";
                     this.imageFile = null;
                     this.imageWidth = this.imageWidthMin;
                 }
                 else {
-                    // todo safety
-
-                    this.imageWidth = this.imageWidthOri = img.width;
+                    this.imageWidthOri = img.width;
                     this.imageHeightOri = img.height;
+
+                    if (this.isSafety) {
+                        const maxArea = 1280 * 720;
+                        const rate = img.height / img.width;
+                        const resizeimageWidth = Math.floor(Math.sqrt(maxArea / rate));
+                        if (this.imageWidthOri > resizeimageWidth) {
+                            this.imageWidth = resizeimageWidth;
+                            this.imageWidthMax = resizeimageWidth;
+                        }
+                        else {
+                            this.imageWidth = this.imageWidthOri;
+                            this.imageWidthMax = imageWidthMaxDefault;
+                        }
+                    }
+                    else {
+                        this.imageWidth = this.imageWidthOri;
+                        this.imageWidthMax = imageWidthMaxDefault;
+                    }
                 }
                 
                 URL.revokeObjectURL(img.src);
@@ -615,7 +633,7 @@ const App = {
                     // const maxArea = 800 * 450; // 多分大丈夫
                     const rate = video.videoHeight / video.videoWidth;
                     const resizeVideoWidth = Math.floor(Math.sqrt(maxArea / rate));
-                    const resizeVideoHeight = resizeVideoWidth * rate;
+                    const resizeVideoHeight = Math.round(resizeVideoWidth * rate);
                     
                     const isValidCanvas = canvasSize.test({
                         width : resizeVideoWidth,
