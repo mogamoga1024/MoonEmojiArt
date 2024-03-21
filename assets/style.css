@@ -67,21 +67,14 @@ button, input, select, textarea {
   display: flex;
   width: fit-content;
   margin: 24px 0;
-  column-gap: 8px;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
 
-  .title-part {
-    display: flex;
-    flex-direction: column;
-
-    h1, ruby {
-      margin: 0;
-      margin-top: auto;
-      font-size: 36px;
-      font-weight: bold;
-    }
+  h1, div {
+    margin: 0;
+    font-size: 36px;
+    font-weight: bold;
   }
 }
 

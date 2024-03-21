@@ -26,12 +26,8 @@
     <div id="app-title"
          @click="onClickAppTitle"
          @touchstart.prevent="onClickAppTitle">
-      <div class="title-part">
-        <h1>月文字ジェネレーターJS</h1>
-      </div>
-      <div class="title-part">
-        <ruby>{{isSafety ? "表" : "裏"}}<rt>{{isSafety ? "おもて" : "うら"}}</rt></ruby>
-      </div>
+      <h1>月文字ジェネレーターJS</h1>
+      <div>{{isSafety ? "🌑" : "🌕"}}</div>
     </div>
     <div id="config-area1" class="config-area item-list">
       <div class="radio-wrapper">
