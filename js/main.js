@@ -228,7 +228,7 @@ const App = {
 
             appTitleClickCount++;
 
-            if (appTitleClickCount >= 5) {
+            if (appTitleClickCount >= 3) {
                 this.changeSafety();
             }
         },
@@ -450,8 +450,7 @@ const App = {
             }
 
             if (this.isSafety) {
-                // todo claer 上限更新
-                this.tukiCountMax = tukiCountSafeMaxDefault;
+                location.reload();
             }
             else {
                 // todo 上限更新
