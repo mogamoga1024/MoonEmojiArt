@@ -428,13 +428,15 @@ const App = {
             }
             else {
                 const res = confirm("表モードに戻ると、裏モードで入力した値はすべて初期化されるよ。OK？");
-                if (!res) {
-                    return;
+                if (res) {
+                    location.reload();
                 }
+                return;
             }
             
-            // todo
-            this.isSafety = !this.isSafety;
+            // 以降は裏モード確定
+
+            this.isSafety = false;
 
             if (!this.isMobile) {
                 const tmpGitCatFill = domGitCat.style.fill;
@@ -442,21 +444,11 @@ const App = {
                 domGitCat.style.color = tmpGitCatFill;
             }
 
-            if (this.isSafety) {
-                document.body.classList.remove("dark");
-            }
-            else {
-                document.body.classList.add("dark");
-            }
+            document.body.classList.add("dark");
 
-            if (this.isSafety) {
-                location.reload();
-            }
-            else {
-                // todo 上限更新
-                this.tukiCountMax = tukiCountUnSafeMaxDefault;
-                this.imageWidthMax = imageWidthMaxDefault;
-            }
+            // todo 上限更新
+            this.tukiCountMax = tukiCountUnSafeMaxDefault;
+            this.imageWidthMax = imageWidthMaxDefault;
         },
         displaySample() {
             if (this.mode === "text") {
