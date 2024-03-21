@@ -29,6 +29,15 @@ button, input, select, textarea {
   font-size: 18px;
 }
 
+.dark input[type="text"], .dark input[type="number"], select {
+  color: white;
+  background-color: #121212;
+}
+
+.dark input[type="text"]::placeholder {
+  color: #807A73;
+}
+
 .font-default {
   font-family: 'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif;
 }
