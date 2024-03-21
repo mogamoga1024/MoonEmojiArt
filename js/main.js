@@ -359,8 +359,7 @@ const App = {
                 clearInterval(timer);
                 monoCanvas = null;
                 URL.revokeObjectURL(this.$refs.video.src);
-                this.$refs.resultVideo.width = 0;
-                this.$refs.resultVideo.height = 0;
+                // this.$refs.video.src = "";
 
                 this.videoColorCount = 3;
                 this.useVideoNanameMikaduki = true;
@@ -470,6 +469,8 @@ const App = {
             URL.revokeObjectURL(this.$refs.monochrome.src);
             this.$refs.monochrome.src = "";
 
+
+
             URL.revokeObjectURL(this.$refs.resultVideo.src);
             this.$refs.resultVideo.src = "";
 
@@ -494,8 +495,7 @@ const App = {
                 clearInterval(timer);
                 monoCanvas = null;
                 URL.revokeObjectURL(this.$refs.video.src);
-                this.$refs.resultVideo.width = 0;
-                this.$refs.resultVideo.height = 0;
+                // this.$refs.video.src = "";
             }
 
             if (this.mode === "text") {
@@ -671,7 +671,7 @@ const App = {
                     this.$refs.resultVideo.style.maxWidth = (video.videoWidth < 1200 ? video.videoWidth : 1200) + "px";
                     
                     const resizeVideoWidth = this.videoWidth;
-                    const resizeVideoHeight = Math.round(resizeVideoWidth * rate);
+                    const resizeVideoHeight = Math.round(resizeVideoWidth * videoHeightRate);
                     
                     const isValidCanvas = canvasSize.test({
                         width : resizeVideoWidth,
