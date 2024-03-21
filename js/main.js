@@ -647,6 +647,7 @@ const App = {
                         this.tukiArtType = "none";
                         this.clearResult();
                         this.isGeneratingTukiArt = false;
+                        return;
                     }
                     else {
                         videoHeightRate = video.videoHeight / video.videoWidth;
