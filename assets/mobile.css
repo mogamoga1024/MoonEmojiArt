@@ -9,6 +9,8 @@
     margin: 12px auto;
 
     h1, div {
+      height: 36px;
+      line-height: 36px;
       font-size: 24px;
     }
   }
@@ -78,6 +80,8 @@
 
 @media screen and (max-width: 350px) {
   #app-title h1, #app-title div {
+    height: 32px;
+    line-height: 32px;
     font-size: 20px;
   }
 

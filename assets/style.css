@@ -67,11 +67,14 @@ button, input, select, textarea {
   display: flex;
   width: fit-content;
   margin: 24px 0;
+  column-gap: 4px;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
 
   h1, div {
+    height: 56px;
+    line-height: 56px;
     margin: 0;
     font-size: 36px;
     font-weight: bold;
