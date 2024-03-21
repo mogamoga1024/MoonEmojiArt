@@ -475,7 +475,7 @@ const App = {
 
 
             URL.revokeObjectURL(this.$refs.resultVideo.src);
-            this.$refs.resultVideo.src = "";
+            this.$refs.resultVideo.src = ""; // todo canvasだからおかしいｗｗｗｗ
 
             if (this.mode === "video") {
                 URL.revokeObjectURL(this.$refs.resultImage.src);
