@@ -404,6 +404,13 @@ const App = {
                     return;
                 }
             }
+            else {
+                const res = confirm("表モードに戻ると、裏モードで入力した値はすべて初期化されるよ。OK？");
+                // todo
+                if (!res) {
+                    return;
+                }
+            }
             
             // todo
             this.isSafety = !this.isSafety;
