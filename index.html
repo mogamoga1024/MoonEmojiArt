@@ -267,6 +267,15 @@
               v-model="videoBaseColorDistance">
           </div>
         </div>
+        <div class="item" v-show="tukiArtType === 'video'">
+          <div class="name">幅</div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="videoWidthMin"
+              :max="videoWidthMax"
+              v-model="videoWidth">
+          </div>
+        </div>
         <div class="input-check-area">
           <div class="btn" :class="{'selected': needVideoOutline}" @click="needVideoOutline = !needVideoOutline">輪郭</div>
           <div class="btn" :class="{'selected': isVideoColorReverse}" @click="isVideoColorReverse = !isVideoColorReverse">色反転</div>

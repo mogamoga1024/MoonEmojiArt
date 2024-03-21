@@ -46,6 +46,10 @@ const imageWidthMaxDefault = 5000;
 let imageWidthOri = 10;
 let imageHeightRate = 1;
 
+const videoWidthMaxDefault = 5000;
+let videoWidthOri = 10;
+let videoHeightRate = 1;
+
 const App = {
     components: {
         PlusMinusInputNumbur
@@ -108,6 +112,10 @@ const App = {
             imageWidth: imageWidthOri,
             imageWidthMin: imageWidthOri,
             imageWidthMax: imageWidthMaxDefault,
+
+            videoWidth: videoWidthOri,
+            videoWidthMin: videoWidthOri,
+            videoWidthMax: videoWidthMaxDefault,
 
             tukiArtMarginTop: 0,
             tukiArtMarginBottom: 0,
@@ -259,18 +267,11 @@ const App = {
                 }
                 else {
                     imageHeightRate = img.height / img.width;
-
-                    if (this.isSafety) {
-                        const maxArea = 1280 * 720;
-                        this.imageWidthMax = Math.floor(Math.sqrt(maxArea / imageHeightRate));
-                        if (img.width > this.imageWidthMax) {
-                            imageWidthOri = this.imageWidthMax;
-                            this.imageWidth = this.imageWidthMax;
-                        }
-                        else {
-                            imageWidthOri = img.width;
-                            this.imageWidth = imageWidthOri;
-                        }
+                    const maxArea = 1280 * 720;
+                    this.imageWidthMax = Math.floor(Math.sqrt(maxArea / imageHeightRate));
+                    if (img.width > this.imageWidthMax) {
+                        imageWidthOri = this.imageWidthMax;
+                        this.imageWidth = this.imageWidthMax;
                     }
                     else {
                         imageWidthOri = img.width;
@@ -446,9 +447,10 @@ const App = {
 
             document.body.classList.add("dark");
 
-            // todo 上限更新
+            // 上限更新
             this.tukiCountMax = tukiCountUnSafeMaxDefault;
             this.imageWidthMax = imageWidthMaxDefault;
+            this.videoWidthMax = videoWidthMaxDefault;
         },
         displaySample() {
             if (this.mode === "text") {
@@ -467,6 +469,9 @@ const App = {
         clearResult() {
             URL.revokeObjectURL(this.$refs.monochrome.src);
             this.$refs.monochrome.src = "";
+
+            URL.revokeObjectURL(this.$refs.resultVideo.src);
+            this.$refs.resultVideo.src = "";
 
             if (this.mode === "video") {
                 URL.revokeObjectURL(this.$refs.resultImage.src);
@@ -633,16 +638,38 @@ const App = {
                 let isVideoStopped = true;
 
                 video.onloadeddata = () => {
+                    if (video.videoWidth < this.videoWidthMin || video.videoWidth > videoWidthMaxDefault) {
+                        alert(`画像の幅は${this.videoWidthMin}px以上${videoWidthMaxDefault}px以下の必要があるよ。`);
+                        this.$refs.inputVideoFile.value = "";
+                        this.videoFile = null;
+                        this.videoWidth = videoWidthOri = this.videoWidthMin;
+                        this.resultMessage = MSG_NO_INPUT_DATA;
+                        this.tukiArtType = "none";
+                        this.clearResult();
+                        this.isGeneratingTukiArt = false;
+                    }
+                    else {
+                        videoHeightRate = video.videoHeight / video.videoWidth;
+                        const maxArea = 400 * 300; // 軽い
+                        // const maxArea = 800 * 450; // 多分大丈夫
+                        this.videoWidthMax = Math.floor(Math.sqrt(maxArea / videoHeightRate));
+                        if (video.videoWidth > this.videoWidthMax) {
+                            videoWidthOri = this.videoWidthMax;
+                            this.videoWidth = this.videoWidthMax;
+                        }
+                        else {
+                            videoWidthOri = video.videoWidth;
+                            this.videoWidth = videoWidthOri;
+                        }
+                    }
+
                     monoCanvas = new MonochromeCanvas();
 
                     video.volume = 0.2;
 
                     this.$refs.resultVideo.style.maxWidth = (video.videoWidth < 1200 ? video.videoWidth : 1200) + "px";
                     
-                    const maxArea = 400 * 300; // 軽い
-                    // const maxArea = 800 * 450; // 多分大丈夫
-                    const rate = video.videoHeight / video.videoWidth;
-                    const resizeVideoWidth = Math.floor(Math.sqrt(maxArea / rate));
+                    const resizeVideoWidth = this.videoWidth;
                     const resizeVideoHeight = Math.round(resizeVideoWidth * rate);
                     
                     const isValidCanvas = canvasSize.test({
@@ -653,17 +680,18 @@ const App = {
                         this.resultMessage = MSG_FAILURE_VIDEO_MONO;
                         this.tukiArtType = "none";
                         this.clearResult();
-                        URL.revokeObjectURL(video.src);
                         this.isGeneratingTukiArt = false;
                         return;
                     }
 
                     // 何故かサムネが表示されないことがあるので数フレーム回す
-                    let waitFrameCount = 5;
+                    let forceRunFrameCount = 5;
                     let font = "";
                     let lineHeight = 0;
 
                     const drawTukiArtFrame = () => {
+                        // todo
+                        
                         monoCanvas.video(
                             video,
                             resizeVideoWidth,
@@ -685,7 +713,7 @@ const App = {
                             this.useVideoNanameMikaduki
                         );
 
-                        ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, waitFrameCount > 0));
+                        ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, forceRunFrameCount > 0));
                     };
 
                     video.onseeked = () => {
@@ -698,7 +726,6 @@ const App = {
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
                             this.clearResult();
-                            URL.revokeObjectURL(video.src);
                             this.isGeneratingTukiArt = false;
                         }
                     };
@@ -706,7 +733,7 @@ const App = {
                     isVideoParamChanged = false;
 
                     timer = setInterval(() => {
-                        if (waitFrameCount <= 0 && isVideoStopped && !isVideoParamChanged) {
+                        if (forceRunFrameCount <= 0 && isVideoStopped && !isVideoParamChanged) {
                             return;
                         }
                         isVideoParamChanged = false;
@@ -719,13 +746,12 @@ const App = {
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
                             this.clearResult();
-                            URL.revokeObjectURL(video.src);
                             this.isGeneratingTukiArt = false;
                         }
-                        if (waitFrameCount > 0) {
-                            waitFrameCount--;
+                        if (forceRunFrameCount > 0) {
+                            forceRunFrameCount--;
                         }
-                    }, 1000/30);
+                    }, 1000/30); // todo fps
 
                     this.resultMessage = "";
                     this.tukiArtType = this.mode;
@@ -739,7 +765,6 @@ const App = {
                     this.clearResult();
                     this.$refs.inputVideoFile.value = "";
                     this.videoFile = null;
-                    URL.revokeObjectURL(video.src);
                     this.isGeneratingTukiArt = false;
                 };
                 video.onpause = () => {
