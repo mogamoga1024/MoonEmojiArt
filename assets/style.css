@@ -16,6 +16,11 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+.dark {
+  background-color: #121212;
+  color: #fff;
+}
+
 img {
   touch-action: auto;
 }
@@ -35,7 +40,7 @@ button, input, select, textarea {
 }
 
 .dark input[type="text"]::placeholder {
-  color: #807A73;
+  color: #ccc;
 }
 
 .font-default {
@@ -52,11 +57,6 @@ button, input, select, textarea {
 
 .bold {
   font-weight: 700;
-}
-
-.dark {
-  background-color: #000;
-  color: #fff;
 }
 
 #app {
@@ -144,7 +144,7 @@ button, input, select, textarea {
 }
 
 .dark .radio {
-  background-color: transparent;
+  background-color: #121212;
 }
 
 .radio:first-of-type {
@@ -179,7 +179,7 @@ button, input, select, textarea {
 }
 
 .dark .btn {
-  background-color: transparent;
+  background-color: #121212;
 }
 
 .btn.selected, .radio.selected {
@@ -220,7 +220,7 @@ button, input, select, textarea {
 }
 
 .dark #reset-btn {
-  background-color: transparent;
+  background-color: #121212;
 }
 
 @media (any-hover: hover) {
@@ -364,7 +364,7 @@ input {
 }
 
 .dark .plus-btn, .dark .minus-btn {
-  color: #121212;
+  color: black;
 }
 
 #input-text {
@@ -395,7 +395,7 @@ input {
 }
 
 .dark .action-btn {
-  background-color: transparent;
+  background-color: #121212;
 }
 
 @media (any-hover: hover) {
