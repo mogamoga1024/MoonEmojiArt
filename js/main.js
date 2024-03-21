@@ -43,7 +43,7 @@ const tukiCountUnSafeMaxDefault = 100;
 const letterSpacingLevelDefault = 3;
 
 const imageWidthMaxDefault = 5000;
-let imageWidthOri = 100;
+let imageWidthOri = 10;
 let imageHeightRate = 1;
 
 const App = {
@@ -106,7 +106,7 @@ const App = {
             isVideoColorReverse: false,
 
             imageWidth: imageWidthOri,
-            imageWidthMin: 10,
+            imageWidthMin: imageWidthOri,
             imageWidthMax: imageWidthMaxDefault,
 
             tukiArtMarginTop: 0,
@@ -244,7 +244,7 @@ const App = {
             if (!this.imageFile.type.startsWith("image")) {
                 alert("画像ファイルを選択してね。");
                 this.imageFile = null;
-                this.imageWidth = this.imageWidthMin;
+                this.imageWidth = imageWidthOri = this.imageWidthMin;
                 this.isLoadingInputImage = false;
                 return;
             }
@@ -255,7 +255,7 @@ const App = {
                     alert(`画像の幅は${this.imageWidthMin}px以上${imageWidthMaxDefault}px以下の必要があるよ。`);
                     this.$refs.inputImageFile.value = "";
                     this.imageFile = null;
-                    this.imageWidth = this.imageWidthMin;
+                    this.imageWidth = imageWidthOri = this.imageWidthMin;
                 }
                 else {
                     imageHeightRate = img.height / img.width;
@@ -285,7 +285,7 @@ const App = {
                 alert("画像の読み込みに失敗したよ。");
                 this.$refs.inputImageFile.value = "";
                 this.imageFile = null;
-                this.imageWidth = this.imageWidthMin;
+                this.imageWidth = imageWidthOri = this.imageWidthMin;
                 URL.revokeObjectURL(img.src);
                 this.isLoadingInputImage = false;
             };
