@@ -258,22 +258,19 @@ const App = {
 
                     if (this.isSafety) {
                         const maxArea = 1280 * 720;
-                        const resizeimageWidth = Math.floor(Math.sqrt(maxArea / imageHeightRate));
-                        if (img.width > resizeimageWidth) {
-                            imageWidthOri = resizeimageWidth;
-                            this.imageWidth = resizeimageWidth;
-                            this.imageWidthMax = resizeimageWidth;
+                        this.imageWidthMax = Math.floor(Math.sqrt(maxArea / imageHeightRate));
+                        if (img.width > this.imageWidthMax) {
+                            imageWidthOri = this.imageWidthMax;
+                            this.imageWidth = this.imageWidthMax;
                         }
                         else {
                             imageWidthOri = img.width;
                             this.imageWidth = imageWidthOri;
-                            this.imageWidthMax = imageWidthMaxDefault;
                         }
                     }
                     else {
                         imageWidthOri = img.width;
                         this.imageWidth = imageWidthOri;
-                        this.imageWidthMax = imageWidthMaxDefault;
                     }
                 }
                 
@@ -427,7 +424,6 @@ const App = {
             }
             else {
                 const res = confirm("表モードに戻ると、裏モードで入力した値はすべて初期化されるよ。OK？");
-                // todo
                 if (!res) {
                     return;
                 }
@@ -447,6 +443,14 @@ const App = {
             }
             else {
                 document.body.classList.add("dark");
+            }
+
+            if (this.isSafety) {
+                // todo claer
+            }
+            else {
+                // todo 上限更新
+                this.imageWidthMax = imageWidthMaxDefault;
             }
         },
         displaySample() {
