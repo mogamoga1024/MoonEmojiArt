@@ -38,6 +38,8 @@ const mobileGenerateBtnWidth = "110px";
 const mobileCopyBtnWidth = "126px"; // 生成ボタンのwidthとpaddingを足した値
 
 const imageWidthMaxDefault = 5000;
+let imageWidthOri = 100;
+let imageHeightRate = 1;
 
 const App = {
     components: {
@@ -99,9 +101,7 @@ const App = {
             isImageColorReverse: false,
             isVideoColorReverse: false,
 
-            imageWidthOri: 100,
-            imageHeightOri: 0,
-            imageWidth: 100,
+            imageWidth: imageWidthOri,
             imageWidthMin: 10,
             imageWidthMax: imageWidthMaxDefault,
 
@@ -254,24 +254,25 @@ const App = {
                     this.imageWidth = this.imageWidthMin;
                 }
                 else {
-                    this.imageWidthOri = img.width;
-                    this.imageHeightOri = img.height;
+                    imageHeightRate = img.height / img.width;
 
                     if (this.isSafety) {
                         const maxArea = 1280 * 720;
-                        const rate = img.height / img.width;
-                        const resizeimageWidth = Math.floor(Math.sqrt(maxArea / rate));
-                        if (this.imageWidthOri > resizeimageWidth) {
+                        const resizeimageWidth = Math.floor(Math.sqrt(maxArea / imageHeightRate));
+                        if (img.width > resizeimageWidth) {
+                            imageWidthOri = resizeimageWidth;
                             this.imageWidth = resizeimageWidth;
                             this.imageWidthMax = resizeimageWidth;
                         }
                         else {
-                            this.imageWidth = this.imageWidthOri;
+                            imageWidthOri = img.width;
+                            this.imageWidth = imageWidthOri;
                             this.imageWidthMax = imageWidthMaxDefault;
                         }
                     }
                     else {
-                        this.imageWidth = this.imageWidthOri;
+                        imageWidthOri = img.width;
+                        this.imageWidth = imageWidthOri;
                         this.imageWidthMax = imageWidthMaxDefault;
                     }
                 }
@@ -344,7 +345,7 @@ const App = {
                 this.imageBaseColorDistance = 30;
                 this.needImageOutline = true;
                 this.isImageColorReverse = false;
-                this.imageWidth = this.imageWidthOri;
+                this.imageWidth = imageWidthOri;
                 this.isImageYokoLinePowerUp = false;
                 this.isImageTateLinePowerUp = false;
                 this.shouldDisplayMonochromeImage = false;
@@ -562,7 +563,7 @@ const App = {
                     monoCanvas.image(
                         this.fileReader.result,
                         this.imageWidth,
-                        Math.round(this.imageHeightOri * this.imageWidth / this.imageWidthOri),
+                        Math.round(this.imageWidth * imageHeightRate),
                         this.imageBaseAverageColor,
                         this.needImageOutline,
                         this.imageBaseColorDistance,
