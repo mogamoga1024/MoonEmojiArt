@@ -525,18 +525,20 @@ const App = {
                 this.$refs.resultImage.style.maxWidth = "494px";
             }
         },
-        clearResult() {
-            URL.revokeObjectURL(this.$refs.monochrome.src);
-            this.$refs.monochrome.src = "";
-
+        clearResultVideo() {
             if (this.$refs.videoWrapper.firstChild != null) {
                 this.$refs.videoWrapper.removeChild(this.$refs.videoWrapper.firstChild);
             }
-
             if (this.$refs.resultVideo.width !== 0) {
                 this.$refs.resultVideo.width = 0;
                 this.$refs.resultVideo.height = 0;
             }
+        },
+        clearResult() {
+            URL.revokeObjectURL(this.$refs.monochrome.src);
+            this.$refs.monochrome.src = "";
+
+            this.clearResultVideo();
 
             if (this.mode === "video") {
                 URL.revokeObjectURL(this.$refs.resultImage.src);
@@ -555,6 +557,10 @@ const App = {
                 return;
             }
             this.isGeneratingTukiArt = true;
+
+            if (this.mode !== "video") {
+                this.clearResultVideo();
+            }
 
             if (this.tukiArtType === "video") {
                 clearInterval(timer); timer = 0;
