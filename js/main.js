@@ -6,6 +6,8 @@ function debug(text) {
 
 let appTitleClickCount = 0;
 
+const fileReader = new FileReader();
+
 let timer = 0;
 let isVideoParamChanged = false;
 
@@ -80,7 +82,6 @@ const App = {
 
             imageFile: null,
             videoFile: null,
-            fileReader: new FileReader(),
 
             isTextYokoLinePowerUp: true,
             isTextTateLinePowerUp: true,
@@ -644,9 +645,9 @@ const App = {
                     return;
                 }
 
-                this.fileReader.onload = () => {
+                fileReader.onload = () => {
                     monoCanvas.image(
-                        this.fileReader.result,
+                        fileReader.result,
                         this.imageWidth,
                         Math.round(this.imageWidth * imageHeightRate),
                         this.imageBaseAverageColor,
@@ -683,14 +684,14 @@ const App = {
                         this.isGeneratingTukiArt = false;
                     });
                 };
-                this.fileReader.onerror = () => {
+                fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
                     this.tukiArtType = "none";
                     this.clearResult();
                     this.isGeneratingTukiArt = false;
                 };
 
-                this.fileReader.readAsDataURL(this.imageFile);
+                fileReader.readAsDataURL(this.imageFile);
             }
             else if (this.mode === "video") {
                 if (this.videoFile == null) {
