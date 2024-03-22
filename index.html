@@ -337,10 +337,11 @@
     <hr v-show="mode !== 'video' || (mode === 'video' && tukiArtType !== 'video')">
     
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
-    <div v-show="isGeneratingTukiArt">
-      処理中だよ。ちょっと待ってね。
-      <hr>
+    
+    <div id="processing" v-show="isGeneratingTukiArt">
+      処理中… {{moon}}
     </div>
+
     <div v-show="resultMessage !== ''"
          style="white-space: pre-wrap;">
       {{resultMessage}}

@@ -68,6 +68,14 @@
     justify-content: space-evenly;
     column-gap: 0;
   }
+
+  #processing {
+    position: fixed;
+    bottom: 10px;
+    right: 5px;
+  
+    font-size: 20px;
+  }
 }
 
 /* Galaxy S8+ 360px */

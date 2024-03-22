@@ -513,6 +513,14 @@ input {
   border-bottom-color: white;
 }
 
+#processing {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  font-size: 24px;
+}
+
 .yoko-canvas {
   display: block;
 }

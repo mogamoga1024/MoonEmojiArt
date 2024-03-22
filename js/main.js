@@ -135,6 +135,7 @@ const App = {
             isMobile: false,
             canUseContextLetterSpacing: false,
             isSafety: true,
+            moon: "🌑",
         }
     },
     created() {
@@ -586,6 +587,18 @@ const App = {
                     return;
                 }
             }
+
+            // ぐるぐる～
+            const moons = ["🌑", "🌘", "🌗", "🌖", "🌕", "🌔", "🌓", "🌒"];
+            let moonIndex = 0;
+            const moonTimer = setInterval(() => {
+                if (!this.isGeneratingTukiArt) {
+                    clearInterval(moonTimer);
+                    return;
+                }
+                this.moon = moons[moonIndex];
+                moonIndex = (moonIndex + 1) % moons.length;
+            }, 100);
 
             // こうしないと「処理中…」のやつがでない
             setTimeout(this.generateTukiArt1, 50);
