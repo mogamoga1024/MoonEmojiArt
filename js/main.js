@@ -534,11 +534,11 @@ const App = {
             URL.revokeObjectURL(this.$refs.monochrome.src);
             this.$refs.monochrome.src = "";
 
-            if (this.$refs.resultVideo.width !== 0) {
-                this.$refs.resultVideo.width = 0;
-                this.$refs.resultVideo.height = 0;
-                this.$refs.resultVideo.remove();
-            }
+            // if (this.$refs.resultVideo.width !== 0) {
+            //     this.$refs.resultVideo.width = 0;
+            //     this.$refs.resultVideo.height = 0;
+            //     this.$refs.resultVideo.remove();
+            // }
             
             if (this.mode === "video") {
                 URL.revokeObjectURL(this.$refs.resultImage.src);
