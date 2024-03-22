@@ -560,10 +560,6 @@ const App = {
             }
             this.isGeneratingTukiArt = true;
 
-            // こうしないと「処理中…」のやつがでない
-            setTimeout(this.generateTukiArt1, 50);
-        },
-        generateTukiArt1() {
             if (this.mode !== "video") {
                 this.clearResultVideo();
             }
@@ -573,8 +569,6 @@ const App = {
             }
 
             if (this.mode === "text") {
-                const monoCanvas = new MonochromeCanvas();
-
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.tukiArtType = "none";
@@ -582,6 +576,32 @@ const App = {
                     this.isGeneratingTukiArt = false;
                     return;
                 }
+            }
+            else if (this.mode === "image") {
+                if (this.imageFile == null || this.imageWidth === 0) {
+                    this.resultMessage = MSG_NO_INPUT_DATA;
+                    this.tukiArtType = "none";
+                    this.clearResult();
+                    this.isGeneratingTukiArt = false;
+                    return;
+                }
+            }
+            else if (this.mode === "video") {
+                if (this.videoFile == null) {
+                    this.resultMessage = MSG_NO_INPUT_DATA;
+                    this.tukiArtType = "none";
+                    this.clearResult();
+                    this.isGeneratingTukiArt = false;
+                    return;
+                }
+            }
+
+            // こうしないと「処理中…」のやつがでない
+            setTimeout(this.generateTukiArt1, 50);
+        },
+        generateTukiArt1() {
+            if (this.mode === "text") {
+                const monoCanvas = new MonochromeCanvas();
 
                 if (this.isSafety) {
                     const charArray = [...this.text];
@@ -634,14 +654,6 @@ const App = {
             else if (this.mode === "image") {
                 const monoCanvas = new MonochromeCanvas();
 
-                if (this.imageFile == null || this.imageWidth === 0) {
-                    this.resultMessage = MSG_NO_INPUT_DATA;
-                    this.tukiArtType = "none";
-                    this.clearResult();
-                    this.isGeneratingTukiArt = false;
-                    return;
-                }
-
                 fileReader.onload = () => {
                     monoCanvas.image(
                         fileReader.result,
@@ -691,14 +703,6 @@ const App = {
                 fileReader.readAsDataURL(this.imageFile);
             }
             else if (this.mode === "video") {
-                if (this.videoFile == null) {
-                    this.resultMessage = MSG_NO_INPUT_DATA;
-                    this.tukiArtType = "none";
-                    this.clearResult();
-                    this.isGeneratingTukiArt = false;
-                    return;
-                }
-
                 const video = document.createElement("video");
                 video.setAttribute("height", "240");
                 video.setAttribute("controls", "");
