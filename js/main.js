@@ -4,8 +4,6 @@ function debug(text) {
     debugText += text + "\n";
 };
 
-const domGitCat = document.getElementById("git-cat");
-
 let appTitleClickCount = 0;
 
 let monoCanvas = null; // todo
@@ -506,6 +504,7 @@ const App = {
             this.isSafety = false;
 
             if (!this.isMobile) {
+                const domGitCat = document.getElementById("git-cat");
                 const tmpGitCatFill = domGitCat.style.fill;
                 domGitCat.style.fill = domGitCat.style.color;
                 domGitCat.style.color = tmpGitCatFill;
