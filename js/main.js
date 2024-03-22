@@ -779,7 +779,6 @@ const App = {
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
                             this.clearResult();
-                            this.isGeneratingTukiArt = false;
                         }
                     };
 
@@ -808,7 +807,6 @@ const App = {
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
                             this.clearResult();
-                            this.isGeneratingTukiArt = false;
                         }
                         if (forceRunFrameCount > 0) {
                             forceRunFrameCount--;
