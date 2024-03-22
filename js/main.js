@@ -410,6 +410,7 @@ const App = {
                 this.videoBaseColorDistance = 30;
                 this.needVideoOutline = true;
                 this.isVideoColorReverse = false;
+                this.videoWidth = videoWidthOri;
                 this.isVideoYokoLinePowerUp = false;
                 this.isVideoTateLinePowerUp = false;
 
