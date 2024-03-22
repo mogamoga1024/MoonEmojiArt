@@ -8,8 +8,8 @@ const domGitCat = document.getElementById("git-cat");
 
 let appTitleClickCount = 0;
 
-let monoCanvas = null;
-let resultVideoContext = null;
+let monoCanvas = null; // todo
+let resultVideoContext = null; // todo
 let timer = 0;
 let isVideoParamChanged = false;
 
@@ -60,7 +60,7 @@ const App = {
             debugText: debugText,
             canCopyButtonClick: true,
             resultMessage: MSG_NO_INPUT_DATA,
-            tukiArt: "",
+            tukiArt: "", // todo
             tukiArtType: "none", // "none" | "text" | "image" | "video"
             shouldDisplaySample: true,
             shouldDisplayMonochromeImage: false,
@@ -128,8 +128,8 @@ const App = {
             tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
 
-            isLoadingInputImage: false,
-            isLoadingInputVideo: false,
+            isLoadingInputImage: false, // todo
+            isLoadingInputVideo: false, // todo
             isGeneratingTukiArt: false,
 
             isMobile: false,
