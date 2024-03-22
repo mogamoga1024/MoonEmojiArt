@@ -191,15 +191,6 @@ const App = {
                 }
             }
         },
-        isGeneratingTukiArt(newVal) {
-            // v-showだと、スマホででかい画像の時に何故か「処理中…」のやつがでない現象が発生するため、直接スタイルを変えている
-            if (newVal) {
-                this.$refs.processing.style.display = "";
-            }
-            else {
-                this.$refs.processing.style.display = "none";
-            }
-        },
         isVideoYokoLinePowerUp() {
             isVideoParamChanged = true;
         },

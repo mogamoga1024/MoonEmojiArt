@@ -337,7 +337,7 @@
     <hr v-show="mode !== 'video' || (mode === 'video' && tukiArtType !== 'video')">
     
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
-    <div ref="processing" style="display: none;">
+    <div v-show="isGeneratingTukiArt">
       処理中だよ。ちょっと待ってね。
       <hr>
     </div>
