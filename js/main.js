@@ -76,7 +76,7 @@ const App = {
             letterSpacingLevel: 3,
             isBold: false,
             isTate: true,
-            wasTate: true,
+            isMonoCanvasTate: false, // 縦書きのモノクロ画像が見たいときだけにtrueにする。デバグ専用。
 
             imageFile: null,
             videoFile: null,
@@ -618,7 +618,6 @@ const App = {
                         this.tukiArtType = "none";
                         this.clearResult();
                     }
-                    this.wasTate = this.isTate;
                     this.isGeneratingTukiArt = false;
                 }
                 catch(e) {
@@ -670,7 +669,6 @@ const App = {
                             this.tukiArtType = "none";
                             this.clearResult();
                         }
-                        this.wasTate = false;
                         this.isGeneratingTukiArt = false;
                     }).catch(e => {
                         console.error(e);

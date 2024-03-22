@@ -354,16 +354,16 @@
     </div>
 
     <div v-show="tukiArtType === 'text' || tukiArtType === 'image' || shouldDisplaySample"
-         :style="{whiteSpace: wasTate ? 'nowrap' : 'normal'}">
+         :style="{whiteSpace: isMonoCanvasTate ? 'nowrap' : 'normal'}">
       <div v-show="isMobile" style="white-space: normal;">
         画像は長押しするとダウンロードできます。
         <hr>
       </div>
       <img ref="monochrome"
            v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage"
-           :class="{'tate-canvas': wasTate && isDebug}"
+           :class="{'tate-canvas': isMonoCanvasTate}"
            style="width: 100%;">
-      <div :class="wasTate && isDebug ? 'tate-canvas' : 'yoko-canvas'">
+      <div :class="isMonoCanvasTate ? 'tate-canvas' : 'yoko-canvas'">
         <img ref="resultImage"
              :style="{width: (tukiArtType === 'image' || mode === 'image' && shouldDisplaySample) && shouldShrinkImage ? '100%' : 'auto'}">
       </div>
