@@ -279,10 +279,13 @@ const App = {
                 else {
                     imageHeightRate = img.height / img.width;
                     const maxArea = 1280 * 720;
-                    this.imageWidthMax = Math.floor(Math.sqrt(maxArea / imageHeightRate));
-                    if (img.width > this.imageWidthMax) {
-                        imageWidthOri = this.imageWidthMax;
-                        this.imageWidth = this.imageWidthMax;
+                    const imageWidthSafeMax = Math.floor(Math.sqrt(maxArea / imageHeightRate));
+                    if (this.isSafety) {
+                        this.imageWidthMax = imageWidthSafeMax;
+                    }
+                    if (img.width > imageWidthSafeMax) {
+                        imageWidthOri = imageWidthSafeMax;
+                        this.imageWidth = imageWidthSafeMax;
                     }
                     else {
                         imageWidthOri = img.width;
@@ -332,11 +335,13 @@ const App = {
                 else {
                     videoHeightRate = video.videoHeight / video.videoWidth;
                     const maxArea = 400 * 300; // 軽い
-                    // const maxArea = 800 * 450; // 多分大丈夫
-                    this.videoWidthMax = Math.floor(Math.sqrt(maxArea / videoHeightRate));
-                    if (video.videoWidth > this.videoWidthMax) {
-                        videoWidthOri = this.videoWidthMax;
-                        this.videoWidth = this.videoWidthMax;
+                    const videoWidthSafeMax = Math.floor(Math.sqrt(maxArea / videoHeightRate));
+                    if (this.isSafety) {
+                        this.videoWidthMax = videoWidthSafeMax;
+                    }
+                    if (video.videoWidth > videoWidthSafeMax) {
+                        videoWidthOri = videoWidthSafeMax;
+                        this.videoWidth = videoWidthSafeMax;
                     }
                     else {
                         videoWidthOri = video.videoWidth;
