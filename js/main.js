@@ -125,6 +125,7 @@ const App = {
             tukiArtMarginMax: 20,
 
             isLoadingInputImage: false,
+            isLoadingInputVideo: false,
             isGeneratingTukiArt: false,
 
             isMobile: false,
@@ -294,16 +295,60 @@ const App = {
             img.src = URL.createObjectURL(this.imageFile);
         },
         onChangeInputVideoFile(e) {
+            if (this.isLoadingInputVideo) {
+                return;
+            }
+            this.isLoadingInputVideo = true;
+
             this.videoFile = e.target.files[0];
             e.target.value = "";
 
             if (!this.videoFile.type.startsWith("video")) {
                 alert("動画ファイルを選択してね。");
                 this.videoFile = null;
+                this.videoWidth = videoWidthOri = this.videoWidthMin;
+                this.isLoadingInputVideo = false;
                 return;
             }
 
-            this.generateTukiArt();
+            const video = document.createElement("video");
+            video.onloadedmetadata = () => {
+                if (video.videoWidth < this.videoWidthMin || video.videoWidth > videoWidthMaxDefault) {
+                    alert(`画像の幅は${this.videoWidthMin}px以上${videoWidthMaxDefault}px以下の必要があるよ。`);
+                    this.$refs.inputVideoFile.value = "";
+                    this.videoFile = null;
+                    this.videoWidth = videoWidthOri = this.videoWidthMin;
+                }
+                else {
+                    videoHeightRate = video.videoHeight / video.videoWidth;
+                    const maxArea = 400 * 300; // 軽い
+                    // const maxArea = 800 * 450; // 多分大丈夫
+                    this.videoWidthMax = Math.floor(Math.sqrt(maxArea / videoHeightRate));
+                    if (video.videoWidth > this.videoWidthMax) {
+                        videoWidthOri = this.videoWidthMax;
+                        this.videoWidth = this.videoWidthMax;
+                    }
+                    else {
+                        videoWidthOri = video.videoWidth;
+                        this.videoWidth = videoWidthOri;
+                    }
+
+                    URL.revokeObjectURL(video.src);
+                    this.isLoadingInputVideo = false;
+
+                    this.generateTukiArt();
+                }
+            };
+            video.onerror = () => {
+                alert("動画の読み込みに失敗したよ。");
+                this.$refs.inputVideoFile.value = "";
+                this.videoFile = null;
+                this.videoWidth = videoWidthOri = this.videoWidthMin;
+                URL.revokeObjectURL(video.src);
+                this.isLoadingInputVideo = false;
+            };
+
+            video.src = URL.createObjectURL(this.videoFile);
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
@@ -488,7 +533,8 @@ const App = {
         generateTukiArt() {
             if (
                 this.isGeneratingTukiArt ||
-                this.mode === "image" && this.isLoadingInputImage
+                this.mode === "image" && this.isLoadingInputImage ||
+                this.mode === "video" && this.isLoadingInputVideo
             ) {
                 return;
             }
@@ -643,33 +689,6 @@ const App = {
                 let isVideoStopped = true;
 
                 video.onloadeddata = () => {
-                    if (video.videoWidth < this.videoWidthMin || video.videoWidth > videoWidthMaxDefault) {
-                        alert(`画像の幅は${this.videoWidthMin}px以上${videoWidthMaxDefault}px以下の必要があるよ。`);
-                        this.$refs.inputVideoFile.value = "";
-                        this.videoFile = null;
-                        this.videoWidth = videoWidthOri = this.videoWidthMin;
-                        this.resultMessage = MSG_NO_INPUT_DATA;
-                        this.tukiArtType = "none";
-                        this.clearVideo();
-                        this.clearResult();
-                        this.isGeneratingTukiArt = false;
-                        return;
-                    }
-                    else {
-                        videoHeightRate = video.videoHeight / video.videoWidth;
-                        const maxArea = 400 * 300; // 軽い
-                        // const maxArea = 800 * 450; // 多分大丈夫
-                        this.videoWidthMax = Math.floor(Math.sqrt(maxArea / videoHeightRate));
-                        if (video.videoWidth > this.videoWidthMax) {
-                            videoWidthOri = this.videoWidthMax;
-                            this.videoWidth = this.videoWidthMax;
-                        }
-                        else {
-                            videoWidthOri = video.videoWidth;
-                            this.videoWidth = videoWidthOri;
-                        }
-                    }
-
                     monoCanvas = new MonochromeCanvas();
 
                     video.volume = 0.2;
