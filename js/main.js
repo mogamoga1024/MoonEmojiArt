@@ -562,6 +562,10 @@ const App = {
             // スマホででかい画像の時に何故か「処理中…」のやつがでない現象が発生するため、強制的に描画させる
             this.$forceUpdate();
 
+            // こうしないと「処理中…」のやつがでない
+            setTimeout(this.generateTukiArt1, 50);
+        },
+        generateTukiArt1() {
             if (this.mode !== "video") {
                 this.clearResultVideo();
             }
