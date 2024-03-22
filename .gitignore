@@ -1,5 +1,4 @@
-*.txt
-*.png
-*.jpg
+/images
 /sandbox
 /資料
+/*.txt
