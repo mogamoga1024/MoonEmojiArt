@@ -6,7 +6,6 @@ function debug(text) {
 
 let appTitleClickCount = 0;
 
-let resultVideoContext = null; // todo
 let timer = 0;
 let isVideoParamChanged = false;
 
@@ -179,8 +178,6 @@ const App = {
         }
 
         this.displaySample();
-
-        resultVideoContext = this.$refs.resultVideo.getContext("2d");
     },
     watch: {
         mode(newVal) {
@@ -734,6 +731,7 @@ const App = {
                     let forceRunFrameCount = 5;
                     let font = "";
                     let lineHeight = 0;
+                    const resultVideoContext = this.$refs.resultVideo.getContext("2d");
 
                     const drawTukiArtFrame = () => {
                         if (this.videoWidth !== resizeVideoWidth) {
