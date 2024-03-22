@@ -6,7 +6,6 @@ function debug(text) {
 
 let appTitleClickCount = 0;
 
-let monoCanvas = null; // todo
 let resultVideoContext = null; // todo
 let timer = 0;
 let isVideoParamChanged = false;
@@ -413,7 +412,6 @@ const App = {
             }
             else if (this.mode === 'video') {
                 clearInterval(timer); timer = 0;
-                monoCanvas = null;
                 
                 this.videoColorCount = 3;
                 this.useVideoNanameMikaduki = true;
@@ -573,17 +571,15 @@ const App = {
 
             if (this.tukiArtType === "video") {
                 clearInterval(timer); timer = 0;
-                monoCanvas = null;
             }
 
             if (this.mode === "text") {
-                monoCanvas = new MonochromeCanvas();
+                const monoCanvas = new MonochromeCanvas();
 
                 if (this.text === "") {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.tukiArtType = "none";
                     this.clearResult();
-                    monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                     return;
                 }
@@ -610,7 +606,7 @@ const App = {
                     }
 
                     try {
-                        this.displayTukiArt();
+                        this.displayTukiArt(monoCanvas);
                         this.resultMessage = "";
                         this.tukiArtType = this.mode;
                         this.shouldDisplaySample = false;
@@ -622,7 +618,6 @@ const App = {
                         this.clearResult();
                     }
                     this.wasTate = this.isTate;
-                    monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                 }
                 catch(e) {
@@ -635,18 +630,16 @@ const App = {
                     }
                     this.tukiArtType = "none";
                     this.clearResult();
-                    monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                 }
             }
             else if (this.mode === "image") {
-                monoCanvas = new MonochromeCanvas();
+                const monoCanvas = new MonochromeCanvas();
 
                 if (this.imageFile == null || this.imageWidth === 0) {
                     this.resultMessage = MSG_NO_INPUT_DATA;
                     this.tukiArtType = "none";
                     this.clearResult();
-                    monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                     return;
                 }
@@ -665,7 +658,7 @@ const App = {
                     ).then(() => {
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
                         try {
-                            this.displayTukiArt();
+                            this.displayTukiArt(monoCanvas);
                             this.resultMessage = "";
                             this.tukiArtType = this.mode;
                             this.shouldDisplaySample = false;
@@ -677,7 +670,6 @@ const App = {
                             this.clearResult();
                         }
                         this.wasTate = false;
-                        monoCanvas = null;
                         this.isGeneratingTukiArt = false;
                     }).catch(e => {
                         console.error(e);
@@ -689,7 +681,6 @@ const App = {
                         }
                         this.tukiArtType = "none";
                         this.clearResult();
-                        monoCanvas = null;
                         this.isGeneratingTukiArt = false;
                     });
                 };
@@ -697,7 +688,6 @@ const App = {
                     this.resultMessage = MSG_ERROR;
                     this.tukiArtType = "none";
                     this.clearResult();
-                    monoCanvas = null;
                     this.isGeneratingTukiArt = false;
                 };
 
@@ -719,7 +709,7 @@ const App = {
                 let isVideoStopped = true;
 
                 video.onloadeddata = () => {
-                    monoCanvas = new MonochromeCanvas();
+                    const monoCanvas = new MonochromeCanvas();
 
                     video.volume = 0.2;
 
@@ -808,7 +798,7 @@ const App = {
                         }
 
                         try {
-                            drawTukiArtFrame();
+                            drawTukiArtFrame(monoCanvas);
                         }
                         catch (e) {
                             console.error(e);
@@ -852,7 +842,7 @@ const App = {
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
-        displayTukiArt() {
+        displayTukiArt(monoCanvas) {
             URL.revokeObjectURL(this.$refs.monochrome.src);
             URL.revokeObjectURL(this.$refs.resultImage.src);
 
