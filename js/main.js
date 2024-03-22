@@ -404,7 +404,7 @@ const App = {
                 this.imageFile = tmpFile;
             }
             else if (this.mode === 'video') {
-                clearInterval(timer);
+                clearInterval(timer); timer = 0;
                 monoCanvas = null;
                 
                 this.videoColorCount = 3;
@@ -545,7 +545,7 @@ const App = {
             this.isGeneratingTukiArt = true;
 
             if (this.tukiArtType === "video") {
-                clearInterval(timer);
+                clearInterval(timer); timer = 0;
                 monoCanvas = null;
             }
 
@@ -758,7 +758,7 @@ const App = {
                         }
                         catch (e) {
                             console.error(e);
-                            clearInterval(timer);
+                            clearInterval(timer); timer = 0;
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
                             this.clearVideo();
@@ -779,7 +779,7 @@ const App = {
                         }
                         catch (e) {
                             console.error(e);
-                            clearInterval(timer);
+                            clearInterval(timer); timer = 0;
                             this.resultMessage = MSG_ERROR;
                             this.tukiArtType = "none";
                             this.clearVideo();
