@@ -42,6 +42,9 @@ const tukiCountSafeMaxDefault = 30;
 const tukiCountUnSafeMaxDefault = 100;
 const letterSpacingLevelDefault = 3;
 
+const baseAverageColorDefault = 110;
+const baseColorDistanceDefault = 30;
+
 const imageWidthMaxDefault = 5000;
 let imageWidthOri = 10;
 let imageHeightRate = 1;
@@ -94,12 +97,12 @@ const App = {
             videoColorCount: 3,
             useImageNanameMikaduki: true,
             useVideoNanameMikaduki: true,
-            imageBaseAverageColor: 110,
-            videoBaseAverageColor: 110,
+            imageBaseAverageColor: baseAverageColorDefault,
+            videoBaseAverageColor: baseAverageColorDefault,
             baseAverageColorMin: COLOR_B,
             baseAverageColorMax: COLOR_SW,
-            imageBaseColorDistance: 30,
-            videoBaseColorDistance: 30,
+            imageBaseColorDistance: baseColorDistanceDefault,
+            videoBaseColorDistance: baseColorDistanceDefault,
             baseColorDistanceMin: 0,
             baseColorDistanceMax: 200,
             needImageOutline: true,
@@ -292,7 +295,10 @@ const App = {
                         this.imageWidth = imageWidthOri;
                     }
                 }
-                
+
+                this.imageBaseAverageColor = baseAverageColorDefault;
+                this.imageBaseColorDistance = baseColorDistanceDefault;
+
                 URL.revokeObjectURL(img.src);
                 this.isLoadingInputImage = false;
             };
@@ -348,6 +354,9 @@ const App = {
                         this.videoWidth = videoWidthOri;
                     }
 
+                    this.videoBaseAverageColor = baseAverageColorDefault;
+                    this.videoBaseColorDistance = baseColorDistanceDefault;
+
                     URL.revokeObjectURL(video.src);
                     this.isLoadingInputVideo = false;
 
@@ -394,8 +403,8 @@ const App = {
             else if (this.mode === "image") {
                 this.imageColorCount = 3;
                 this.useImageNanameMikaduki = true;
-                this.imageBaseAverageColor = 110;
-                this.imageBaseColorDistance = 30;
+                this.imageBaseAverageColor = baseAverageColorDefault;
+                this.imageBaseColorDistance = baseColorDistanceDefault;
                 this.needImageOutline = true;
                 this.isImageColorReverse = false;
                 this.imageWidth = imageWidthOri;
@@ -409,8 +418,8 @@ const App = {
                 
                 this.videoColorCount = 3;
                 this.useVideoNanameMikaduki = true;
-                this.videoBaseAverageColor = 110;
-                this.videoBaseColorDistance = 30;
+                this.videoBaseAverageColor = baseAverageColorDefault;
+                this.videoBaseColorDistance = baseColorDistanceDefault;
                 this.needVideoOutline = true;
                 this.isVideoColorReverse = false;
                 this.videoWidth = videoWidthOri;
