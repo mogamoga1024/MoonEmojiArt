@@ -379,9 +379,6 @@ const App = {
         },
         onClickResetButton() {
             if (this.mode === "text") {
-                const tmpText = this.text;
-
-                this.text = "";
                 this.tukiCount = 13;
                 this.letterSpacingLevel = 3;
                 this.fontFamily = "serif";
@@ -393,14 +390,8 @@ const App = {
                 this.tukiArtMarginBottom = 0;
                 this.tukiArtMarginLeft = 0;
                 this.tukiArtMarginRight = 0;
-                
-                this.generateTukiArt();
-                this.text = tmpText;
             }
             else if (this.mode === "image") {
-                const tmpFile = this.imageFile;
-
-                this.imageFile = null;
                 this.imageColorCount = 3;
                 this.useImageNanameMikaduki = true;
                 this.imageBaseAverageColor = 110;
@@ -411,9 +402,6 @@ const App = {
                 this.isImageYokoLinePowerUp = false;
                 this.isImageTateLinePowerUp = false;
                 this.shouldDisplayMonochromeImage = false;
-
-                this.generateTukiArt();
-                this.imageFile = tmpFile;
             }
             else if (this.mode === 'video') {
                 clearInterval(timer); timer = 0;
@@ -429,9 +417,11 @@ const App = {
                 this.isVideoYokoLinePowerUp = false;
                 this.isVideoTateLinePowerUp = false;
                 this.fps = this.fpsMin;
-
-                this.generateTukiArt();
             }
+
+            this.resultMessage = MSG_NO_INPUT_DATA;
+            this.tukiArtType = "none";
+            this.clearResult();
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
