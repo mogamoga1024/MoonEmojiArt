@@ -798,7 +798,7 @@ const App = {
                         }
 
                         try {
-                            drawTukiArtFrame(monoCanvas);
+                            drawTukiArtFrame();
                         }
                         catch (e) {
                             console.error(e);
