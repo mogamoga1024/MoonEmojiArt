@@ -215,6 +215,9 @@ const App = {
         videoBaseColorDistance() {
             isVideoParamChanged = true;
         },
+        videoWidth() {
+            isVideoParamChanged = true;
+        },
         needVideoOutline() {
             isVideoParamChanged = true;
         },
@@ -696,8 +699,8 @@ const App = {
 
                     this.$refs.resultVideo.style.maxWidth = (video.videoWidth < 1200 ? video.videoWidth : 1200) + "px";
                     
-                    const resizeVideoWidth = this.videoWidth;
-                    const resizeVideoHeight = Math.round(resizeVideoWidth * videoHeightRate);
+                    let resizeVideoWidth = this.videoWidth;
+                    let resizeVideoHeight = Math.round(resizeVideoWidth * videoHeightRate);
                     
                     const isValidCanvas = canvasSize.test({
                         width : resizeVideoWidth,
@@ -718,7 +721,12 @@ const App = {
                     let lineHeight = 0;
 
                     const drawTukiArtFrame = () => {
-                        // todo
+                        if (this.videoWidth !== resizeVideoWidth) {
+                            // 最初に最大サイズでcanvasSize.testしているので再度する必要はない
+                            resizeVideoWidth = this.videoWidth;
+                            resizeVideoHeight = Math.round(resizeVideoWidth * videoHeightRate);
+                            forceRunFrameCount = 1;
+                        }
                         
                         monoCanvas.video(
                             video,
