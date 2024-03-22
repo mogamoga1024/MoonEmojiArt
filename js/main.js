@@ -117,6 +117,10 @@ const App = {
             videoWidthMin: videoWidthOri,
             videoWidthMax: videoWidthMaxDefault,
 
+            fps: 30,
+            fpsMin: 30,
+            fpsMax: 120,
+
             tukiArtMarginTop: 0,
             tukiArtMarginBottom: 0,
             tukiArtMarginLeft: 0,
@@ -222,6 +226,9 @@ const App = {
             isVideoParamChanged = true;
         },
         isVideoColorReverse() {
+            isVideoParamChanged = true;
+        },
+        fps() {
             isVideoParamChanged = true;
         },
     },
@@ -416,6 +423,7 @@ const App = {
                 this.videoWidth = videoWidthOri;
                 this.isVideoYokoLinePowerUp = false;
                 this.isVideoTateLinePowerUp = false;
+                this.fps = this.fpsMin;
 
                 this.generateTukiArt();
             }
@@ -768,12 +776,21 @@ const App = {
                     };
 
                     isVideoParamChanged = false;
+                    let fps = this.fps;
 
-                    timer = setInterval(() => {
+                    const playTukiArtVideo = () => setInterval(() => {
                         if (forceRunFrameCount <= 0 && isVideoStopped && !isVideoParamChanged) {
                             return;
                         }
                         isVideoParamChanged = false;
+
+                        if (this.fps !== fps) {
+                            clearInterval(timer); timer = 0;
+                            fps = this.fps;
+                            timer = playTukiArtVideo();
+                            return;
+                        }
+
                         try {
                             drawTukiArtFrame();
                         }
@@ -789,7 +806,9 @@ const App = {
                         if (forceRunFrameCount > 0) {
                             forceRunFrameCount--;
                         }
-                    }, 1000/30); // todo fps
+                    }, 1000 / fps);
+
+                    timer = playTukiArtVideo();
 
                     this.clearVideo();
                     this.$refs.videoWrapper.appendChild(video);

@@ -267,13 +267,22 @@
               v-model="videoBaseColorDistance">
           </div>
         </div>
-        <div class="item" v-show="tukiArtType === 'video'">
+        <div class="item">
           <div class="name">幅</div>
           <div class="input">
             <plus-minus-input-numbur
               :min="videoWidthMin"
               :max="videoWidthMax"
               v-model="videoWidth">
+          </div>
+        </div>
+        <div class="item" v-show="!isSafety">
+          <div class="name">FPS</div>
+          <div class="input">
+            <plus-minus-input-numbur
+              :min="fpsMin"
+              :max="fpsMax"
+              v-model="fps">
           </div>
         </div>
         <div class="input-check-area">
