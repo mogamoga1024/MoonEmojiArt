@@ -167,7 +167,7 @@ const App = {
             // this.isBold = true;
             // this.isTextYokoLinePowerUp = true;
             // this.isTextTateLinePowerUp = true;
-            this.isTate = false;
+            // this.isTate = false;
             // this.isMobile = true;
         }
 
