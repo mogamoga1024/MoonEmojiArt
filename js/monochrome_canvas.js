@@ -13,7 +13,7 @@ class MonochromeCanvas {
     }
 
     constructor() {
-        this.#canvas = document.createElement("canvas");
+        this.#canvas = new OffscreenCanvas(300, 150);
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
@@ -50,7 +50,7 @@ class MonochromeCanvas {
     #tateText(text, font, yokoPixelCount, tateMargin = 4, letterSpacingLevel = 3) {
         const letterSpacing = Math.floor(tateMargin / 2 * (letterSpacingLevel - 1));
 
-        const tmpCanvas = document.createElement("canvas");
+        const tmpCanvas = new OffscreenCanvas(300, 150);
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
@@ -218,11 +218,9 @@ class MonochromeCanvas {
             }
         }
 
-        const tmpCanvas2 = document.createElement("canvas");
+        let yokoMargin = 0; // 現時点で0を代入しているので実質意味ない
+        const tmpCanvas2 = new OffscreenCanvas(maxWidth + yokoMargin * 2, totalHeight + tateMargin * 2);
         const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });
-        let yokoMargin = 0;
-        tmpCanvas2.width = maxWidth + yokoMargin * 2;
-        tmpCanvas2.height = totalHeight + tateMargin * 2;
         tmpContext2.fillStyle = "#fff";
         tmpContext2.fillRect(0, 0, tmpCanvas2.width, tmpCanvas2.height);
         const dstX = (tmpCanvas2.width - tmpCanvas.width) / 2;
@@ -263,11 +261,9 @@ class MonochromeCanvas {
         const pixels = this.#context.getImageData(0, trimmed.y, this.#canvas.width, trimmed.height);
 
         const tateMargin = 4;
-        const tmpCanvas = document.createElement("canvas");
+        const tmpCanvas = new OffscreenCanvas(this.#canvas.width, trimmed.height + tateMargin * 2);
         // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
-        tmpCanvas.width = this.#canvas.width;
-        tmpCanvas.height = trimmed.height + tateMargin * 2;
         tmpContext.fillStyle = "#fff";
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
         tmpContext.putImageData(pixels, 0, tateMargin);

@@ -6,8 +6,6 @@ function debug(text) {
 
 let appTitleClickCount = 0;
 
-const fileReader = new FileReader();
-
 let timer = 0;
 let isVideoParamChanged = false;
 
@@ -662,6 +660,7 @@ const App = {
             }
             else if (this.mode === "image") {
                 const monoCanvas = new MonochromeCanvas();
+                const fileReader = new FileReader();
 
                 fileReader.onload = () => {
                     // todo web worker start
@@ -855,11 +854,17 @@ const App = {
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
-        displayTukiArt(monoCanvas) {
+        async displayTukiArt(monoCanvas) {
             URL.revokeObjectURL(this.$refs.monochrome.src);
             URL.revokeObjectURL(this.$refs.resultImage.src);
 
-            this.$refs.monochrome.src = monoCanvas.canvas.toDataURL("image/png");
+            // OffscreenCanvasはtoDataURLが使えないのでこうする
+            const monoBlob = await monoCanvas.canvas.convertToBlob();
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                this.$refs.monochrome.src = fileReader.result;
+            }
+            fileReader.readAsDataURL(monoBlob);
             this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
 
             const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);

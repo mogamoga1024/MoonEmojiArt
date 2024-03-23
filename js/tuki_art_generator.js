@@ -119,7 +119,7 @@ class TukiArtGenerator {
         const rtnCanvasTopMargin = 4;
 
         if (isFirst) {
-            const tmpCanvas = document.createElement("canvas");
+            const tmpCanvas = new OffscreenCanvas(300, 150);
             const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
             while (true) {
                 if (fontSize < 1) {
