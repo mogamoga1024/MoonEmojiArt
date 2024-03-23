@@ -682,19 +682,11 @@ const App = {
                         this.useImageNanameMikaduki,
                         this.isImageColorReverse
                     ).then(async () => {
-                        console.timeEnd("monoCanvas.image");
-                        console.time("createTukiArt");
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
-                        console.timeEnd("createTukiArt");
-                        console.time("displayTukiArt");
                         try {
                             const textList = this.tukiArt.split("\n");
                             const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
-                            // const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
-                            const tukiArtCanvas = document.createElement("canvas");
-                            tukiArtCanvas.width = canvasParams.width;
-                            tukiArtCanvas.height = canvasParams.height;
-                            const offscreenCanvas = tukiArtCanvas.transferControlToOffscreen();
+                            const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
                             
                             const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
                             worker.onmessage = async e => {
@@ -704,7 +696,6 @@ const App = {
                                 this.tukiArtType = this.mode;
                                 this.shouldDisplaySample = false;
                                 this.isGeneratingTukiArt = false;
-                                console.timeEnd("displayTukiArt");
                             };
                             worker.onerror = e => {
                                 console.error(e);
@@ -713,15 +704,8 @@ const App = {
                                 this.tukiArtType = "none";
                                 this.clearResult();
                                 this.isGeneratingTukiArt = false;
-                                console.timeEnd("displayTukiArt");
                             };
-                            worker.postMessage({textList, canvasParams, canvas: offscreenCanvas}, [offscreenCanvas]);
-
-                            // TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, tukiArtContext);
-                            // await this.displayTukiArt(monoCanvas, tukiArtCanvas);
-                            // this.resultMessage = "";
-                            // this.tukiArtType = this.mode;
-                            // this.shouldDisplaySample = false;
+                            worker.postMessage({textList, canvasParams, canvas: tukiArtCanvas}, [tukiArtCanvas]);
                         }
                         catch (e) {
                             console.error(e);
@@ -730,8 +714,6 @@ const App = {
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
                         }
-                        // console.timeEnd("displayTukiArt");
-                        // this.isGeneratingTukiArt = false;
                     }).catch(e => {
                         console.error(e);
                         if (e.constructor === TooLargeCanvasError) {
