@@ -8,6 +8,9 @@ let appTitleClickCount = 0;
 
 let tukiArt = "";
 
+let isLoadingInputImage = false;
+let isLoadingInputVideo = false;
+
 let timer = 0;
 let isVideoParamChanged = false;
 
@@ -128,8 +131,6 @@ const App = {
             tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
 
-            isLoadingInputImage: false, // todo
-            isLoadingInputVideo: false, // todo
             isGeneratingTukiArt: false,
 
             isMobile: false,
@@ -243,10 +244,10 @@ const App = {
             }
         },
         onChangeInputImageFile(e) {
-            if (this.isLoadingInputImage) {
+            if (isLoadingInputImage) {
                 return;
             }
-            this.isLoadingInputImage = true;
+            isLoadingInputImage = true;
 
             this.imageFile = e.target.files[0];
             e.target.value = "";
@@ -255,7 +256,7 @@ const App = {
                 alert("画像ファイルを選択してね。");
                 this.imageFile = null;
                 this.imageWidth = imageWidthOri = this.imageWidthMin;
-                this.isLoadingInputImage = false;
+                isLoadingInputImage = false;
                 return;
             }
 
@@ -288,7 +289,7 @@ const App = {
                 this.imageBaseColorDistance = baseColorDistanceDefault;
 
                 URL.revokeObjectURL(img.src);
-                this.isLoadingInputImage = false;
+                isLoadingInputImage = false;
             };
             img.onerror = () => {
                 alert("画像の読み込みに失敗したよ。");
@@ -296,16 +297,16 @@ const App = {
                 this.imageFile = null;
                 this.imageWidth = imageWidthOri = this.imageWidthMin;
                 URL.revokeObjectURL(img.src);
-                this.isLoadingInputImage = false;
+                isLoadingInputImage = false;
             };
 
             img.src = URL.createObjectURL(this.imageFile);
         },
         onChangeInputVideoFile(e) {
-            if (this.isLoadingInputVideo) {
+            if (isLoadingInputVideo) {
                 return;
             }
-            this.isLoadingInputVideo = true;
+            isLoadingInputVideo = true;
 
             this.videoFile = e.target.files[0];
             e.target.value = "";
@@ -314,7 +315,7 @@ const App = {
                 alert("動画ファイルを選択してね。");
                 this.videoFile = null;
                 this.videoWidth = videoWidthOri = this.videoWidthMin;
-                this.isLoadingInputVideo = false;
+                isLoadingInputVideo = false;
                 return;
             }
 
@@ -346,7 +347,7 @@ const App = {
                     this.videoBaseColorDistance = baseColorDistanceDefault;
 
                     URL.revokeObjectURL(video.src);
-                    this.isLoadingInputVideo = false;
+                    isLoadingInputVideo = false;
 
                     this.generateTukiArt();
                 }
@@ -357,7 +358,7 @@ const App = {
                 this.videoFile = null;
                 this.videoWidth = videoWidthOri = this.videoWidthMin;
                 URL.revokeObjectURL(video.src);
-                this.isLoadingInputVideo = false;
+                isLoadingInputVideo = false;
             };
 
             video.src = URL.createObjectURL(this.videoFile);
@@ -551,8 +552,8 @@ const App = {
         generateTukiArt() {
             if (
                 this.isGeneratingTukiArt ||
-                this.mode === "image" && this.isLoadingInputImage ||
-                this.mode === "video" && this.isLoadingInputVideo
+                this.mode === "image" && isLoadingInputImage ||
+                this.mode === "video" && isLoadingInputVideo
             ) {
                 return;
             }
