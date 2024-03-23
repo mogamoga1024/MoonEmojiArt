@@ -604,7 +604,7 @@ const App = {
                 this.moon = moons[moonIndex];
             }, 100);
 
-            // こうしないと「処理中…」のやつがでない
+            // こうしないとスマホで「処理中…」のやつがでない
             setTimeout(this.generateTukiArt1, 50);
         },
         async generateTukiArt1() {
