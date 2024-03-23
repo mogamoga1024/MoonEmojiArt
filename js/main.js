@@ -690,12 +690,16 @@ const App = {
                         try {
                             const textList = this.tukiArt.split("\n");
                             const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
-                            const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
+                            // const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
+                            const tukiArtCanvas = document.createElement("canvas");
+                            tukiArtCanvas.width = canvasParams.width;
+                            tukiArtCanvas.height = canvasParams.height;
+                            const offscreenCanvas = tukiArtCanvas.transferControlToOffscreen();
                             
                             const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
-                            worker.onmessage = async () => {
+                            worker.onmessage = async e => {
                                 worker.terminate();
-                                await this.displayTukiArt(monoCanvas, tukiArtCanvas);
+                                await this.displayTukiArt(monoCanvas, e.data);
                                 this.resultMessage = "";
                                 this.tukiArtType = this.mode;
                                 this.shouldDisplaySample = false;
@@ -710,7 +714,7 @@ const App = {
                                 this.isGeneratingTukiArt = false;
                                 console.timeEnd("displayTukiArt");
                             };
-                            worker.postMessage({textList, canvasParams, canvas: tukiArtCanvas}, [tukiArtCanvas]);
+                            worker.postMessage({textList, canvasParams, canvas: offscreenCanvas}, [offscreenCanvas]);
 
                             // TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, tukiArtContext);
                             // await this.displayTukiArt(monoCanvas, tukiArtCanvas);
@@ -896,7 +900,7 @@ const App = {
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
-        displayTukiArt(monoCanvas, tukiArtCanvas) {
+        displayTukiArt(monoCanvas, tukiArtData) {
             return new Promise(async (resolve, reject) => {
                 URL.revokeObjectURL(this.$refs.monochrome.src);
                 URL.revokeObjectURL(this.$refs.resultImage.src);
@@ -913,18 +917,22 @@ const App = {
                 const monoBlob = await monoCanvas.canvas.convertToBlob();
                 fileReader1.readAsDataURL(monoBlob);
                 
-                const fileReader2 = new FileReader();
-                fileReader2.onload = () => {
-                    this.$refs.resultImage.src = fileReader2.result;
-                    this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
-                    resolve();
-                }
-                fileReader2.onerror = (e) => {
-                    console.log(e); // todo
-                    reject(e);
-                }
-                const tukiArtBlob = await tukiArtCanvas.convertToBlob();
-                fileReader2.readAsDataURL(tukiArtBlob);
+                // const fileReader2 = new FileReader();
+                // fileReader2.onload = () => {
+                //     this.$refs.resultImage.src = fileReader2.result;
+                //     // this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
+                //     resolve();
+                // }
+                // fileReader2.onerror = (e) => {
+                //     console.log(e); // todo
+                //     reject(e);
+                // }
+                // // const tukiArtBlob = await tukiArtCanvas.convertToBlob();
+                // fileReader2.readAsDataURL(tukiArtBlob);
+
+                this.$refs.resultImage.src = tukiArtData;
+
+                resolve();
             });
         }
     }
