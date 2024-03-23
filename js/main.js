@@ -864,6 +864,9 @@ const App = {
             fileReader.onload = () => {
                 this.$refs.monochrome.src = fileReader.result;
             }
+            fileReader.onerror = (e) => {
+                console.log(e); // todo
+            }
             fileReader.readAsDataURL(monoBlob);
             this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
 
