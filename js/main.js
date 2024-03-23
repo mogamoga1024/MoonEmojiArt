@@ -668,9 +668,6 @@ const App = {
                 const fileReader = new FileReader();
 
                 fileReader.onload = () => {
-                    // todo web worker start
-
-                    console.time("monoCanvas.image");
                     monoCanvas.image(
                         fileReader.result,
                         this.imageWidth,
@@ -726,8 +723,6 @@ const App = {
                         this.clearResult();
                         this.isGeneratingTukiArt = false;
                     });
-
-                    // todo web worker end
                 };
                 fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
