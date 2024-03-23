@@ -703,6 +703,7 @@ const App = {
                                 this.resultMessage = "";
                                 this.tukiArtType = this.mode;
                                 this.shouldDisplaySample = false;
+                                this.isGeneratingTukiArt = false;
                                 console.timeEnd("displayTukiArt");
                             };
                             worker.onerror = e => {
@@ -727,9 +728,10 @@ const App = {
                             this.resultMessage = MSG_FAILURE_RESULT_IMAGE;
                             this.tukiArtType = "none";
                             this.clearResult();
+                            this.isGeneratingTukiArt = false;
                         }
-                        console.timeEnd("displayTukiArt");
-                        this.isGeneratingTukiArt = false;
+                        // console.timeEnd("displayTukiArt");
+                        // this.isGeneratingTukiArt = false;
                     }).catch(e => {
                         console.error(e);
                         if (e.constructor === TooLargeCanvasError) {
@@ -917,22 +919,15 @@ const App = {
                 const monoBlob = await monoCanvas.canvas.convertToBlob();
                 fileReader1.readAsDataURL(monoBlob);
                 
-                // const fileReader2 = new FileReader();
-                // fileReader2.onload = () => {
-                //     this.$refs.resultImage.src = fileReader2.result;
-                //     // this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
-                //     resolve();
-                // }
-                // fileReader2.onerror = (e) => {
-                //     console.log(e); // todo
-                //     reject(e);
-                // }
-                // // const tukiArtBlob = await tukiArtCanvas.convertToBlob();
-                // fileReader2.readAsDataURL(tukiArtBlob);
-
+                this.$refs.resultImage.style.maxWidth = ""; // todo
                 this.$refs.resultImage.src = tukiArtData;
 
-                resolve();
+                this.$refs.resultImage.onload = () => {
+                    resolve();
+                }
+                this.$refs.resultImage.onerror = () => {
+                    reject();
+                }
             });
         }
     }
