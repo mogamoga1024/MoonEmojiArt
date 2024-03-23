@@ -14,6 +14,7 @@ let isLoadingInputVideo = false;
 let timer = 0;
 let isVideoParamChanged = false;
 
+const MSG_非表示 = "";
 const MSG_月ジェネの説明 = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
 ・サイズが小さいとクオリティが低くなるよ！
@@ -632,7 +633,7 @@ const App = {
                             worker.terminate();
                             try {
                                 await this.displayTukiArt(null, e.data, canvasParams.width);
-                                this.resultMessage = "";
+                                this.resultMessage = MSG_非表示;
                                 this.tukiArtType = this.mode;
                                 this.shouldDisplaySample = false;
                                 this.isGeneratingTukiArt = false;
@@ -706,7 +707,7 @@ const App = {
                                 worker.terminate();
                                 try {
                                     await this.displayTukiArt(null, e.data, canvasParams.width);
-                                    this.resultMessage = "";
+                                    this.resultMessage = MSG_非表示;
                                     this.tukiArtType = this.mode;
                                     this.shouldDisplaySample = false;
                                     this.isGeneratingTukiArt = false;
@@ -879,7 +880,7 @@ const App = {
 
                     timer = playTukiArtVideo();
 
-                    this.resultMessage = "";
+                    this.resultMessage = MSG_非表示;
                     this.tukiArtType = this.mode;
                     this.shouldDisplaySample = false;
                     this.isGeneratingTukiArt = false;
