@@ -635,12 +635,31 @@ const App = {
                         const textList = this.tukiArt.split("\n");
                         const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
                         const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
-                        const tukiArtContext = tukiArtCanvas.getContext("2d", { willReadFrequently: true });
-                        TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, tukiArtContext);
-                        await this.displayTukiArt(monoCanvas, tukiArtCanvas);
-                        this.resultMessage = "";
-                        this.tukiArtType = this.mode;
-                        this.shouldDisplaySample = false;
+                        // const tukiArtContext = tukiArtCanvas.getContext("2d", { willReadFrequently: true });
+                        // TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, tukiArtContext);
+                        // await this.displayTukiArt(monoCanvas, tukiArtCanvas);
+                        // this.resultMessage = "";
+                        // this.tukiArtType = this.mode;
+                        // this.shouldDisplaySample = false;
+
+                        const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
+                        worker.onmessage = async e => {
+                            worker.terminate();
+                            await this.displayTukiArt(null, e.data, canvasParams.width);
+                            this.resultMessage = "";
+                            this.tukiArtType = this.mode;
+                            this.shouldDisplaySample = false;
+                            this.isGeneratingTukiArt = false;
+                        };
+                        worker.onerror = e => {
+                            console.error(e);
+                            worker.terminate();
+                            this.resultMessage = MSG_ERROR;
+                            this.tukiArtType = "none";
+                            this.clearResult();
+                            this.isGeneratingTukiArt = false;
+                        };
+                        worker.postMessage({textList, canvasParams, canvas: tukiArtCanvas}, [tukiArtCanvas]);
                     }
                     catch (e) {
                         console.error(e);
@@ -648,7 +667,6 @@ const App = {
                         this.tukiArtType = "none";
                         this.clearResult();
                     }
-                    this.isGeneratingTukiArt = false;
                 }
                 catch(e) {
                     console.error(e);
@@ -688,7 +706,7 @@ const App = {
                             const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
                             worker.onmessage = async e => {
                                 worker.terminate();
-                                await this.displayTukiArt(monoCanvas, e.data);
+                                await this.displayTukiArt(monoCanvas, e.data, canvasParams.width);
                                 this.resultMessage = "";
                                 this.tukiArtType = this.mode;
                                 this.shouldDisplaySample = false;
@@ -879,31 +897,33 @@ const App = {
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
-        displayTukiArt(monoCanvas, tukiArtData) {
+        displayTukiArt(monoCanvas, tukiArtData, tukiArtImageWidth) {
             return new Promise(async (resolve, reject) => {
                 URL.revokeObjectURL(this.$refs.monochrome.src);
                 URL.revokeObjectURL(this.$refs.resultImage.src);
     
-                // OffscreenCanvasはtoDataURLが使えないのでこうする
-                const fileReader1 = new FileReader();
-                fileReader1.onload = () => {
-                    this.$refs.monochrome.src = fileReader1.result;
-                    this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
+                if (monoCanvas !== null) {
+                    // OffscreenCanvasはtoDataURLが使えないのでこうする
+                    const fileReader = new FileReader();
+                    fileReader.onload = () => {
+                        this.$refs.monochrome.src = fileReader.result;
+                        this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
+                    }
+                    fileReader.onerror = (e) => {
+                        console.log(e); // todo
+                    }
+                    const monoBlob = await monoCanvas.canvas.convertToBlob();
+                    fileReader.readAsDataURL(monoBlob);
                 }
-                fileReader1.onerror = (e) => {
-                    console.log(e); // todo
-                }
-                const monoBlob = await monoCanvas.canvas.convertToBlob();
-                fileReader1.readAsDataURL(monoBlob);
                 
-                this.$refs.resultImage.style.maxWidth = ""; // todo
+                this.$refs.resultImage.style.maxWidth = tukiArtImageWidth + "px";
                 this.$refs.resultImage.src = tukiArtData;
 
                 this.$refs.resultImage.onload = () => {
                     resolve();
                 }
                 this.$refs.resultImage.onerror = () => {
-                    reject();
+                    reject(); // todo
                 }
             });
         }
