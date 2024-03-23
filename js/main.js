@@ -705,7 +705,7 @@ const App = {
                             worker.onerror = e => {
                                 console.error(e);
                                 worker.terminate();
-                                this.resultMessage = MSG_エラー;
+                                this.resultMessage = MSG_完成イメージが作れなかった;
                                 this.tukiArtType = "none";
                                 this.clearResult();
                                 this.isGeneratingTukiArt = false;
@@ -899,8 +899,9 @@ const App = {
                         this.$refs.monochrome.src = fileReader.result;
                         this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
                     }
-                    fileReader.onerror = (e) => {
-                        console.log(e); // todo
+                    fileReader.onerror = e => {
+                        console.log(e);
+                        // 別にモノクロ画像は重要ではないので何もしない
                     }
                     const monoBlob = await monoCanvas.canvas.convertToBlob();
                     fileReader.readAsDataURL(monoBlob);
@@ -911,10 +912,11 @@ const App = {
 
                 this.$refs.resultImage.onload = () => {
                     resolve();
-                }
-                this.$refs.resultImage.onerror = () => {
-                    reject(); // todo
-                }
+                };
+                this.$refs.resultImage.onerror = e => {
+                    console.log(e);
+                    reject();
+                };
             });
         }
     }

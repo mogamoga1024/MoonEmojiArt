@@ -9,10 +9,10 @@ onmessage = async e => {
     const fileReader = new FileReader();
     fileReader.onload = () => {
         postMessage(fileReader.result);
-    }
-    fileReader.onerror = (e) => {
-        // todo
-    }
+    };
+    fileReader.onerror = e => {
+        // メインスレッドでエラーを処理するので何もしない
+    };
     const blob = await e.data.canvas.convertToBlob();
     fileReader.readAsDataURL(blob);
 };
