@@ -632,7 +632,8 @@ const App = {
                     }
 
                     try {
-                        await this.displayTukiArt(monoCanvas);
+                        const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
+                        await this.displayTukiArt(monoCanvas, tukiArtCanvas);
                         this.resultMessage = "";
                         this.tukiArtType = this.mode;
                         this.shouldDisplaySample = false;
@@ -683,7 +684,8 @@ const App = {
                         console.timeEnd("createTukiArt");
                         console.time("displayTukiArt");
                         try {
-                            await this.displayTukiArt(monoCanvas);
+                            const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
+                            await this.displayTukiArt(monoCanvas, tukiArtCanvas);
                             this.resultMessage = "";
                             this.tukiArtType = this.mode;
                             this.shouldDisplaySample = false;
@@ -860,7 +862,7 @@ const App = {
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
-        displayTukiArt(monoCanvas) {
+        displayTukiArt(monoCanvas, tukiArtCanvas) {
             return new Promise(async (resolve, reject) => {
                 URL.revokeObjectURL(this.$refs.monochrome.src);
                 URL.revokeObjectURL(this.$refs.resultImage.src);
@@ -877,7 +879,6 @@ const App = {
                 const monoBlob = await monoCanvas.canvas.convertToBlob();
                 fileReader1.readAsDataURL(monoBlob);
                 
-                const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
                 const fileReader2 = new FileReader();
                 fileReader2.onload = () => {
                     this.$refs.resultImage.src = fileReader2.result;
