@@ -167,7 +167,7 @@ class TukiArtGenerator {
             }
         }
 
-        let rtnCanvas = canvas === null ? document.createElement("canvas") : canvas;
+        let rtnCanvas = canvas === null ? new OffscreenCanvas(300, 150) : canvas;
         let rtnContext = context === null ? rtnCanvas.getContext("2d", { willReadFrequently: true }) : context;
     
         if (isFirst) {

@@ -859,21 +859,29 @@ const App = {
             URL.revokeObjectURL(this.$refs.resultImage.src);
 
             // OffscreenCanvasはtoDataURLが使えないのでこうする
-            const monoBlob = await monoCanvas.canvas.convertToBlob();
-            const fileReader = new FileReader();
-            fileReader.onload = () => {
-                this.$refs.monochrome.src = fileReader.result;
+            const fileReader1 = new FileReader();
+            fileReader1.onload = () => {
+                this.$refs.monochrome.src = fileReader1.result;
+                this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
             }
-            fileReader.onerror = (e) => {
+            fileReader1.onerror = (e) => {
                 console.log(e); // todo
             }
-            fileReader.readAsDataURL(monoBlob);
-            this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
-
+            const monoBlob = await monoCanvas.canvas.convertToBlob();
+            fileReader1.readAsDataURL(monoBlob);
+            
             const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
-            this.$refs.resultImage.src = tukiArtCanvas.toDataURL("image/png");
-            this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
-
+            const fileReader2 = new FileReader();
+            fileReader2.onload = () => {
+                this.$refs.resultImage.src = fileReader2.result;
+                this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
+            }
+            fileReader2.onerror = (e) => {
+                console.log(e); // todo
+            }
+            const tukiArtBlob = await tukiArtCanvas.convertToBlob();
+            fileReader2.readAsDataURL(tukiArtBlob);
+            
             // this.debugText = debugText;
         }
     }
