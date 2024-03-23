@@ -519,6 +519,9 @@ input {
   right: 20px;
 
   font-size: 24px;
+  font-weight: bold;
+
+  color: red;
 }
 
 .yoko-canvas {

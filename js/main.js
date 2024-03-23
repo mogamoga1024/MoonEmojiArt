@@ -590,14 +590,15 @@ const App = {
 
             // ぐるぐる～
             const moons = ["🌑", "🌘", "🌗", "🌖", "🌕", "🌔", "🌓", "🌒"];
-            let moonIndex = 0;
+            let moonIndex = this.isSafety ? 0 : 4;
+            this.moon = moons[moonIndex];
             const moonTimer = setInterval(() => {
                 if (!this.isGeneratingTukiArt) {
                     clearInterval(moonTimer);
                     return;
                 }
-                this.moon = moons[moonIndex];
                 moonIndex = (moonIndex + 1) % moons.length;
+                this.moon = moons[moonIndex];
             }, 100);
 
             // こうしないと「処理中…」のやつがでない
