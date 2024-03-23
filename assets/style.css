@@ -515,10 +515,10 @@ input {
 
 #processing {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 30px;
+  right: 30px;
 
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
 
   color: red;

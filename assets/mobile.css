@@ -71,10 +71,10 @@
 
   #processing {
     position: fixed;
-    bottom: 10px;
-    right: 5px;
+    bottom: 20px;
+    right: 15px;
   
-    font-size: 20px;
+    font-size: 25px;
   }
 }
 
