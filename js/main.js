@@ -18,13 +18,13 @@ const MSG_ERROR = "生成に失敗したよ！ごめんね！";
 const MSG_FAILURE_TEXT_MONO = "文字数が多すぎて一次加工で失敗したよ。減らしてね。";
 const MSG_FAILURE_IMAGE_MONO = "画像サイズが大きすぎて一次加工で失敗したよ。減らしてね。";
 const MSG_FAILURE_VIDEO_MONO = "画面サイズが大きすぎて一次加工で失敗したよ。ごめんね。";
-let MSG_TOO_MANY_CHARA = "";
-const MSG_TOO_MANY_CHARA_PC = 
+let MSG_FAILURE_RESULT_IMAGE = "";
+const MSG_FAILURE_RESULT_IMAGE_PC = 
 `文字が多すぎて完成イメージが作れなかったよ。
 でもテキストデータだけは生きてるからコピーボタンかダウンロードボタンから取得できるよ。
 クオリティが低下しても完成イメージが見たい場合はサイズを小さくしてね。
 ちなみに開発当時は文字をそのまま表示するスタンスだったけどスマホだと激重だったからやめたよ。`;
-const MSG_TOO_MANY_CHARA_MOBILE = 
+const MSG_FAILURE_RESULT_IMAGE_MOBILE = 
 `文字が多すぎて完成イメージが作れなかったよ。
 でもテキストデータだけは生きてるからコピーボタンで取得できるよ。
 クオリティが低下しても完成イメージが見たい場合はサイズを小さくしてね。
@@ -153,7 +153,7 @@ const App = {
             this.isMobile = params.has("m");
         }
 
-        MSG_TOO_MANY_CHARA = this.isMobile ? MSG_TOO_MANY_CHARA_MOBILE : MSG_TOO_MANY_CHARA_PC;
+        MSG_FAILURE_RESULT_IMAGE = this.isMobile ? MSG_FAILURE_RESULT_IMAGE_MOBILE : MSG_FAILURE_RESULT_IMAGE_PC;
     },
     mounted() {
         if (this.isDebug) {
@@ -606,7 +606,7 @@ const App = {
             // こうしないと「処理中…」のやつがでない
             setTimeout(this.generateTukiArt1, 50);
         },
-        generateTukiArt1() {
+        async generateTukiArt1() {
             if (this.mode === "text") {
                 const monoCanvas = new MonochromeCanvas();
 
@@ -632,14 +632,14 @@ const App = {
                     }
 
                     try {
-                        this.displayTukiArt(monoCanvas);
+                        await this.displayTukiArt(monoCanvas);
                         this.resultMessage = "";
                         this.tukiArtType = this.mode;
                         this.shouldDisplaySample = false;
                     }
                     catch (e) {
                         console.error(e);
-                        this.resultMessage = MSG_TOO_MANY_CHARA;
+                        this.resultMessage = MSG_FAILURE_RESULT_IMAGE;
                         this.tukiArtType = "none";
                         this.clearResult();
                     }
@@ -665,6 +665,7 @@ const App = {
                 fileReader.onload = () => {
                     // todo web worker start
 
+                    console.time("monoCanvas.image");
                     monoCanvas.image(
                         fileReader.result,
                         this.imageWidth,
@@ -675,20 +676,25 @@ const App = {
                         this.imageColorCount,
                         this.useImageNanameMikaduki,
                         this.isImageColorReverse
-                    ).then(() => {
+                    ).then(async () => {
+                        console.timeEnd("monoCanvas.image");
+                        console.time("createTukiArt");
                         this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
+                        console.timeEnd("createTukiArt");
+                        console.time("displayTukiArt");
                         try {
-                            this.displayTukiArt(monoCanvas);
+                            await this.displayTukiArt(monoCanvas);
                             this.resultMessage = "";
                             this.tukiArtType = this.mode;
                             this.shouldDisplaySample = false;
                         }
                         catch (e) {
                             console.error(e);
-                            this.resultMessage = MSG_TOO_MANY_CHARA;
+                            this.resultMessage = MSG_FAILURE_RESULT_IMAGE;
                             this.tukiArtType = "none";
                             this.clearResult();
                         }
+                        console.timeEnd("displayTukiArt");
                         this.isGeneratingTukiArt = false;
                     }).catch(e => {
                         console.error(e);
@@ -854,35 +860,37 @@ const App = {
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
-        async displayTukiArt(monoCanvas) {
-            URL.revokeObjectURL(this.$refs.monochrome.src);
-            URL.revokeObjectURL(this.$refs.resultImage.src);
-
-            // OffscreenCanvasはtoDataURLが使えないのでこうする
-            const fileReader1 = new FileReader();
-            fileReader1.onload = () => {
-                this.$refs.monochrome.src = fileReader1.result;
-                this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
-            }
-            fileReader1.onerror = (e) => {
-                console.log(e); // todo
-            }
-            const monoBlob = await monoCanvas.canvas.convertToBlob();
-            fileReader1.readAsDataURL(monoBlob);
-            
-            const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
-            const fileReader2 = new FileReader();
-            fileReader2.onload = () => {
-                this.$refs.resultImage.src = fileReader2.result;
-                this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
-            }
-            fileReader2.onerror = (e) => {
-                console.log(e); // todo
-            }
-            const tukiArtBlob = await tukiArtCanvas.convertToBlob();
-            fileReader2.readAsDataURL(tukiArtBlob);
-            
-            // this.debugText = debugText;
+        displayTukiArt(monoCanvas) {
+            return new Promise(async (resolve, reject) => {
+                URL.revokeObjectURL(this.$refs.monochrome.src);
+                URL.revokeObjectURL(this.$refs.resultImage.src);
+    
+                // OffscreenCanvasはtoDataURLが使えないのでこうする
+                const fileReader1 = new FileReader();
+                fileReader1.onload = () => {
+                    this.$refs.monochrome.src = fileReader1.result;
+                    this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
+                }
+                fileReader1.onerror = (e) => {
+                    console.log(e); // todo
+                }
+                const monoBlob = await monoCanvas.canvas.convertToBlob();
+                fileReader1.readAsDataURL(monoBlob);
+                
+                const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
+                const fileReader2 = new FileReader();
+                fileReader2.onload = () => {
+                    this.$refs.resultImage.src = fileReader2.result;
+                    this.$refs.resultImage.style.maxWidth = tukiArtCanvas.width + "px";
+                    resolve();
+                }
+                fileReader2.onerror = (e) => {
+                    console.log(e); // todo
+                    reject(e);
+                }
+                const tukiArtBlob = await tukiArtCanvas.convertToBlob();
+                fileReader2.readAsDataURL(tukiArtBlob);
+            });
         }
     }
 };
