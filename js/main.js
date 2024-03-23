@@ -375,6 +375,10 @@ const App = {
             }
         },
         onClickResetButton() {
+            if (this.isGeneratingTukiArt) {
+                return;
+            }
+
             if (this.mode === "text") {
                 this.tukiCount = 13;
                 this.letterSpacingLevel = 3;
@@ -660,6 +664,8 @@ const App = {
                 const monoCanvas = new MonochromeCanvas();
 
                 fileReader.onload = () => {
+                    // todo web worker start
+
                     monoCanvas.image(
                         fileReader.result,
                         this.imageWidth,
@@ -697,6 +703,8 @@ const App = {
                         this.clearResult();
                         this.isGeneratingTukiArt = false;
                     });
+
+                    // todo web worker end
                 };
                 fileReader.onerror = () => {
                     this.resultMessage = MSG_ERROR;
