@@ -691,12 +691,32 @@ const App = {
                             const textList = this.tukiArt.split("\n");
                             const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
                             const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
-                            const tukiArtContext = tukiArtCanvas.getContext("2d", { willReadFrequently: true });
-                            TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, tukiArtContext);
-                            await this.displayTukiArt(monoCanvas, tukiArtCanvas);
-                            this.resultMessage = "";
-                            this.tukiArtType = this.mode;
-                            this.shouldDisplaySample = false;
+                            
+                            const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
+                            worker.onmessage = async () => {
+                                worker.terminate();
+                                await this.displayTukiArt(monoCanvas, tukiArtCanvas);
+                                this.resultMessage = "";
+                                this.tukiArtType = this.mode;
+                                this.shouldDisplaySample = false;
+                                console.timeEnd("displayTukiArt");
+                            };
+                            worker.onerror = e => {
+                                console.error(e);
+                                worker.terminate();
+                                this.resultMessage = MSG_ERROR;
+                                this.tukiArtType = "none";
+                                this.clearResult();
+                                this.isGeneratingTukiArt = false;
+                                console.timeEnd("displayTukiArt");
+                            };
+                            worker.postMessage({textList, canvasParams, canvas: tukiArtCanvas}, [tukiArtCanvas]);
+
+                            // TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, tukiArtContext);
+                            // await this.displayTukiArt(monoCanvas, tukiArtCanvas);
+                            // this.resultMessage = "";
+                            // this.tukiArtType = this.mode;
+                            // this.shouldDisplaySample = false;
                         }
                         catch (e) {
                             console.error(e);
