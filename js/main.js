@@ -563,32 +563,16 @@ const App = {
                 clearInterval(timer); timer = 0;
             }
 
-            if (this.mode === "text") {
-                if (this.text === "") {
-                    this.resultMessage = MSG_月ジェネの説明;
-                    this.tukiArtType = "none";
-                    this.clearResult();
-                    this.isGeneratingTukiArt = false;
-                    return;
-                }
-            }
-            else if (this.mode === "image") {
-                if (this.imageFile == null || this.imageWidth === 0) {
-                    this.resultMessage = MSG_月ジェネの説明;
-                    this.tukiArtType = "none";
-                    this.clearResult();
-                    this.isGeneratingTukiArt = false;
-                    return;
-                }
-            }
-            else if (this.mode === "video") {
-                if (this.videoFile == null) {
-                    this.resultMessage = MSG_月ジェネの説明;
-                    this.tukiArtType = "none";
-                    this.clearResult();
-                    this.isGeneratingTukiArt = false;
-                    return;
-                }
+            if (
+                this.mode === "text" && this.text === "" ||
+                this.mode === "image" && this.imageFile == null ||
+                this.mode === "video" && this.videoFile == null
+            ) {
+                this.resultMessage = MSG_月ジェネの説明;
+                this.tukiArtType = "none";
+                this.clearResult();
+                this.isGeneratingTukiArt = false;
+                return;
             }
 
             // ぐるぐる～
