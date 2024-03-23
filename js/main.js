@@ -6,6 +6,8 @@ function debug(text) {
 
 let appTitleClickCount = 0;
 
+let tukiArt = "";
+
 let timer = 0;
 let isVideoParamChanged = false;
 
@@ -60,7 +62,6 @@ const App = {
             debugText: debugText,
             canCopyButtonClick: true,
             resultMessage: MSG_月ジェネの説明,
-            tukiArt: "", // todo
             tukiArtType: "none", // "none" | "text" | "image" | "video"
             shouldDisplaySample: true,
             shouldDisplayMonochromeImage: false,
@@ -432,7 +433,7 @@ const App = {
             }
             this.canCopyButtonClick = false;
 
-            navigator.clipboard.writeText(this.tukiArt);
+            navigator.clipboard.writeText(tukiArt);
             
             this.$refs.copyMessage.classList.add("display-copy-message");
             if (this.isMobile) {
@@ -447,11 +448,11 @@ const App = {
             }, 2000);
         },
         onClickDownLoadTextButton() {
-            if (this.tukiArt === "") {
+            if (tukiArt === "") {
                 return;
             }
             const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
-            const blob = new Blob([bom, this.tukiArt], {type:"text/plan"});
+            const blob = new Blob([bom, tukiArt], {type:"text/plan"});
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             link.download = `moon_art${getStrCurrentDateTime()}.txt`;
@@ -459,7 +460,7 @@ const App = {
             URL.revokeObjectURL(link.href);
         },
         onClickDownLoadImageButton() {
-            if (this.tukiArt === "") {
+            if (tukiArt === "") {
                 return;
             }
             const link = document.createElement("a");
@@ -606,18 +607,18 @@ const App = {
                     const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault;
 
                     monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate, letterSpacingLevel);
-                    this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
+                    tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
 
                     if (this.needDetailConfigTukiArtMargin) {
                         const tukiArtMargin = {
                             top: this.tukiArtMarginTop, bottom: this.tukiArtMarginBottom,
                             left: this.tukiArtMarginLeft, right: this.tukiArtMarginRight
                         };
-                        this.tukiArt = TukiArtGenerator.applyMargin(this.tukiArt, tukiArtMargin, this.isTextColorReverse);
+                        tukiArt = TukiArtGenerator.applyMargin(tukiArt, tukiArtMargin, this.isTextColorReverse);
                     }
 
                     try {
-                        const textList = this.tukiArt.split("\n");
+                        const textList = tukiArt.split("\n");
                         const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
                         const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
 
@@ -681,9 +682,9 @@ const App = {
                         this.useImageNanameMikaduki,
                         this.isImageColorReverse
                     ).then(async () => {
-                        this.tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
+                        tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
                         try {
-                            const textList = this.tukiArt.split("\n");
+                            const textList = tukiArt.split("\n");
                             const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
                             const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
                             
