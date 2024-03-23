@@ -632,7 +632,11 @@ const App = {
                     }
 
                     try {
-                        const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
+                        const textList = this.tukiArt.split("\n");
+                        const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
+                        const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
+                        const tukiArtContext = tukiArtCanvas.getContext("2d", { willReadFrequently: true });
+                        TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, tukiArtContext);
                         await this.displayTukiArt(monoCanvas, tukiArtCanvas);
                         this.resultMessage = "";
                         this.tukiArtType = this.mode;
@@ -684,7 +688,11 @@ const App = {
                         console.timeEnd("createTukiArt");
                         console.time("displayTukiArt");
                         try {
-                            const {canvas: tukiArtCanvas} = TukiArtGenerator.createTukiArtCanvas(this.tukiArt);
+                            const textList = this.tukiArt.split("\n");
+                            const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
+                            const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
+                            const tukiArtContext = tukiArtCanvas.getContext("2d", { willReadFrequently: true });
+                            TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, tukiArtContext);
                             await this.displayTukiArt(monoCanvas, tukiArtCanvas);
                             this.resultMessage = "";
                             this.tukiArtType = this.mode;
@@ -753,16 +761,14 @@ const App = {
 
                     // 何故かサムネが表示されないことがあるので数フレーム回す
                     let forceRunFrameCount = 5;
-                    let font = "";
-                    let lineHeight = 0;
+                    let canvasParams = null;
                     const resultVideoContext = this.$refs.resultVideo.getContext("2d");
 
                     const drawTukiArtFrame = () => {
                         if (this.videoWidth !== resizeVideoWidth) {
-                            // 最初に最大サイズでcanvasSize.testしているので再度する必要はない
                             resizeVideoWidth = this.videoWidth;
                             resizeVideoHeight = Math.round(resizeVideoWidth * videoHeightRate);
-                            forceRunFrameCount = 1;
+                            canvasParams = null;
                         }
                         
                         monoCanvas.video(
@@ -786,7 +792,15 @@ const App = {
                             this.useVideoNanameMikaduki
                         );
 
-                        ({font, lineHeight} = TukiArtGenerator.createTukiArtCanvas(tukiArt, this.$refs.resultVideo, resultVideoContext, font, lineHeight, forceRunFrameCount > 0));
+                        const textList = tukiArt.split("\n");
+
+                        if (canvasParams === null) {
+                            canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
+                            this.$refs.resultVideo.width = canvasParams.width;
+                            this.$refs.resultVideo.height = canvasParams.height;
+                        }
+
+                        TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, resultVideoContext);
                     };
 
                     video.onseeked = () => {
