@@ -379,6 +379,8 @@ const App = {
                 return;
             }
 
+            tukiArt = "";
+
             if (this.mode === "text") {
                 this.tukiCount = 13;
                 this.letterSpacingLevel = 3;
@@ -555,6 +557,8 @@ const App = {
                 return;
             }
             this.isGeneratingTukiArt = true;
+
+            tukiArt = "";
 
             if (this.mode !== "video") {
                 this.clearResultVideo();
