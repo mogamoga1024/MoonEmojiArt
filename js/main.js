@@ -635,12 +635,6 @@ const App = {
                         const textList = this.tukiArt.split("\n");
                         const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
                         const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
-                        // const tukiArtContext = tukiArtCanvas.getContext("2d", { willReadFrequently: true });
-                        // TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, tukiArtContext);
-                        // await this.displayTukiArt(monoCanvas, tukiArtCanvas);
-                        // this.resultMessage = "";
-                        // this.tukiArtType = this.mode;
-                        // this.shouldDisplaySample = false;
 
                         const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
                         worker.onmessage = async e => {
