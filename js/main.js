@@ -630,16 +630,24 @@ const App = {
                         const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
                         worker.onmessage = async e => {
                             worker.terminate();
-                            await this.displayTukiArt(null, e.data, canvasParams.width);
-                            this.resultMessage = "";
-                            this.tukiArtType = this.mode;
-                            this.shouldDisplaySample = false;
-                            this.isGeneratingTukiArt = false;
+                            try {
+                                await this.displayTukiArt(null, e.data, canvasParams.width);
+                                this.resultMessage = "";
+                                this.tukiArtType = this.mode;
+                                this.shouldDisplaySample = false;
+                                this.isGeneratingTukiArt = false;
+                            }
+                            catch (e) {
+                                this.resultMessage = MSG_完成イメージが作れなかった;
+                                this.tukiArtType = "none";
+                                this.clearResult();
+                                this.isGeneratingTukiArt = false;
+                            }
                         };
                         worker.onerror = e => {
                             console.error(e);
                             worker.terminate();
-                            this.resultMessage = MSG_エラー;
+                            this.resultMessage = MSG_完成イメージが作れなかった;
                             this.tukiArtType = "none";
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
@@ -696,11 +704,19 @@ const App = {
                             const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
                             worker.onmessage = async e => {
                                 worker.terminate();
-                                await this.displayTukiArt(monoCanvas, e.data, canvasParams.width);
-                                this.resultMessage = "";
-                                this.tukiArtType = this.mode;
-                                this.shouldDisplaySample = false;
-                                this.isGeneratingTukiArt = false;
+                                try {
+                                    await this.displayTukiArt(null, e.data, canvasParams.width);
+                                    this.resultMessage = "";
+                                    this.tukiArtType = this.mode;
+                                    this.shouldDisplaySample = false;
+                                    this.isGeneratingTukiArt = false;
+                                }
+                                catch (e) {
+                                    this.resultMessage = MSG_完成イメージが作れなかった;
+                                    this.tukiArtType = "none";
+                                    this.clearResult();
+                                    this.isGeneratingTukiArt = false;
+                                }
                             };
                             worker.onerror = e => {
                                 console.error(e);
