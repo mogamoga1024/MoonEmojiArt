@@ -598,7 +598,7 @@ const App = {
             // こうしないとスマホで「処理中…」のやつがでない
             setTimeout(this.generateTukiArt1, 50);
         },
-        async generateTukiArt1() {
+        generateTukiArt1() {
             if (this.mode === "text") {
                 const monoCanvas = new MonochromeCanvas();
 
