@@ -706,7 +706,7 @@ const App = {
                             worker.onmessage = async e => {
                                 worker.terminate();
                                 try {
-                                    await this.displayTukiArt(null, e.data, canvasParams.width);
+                                    await this.displayTukiArt(monoCanvas, e.data, canvasParams.width);
                                     this.resultMessage = MSG_非表示;
                                     this.tukiArtType = this.mode;
                                     this.shouldDisplaySample = false;
