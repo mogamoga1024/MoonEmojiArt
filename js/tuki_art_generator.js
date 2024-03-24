@@ -4,8 +4,8 @@ class TukiArtGenerator {
         let text = "";
 
         const data = pixels.data;
-        for (let row = 0; row < pixels.height; row += 4) {
-            for (let col = 0; col < pixels.width; col += 4) {
+        for (let row = 0; row < pixels.height; row += TUKI_SIDE_PIXEL_COUNT) {
+            for (let col = 0; col < pixels.width; col += TUKI_SIDE_PIXEL_COUNT) {
                 const tmpPixels = [];
                 for (let j = 0; j < TUKI_SIDE_PIXEL_COUNT; j++) {
                     if (row + j < pixels.height) {
@@ -34,7 +34,7 @@ class TukiArtGenerator {
                     text += emoji;
                 }
             }
-            if (row + 4 < pixels.height) {
+            if (row + TUKI_SIDE_PIXEL_COUNT < pixels.height) {
                 text += "\n";
             }
         }
