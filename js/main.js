@@ -60,6 +60,8 @@ const videoWidthMaxDefault = 5000;
 let videoWidthOri = 10;
 let videoHeightRate = 1;
 
+let shouldReGenerateTukiArt = false;
+
 const App = {
     components: {
         PlusMinusInputNumbur
@@ -137,6 +139,7 @@ const App = {
             tukiArtMarginMax: 20,
 
             isGeneratingTukiArt: false,
+            shouldGenerateImmediately: true, // todo
 
             isMobile: false,
             canUseContextLetterSpacing: false,
@@ -195,6 +198,14 @@ const App = {
                 }
                 else {
                     this.displaySample();
+                }
+            }
+        },
+        isGeneratingTukiArt(newVal) {
+            if (newVal === false) {
+                if (this.shouldGenerateImmediately && shouldReGenerateTukiArt) {
+                    shouldReGenerateTukiArt = false;
+                    this.generateTukiArt();
                 }
             }
         }
@@ -347,8 +358,11 @@ const App = {
         // 🌕🌕 テキストパラメータのUIイベント 🌕🌕
 
         onChangeText() {
-            // todo
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
         },
+        
 
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
@@ -592,12 +606,19 @@ const App = {
         },
         generateTukiArt() {
             if (
-                this.isGeneratingTukiArt ||
                 this.mode === "image" && isLoadingInputImage ||
                 this.mode === "video" && isLoadingInputVideo
             ) {
                 return;
             }
+
+            if (this.isGeneratingTukiArt) {
+                if (this.shouldGenerateImmediately) {
+                    shouldReGenerateTukiArt = true;
+                }
+                return;
+            }
+
             this.isGeneratingTukiArt = true;
 
             tukiArt = "";
@@ -627,7 +648,7 @@ const App = {
             let moonIndex = this.isSafety ? 0 : 4;
             this.moon = moons[moonIndex];
             const moonTimer = setInterval(() => {
-                if (!this.isGeneratingTukiArt) {
+                if (!this.isGeneratingTukiArt && !shouldReGenerateTukiArt) {
                     clearInterval(moonTimer);
                     return;
                 }
