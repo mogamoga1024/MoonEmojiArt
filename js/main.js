@@ -866,42 +866,34 @@ const App = {
                         tukiArt = TukiArtGenerator.applyMargin(tukiArt, tukiArtMargin, this.isTextColorReverse);
                     }
 
-                    try {
-                        const textList = tukiArt.split("\n");
-                        
-                        const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
-                        worker.onmessage = async e => {
-                            worker.terminate();
-                            try {
-                                await this.displayTukiArt(null, e.data.result, e.data.width);
-                                this.resultMessage = MSG_非表示;
-                                this.tukiArtType = this.mode;
-                                this.shouldDisplaySample = false;
-                                this.isGeneratingTukiArt = false;
-                            }
-                            catch (e) {
-                                this.resultMessage = MSG_完成イメージが作れなかった;
-                                this.tukiArtType = "none";
-                                this.clearResult();
-                                this.isGeneratingTukiArt = false;
-                            }
-                        };
-                        worker.onerror = e => {
-                            console.error(e);
-                            worker.terminate();
+                    const textList = tukiArt.split("\n");
+                    
+                    const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
+                    worker.onmessage = async e => {
+                        worker.terminate();
+                        try {
+                            await this.displayTukiArt(null, e.data.result, e.data.width);
+                            this.resultMessage = MSG_非表示;
+                            this.tukiArtType = this.mode;
+                            this.shouldDisplaySample = false;
+                            this.isGeneratingTukiArt = false;
+                        }
+                        catch (e) {
                             this.resultMessage = MSG_完成イメージが作れなかった;
                             this.tukiArtType = "none";
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
-                        };
-                        worker.postMessage({textList, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
-                    }
-                    catch (e) {
+                        }
+                    };
+                    worker.onerror = e => {
                         console.error(e);
+                        worker.terminate();
                         this.resultMessage = MSG_完成イメージが作れなかった;
                         this.tukiArtType = "none";
                         this.clearResult();
-                    }
+                        this.isGeneratingTukiArt = false;
+                    };
+                    worker.postMessage({textList, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
                 }
                 catch(e) {
                     console.error(e);
@@ -938,43 +930,34 @@ const App = {
                         this.isImageColorReverse
                     ).then(async () => {
                         tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
-                        try {
-                            const textList = tukiArt.split("\n");
-                            
-                            const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
-                            worker.onmessage = async e => {
-                                worker.terminate();
-                                try {
-                                    await this.displayTukiArt(monoCanvas, e.data.result, e.data.width);
-                                    this.resultMessage = MSG_非表示;
-                                    this.tukiArtType = this.mode;
-                                    this.shouldDisplaySample = false;
-                                    this.isGeneratingTukiArt = false;
-                                }
-                                catch (e) {
-                                    this.resultMessage = MSG_完成イメージが作れなかった;
-                                    this.tukiArtType = "none";
-                                    this.clearResult();
-                                    this.isGeneratingTukiArt = false;
-                                }
-                            };
-                            worker.onerror = e => {
-                                console.error(e);
-                                worker.terminate();
+                        const textList = tukiArt.split("\n");
+                        
+                        const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
+                        worker.onmessage = async e => {
+                            worker.terminate();
+                            try {
+                                await this.displayTukiArt(monoCanvas, e.data.result, e.data.width);
+                                this.resultMessage = MSG_非表示;
+                                this.tukiArtType = this.mode;
+                                this.shouldDisplaySample = false;
+                                this.isGeneratingTukiArt = false;
+                            }
+                            catch (e) {
                                 this.resultMessage = MSG_完成イメージが作れなかった;
                                 this.tukiArtType = "none";
                                 this.clearResult();
                                 this.isGeneratingTukiArt = false;
-                            };
-                            worker.postMessage({textList, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
-                        }
-                        catch (e) {
+                            }
+                        };
+                        worker.onerror = e => {
                             console.error(e);
+                            worker.terminate();
                             this.resultMessage = MSG_完成イメージが作れなかった;
                             this.tukiArtType = "none";
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
-                        }
+                        };
+                        worker.postMessage({textList, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
                     }).catch(e => {
                         console.error(e);
                         if (e.constructor === TooLargeCanvasError) {
