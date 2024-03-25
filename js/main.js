@@ -473,12 +473,12 @@ const App = {
             isVideoParamChanged = true;
         },
         onClickVideoColorCount(count) {
-            isVideoParamChanged = true;
             this.videoColorCount = count;
+            isVideoParamChanged = true;
         },
         onClickUseVideoNanameMikaduki() {
-            isVideoParamChanged = true;
             this.useVideoNanameMikaduki = !this.useVideoNanameMikaduki;
+            isVideoParamChanged = true;
         },
         onChangeVideoBaseColorDistance() {
             isVideoParamChanged = true;
@@ -490,20 +490,20 @@ const App = {
             isVideoParamChanged = true;
         },
         onClickNeedVideoOutline() {
-            isVideoParamChanged = true;
             this.needVideoOutline = !this.needVideoOutline;
+            isVideoParamChanged = true;
         },
         onClickIsVideoColorReverse() {
-            isVideoParamChanged = true;
             this.isVideoColorReverse = !this.isVideoColorReverse;
+            isVideoParamChanged = true;
         },
         onClickIsVideoYokoLinePowerUp() {
-            isVideoParamChanged = true;
             this.isVideoYokoLinePowerUp = !this.isVideoYokoLinePowerUp;
+            isVideoParamChanged = true;
         },
         onClickIsVideoTateLinePowerUp() {
-            isVideoParamChanged = true;
             this.isVideoTateLinePowerUp = !this.isVideoTateLinePowerUp;
+            isVideoParamChanged = true;
         },
 
         // 🌕🌕 生成、コピーなどのUIイベント 🌕🌕
