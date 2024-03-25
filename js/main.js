@@ -838,55 +838,15 @@ const App = {
                 this.moon = moons[moonIndex];
             }, 100);
 
-            // 処理中にパラメータをUIで変更されると整合性がとれないので固定する必要がある
-            let params = null;
-            if (this.mode === "text") {
-                params = {
-                    mode: this.mode,
-                    isSafety: this.isSafety,
-                    text: this.text,
-                    needDetailConfigLetterSpacingLevel: this.needDetailConfigLetterSpacingLevel,
-                    letterSpacingLevel: this.letterSpacingLevel,
-                    letterSpacingLevelDefault: letterSpacingLevelDefault,
-                    text: this.text,
-                    fontFamily: this.fontFamily,
-                    tukiCount: this.tukiCount,
-                    isBold: this.isBold,
-                    isTate: this.isTate,
-                    isTextColorReverse: this.isTextColorReverse,
-                    isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
-                    isTextTateLinePowerUp: this.isTextTateLinePowerUp,
-                    needDetailConfigTukiArtMargin: this.needDetailConfigTukiArtMargin,
-                    tukiArtMarginTop: this.tukiArtMarginTop,
-                    tukiArtMarginBottom: this.tukiArtMarginBottom,
-                    tukiArtMarginLeft: this.tukiArtMarginLeft,
-                    tukiArtMarginRight: this.tukiArtMarginRight
-                };
-            }
-            else if (this.mode === "image") {
-                params = {
-                    mode: this.mode,
-                    // todo
-                };
-            }
-            else if (this.mode === "video") {
-                params = {
-                    mode: this.mode,
-                    // todo
-                };
-            }
-
             // こうしないとスマホで「処理中…」のやつがでない
-            setTimeout(() => {
-                this.generateTukiArt1(params);
-            }, 50);
+            setTimeout(this.generateTukiArt1, 50);
         },
-        generateTukiArt1(prm) {
-            if (prm.mode === "text") {
-                if (prm.isSafety) {
-                    const charArray = [...prm.text];
+        generateTukiArt1() {
+            if (this.mode === "text") {
+                if (this.isSafety) {
+                    const charArray = [...this.text];
                     if (charArray.length > textLengthSafeMax) {
-                        prm.text = charArray.slice(0, textLengthSafeMax).join("");
+                        this.text = charArray.slice(0, textLengthSafeMax).join("");
                     }
                 }
 
@@ -896,7 +856,7 @@ const App = {
 
                     if (e.data.isError) {
                         if (e.data.errorName === "TooLargeCanvasError") {
-                            if (prm.isTate) {
+                            if (this.isTate) {
                                 this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_縦;
                             }
                             else {
@@ -919,7 +879,7 @@ const App = {
                         tukiArt = e.data.tukiArt;
                         await this.displayTukiArt(null, e.data.imageData, e.data.width);
                         this.resultMessage = MSG_非表示;
-                        this.tukiArtType = prm.mode;
+                        this.tukiArtType = this.mode;
                         this.shouldDisplaySample = false;
                         this.isGeneratingTukiArt = false;
                     }
@@ -940,27 +900,27 @@ const App = {
                 };
 
                 const tukiArtParams = {
-                    needDetailConfigLetterSpacingLevel: prm.needDetailConfigLetterSpacingLevel,
-                    letterSpacingLevel: prm.letterSpacingLevel,
+                    needDetailConfigLetterSpacingLevel: this.needDetailConfigLetterSpacingLevel,
+                    letterSpacingLevel: this.letterSpacingLevel,
                     letterSpacingLevelDefault: letterSpacingLevelDefault,
-                    text: prm.text,
-                    fontFamily: prm.fontFamily,
-                    tukiCount: prm.tukiCount,
-                    isBold: prm.isBold,
-                    isTate: prm.isTate,
-                    isTextColorReverse: prm.isTextColorReverse,
-                    isTextYokoLinePowerUp: prm.isTextYokoLinePowerUp,
-                    isTextTateLinePowerUp: prm.isTextTateLinePowerUp,
-                    needDetailConfigTukiArtMargin: prm.needDetailConfigTukiArtMargin,
-                    tukiArtMarginTop: prm.tukiArtMarginTop,
-                    tukiArtMarginBottom: prm.tukiArtMarginBottom,
-                    tukiArtMarginLeft: prm.tukiArtMarginLeft,
-                    tukiArtMarginRight: prm.tukiArtMarginRight
+                    text: this.text,
+                    fontFamily: this.fontFamily,
+                    tukiCount: this.tukiCount,
+                    isBold: this.isBold,
+                    isTate: this.isTate,
+                    isTextColorReverse: this.isTextColorReverse,
+                    isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
+                    isTextTateLinePowerUp: this.isTextTateLinePowerUp,
+                    needDetailConfigTukiArtMargin: this.needDetailConfigTukiArtMargin,
+                    tukiArtMarginTop: this.tukiArtMarginTop,
+                    tukiArtMarginBottom: this.tukiArtMarginBottom,
+                    tukiArtMarginLeft: this.tukiArtMarginLeft,
+                    tukiArtMarginRight: this.tukiArtMarginRight
                 };
 
                 worker.postMessage({tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
             }
-            else if (prm.mode === "image") {
+            else if (this.mode === "image") {
                 const monoCanvas = new MonochromeCanvas();
                 const fileReader = new FileReader();
 
@@ -991,7 +951,7 @@ const App = {
                             try {
                                 await this.displayTukiArt(monoCanvas, e.data.imageData, e.data.width);
                                 this.resultMessage = MSG_非表示;
-                                this.tukiArtType = prm.mode;
+                                this.tukiArtType = this.mode;
                                 this.shouldDisplaySample = false;
                                 this.isGeneratingTukiArt = false;
                             }
@@ -1033,7 +993,7 @@ const App = {
 
                 fileReader.readAsDataURL(this.imageFile);
             }
-            else if (prm.mode === "video") {
+            else if (this.mode === "video") {
                 const video = document.createElement("video");
                 video.setAttribute("height", "240");
                 video.setAttribute("controls", "");
@@ -1153,7 +1113,7 @@ const App = {
                     timer = playTukiArtVideo();
 
                     this.resultMessage = MSG_非表示;
-                    this.tukiArtType = prm.mode;
+                    this.tukiArtType = this.mode;
                     this.shouldDisplaySample = false;
                     this.isGeneratingTukiArt = false;
                 };
