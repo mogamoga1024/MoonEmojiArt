@@ -859,6 +859,8 @@ const App = {
                 worker.onmessage = async e => {
                     worker.terminate();
 
+                    tukiArt = e.data.tukiArt;
+
                     if (e.data.isError) {
                         if (e.data.errorName === "TooLargeCanvasError") {
                             if (isTate) {
@@ -881,7 +883,6 @@ const App = {
                     }
 
                     try {
-                        tukiArt = e.data.tukiArt;
                         await this.displayTukiArt(null, e.data.imageData, e.data.width);
                         this.resultMessage = MSG_非表示;
                         this.tukiArtType = mode;
@@ -927,27 +928,26 @@ const App = {
             }
             else if (mode === "image") {
                 const fileReader = new FileReader();
+                const tukiArtParams = {
+                    imageWidth: this.imageWidth,
+                    imageHeihgt: Math.round(this.imageWidth * imageHeightRate),
+                    imageBaseAverageColor: this.imageBaseAverageColor,
+                    needImageOutline: this.needImageOutline,
+                    imageBaseColorDistance: this.imageBaseColorDistance,
+                    imageColorCount: this.imageColorCount,
+                    useImageNanameMikaduki: this.useImageNanameMikaduki,
+                    isImageColorReverse: this.isImageColorReverse,
+                    isImageYokoLinePowerUp: this.isImageYokoLinePowerUp,
+                    isImageTateLinePowerUp: this.isImageTateLinePowerUp
+                };
+
                 fileReader.onload = async () => {
                     try {
-                        const monoCanvas = new MonochromeCanvas();
-                        await monoCanvas.image(
-                            fileReader.result,
-                            this.imageWidth,
-                            Math.round(this.imageWidth * imageHeightRate),
-                            this.imageBaseAverageColor,
-                            this.needImageOutline,
-                            this.imageBaseColorDistance,
-                            this.imageColorCount,
-                            this.useImageNanameMikaduki,
-                            this.isImageColorReverse
-                        );
-
-                        tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
-                        const textList = tukiArt.split("\n");
-                        
                         const worker = new Worker("./js/image_to_tuki_art_canvas_worker.js");
                         worker.onmessage = async e => {
                             worker.terminate();
+
+                            tukiArt = e.data.tukiArt;
 
                             if (e.data.isError) {
                                 // todo tukiArtの有無で分岐
@@ -955,7 +955,8 @@ const App = {
                             }
 
                             try {
-                                await this.displayTukiArt(monoCanvas, e.data.imageData, e.data.width);
+                                // await this.displayTukiArt(monoCanvas, e.data.imageData, e.data.width); // todo
+                                await this.displayTukiArt(null, e.data.imageData, e.data.width); // 仮
                                 this.resultMessage = MSG_非表示;
                                 this.tukiArtType = mode;
                                 this.shouldDisplaySample = false;
@@ -976,7 +977,10 @@ const App = {
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
                         };
-                        worker.postMessage({textList, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
+
+                        tukiArtParams.imageData = fileReader.result;
+
+                        worker.postMessage({tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
                     }
                     catch (e) {
                         if (e.constructor === TooLargeCanvasError) {

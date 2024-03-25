@@ -11,7 +11,6 @@ onmessage = async evnt => {
         canvasSizeTest = createCanvasSizeTest(evnt.data.canvasMaxWidth, evnt.data.canvasMaxHeight, evnt.data.canvasMaxArea);
 
         const prm = evnt.data.tukiArtParams;
-
         const monoCanvas = new MonochromeCanvas();
         const letterSpacingLevel = prm.needDetailConfigLetterSpacingLevel ? prm.letterSpacingLevel : prm.letterSpacingLevelDefault;
 
