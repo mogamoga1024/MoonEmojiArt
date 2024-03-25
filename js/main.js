@@ -197,37 +197,7 @@ const App = {
                     this.displaySample();
                 }
             }
-        },
-        // isVideoYokoLinePowerUp() { // todo
-        //     isVideoParamChanged = true;
-        // },
-        // isVideoTateLinePowerUp() {
-        //     isVideoParamChanged = true;
-        // },
-        // videoColorCount() {
-        //     isVideoParamChanged = true;
-        // },
-        // useVideoNanameMikaduki() {
-        //     isVideoParamChanged = true;
-        // },
-        // videoBaseAverageColor() {
-        //     isVideoParamChanged = true;
-        // },
-        // videoBaseColorDistance() {
-        //     isVideoParamChanged = true;
-        // },
-        // videoWidth() {
-        //     isVideoParamChanged = true;
-        // },
-        // needVideoOutline() {
-        //     isVideoParamChanged = true;
-        // },
-        // isVideoColorReverse() {
-        //     isVideoParamChanged = true;
-        // },
-        // fps() {
-        //     isVideoParamChanged = true;
-        // },
+        }
     },
     methods: {
         // 🌕🌕 タイトルのUIイベント 🌕🌕
@@ -376,6 +346,10 @@ const App = {
 
         // 🌕🌕 テキストパラメータのUIイベント 🌕🌕
 
+        onChangeText() {
+            // todo
+        },
+
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
                 this.isBold = false;
@@ -395,7 +369,42 @@ const App = {
 
         // 🌕🌕 動画パラメータのUIイベント 🌕🌕
 
-        // todo
+        onChangeVideoBaseAverageColor() {
+            isVideoParamChanged = true;
+        },
+        onClickVideoColorCount(count) {
+            isVideoParamChanged = true;
+            this.videoColorCount = count;
+        },
+        onClickUseVideoNanameMikaduki() {
+            isVideoParamChanged = true;
+            this.useVideoNanameMikaduki = !this.useVideoNanameMikaduki;
+        },
+        onChangeVideoBaseColorDistance() {
+            isVideoParamChanged = true;
+        },
+        onChangeVideoWidth() {
+            isVideoParamChanged = true;
+        },
+        onChangeFps() {
+            isVideoParamChanged = true;
+        },
+        onClickNeedVideoOutline() {
+            isVideoParamChanged = true;
+            this.needVideoOutline = !this.needVideoOutline;
+        },
+        onClickIsVideoColorReverse() {
+            isVideoParamChanged = true;
+            this.isVideoColorReverse = !this.isVideoColorReverse;
+        },
+        onClickIsVideoYokoLinePowerUp() {
+            isVideoParamChanged = true;
+            this.isVideoYokoLinePowerUp = !this.isVideoYokoLinePowerUp;
+        },
+        onClickIsVideoTateLinePowerUp() {
+            isVideoParamChanged = true;
+            this.isVideoTateLinePowerUp = !this.isVideoTateLinePowerUp;
+        },
 
         // 🌕🌕 生成、コピーなどのUIイベント 🌕🌕
 

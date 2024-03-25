@@ -75,6 +75,7 @@
              id="input-text"
              :class="['font-' + fontFamily, {'bold': isBold}]"
              v-model="text"
+             @change="onChangeText"
              placeholder="変換したい文をいれてね">
       <div class="item">
         <div class="name">{{isTate ? "幅文字数" : "高さ文字数"}}</div>
@@ -238,7 +239,8 @@
             <plus-minus-input-numbur
               :min="baseAverageColorMin"
               :max="baseAverageColorMax"
-              v-model="videoBaseAverageColor">
+              v-model="videoBaseAverageColor"
+              @chagne="onChangeVideoBaseAverageColor">
           </div>
         </div>
         <div class="item">
@@ -246,11 +248,11 @@
           <div class="input">
             <div class="item-list">
               <div class="radio-wrapper">
-                <div class="radio" :class="{'selected': videoColorCount === 2}" @click="videoColorCount = 2">2</div>
-                <div class="radio" :class="{'selected': videoColorCount === 3}" @click="videoColorCount = 3">3</div>
-                <div class="radio" :class="{'selected': videoColorCount === 5}" @click="videoColorCount = 5">5</div>
+                <div class="radio" :class="{'selected': videoColorCount === 2}" @click="onClickVideoColorCount(2)">2</div>
+                <div class="radio" :class="{'selected': videoColorCount === 3}" @click="onClickVideoColorCount(3)">3</div>
+                <div class="radio" :class="{'selected': videoColorCount === 5}" @click="onClickVideoColorCount(5)">5</div>
               </div>
-              <div class="btn" :class="{'selected': useVideoNanameMikaduki}" @click="useVideoNanameMikaduki = !useVideoNanameMikaduki">🌙</div>
+              <div class="btn" :class="{'selected': useVideoNanameMikaduki}" @click="onClickUseVideoNanameMikaduki">🌙</div>
             </div>
           </div>
         </div>
@@ -263,7 +265,8 @@
             <plus-minus-input-numbur
               :min="baseColorDistanceMin"
               :max="baseColorDistanceMax"
-              v-model="videoBaseColorDistance">
+              v-model="videoBaseColorDistance"
+              @change="onChangeVideoBaseColorDistance">
           </div>
         </div>
         <div class="item">
@@ -272,7 +275,8 @@
             <plus-minus-input-numbur
               :min="videoWidthMin"
               :max="videoWidthMax"
-              v-model="videoWidth">
+              v-model="videoWidth"
+              @change="onChangeVideoWidth">
           </div>
         </div>
         <div class="item" v-show="!isSafety">
@@ -281,14 +285,15 @@
             <plus-minus-input-numbur
               :min="fpsMin"
               :max="fpsMax"
-              v-model="fps">
+              v-model="fps"
+              @change="onChangeFps">
           </div>
         </div>
         <div class="input-check-area">
-          <div class="btn" :class="{'selected': needVideoOutline}" @click="needVideoOutline = !needVideoOutline">輪郭</div>
-          <div class="btn" :class="{'selected': isVideoColorReverse}" @click="isVideoColorReverse = !isVideoColorReverse">色反転</div>
-          <div class="btn" :class="{'selected': isVideoYokoLinePowerUp}" @click="isVideoYokoLinePowerUp = !isVideoYokoLinePowerUp">横強化</div>
-          <div class="btn" :class="{'selected': isVideoTateLinePowerUp}" @click="isVideoTateLinePowerUp = !isVideoTateLinePowerUp">縦強化</div>
+          <div class="btn" :class="{'selected': needVideoOutline}" @click="onClickNeedVideoOutline">輪郭</div>
+          <div class="btn" :class="{'selected': isVideoColorReverse}" @click="onClickIsVideoColorReverse">色反転</div>
+          <div class="btn" :class="{'selected': isVideoYokoLinePowerUp}" @click="onClickIsVideoYokoLinePowerUp">横強化</div>
+          <div class="btn" :class="{'selected': isVideoTateLinePowerUp}" @click="onClickIsVideoTateLinePowerUp">縦強化</div>
         </div>
       </div>
     </template>
