@@ -258,6 +258,11 @@ const App = {
                     this.$refs.inputImageFile.value = "";
                     this.imageFile = null;
                     this.imageWidth = imageWidthOri = this.imageWidthMin;
+
+                    this.imageBaseAverageColor = baseAverageColorDefault;
+                    this.imageBaseColorDistance = baseColorDistanceDefault;
+                    URL.revokeObjectURL(img.src);
+                    isLoadingInputImage = false;
                 }
                 else {
                     imageHeightRate = img.height / img.width;
@@ -274,13 +279,16 @@ const App = {
                         imageWidthOri = img.width;
                         this.imageWidth = imageWidthOri;
                     }
+
+                    this.imageBaseAverageColor = baseAverageColorDefault;
+                    this.imageBaseColorDistance = baseColorDistanceDefault;
+                    URL.revokeObjectURL(img.src);
+                    isLoadingInputImage = false;
+
+                    if (this.shouldGenerateImmediately) {
+                        this.generateTukiArt();
+                    }
                 }
-
-                this.imageBaseAverageColor = baseAverageColorDefault;
-                this.imageBaseColorDistance = baseColorDistanceDefault;
-
-                URL.revokeObjectURL(img.src);
-                isLoadingInputImage = false;
             };
             img.onerror = () => {
                 alert("画像の読み込みに失敗したよ。");
@@ -317,6 +325,11 @@ const App = {
                     this.$refs.inputVideoFile.value = "";
                     this.videoFile = null;
                     this.videoWidth = videoWidthOri = this.videoWidthMin;
+
+                    this.videoBaseAverageColor = baseAverageColorDefault;
+                    this.videoBaseColorDistance = baseColorDistanceDefault;
+                    URL.revokeObjectURL(video.src);
+                    isLoadingInputVideo = false;
                 }
                 else {
                     videoHeightRate = video.videoHeight / video.videoWidth;
@@ -336,7 +349,6 @@ const App = {
 
                     this.videoBaseAverageColor = baseAverageColorDefault;
                     this.videoBaseColorDistance = baseColorDistanceDefault;
-
                     URL.revokeObjectURL(video.src);
                     isLoadingInputVideo = false;
 
