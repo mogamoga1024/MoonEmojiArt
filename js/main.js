@@ -195,7 +195,10 @@ const App = {
     },
     watch: {
         mode(newVal) {
-            if (this.tukiArtType === "none") {
+            if (newVal !== "video" && this.isGenerateImmediatelyMode) {
+                this.generateTukiArt();
+            }
+            else if (this.tukiArtType === "none") {
                 if (newVal === "video") {
                     this.clearResult();
                 }
