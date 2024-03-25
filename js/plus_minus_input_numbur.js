@@ -68,8 +68,10 @@ const PlusMinusInputNumbur = {
 
             this.$forceUpdate();
 
-            this.$emit("update:modelValue", newModelValue);
-            this.$emit("change", newModelValue);
+            if (newModelValue !== this.modelValue) {
+                this.$emit("update:modelValue", newModelValue);
+                this.$emit("change", newModelValue);
+            }
         }
     }
 };
