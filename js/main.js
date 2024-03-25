@@ -198,38 +198,40 @@ const App = {
                 }
             }
         },
-        isVideoYokoLinePowerUp() {
-            isVideoParamChanged = true;
-        },
-        isVideoTateLinePowerUp() {
-            isVideoParamChanged = true;
-        },
-        videoColorCount() {
-            isVideoParamChanged = true;
-        },
-        useVideoNanameMikaduki() {
-            isVideoParamChanged = true;
-        },
-        videoBaseAverageColor() {
-            isVideoParamChanged = true;
-        },
-        videoBaseColorDistance() {
-            isVideoParamChanged = true;
-        },
-        videoWidth() {
-            isVideoParamChanged = true;
-        },
-        needVideoOutline() {
-            isVideoParamChanged = true;
-        },
-        isVideoColorReverse() {
-            isVideoParamChanged = true;
-        },
-        fps() {
-            isVideoParamChanged = true;
-        },
+        // isVideoYokoLinePowerUp() { // todo
+        //     isVideoParamChanged = true;
+        // },
+        // isVideoTateLinePowerUp() {
+        //     isVideoParamChanged = true;
+        // },
+        // videoColorCount() {
+        //     isVideoParamChanged = true;
+        // },
+        // useVideoNanameMikaduki() {
+        //     isVideoParamChanged = true;
+        // },
+        // videoBaseAverageColor() {
+        //     isVideoParamChanged = true;
+        // },
+        // videoBaseColorDistance() {
+        //     isVideoParamChanged = true;
+        // },
+        // videoWidth() {
+        //     isVideoParamChanged = true;
+        // },
+        // needVideoOutline() {
+        //     isVideoParamChanged = true;
+        // },
+        // isVideoColorReverse() {
+        //     isVideoParamChanged = true;
+        // },
+        // fps() {
+        //     isVideoParamChanged = true;
+        // },
     },
     methods: {
+        // 🌕🌕 タイトルのUIイベント 🌕🌕
+
         onClickAppTitle() {
             if (!this.isSafety) {
                 this.changeSafety();
@@ -248,6 +250,9 @@ const App = {
                 this.changeSafety();
             }
         },
+
+        // 🌕🌕 ファイル読み込みのUIイベント 🌕🌕
+
         onChangeInputImageFile(e) {
             if (isLoadingInputImage) {
                 return;
@@ -368,6 +373,9 @@ const App = {
 
             video.src = URL.createObjectURL(this.videoFile);
         },
+
+        // 🌕🌕 テキストパラメータのUIイベント 🌕🌕
+
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
                 this.isBold = false;
@@ -380,6 +388,17 @@ const App = {
                 this.isTextTateLinePowerUp = false;
             }
         },
+
+        // 🌕🌕 画像パラメータのUIイベント 🌕🌕
+
+        // todo
+
+        // 🌕🌕 動画パラメータのUIイベント 🌕🌕
+
+        // todo
+
+        // 🌕🌕 生成、コピーなどのUIイベント 🌕🌕
+
         onClickResetButton() {
             if (this.isGeneratingTukiArt) {
                 return;
@@ -477,6 +496,9 @@ const App = {
             link.click();
             URL.revokeObjectURL(link.href);
         },
+
+        // 🌕🌕 ビジネスロジック 🌕🌕
+
         changeSafety() {
             if (this.isSafety) {
                 let message = "";
