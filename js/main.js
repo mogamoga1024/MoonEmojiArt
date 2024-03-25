@@ -868,7 +868,7 @@ const App = {
 
                     const textList = tukiArt.split("\n");
                     
-                    const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
+                    const worker = new Worker("./js/text_to_tuki_art_canvas_worker.js");
                     worker.onmessage = async e => {
                         worker.terminate();
 
@@ -939,7 +939,7 @@ const App = {
                         tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
                         const textList = tukiArt.split("\n");
                         
-                        const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
+                        const worker = new Worker("./js/image_to_tuki_art_canvas_worker.js");
                         worker.onmessage = async e => {
                             worker.terminate();
 
