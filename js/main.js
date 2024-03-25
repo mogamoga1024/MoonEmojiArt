@@ -839,10 +839,14 @@ const App = {
             }, 100);
 
             // こうしないとスマホで「処理中…」のやつがでない
-            setTimeout(this.generateTukiArt1, 50);
+            // setTimeout(this.generateTukiArt1, 50);
+
+            this.generateTukiArt1();
         },
         generateTukiArt1() {
-            if (this.mode === "text") {
+            const mode = this.mode;
+
+            if (mode === "text") {
                 if (this.isSafety) {
                     const charArray = [...this.text];
                     if (charArray.length > textLengthSafeMax) {
@@ -851,12 +855,13 @@ const App = {
                 }
 
                 const worker = new Worker("./js/text_to_tuki_art_canvas_worker.js");
+                const isTate = this.isTate;
                 worker.onmessage = async e => {
                     worker.terminate();
 
                     if (e.data.isError) {
                         if (e.data.errorName === "TooLargeCanvasError") {
-                            if (this.isTate) {
+                            if (isTate) {
                                 this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_縦;
                             }
                             else {
@@ -879,7 +884,7 @@ const App = {
                         tukiArt = e.data.tukiArt;
                         await this.displayTukiArt(null, e.data.imageData, e.data.width);
                         this.resultMessage = MSG_非表示;
-                        this.tukiArtType = this.mode;
+                        this.tukiArtType = mode;
                         this.shouldDisplaySample = false;
                         this.isGeneratingTukiArt = false;
                     }
@@ -920,7 +925,7 @@ const App = {
 
                 worker.postMessage({tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
             }
-            else if (this.mode === "image") {
+            else if (mode === "image") {
                 const monoCanvas = new MonochromeCanvas();
                 const fileReader = new FileReader();
 
@@ -951,7 +956,7 @@ const App = {
                             try {
                                 await this.displayTukiArt(monoCanvas, e.data.imageData, e.data.width);
                                 this.resultMessage = MSG_非表示;
-                                this.tukiArtType = this.mode;
+                                this.tukiArtType = mode;
                                 this.shouldDisplaySample = false;
                                 this.isGeneratingTukiArt = false;
                             }
@@ -993,7 +998,7 @@ const App = {
 
                 fileReader.readAsDataURL(this.imageFile);
             }
-            else if (this.mode === "video") {
+            else if (mode === "video") {
                 const video = document.createElement("video");
                 video.setAttribute("height", "240");
                 video.setAttribute("controls", "");
@@ -1113,7 +1118,7 @@ const App = {
                     timer = playTukiArtVideo();
 
                     this.resultMessage = MSG_非表示;
-                    this.tukiArtType = this.mode;
+                    this.tukiArtType = mode;
                     this.shouldDisplaySample = false;
                     this.isGeneratingTukiArt = false;
                 };
