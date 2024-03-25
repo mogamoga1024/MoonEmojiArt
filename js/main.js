@@ -608,9 +608,14 @@ const App = {
                 this.fps = this.fpsMin;
             }
 
-            this.resultMessage = MSG_月ジェネの説明;
-            this.tukiArtType = "none";
-            this.clearResult();
+            if (this.mode === "video" || !this.isGenerateImmediatelyMode) {
+                this.resultMessage = MSG_月ジェネの説明;
+                this.tukiArtType = "none";
+                this.clearResult();
+            }
+            else {
+                this.generateTukiArt();
+            }
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
