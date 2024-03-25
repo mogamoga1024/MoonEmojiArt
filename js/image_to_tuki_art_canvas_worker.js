@@ -16,7 +16,7 @@ onmessage = async evnt => {
         const monoCanvas = new MonochromeCanvas();
 
         await monoCanvas.image(
-            prm.imageData,
+            prm.imageBase64,
             prm.imageWidth,
             prm.imageHeight,
             prm.imageBaseAverageColor,
@@ -39,7 +39,7 @@ onmessage = async evnt => {
         
         const fileReader = new FileReader();
         fileReader.onload = () => {
-            postMessage({tukiArt, imageData: fileReader.result, width: canvasParams.width, isError: false});
+            postMessage({tukiArt, imageBase64: fileReader.result, width: canvasParams.width, isError: false});
         };
         const blob = await canvas.convertToBlob();
         fileReader.readAsDataURL(blob);

@@ -883,7 +883,7 @@ const App = {
                     }
 
                     try {
-                        await this.displayTukiArt(null, e.data.imageData, e.data.width);
+                        await this.displayTukiArt(null, e.data.imageBase64, e.data.width);
                         this.resultMessage = MSG_非表示;
                         this.tukiArtType = mode;
                         this.shouldDisplaySample = false;
@@ -955,8 +955,8 @@ const App = {
                             }
 
                             try {
-                                // await this.displayTukiArt(monoCanvas, e.data.imageData, e.data.width); // todo
-                                await this.displayTukiArt(null, e.data.imageData, e.data.width); // 仮
+                                // await this.displayTukiArt(monoCanvas, e.data.imageBase64, e.data.width); // todo
+                                await this.displayTukiArt(null, e.data.imageBase64, e.data.width); // 仮
                                 this.resultMessage = MSG_非表示;
                                 this.tukiArtType = mode;
                                 this.shouldDisplaySample = false;
@@ -978,7 +978,7 @@ const App = {
                             this.isGeneratingTukiArt = false;
                         };
 
-                        tukiArtParams.imageData = fileReader.result;
+                        tukiArtParams.imageBase64 = fileReader.result;
 
                         worker.postMessage({tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
                     }
