@@ -66,7 +66,7 @@ let videoHeightRate = 1;
 let shouldReGenerateTukiArt = false;
 
 let canvasMaxWidth = 0; // todo
-let canvasMaxHeihgt = 0;
+let canvasMaxHeight = 0;
 let canvasMaxArea = 0;
 
 const App = {
@@ -154,7 +154,7 @@ const App = {
             moon: "🌑",
         }
     },
-    created() {
+    async created() {
         const mobileRegex = /iphone;|(android|nokia|blackberry|bb10;).+mobile|android.+fennec|opera.+mobi|windows phone|symbianos/i;
         const isMobileByUa = mobileRegex.test(navigator.userAgent);;
         const isMobileByClientHint = navigator.userAgentData && navigator.userAgentData.mobile;
@@ -172,6 +172,20 @@ const App = {
         }
 
         MSG_完成イメージが作れなかった = this.isMobile ? MSG_完成イメージが作れなかった_MOBILE : MSG_完成イメージが作れなかった_PC;
+
+        try {
+            canvasMaxWidth = (await canvasSize.maxWidth()).width;
+            canvasMaxHeight = (await canvasSize.maxHeight()).height;
+            const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea();
+            canvasMaxArea = maxAreaWidth * maxAreaHeight;
+        }
+        catch (e) {
+            canvasMaxWidth = 32767;
+            canvasMaxHeight = 32767;
+            canvasMaxArea = 10836 * 10836;
+        }
+
+        // console.log(canvasMaxWidth, canvasMaxHeight, canvasMaxArea);
     },
     mounted() {
         if (this.isDebug) {
