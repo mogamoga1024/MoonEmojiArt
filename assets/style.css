@@ -424,9 +424,9 @@ input {
     background-color: palegreen;
     transform: scale(0.9);
   }
-  .action-btn.selected:hover {
+  .action-btn.selected:active {
     background-color: green;
-    transform: none;
+    transform: scale(0.9);
   }
 }
 

@@ -19,13 +19,13 @@ const MSG_非表示 = "";
 let MSG_月ジェネの説明 = 
 `・変換したい文か画像を入れてね！
 ・サイズが小さいとクオリティが低くなるよ！
-・即生成ボタンは1回押すと生成ボタンに、生成ボタンは2連打すると即生成ボタンになるよ。
+・即生成ボタンと生成ボタンは2連打で切り替えられるよ！
 ・どうしても巨大な月文字を作りたい人はタイトル部分を2連打してね。
 ・ちなみにYouTubeのコメントに使うとスパム判定で表示されないよ。悲しいね。`;
 const MSG_月ジェネの説明_裏 = 
 `・・変換したい文か画像を入れてね！
 ・サイズが小さいとクオリティが低くなるよ！
-・即生成ボタンは1回押すと生成ボタンに、生成ボタンは2連打すると即生成ボタンになるよ。
+・即生成ボタンと生成ボタンは2連打で切り替えられるよ！
 ・ちなみにYouTubeのコメントに使うとスパム判定で表示されないよ。悲しいね。`;
 const MSG_エラー = "生成に失敗したよ！ごめんね！";
 const MSG_テキストが大きすぎてキャンバスが作れなかった_縦 = "月文字のサイズが大きすぎて作れなかったよ。\n幅文字数か変換したい文を減らしてね。";
@@ -195,10 +195,7 @@ const App = {
     },
     watch: {
         mode(newVal) {
-            if (newVal !== "video" && this.isGenerateImmediatelyMode) {
-                this.generateTukiArt();
-            }
-            else if (this.tukiArtType === "none") {
+            if (this.tukiArtType === "none") {
                 if (newVal === "video") {
                     this.clearResult();
                 }
@@ -627,11 +624,6 @@ const App = {
                 return;
             }
 
-            if (this.isGenerateImmediatelyMode) {
-                this.isGenerateImmediatelyMode = false;
-                return;
-            }
-
             if (generateButtonClickCount === 0) {
                 setTimeout(() => {
                     generateButtonClickCount = 0;
@@ -641,10 +633,11 @@ const App = {
             generateButtonClickCount++;
 
             if (generateButtonClickCount >= 2) {
-                this.isGenerateImmediatelyMode = true;
+                this.isGenerateImmediatelyMode = !this.isGenerateImmediatelyMode;
             }
-
-            this.generateTukiArt();
+            else {
+                this.generateTukiArt();
+            }
         },
         onClickCopyButton() {
             if (!this.canCopyButtonClick) {
