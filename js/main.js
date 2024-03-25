@@ -871,19 +871,6 @@ const App = {
                         TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, resultVideoContext);
                     };
 
-                    video.onseeked = () => {
-                        try {
-                            drawTukiArtFrame();
-                        }
-                        catch (e) {
-                            console.error(e);
-                            clearInterval(timer); timer = 0;
-                            this.resultMessage = MSG_エラー;
-                            this.tukiArtType = "none";
-                            this.clearResult();
-                        }
-                    };
-
                     isVideoParamChanged = false;
                     let fps = this.fps;
 
