@@ -871,6 +871,13 @@ const App = {
                     const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
                     worker.onmessage = async e => {
                         worker.terminate();
+
+                        if (e.data.error !== null) {
+                            console.error(e.data.error);
+                            // todo tukiArtの有無で分岐
+                            return;
+                        }
+
                         try {
                             await this.displayTukiArt(null, e.data.result, e.data.width);
                             this.resultMessage = MSG_非表示;
@@ -888,7 +895,7 @@ const App = {
                     worker.onerror = e => {
                         console.error(e);
                         worker.terminate();
-                        this.resultMessage = MSG_完成イメージが作れなかった;
+                        this.resultMessage = MSG_エラー;
                         this.tukiArtType = "none";
                         this.clearResult();
                         this.isGeneratingTukiArt = false;
@@ -935,6 +942,13 @@ const App = {
                         const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
                         worker.onmessage = async e => {
                             worker.terminate();
+
+                            if (e.data.error !== null) {
+                                console.error(e.data.error);
+                                // todo tukiArtの有無で分岐
+                                return;
+                            }
+
                             try {
                                 await this.displayTukiArt(monoCanvas, e.data.result, e.data.width);
                                 this.resultMessage = MSG_非表示;
@@ -952,7 +966,7 @@ const App = {
                         worker.onerror = e => {
                             console.error(e);
                             worker.terminate();
-                            this.resultMessage = MSG_完成イメージが作れなかった;
+                            this.resultMessage = MSG_エラー;
                             this.tukiArtType = "none";
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
