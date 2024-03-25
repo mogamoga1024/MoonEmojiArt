@@ -926,21 +926,22 @@ const App = {
                 worker.postMessage({tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
             }
             else if (mode === "image") {
-                const monoCanvas = new MonochromeCanvas();
                 const fileReader = new FileReader();
+                fileReader.onload = async () => {
+                    try {
+                        const monoCanvas = new MonochromeCanvas();
+                        await monoCanvas.image(
+                            fileReader.result,
+                            this.imageWidth,
+                            Math.round(this.imageWidth * imageHeightRate),
+                            this.imageBaseAverageColor,
+                            this.needImageOutline,
+                            this.imageBaseColorDistance,
+                            this.imageColorCount,
+                            this.useImageNanameMikaduki,
+                            this.isImageColorReverse
+                        );
 
-                fileReader.onload = () => {
-                    monoCanvas.image(
-                        fileReader.result,
-                        this.imageWidth,
-                        Math.round(this.imageWidth * imageHeightRate),
-                        this.imageBaseAverageColor,
-                        this.needImageOutline,
-                        this.imageBaseColorDistance,
-                        this.imageColorCount,
-                        this.useImageNanameMikaduki,
-                        this.isImageColorReverse
-                    ).then(async () => {
                         tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
                         const textList = tukiArt.split("\n");
                         
@@ -976,8 +977,8 @@ const App = {
                             this.isGeneratingTukiArt = false;
                         };
                         worker.postMessage({textList, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
-                    }).catch(e => {
-                        console.error(e);
+                    }
+                    catch (e) {
                         if (e.constructor === TooLargeCanvasError) {
                             this.resultMessage = MSG_画像サイズが大きすぎてキャンバスが作れなかった;
                         }
@@ -987,7 +988,7 @@ const App = {
                         this.tukiArtType = "none";
                         this.clearResult();
                         this.isGeneratingTukiArt = false;
-                    });
+                    }
                 };
                 fileReader.onerror = () => {
                     this.resultMessage = MSG_エラー;
