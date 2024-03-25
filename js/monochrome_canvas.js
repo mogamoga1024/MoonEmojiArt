@@ -119,7 +119,7 @@ class MonochromeCanvas {
         tmpCanvas.width = Math.ceil(tmpCanvasWidth);
         tmpCanvas.height = Math.ceil(tmpCanvasHeight) + letterSpacing * (charList.length - 1);
 
-        const isValidCanvas = canvasSizeTest(tmpCanvas.width, tmpCanvas.height);
+        const isValidCanvas = globalThis.canvasSizeTest(tmpCanvas.width, tmpCanvas.height);
         if (!isValidCanvas) {
             throw new TooLargeCanvasError("キャンバスでかすぎ");
         }
@@ -238,7 +238,7 @@ class MonochromeCanvas {
         // キャンバスのサイズ設定
         this.#canvas.width = measure.width + letterSpacing * ([...text].length - 1);
         this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
-        const isValidCanvas = canvasSizeTest(this.#canvas.width, this.#canvas.height);
+        const isValidCanvas = globalThis.canvasSizeTest(this.#canvas.width, this.#canvas.height);
         if (!isValidCanvas) {
             throw new TooLargeCanvasError("キャンバスでかすぎ");
         }
@@ -285,7 +285,7 @@ class MonochromeCanvas {
                     resizeImageHeight = img.height;
                 }
 
-                const isValidCanvas = canvasSizeTest(resizeImageWidth, resizeImageHeight);
+                const isValidCanvas = globalThis.canvasSizeTest(resizeImageWidth, resizeImageHeight);
                 if (!isValidCanvas) {
                     return reject(new TooLargeCanvasError("キャンバスでかすぎ"));
                 }

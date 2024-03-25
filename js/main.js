@@ -868,14 +868,12 @@ const App = {
 
                     try {
                         const textList = tukiArt.split("\n");
-                        const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
-                        const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
-
+                        
                         const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
                         worker.onmessage = async e => {
                             worker.terminate();
                             try {
-                                await this.displayTukiArt(null, e.data, canvasParams.width);
+                                await this.displayTukiArt(null, e.data.result, e.data.width);
                                 this.resultMessage = MSG_非表示;
                                 this.tukiArtType = this.mode;
                                 this.shouldDisplaySample = false;
@@ -896,7 +894,7 @@ const App = {
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
                         };
-                        worker.postMessage({textList, canvasParams, canvas: tukiArtCanvas}, [tukiArtCanvas]);
+                        worker.postMessage({textList, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
                     }
                     catch (e) {
                         console.error(e);
@@ -942,14 +940,12 @@ const App = {
                         tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isImageColorReverse, this.isImageYokoLinePowerUp, this.isImageTateLinePowerUp, this.imageColorCount, this.useImageNanameMikaduki);
                         try {
                             const textList = tukiArt.split("\n");
-                            const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
-                            const tukiArtCanvas = new OffscreenCanvas(canvasParams.width, canvasParams.height);
                             
                             const worker = new Worker("./js/create_tuki_art_canvas_worker.js");
                             worker.onmessage = async e => {
                                 worker.terminate();
                                 try {
-                                    await this.displayTukiArt(monoCanvas, e.data, canvasParams.width);
+                                    await this.displayTukiArt(monoCanvas, e.data.result, e.data.width);
                                     this.resultMessage = MSG_非表示;
                                     this.tukiArtType = this.mode;
                                     this.shouldDisplaySample = false;
@@ -970,7 +966,7 @@ const App = {
                                 this.clearResult();
                                 this.isGeneratingTukiArt = false;
                             };
-                            worker.postMessage({textList, canvasParams, canvas: tukiArtCanvas}, [tukiArtCanvas]);
+                            worker.postMessage({textList, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
                         }
                         catch (e) {
                             console.error(e);
@@ -1018,7 +1014,7 @@ const App = {
                     let resizeVideoWidth = this.videoWidth;
                     let resizeVideoHeight = Math.round(resizeVideoWidth * videoHeightRate);
                     
-                    const isValidCanvas = canvasSizeTest(resizeVideoWidth, resizeVideoHeight);
+                    const isValidCanvas = globalThis.canvasSizeTest(resizeVideoWidth, resizeVideoHeight);
                     if (!isValidCanvas) {
                         this.resultMessage = MSG_動画の画面サイズが大きすぎてキャンバスが作れなかった;
                         this.tukiArtType = "none";
