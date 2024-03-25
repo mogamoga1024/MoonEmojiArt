@@ -465,7 +465,57 @@ const App = {
 
         // 🌕🌕 画像パラメータのUIイベント 🌕🌕
 
-        // todo
+        onChangeImageBaseAverageColor() {
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickImageColorCount(count) {
+            this.imageColorCount = count;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickUseImageNanameMikaduki() {
+            this.useImageNanameMikaduki = !this.useImageNanameMikaduki;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onChangeImageBaseColorDistance() {
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onChangeImageWidth() {
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickNeedImageOutline() {
+            this.needImageOutline = !this.needImageOutline;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsImageColorReverse() {
+            this.isImageColorReverse = !this.isImageColorReverse;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsImageYokoLinePowerUp() {
+            this.isImageYokoLinePowerUp = !this.isImageYokoLinePowerUp;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsImageTateLinePowerUp() {
+            this.isImageTateLinePowerUp = !this.isImageTateLinePowerUp;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
 
         // 🌕🌕 動画パラメータのUIイベント 🌕🌕
 

@@ -180,7 +180,8 @@
             <plus-minus-input-numbur
               :min="baseAverageColorMin"
               :max="baseAverageColorMax"
-              v-model="imageBaseAverageColor">
+              v-model="imageBaseAverageColor"
+              @change="onChangeImageBaseAverageColor">
           </div>
         </div>
         <div class="item">
@@ -188,11 +189,11 @@
           <div class="input">
             <div class="item-list">
               <div class="radio-wrapper">
-                <div class="radio" :class="{'selected': imageColorCount === 2}" @click="imageColorCount = 2">2</div>
-                <div class="radio" :class="{'selected': imageColorCount === 3}" @click="imageColorCount = 3">3</div>
-                <div class="radio" :class="{'selected': imageColorCount === 5}" @click="imageColorCount = 5">5</div>
+                <div class="radio" :class="{'selected': imageColorCount === 2}" @click="onClickImageColorCount(2)">2</div>
+                <div class="radio" :class="{'selected': imageColorCount === 3}" @click="onClickImageColorCount(3)">3</div>
+                <div class="radio" :class="{'selected': imageColorCount === 5}" @click="onClickImageColorCount(5)">5</div>
               </div>
-              <div class="btn" :class="{'selected': useImageNanameMikaduki}" @click="useImageNanameMikaduki = !useImageNanameMikaduki">🌙</div>
+              <div class="btn" :class="{'selected': useImageNanameMikaduki}" @click="onClickUseImageNanameMikaduki">🌙</div>
             </div>
           </div>
         </div>
@@ -205,7 +206,8 @@
             <plus-minus-input-numbur
               :min="baseColorDistanceMin"
               :max="baseColorDistanceMax"
-              v-model="imageBaseColorDistance">
+              v-model="imageBaseColorDistance"
+              @change="onChangeImageBaseColorDistance">
           </div>
         </div>
         <div class="item">
@@ -214,14 +216,15 @@
             <plus-minus-input-numbur
               :min="imageWidthMin"
               :max="imageWidthMax"
-              v-model="imageWidth">
+              v-model="imageWidth"
+              @change="onChangeImageWidth">
           </div>
         </div>
         <div class="input-check-area">
-          <div class="btn" :class="{'selected': needImageOutline}" @click="needImageOutline = !needImageOutline">輪郭</div>
-          <div class="btn" :class="{'selected': isImageColorReverse}" @click="isImageColorReverse = !isImageColorReverse">色反転</div>
-          <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="isImageYokoLinePowerUp = !isImageYokoLinePowerUp">横強化</div>
-          <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="isImageTateLinePowerUp = !isImageTateLinePowerUp">縦強化</div>
+          <div class="btn" :class="{'selected': needImageOutline}" @click="onClickNeedImageOutline">輪郭</div>
+          <div class="btn" :class="{'selected': isImageColorReverse}" @click="onClickIsImageColorReverse">色反転</div>
+          <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="onClickIsImageYokoLinePowerUp">横強化</div>
+          <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="onClickIsImageTateLinePowerUp">縦強化</div>
         </div>
       </div>
     </template>
