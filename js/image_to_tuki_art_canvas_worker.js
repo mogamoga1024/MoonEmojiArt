@@ -15,7 +15,7 @@ onmessage = async evnt => {
     
         const fileReader = new FileReader();
         fileReader.onload = () => {
-            postMessage({result: fileReader.result, width: canvasParams.width, error: null});
+            postMessage({imageData: fileReader.result, width: canvasParams.width, error: null});
         };
         const blob = await canvas.convertToBlob();
         fileReader.readAsDataURL(blob);

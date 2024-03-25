@@ -843,8 +843,6 @@ const App = {
         },
         generateTukiArt1() {
             if (this.mode === "text") {
-                const monoCanvas = new MonochromeCanvas();
-
                 if (this.isSafety) {
                     const charArray = [...this.text];
                     if (charArray.length > textLengthSafeMax) {
@@ -852,73 +850,76 @@ const App = {
                     }
                 }
 
-                try {
-                    const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault;
+                const worker = new Worker("./js/text_to_tuki_art_canvas_worker.js");
+                worker.onmessage = async e => {
+                    worker.terminate();
 
-                    monoCanvas.text(this.text, this.fontFamily, this.tukiCount, this.isBold, this.isTate, letterSpacingLevel);
-                    tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, this.isTextColorReverse, this.isTextYokoLinePowerUp, this.isTextTateLinePowerUp, 2);
-
-                    if (this.needDetailConfigTukiArtMargin) {
-                        const tukiArtMargin = {
-                            top: this.tukiArtMarginTop, bottom: this.tukiArtMarginBottom,
-                            left: this.tukiArtMarginLeft, right: this.tukiArtMarginRight
-                        };
-                        tukiArt = TukiArtGenerator.applyMargin(tukiArt, tukiArtMargin, this.isTextColorReverse);
-                    }
-
-                    const textList = tukiArt.split("\n");
-                    
-                    const worker = new Worker("./js/text_to_tuki_art_canvas_worker.js");
-                    worker.onmessage = async e => {
-                        worker.terminate();
-
-                        if (e.data.error !== null) {
-                            console.error(e.data.error);
-                            // todo tukiArtの有無で分岐
-                            return;
+                    if (e.data.error !== null) {
+                        console.error(e.data.error);
+                        if (e.data.error.constructor === TooLargeCanvasError) {
+                            if (this.isTate) {
+                                this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_縦;
+                            }
+                            else {
+                                this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_横;
+                            }
                         }
-
-                        try {
-                            await this.displayTukiArt(null, e.data.result, e.data.width);
-                            this.resultMessage = MSG_非表示;
-                            this.tukiArtType = this.mode;
-                            this.shouldDisplaySample = false;
-                            this.isGeneratingTukiArt = false;
-                        }
-                        catch (e) {
+                        if (e.data.tukiArt !== "") {
                             this.resultMessage = MSG_完成イメージが作れなかった;
-                            this.tukiArtType = "none";
-                            this.clearResult();
-                            this.isGeneratingTukiArt = false;
                         }
-                    };
-                    worker.onerror = e => {
-                        console.error(e);
-                        worker.terminate();
-                        this.resultMessage = MSG_エラー;
+                        else {
+                            this.resultMessage = MSG_エラー;
+                        }
                         this.tukiArtType = "none";
                         this.clearResult();
                         this.isGeneratingTukiArt = false;
-                    };
-                    worker.postMessage({textList, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
-                }
-                catch(e) {
+                        return;
+                    }
+
+                    try {
+                        tukiArt = e.data.tukiArt;
+                        await this.displayTukiArt(null, e.data.imageData, e.data.width);
+                        this.resultMessage = MSG_非表示;
+                        this.tukiArtType = this.mode;
+                        this.shouldDisplaySample = false;
+                        this.isGeneratingTukiArt = false;
+                    }
+                    catch (e) {
+                        this.resultMessage = MSG_完成イメージが作れなかった;
+                        this.tukiArtType = "none";
+                        this.clearResult();
+                        this.isGeneratingTukiArt = false;
+                    }
+                };
+                worker.onerror = e => {
                     console.error(e);
-                    if (e.constructor === TooLargeCanvasError) {
-                        if (this.isTate) {
-                            this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_縦;
-                        }
-                        else {
-                            this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_横;
-                        }
-                    }
-                    else {
-                        this.resultMessage = MSG_エラー;
-                    }
+                    worker.terminate();
+                    this.resultMessage = MSG_エラー;
                     this.tukiArtType = "none";
                     this.clearResult();
                     this.isGeneratingTukiArt = false;
-                }
+                };
+
+                const tukiArtParams = {
+                    needDetailConfigLetterSpacingLevel: this.needDetailConfigLetterSpacingLevel,
+                    letterSpacingLevel: this.letterSpacingLevel,
+                    letterSpacingLevelDefault: letterSpacingLevelDefault,
+                    text: this.text,
+                    fontFamily: this.fontFamily,
+                    tukiCount: this.tukiCount,
+                    isBold: this.isBold,
+                    isTate: this.isTate,
+                    isTextColorReverse: this.isTextColorReverse,
+                    isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
+                    isTextTateLinePowerUp: this.isTextTateLinePowerUp,
+                    needDetailConfigTukiArtMargin: this.needDetailConfigTukiArtMargin,
+                    tukiArtMarginTop: this.tukiArtMarginTop,
+                    tukiArtMarginBottom: this.tukiArtMarginBottom,
+                    tukiArtMarginLeft: this.tukiArtMarginLeft,
+                    tukiArtMarginRight: this.tukiArtMarginRight
+                };
+
+                worker.postMessage({tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
             }
             else if (this.mode === "image") {
                 const monoCanvas = new MonochromeCanvas();
@@ -950,7 +951,7 @@ const App = {
                             }
 
                             try {
-                                await this.displayTukiArt(monoCanvas, e.data.result, e.data.width);
+                                await this.displayTukiArt(monoCanvas, e.data.imageData, e.data.width);
                                 this.resultMessage = MSG_非表示;
                                 this.tukiArtType = this.mode;
                                 this.shouldDisplaySample = false;
