@@ -15,12 +15,12 @@ onmessage = async evnt => {
     
         const fileReader = new FileReader();
         fileReader.onload = () => {
-            postMessage({imageData: fileReader.result, width: canvasParams.width, error: null});
+            postMessage({imageData: fileReader.result, width: canvasParams.width, isError: false});
         };
         const blob = await canvas.convertToBlob();
         fileReader.readAsDataURL(blob);
     }
-    catch (e) {
-        postMessage({error: e})
+    catch (error) {
+        postMessage({isError: true, errorName: error.constructor.name})
     }
 };

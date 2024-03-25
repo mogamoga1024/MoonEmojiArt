@@ -854,9 +854,8 @@ const App = {
                 worker.onmessage = async e => {
                     worker.terminate();
 
-                    if (e.data.error !== null) {
-                        console.error(e.data.error);
-                        if (e.data.error.constructor === TooLargeCanvasError) {
+                    if (e.data.isError) {
+                        if (e.data.errorName === "TooLargeCanvasError") {
                             if (this.isTate) {
                                 this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_縦;
                             }
@@ -864,7 +863,7 @@ const App = {
                                 this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_横;
                             }
                         }
-                        if (e.data.tukiArt !== "") {
+                        else if (e.data.tukiArt !== "") {
                             this.resultMessage = MSG_完成イメージが作れなかった;
                         }
                         else {
@@ -944,8 +943,7 @@ const App = {
                         worker.onmessage = async e => {
                             worker.terminate();
 
-                            if (e.data.error !== null) {
-                                console.error(e.data.error);
+                            if (e.data.isError) {
                                 // todo tukiArtの有無で分岐
                                 return;
                             }
