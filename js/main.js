@@ -997,7 +997,7 @@ const App = {
                     let resizeVideoWidth = this.videoWidth;
                     let resizeVideoHeight = Math.round(resizeVideoWidth * videoHeightRate);
                     
-                    const isValidCanvas = globalThis.canvasSizeTest(resizeVideoWidth, resizeVideoHeight);
+                    const isValidCanvas = canvasSizeTest(resizeVideoWidth, resizeVideoHeight);
                     if (!isValidCanvas) {
                         this.resultMessage = MSG_動画の画面サイズが大きすぎてキャンバスが作れなかった;
                         this.tukiArtType = "none";

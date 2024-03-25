@@ -6,7 +6,7 @@ importScripts("tuki_art_generator.js");
 onmessage = async e => {
     // debugger
 
-    globalThis.canvasSizeTest = createCanvasSizeTest(e.data.canvasMaxWidth, e.data.canvasMaxHeight, e.data.canvasMaxArea);
+    canvasSizeTest = createCanvasSizeTest(e.data.canvasMaxWidth, e.data.canvasMaxHeight, e.data.canvasMaxArea);
     
     const textList = e.data.textList;
     const canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
