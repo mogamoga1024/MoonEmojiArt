@@ -357,13 +357,34 @@ const App = {
 
         // 🌕🌕 テキストパラメータのUIイベント 🌕🌕
 
+        onClickNeedDetailConfigLetterSpacingLevel() {
+            this.needDetailConfigLetterSpacingLevel = !this.needDetailConfigLetterSpacingLevel;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickNeedDetailConfigTukiArtMargin() {
+            this.needDetailConfigTukiArtMargin = !this.needDetailConfigTukiArtMargin;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
         onChangeText() {
             if (this.shouldGenerateImmediately) {
                 this.generateTukiArt();
             }
         },
-        
-
+        onChangeTukiCount() {
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickLetterSpacingLevel(num) {
+            this.letterSpacingLevel = num;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
                 this.isBold = false;
@@ -374,6 +395,59 @@ const App = {
                 this.isBold = true;
                 this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
+            }
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onChangeTukiArtMarginTop() {
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onChangeTukiArtMarginBottom() {
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onChangeTukiArtMarginLeft() {
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onChangeTukiArtMarginRight() {
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsBold() {
+            this.isBold = !this.isBold;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsTextColorReverse() {
+            this.isTextColorReverse = !this.isTextColorReverse;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsTate(isTate) {
+            this.isTate = isTate;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsTextYokoLinePowerUp() {
+            this.isTextYokoLinePowerUp = !this.isTextYokoLinePowerUp;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsTextTateLinePowerUp() {
+            this.isTextTateLinePowerUp = !this.isTextTateLinePowerUp;
+            if (this.shouldGenerateImmediately) {
+                this.generateTukiArt();
             }
         },
 
