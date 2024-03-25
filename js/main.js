@@ -65,6 +65,10 @@ let videoHeightRate = 1;
 
 let shouldReGenerateTukiArt = false;
 
+let canvasMaxWidth = 0; // todo
+let canvasMaxHeihgt = 0;
+let canvasMaxArea = 0;
+
 const App = {
     components: {
         PlusMinusInputNumbur
