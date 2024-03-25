@@ -312,9 +312,10 @@
       <div v-show="mode !== 'video' || (mode === 'video' && tukiArtType !== 'video')"
            id="generate-btn"
            class="action-btn"
+           :class="{'selected': mode !== 'video' && isGenerateImmediatelyMode}"
            ref="generateBtn"
            ontouchstart=""
-           @click="onClickGenerateButton">生成</div>
+           @click="onClickGenerateButton">{{mode !== "video" && isGenerateImmediatelyMode ? "即生成" : "生成"}}</div>
       
       <div v-show="mode !== 'video'"
            id="copy-btn-wrapper"

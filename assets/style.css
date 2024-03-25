@@ -391,22 +391,42 @@ input {
   color: green;
   background-color: white;
   text-align: center;
-  transition: background-color 0.2s, transform 0.2s;
+  transition: background-color 0.2s, opacity 0.2s, transform 0.2s;
+}
+
+.action-btn.selected {
+  color: white;
+  border-color: green;
+  background-color: green;
 }
 
 .dark .action-btn {
   background-color: #121212;
 }
 
+.dark .action-btn.selected {
+  color: black;
+  border-color: green;
+  background-color: green;
+}
+
 @media (any-hover: hover) {
   .action-btn:hover {
     background-color: palegreen;
+  }
+  .action-btn.selected:hover {
+    background-color: green;
+    opacity: 0.7;
   }
 }
 @media (any-hover: none) {
   .action-btn:active {
     background-color: palegreen;
     transform: scale(0.9);
+  }
+  .action-btn.selected:hover {
+    background-color: green;
+    transform: none;
   }
 }
 

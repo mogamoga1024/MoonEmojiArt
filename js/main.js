@@ -5,6 +5,7 @@ function debug(text) {
 };
 
 let appTitleClickCount = 0;
+let generateButtonClickCount = 0;
 
 let tukiArt = "";
 
@@ -19,11 +20,13 @@ let MSG_月ジェネの説明 =
 `・変換したい文か画像を決めて生成ボタンを押してね！
 ・サイズが小さいとクオリティが低くなるよ！
 ・ちなみにYouTubeのコメントに使うとスパム判定で表示されないよ。悲しいね。
+・生成ボタンは2連打すると即生成モードになるよ。
 ・どうしても巨大な月文字を作りたい人はタイトル部分を2連打してね。`;
 const MSG_月ジェネの説明_裏 = 
 `・変換したい文か画像を決めて生成ボタンを押してね！
 ・サイズが小さいとクオリティが低くなるよ！
-・ちなみにYouTubeのコメントに使うとスパム判定で表示されないよ。悲しいね。`;
+・ちなみにYouTubeのコメントに使うとスパム判定で表示されないよ。悲しいね。
+・生成ボタンは2連打すると即生成モードになるよ。`;
 const MSG_エラー = "生成に失敗したよ！ごめんね！";
 const MSG_テキストが大きすぎてキャンバスが作れなかった_縦 = "月文字のサイズが大きすぎて作れなかったよ。\n幅文字数か変換したい文を減らしてね。";
 const MSG_テキストが大きすぎてキャンバスが作れなかった_横 = "月文字のサイズが大きすぎて作れなかったよ。\n高さ文字数か変換したい文を減らしてね。";
@@ -139,7 +142,7 @@ const App = {
             tukiArtMarginMax: 20,
 
             isGeneratingTukiArt: false,
-            shouldGenerateImmediately: true, // todo
+            isGenerateImmediatelyMode: true, // todo
 
             isMobile: false,
             canUseContextLetterSpacing: false,
@@ -203,7 +206,7 @@ const App = {
         },
         isGeneratingTukiArt(newVal) {
             if (newVal === false) {
-                if (this.shouldGenerateImmediately && shouldReGenerateTukiArt) {
+                if (this.isGenerateImmediatelyMode && shouldReGenerateTukiArt) {
                     shouldReGenerateTukiArt = false;
                     this.generateTukiArt();
                 }
@@ -285,7 +288,7 @@ const App = {
                     URL.revokeObjectURL(img.src);
                     isLoadingInputImage = false;
 
-                    if (this.shouldGenerateImmediately) {
+                    if (this.isGenerateImmediatelyMode) {
                         this.generateTukiArt();
                     }
                 }
@@ -371,29 +374,29 @@ const App = {
 
         onClickNeedDetailConfigLetterSpacingLevel() {
             this.needDetailConfigLetterSpacingLevel = !this.needDetailConfigLetterSpacingLevel;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickNeedDetailConfigTukiArtMargin() {
             this.needDetailConfigTukiArtMargin = !this.needDetailConfigTukiArtMargin;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onChangeText() {
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onChangeTukiCount() {
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickLetterSpacingLevel(num) {
             this.letterSpacingLevel = num;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
@@ -408,57 +411,57 @@ const App = {
                 this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
             }
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onChangeTukiArtMarginTop() {
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onChangeTukiArtMarginBottom() {
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onChangeTukiArtMarginLeft() {
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onChangeTukiArtMarginRight() {
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickIsBold() {
             this.isBold = !this.isBold;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickIsTextColorReverse() {
             this.isTextColorReverse = !this.isTextColorReverse;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickIsTate(isTate) {
             this.isTate = isTate;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickIsTextYokoLinePowerUp() {
             this.isTextYokoLinePowerUp = !this.isTextYokoLinePowerUp;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickIsTextTateLinePowerUp() {
             this.isTextTateLinePowerUp = !this.isTextTateLinePowerUp;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
@@ -466,53 +469,53 @@ const App = {
         // 🌕🌕 画像パラメータのUIイベント 🌕🌕
 
         onChangeImageBaseAverageColor() {
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickImageColorCount(count) {
             this.imageColorCount = count;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickUseImageNanameMikaduki() {
             this.useImageNanameMikaduki = !this.useImageNanameMikaduki;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onChangeImageBaseColorDistance() {
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onChangeImageWidth() {
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickNeedImageOutline() {
             this.needImageOutline = !this.needImageOutline;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickIsImageColorReverse() {
             this.isImageColorReverse = !this.isImageColorReverse;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickIsImageYokoLinePowerUp() {
             this.isImageYokoLinePowerUp = !this.isImageYokoLinePowerUp;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
         onClickIsImageTateLinePowerUp() {
             this.isImageTateLinePowerUp = !this.isImageTateLinePowerUp;
-            if (this.shouldGenerateImmediately) {
+            if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
         },
@@ -611,6 +614,28 @@ const App = {
         },
         // 生成ボタン押下時
         onClickGenerateButton() {
+            if (this.mode === "video") {
+                this.generateTukiArt();
+                return;
+            }
+
+            if (this.isGenerateImmediatelyMode) {
+                this.isGenerateImmediatelyMode = false;
+                return;
+            }
+
+            if (generateButtonClickCount === 0) {
+                setTimeout(() => {
+                    generateButtonClickCount = 0;
+                }, 500);
+            }
+
+            generateButtonClickCount++;
+
+            if (generateButtonClickCount >= 2) {
+                this.isGenerateImmediatelyMode = true;
+            }
+
             this.generateTukiArt();
         },
         onClickCopyButton() {
@@ -749,7 +774,7 @@ const App = {
             }
 
             if (this.isGeneratingTukiArt) {
-                if (this.shouldGenerateImmediately) {
+                if (this.isGenerateImmediatelyMode) {
                     shouldReGenerateTukiArt = true;
                 }
                 return;
