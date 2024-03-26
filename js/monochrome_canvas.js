@@ -269,39 +269,39 @@ class MonochromeCanvas {
     }
 
     image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
-        return new Promise((resolve, reject) => {
-            if (this.#isProcessing) {
-                return reject(new Error("まだ前の処理をしている最中"));
-            }
-            this.#isProcessing = true;
+        // return new Promise((resolve, reject) => {
+        //     if (this.#isProcessing) {
+        //         return reject(new Error("まだ前の処理をしている最中"));
+        //     }
+        //     this.#isProcessing = true;
 
-            // const img = new Image();
-            // img.src = src;
+        //     const img = new Image();
+        //     img.src = src;
 
-            // img.onload = () => {
-            //     const isValidCanvas = canvasSizeTest(resizeImageWidth, resizeImageHeight);
-            //     if (!isValidCanvas) {
-            //         return reject(new TooLargeCanvasError("キャンバスでかすぎ"));
-            //     }
+        //     img.onload = () => {
+        //         const isValidCanvas = canvasSizeTest(resizeImageWidth, resizeImageHeight);
+        //         if (!isValidCanvas) {
+        //             return reject(new TooLargeCanvasError("キャンバスでかすぎ"));
+        //         }
                 
-            //     this.#pasteImageToCanvas(img, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
+        //         this.#pasteImageToCanvas(img, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
 
-            //     this.#isProcessing = false;
-            //     resolve();
-            // };
-            // img.onerror = e => {
-            //     this.#isProcessing = false;
-            //     reject(e);
-            // };
+        //         this.#isProcessing = false;
+        //         resolve();
+        //     };
+        //     img.onerror = e => {
+        //         this.#isProcessing = false;
+        //         reject(e);
+        //     };
 
-            this.#pasteImageToCanvas(src, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
+        //     this.#pasteImageToCanvas(src, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
 
-            this.#isProcessing = false; // todo this.#isProcessing不要説
-        });
+        //     this.#isProcessing = false; // todo this.#isProcessing不要説
+        // });
+        this.#pasteImageToCanvas(src, 0, 0, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
     }
 
     video(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isVideoColorReverse = false) {
-        // canvasSize.testをいちいち実行するのは遅くなる原因になるので呼び出し元でおこなうこと
         this.#pasteImageToCanvas(video, video.videoWidth, video.videoHeight, resizeVideoWidth, resizeVideoHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isVideoColorReverse);
     }
 
@@ -310,8 +310,13 @@ class MonochromeCanvas {
         this.#canvas.height = resizeImageHeight;
         this.#context.fillStyle = "#fff"; // 透過画像対策
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.drawImage(image, 0, 0, imageWidth, imageHeight, 0, 0, resizeImageWidth, resizeImageHeight);
-
+        if (imageWidth === 0 && imageHeight === 0) {
+            this.#context.drawImage(image, 0, 0);
+        }
+        else {
+            this.#context.drawImage(image, 0, 0, imageWidth, imageHeight, 0, 0, resizeImageWidth, resizeImageHeight);
+        }
+        
         // 画像の各ピクセルをグレースケールに変換する
         const pixels = this.pixels;
         for (let row = 0; row < pixels.height; row++) {
