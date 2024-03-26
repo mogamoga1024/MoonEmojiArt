@@ -48,6 +48,9 @@
     <div v-show="mode === 'text'">
       <div class="config-area item-list">
         <div class="btn"
+             :class="{'selected': needDetailConfigLineWidth}"
+             @click="onClickNeedDetailConfigLineWidth">線の太さ</div>
+        <div class="btn"
              :class="{'selected': needDetailConfigLetterSpacingLevel}"
              @click="onClickNeedDetailConfigLetterSpacingLevel">文字間隔</div>
         <div class="btn"
@@ -95,6 +98,16 @@
             <option value="sans">ゴシック体</option>
             <option value="serif">明朝体</option>
           </select>
+        </div>
+      </div>
+      <div class="item" v-if="needDetailConfigLineWidth">
+        <div class="name">文字の太さ</div>
+        <div class="input">
+          <plus-minus-input-numbur
+            :min="lineWidthMin"
+            :max="lineWidthMax"
+            v-model="lineWidth"
+            @change="onChangeLineWidth">
         </div>
       </div>
       <div class="item" v-if="needDetailConfigLetterSpacingLevel && (canUseContextLetterSpacing || isTate)">

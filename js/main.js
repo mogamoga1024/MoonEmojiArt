@@ -83,6 +83,7 @@ const App = {
             tukiArtType: "none", // "none" | "text" | "image" | "video"
             shouldDisplaySample: true,
             shouldDisplayMonochromeImage: false,
+            needDetailConfigLineWidth: false,
             needDetailConfigLetterSpacingLevel: false,
             needDetailConfigTukiArtMargin: false,
             shouldShrinkImage: true,
@@ -94,6 +95,9 @@ const App = {
             tukiCountMin: 10,
             tukiCountMax: tukiCountSafeMaxDefault,
             letterSpacingLevel: 3,
+            lineWidth: 0,
+            lineWidthMin: 0,
+            lineWidthMax: 10,
             isBold: false,
             isTate: true,
             isMonoCanvasTate: false, // 縦書きのモノクロ画像が見たいときだけにtrueにする。デバグ専用。
@@ -413,6 +417,12 @@ const App = {
 
         // 🌕🌕 テキストパラメータのUIイベント 🌕🌕
 
+        onClickNeedDetailConfigLineWidth() {
+            this.needDetailConfigLineWidth = !this.needDetailConfigLineWidth;
+            if (this.isGenerateImmediatelyMode) {
+                this.generateTukiArt();
+            }
+        },
         onClickNeedDetailConfigLetterSpacingLevel() {
             this.needDetailConfigLetterSpacingLevel = !this.needDetailConfigLetterSpacingLevel;
             if (this.isGenerateImmediatelyMode) {
@@ -435,12 +445,6 @@ const App = {
                 this.generateTukiArt();
             }
         },
-        onClickLetterSpacingLevel(num) {
-            this.letterSpacingLevel = num;
-            if (this.isGenerateImmediatelyMode) {
-                this.generateTukiArt();
-            }
-        },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
                 this.isBold = false;
@@ -452,6 +456,17 @@ const App = {
                 this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
             }
+            if (this.isGenerateImmediatelyMode) {
+                this.generateTukiArt();
+            }
+        },
+        onChangeLineWidth() {
+            if (this.isGenerateImmediatelyMode) {
+                this.generateTukiArt();
+            }
+        },
+        onClickLetterSpacingLevel(num) {
+            this.letterSpacingLevel = num;
             if (this.isGenerateImmediatelyMode) {
                 this.generateTukiArt();
             }
@@ -611,8 +626,9 @@ const App = {
 
             if (this.mode === "text") {
                 this.tukiCount = 13;
-                this.letterSpacingLevel = 3;
                 this.fontFamily = "serif";
+                this.lineWidth = 0;
+                this.letterSpacingLevel = letterSpacingLevelDefault;
                 this.isBold = false;
                 this.isTextYokoLinePowerUp = true;
                 this.isTextTateLinePowerUp = true;
@@ -933,6 +949,7 @@ const App = {
                     text: this.text,
                     fontFamily: this.fontFamily,
                     tukiCount: this.tukiCount,
+                    lineWidth: this.lineWidth,
                     isBold: this.isBold,
                     isTate: this.isTate,
                     isTextColorReverse: this.isTextColorReverse,
