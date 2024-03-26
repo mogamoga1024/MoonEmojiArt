@@ -33,14 +33,26 @@ onmessage = async evnt => {
         const context = canvas.getContext("2d", { willReadFrequently: true });
         TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, context);
         
-        // todo monoCanvasの画像
+        let monoBase64 = "";
+        await new Promise(async resolve => {
+            const fr = new FileReader();
+            fr.onload = () => {
+                monoBase64 = fr.result;
+                resolve();
+            };
+            fr.onerror = () => {
+                resolve();
+            };
+            const monoBlob = await monoCanvas.canvas.convertToBlob();
+            fr.readAsDataURL(monoBlob);
+        });
         
-        const fileReader = new FileReader();
-        fileReader.onload = () => {
-            postMessage({tukiArt, imageBase64: fileReader.result, width: canvasParams.width, isError: false});
+        const fr = new FileReader();
+        fr.onload = () => {
+            postMessage({tukiArt, monoBase64, resultBase64: fr.result, width: canvasParams.width, isError: false});
         };
         const blob = await canvas.convertToBlob();
-        fileReader.readAsDataURL(blob);
+        fr.readAsDataURL(blob);
     }
     catch (error) {
         postMessage({isError: true, errorName: error.constructor.name, tukiArt})

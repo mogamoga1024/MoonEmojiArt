@@ -883,7 +883,7 @@ const App = {
                     }
 
                     try {
-                        await this.displayTukiArt(null, e.data.imageBase64, e.data.width);
+                        await this.displayTukiArt(e.data.resultBase64, e.data.width);
                         this.resultMessage = MSG_非表示;
                         this.tukiArtType = mode;
                         this.shouldDisplaySample = false;
@@ -981,8 +981,7 @@ const App = {
                             }
 
                             try {
-                                // await this.displayTukiArt(monoCanvas, e.data.imageBase64, e.data.width); // todo
-                                await this.displayTukiArt(null, e.data.imageBase64, e.data.width); // 仮
+                                await this.displayTukiArt(e.data.resultBase64, e.data.width, e.data.monoBase64, tukiArtParams.imageWidth);
                                 this.resultMessage = MSG_非表示;
                                 this.tukiArtType = mode;
                                 this.shouldDisplaySample = false;
@@ -1168,29 +1167,16 @@ const App = {
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
-        displayTukiArt(monoCanvas, tukiArtData, tukiArtImageWidth) {
+        displayTukiArt(resultBase64, resultWidth, monoBase64 = "", monoWidth = 0) {
             return new Promise(async (resolve, reject) => {
                 URL.revokeObjectURL(this.$refs.monochrome.src);
                 URL.revokeObjectURL(this.$refs.resultImage.src);
     
-                if (monoCanvas !== null) {
-                    // OffscreenCanvasはtoDataURLが使えないのでこうする
-                    const fileReader = new FileReader();
-                    fileReader.onload = () => {
-                        this.$refs.monochrome.src = fileReader.result;
-                        this.$refs.monochrome.style.maxWidth = monoCanvas.canvas.width + "px";
-                    }
-                    fileReader.onerror = e => {
-                        console.log(e);
-                        // 別にモノクロ画像は重要ではないので何もしない
-                    }
-                    const monoBlob = await monoCanvas.canvas.convertToBlob();
-                    fileReader.readAsDataURL(monoBlob);
+                if (monoBase64 !== "") {
+                    this.$refs.monochrome.style.maxWidth = monoWidth + "px";
+                    this.$refs.monochrome.src = monoBase64;
                 }
                 
-                this.$refs.resultImage.style.maxWidth = tukiArtImageWidth + "px";
-                this.$refs.resultImage.src = tukiArtData;
-
                 this.$refs.resultImage.onload = () => {
                     resolve();
                 };
@@ -1198,6 +1184,8 @@ const App = {
                     console.log(e);
                     reject();
                 };
+                this.$refs.resultImage.style.maxWidth = resultWidth + "px";
+                this.$refs.resultImage.src = resultBase64;
             });
         }
     }
