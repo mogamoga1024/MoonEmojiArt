@@ -9,6 +9,8 @@ let generateButtonClickCount = 0;
 
 let tukiArt = "";
 
+let canCopyButtonClick = true;
+
 let isLoadingInputImage = false;
 let isLoadingInputVideo = false;
 
@@ -77,7 +79,6 @@ const App = {
         return {
             isDebug: false,
             debugText: debugText,
-            canCopyButtonClick: true,
             resultMessage: MSG_月ジェネの説明,
             tukiArtType: "none", // "none" | "text" | "image" | "video"
             shouldDisplaySample: true,
@@ -673,10 +674,10 @@ const App = {
             }
         },
         onClickCopyButton() {
-            if (!this.canCopyButtonClick) {
+            if (!canCopyButtonClick) {
                 return;
             }
-            this.canCopyButtonClick = false;
+            canCopyButtonClick = false;
 
             navigator.clipboard.writeText(tukiArt);
             
@@ -689,7 +690,7 @@ const App = {
                 if (this.isMobile) {
                     this.$refs.copyMessage.style.left = "";
                 }
-                this.canCopyButtonClick = true;
+                canCopyButtonClick = true;
             }, 2000);
         },
         onClickDownLoadTextButton() {
