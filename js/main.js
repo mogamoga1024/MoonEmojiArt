@@ -65,7 +65,7 @@ let videoHeightRate = 1;
 
 let shouldReGenerateTukiArt = false;
 
-let canvasMaxWidth = 0; // todo
+let canvasMaxWidth = 0;
 let canvasMaxHeight = 0;
 let canvasMaxArea = 0;
 
@@ -146,7 +146,7 @@ const App = {
             tukiArtMarginMax: 20,
 
             isGeneratingTukiArt: false,
-            isGenerateImmediatelyMode: true, // todo
+            isGenerateImmediatelyMode: true,
 
             isMobile: false,
             canUseContextLetterSpacing: false,
@@ -175,17 +175,25 @@ const App = {
 
         try {
             canvasMaxWidth = (await canvasSize.maxWidth()).width;
-            canvasMaxHeight = (await canvasSize.maxHeight()).height;
-            const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea();
-            canvasMaxArea = maxAreaWidth * maxAreaHeight;
         }
         catch (e) {
             canvasMaxWidth = 32767;
-            canvasMaxHeight = 32767;
-            canvasMaxArea = 10836 * 10836;
         }
-
-        // console.log(canvasMaxWidth, canvasMaxHeight, canvasMaxArea);
+        try {
+            canvasMaxHeight = (await canvasSize.maxHeight()).height;
+        }
+        catch (e) {
+            canvasMaxHeight = 32767;
+        }
+        try {
+            const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea();
+            canvasMaxArea = maxAreaWidth * maxAreaHeight;
+            // alert(`${canvasMaxArea}`)
+        }
+        catch (e) {
+            canvasMaxArea = 10836 * 10836;
+            // alert(e.message)
+        }
 
         canvasSizeTest = createCanvasSizeTest(canvasMaxWidth, canvasMaxHeight, canvasMaxArea);
     },
