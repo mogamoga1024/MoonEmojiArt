@@ -946,7 +946,10 @@ const App = {
                     img.onload = () => {
                         const isValidCanvas = canvasSizeTest(tukiArtParams.imageWidth, tukiArtParams.imageHeight);
                         if (!isValidCanvas) {
-                            // todo
+                            this.resultMessage = MSG_画像サイズが大きすぎてキャンバスが作れなかった;
+                            this.tukiArtType = "none";
+                            this.clearResult();
+                            this.isGeneratingTukiArt = false;
                             return;
                         }
                         
@@ -1004,7 +1007,11 @@ const App = {
                         worker.postMessage({imageData, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [imageData]);
                     };
                     img.onerror = e => {
-                        // todo
+                        this.resultMessage = MSG_エラー;
+                        this.tukiArtType = "none";
+                        this.clearResult();
+                        this.isGeneratingTukiArt = false;
+                        return;
                     };
 
                     img.src = fileReader.result;
