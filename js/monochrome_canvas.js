@@ -2,7 +2,6 @@
 class MonochromeCanvas {
     #canvas = null;
     #context = null;
-    #isProcessing = false;
 
     get canvas() {
         return this.#canvas;
@@ -268,37 +267,8 @@ class MonochromeCanvas {
         this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    image(src, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
-        // return new Promise((resolve, reject) => {
-        //     if (this.#isProcessing) {
-        //         return reject(new Error("まだ前の処理をしている最中"));
-        //     }
-        //     this.#isProcessing = true;
-
-        //     const img = new Image();
-        //     img.src = src;
-
-        //     img.onload = () => {
-        //         const isValidCanvas = canvasSizeTest(resizeImageWidth, resizeImageHeight);
-        //         if (!isValidCanvas) {
-        //             return reject(new TooLargeCanvasError("キャンバスでかすぎ"));
-        //         }
-                
-        //         this.#pasteImageToCanvas(img, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
-
-        //         this.#isProcessing = false;
-        //         resolve();
-        //     };
-        //     img.onerror = e => {
-        //         this.#isProcessing = false;
-        //         reject(e);
-        //     };
-
-        //     this.#pasteImageToCanvas(src, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
-
-        //     this.#isProcessing = false; // todo this.#isProcessing不要説
-        // });
-        this.#pasteImageToCanvas(src, 0, 0, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
+    image(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
+        this.#pasteImageToCanvas(imageData, 0, 0, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
     }
 
     video(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isVideoColorReverse = false) {
@@ -310,7 +280,7 @@ class MonochromeCanvas {
         this.#canvas.height = resizeImageHeight;
         this.#context.fillStyle = "#fff"; // 透過画像対策
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        if (imageWidth === 0 && imageHeight === 0) {
+        if (imageWidth === 0 && imageHeight === 0) { // todo りふぁ
             this.#context.drawImage(image, 0, 0);
         }
         else {

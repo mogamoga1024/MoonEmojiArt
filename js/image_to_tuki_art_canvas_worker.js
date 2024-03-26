@@ -9,13 +9,11 @@ onmessage = async evnt => {
     let tukiArt = "";
     try {
         canvasSizeTest = createCanvasSizeTest(evnt.data.canvasMaxWidth, evnt.data.canvasMaxHeight, evnt.data.canvasMaxArea);
-    
-        debugger
 
         const prm = evnt.data.tukiArtParams;
         const monoCanvas = new MonochromeCanvas();
 
-        /*await*/ monoCanvas.image(
+        monoCanvas.image(
             evnt.data.imageData,
             prm.imageWidth,
             prm.imageHeight,
