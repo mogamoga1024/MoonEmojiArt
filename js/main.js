@@ -942,57 +942,74 @@ const App = {
                 };
 
                 fileReader.onload = async () => {
-                    try {
-                        const worker = new Worker("./js/image_to_tuki_art_canvas_worker.js");
-                        worker.onmessage = async e => {
-                            worker.terminate();
+                    const worker = new Worker("./js/image_to_tuki_art_canvas_worker.js");
+                    worker.onmessage = async e => {
+                        worker.terminate();
 
-                            tukiArt = e.data.tukiArt;
+                        tukiArt = e.data.tukiArt;
 
-                            if (e.data.isError) {
-                                // todo tukiArtの有無で分岐
-                                return;
+                        if (e.data.isError) {
+                            if (e.data.errorName === "TooLargeCanvasError") {
+                                this.resultMessage = MSG_画像サイズが大きすぎてキャンバスが作れなかった;
                             }
-
-                            try {
-                                // await this.displayTukiArt(monoCanvas, e.data.imageBase64, e.data.width); // todo
-                                await this.displayTukiArt(null, e.data.imageBase64, e.data.width); // 仮
-                                this.resultMessage = MSG_非表示;
-                                this.tukiArtType = mode;
-                                this.shouldDisplaySample = false;
-                                this.isGeneratingTukiArt = false;
-                            }
-                            catch (e) {
+                            else if (e.data.tukiArt !== "") {
                                 this.resultMessage = MSG_完成イメージが作れなかった;
-                                this.tukiArtType = "none";
-                                this.clearResult();
-                                this.isGeneratingTukiArt = false;
                             }
-                        };
-                        worker.onerror = e => {
-                            console.error(e);
-                            worker.terminate();
-                            this.resultMessage = MSG_エラー;
+                            else {
+                                this.resultMessage = MSG_エラー;
+                            }
                             this.tukiArtType = "none";
                             this.clearResult();
                             this.isGeneratingTukiArt = false;
-                        };
-
-                        tukiArtParams.imageBase64 = fileReader.result;
-
-                        worker.postMessage({tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
-                    }
-                    catch (e) {
-                        if (e.constructor === TooLargeCanvasError) {
-                            this.resultMessage = MSG_画像サイズが大きすぎてキャンバスが作れなかった;
+                            return;
                         }
-                        else {
-                            this.resultMessage = MSG_エラー;
+
+                        try {
+                            // await this.displayTukiArt(monoCanvas, e.data.imageBase64, e.data.width); // todo
+                            await this.displayTukiArt(null, e.data.imageBase64, e.data.width); // 仮
+                            this.resultMessage = MSG_非表示;
+                            this.tukiArtType = mode;
+                            this.shouldDisplaySample = false;
+                            this.isGeneratingTukiArt = false;
                         }
+                        catch (e) {
+                            this.resultMessage = MSG_完成イメージが作れなかった;
+                            this.tukiArtType = "none";
+                            this.clearResult();
+                            this.isGeneratingTukiArt = false;
+                        }
+                    };
+                    worker.onerror = e => {
+                        console.error(e);
+                        worker.terminate();
+                        this.resultMessage = MSG_エラー;
                         this.tukiArtType = "none";
                         this.clearResult();
                         this.isGeneratingTukiArt = false;
-                    }
+                    };
+
+                    // const img = new Image();
+                    // img.src = src;
+
+                    // img.onload = () => {
+                    //     const isValidCanvas = canvasSizeTest(resizeImageWidth, resizeImageHeight);
+                    //     if (!isValidCanvas) {
+                    //         return reject(new TooLargeCanvasError("キャンバスでかすぎ"));
+                    //     }
+                        
+                    //     this.#pasteImageToCanvas(img, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
+
+                    //     this.#isProcessing = false;
+                    //     resolve();
+                    // };
+                    // img.onerror = e => {
+                    //     this.#isProcessing = false;
+                    //     reject(e);
+                    // };
+
+                    tukiArtParams.imageBase64 = fileReader.result;
+
+                    worker.postMessage({tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
                 };
                 fileReader.onerror = () => {
                     this.resultMessage = MSG_エラー;
