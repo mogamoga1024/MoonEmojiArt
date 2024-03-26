@@ -173,6 +173,7 @@ const App = {
 
         MSG_完成イメージが作れなかった = this.isMobile ? MSG_完成イメージが作れなかった_MOBILE : MSG_完成イメージが作れなかった_PC;
 
+        // エラー時のデフォ値の参考元：https://jhildenbiddle.github.io/canvas-size/#/?id=mobile
         try {
             canvasMaxWidth = (await canvasSize.maxWidth()).width;
         }
@@ -186,13 +187,17 @@ const App = {
             canvasMaxHeight = 32767;
         }
         try {
-            const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea();
-            canvasMaxArea = maxAreaWidth * maxAreaHeight;
-            // alert(`${canvasMaxArea}`)
+            if (this.isMobile) {
+                const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea({max: 16384});
+                canvasMaxArea = maxAreaWidth * maxAreaHeight;
+            }
+            else {
+                const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea();
+                canvasMaxArea = maxAreaWidth * maxAreaHeight;
+            }
         }
         catch (e) {
             canvasMaxArea = 10836 * 10836;
-            // alert(e.message)
         }
 
         canvasSizeTest = createCanvasSizeTest(canvasMaxWidth, canvasMaxHeight, canvasMaxArea);
