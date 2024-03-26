@@ -930,7 +930,7 @@ const App = {
                 const fileReader = new FileReader();
                 const tukiArtParams = {
                     imageWidth: this.imageWidth,
-                    imageHeihgt: Math.round(this.imageWidth * imageHeightRate),
+                    imageHeight: Math.round(this.imageWidth * imageHeightRate),
                     imageBaseAverageColor: this.imageBaseAverageColor,
                     needImageOutline: this.needImageOutline,
                     imageBaseColorDistance: this.imageBaseColorDistance,
@@ -944,16 +944,17 @@ const App = {
                 fileReader.onload = async () => {
                     const img = new Image();
                     img.onload = () => {
-                        const isValidCanvas = canvasSizeTest(tukiArtParams.imageWidth, tukiArtParams.imageHeihgt);
+                        const isValidCanvas = canvasSizeTest(tukiArtParams.imageWidth, tukiArtParams.imageHeight);
                         if (!isValidCanvas) {
                             // todo
                             return;
                         }
                         
-                        const canvas = new OffscreenCanvas(tukiArtParams.imageWidth, tukiArtParams.imageHeihgt);
+                        const canvas = new OffscreenCanvas(tukiArtParams.imageWidth, tukiArtParams.imageHeight);
                         const context = canvas.getContext("2d");
-                        context.drawImage(img, 0, 0, img.width, img.height, 0, 0, tukiArtParams.imageWidth, tukiArtParams.imageHeihgt);
-                        
+                        context.drawImage(img, 0, 0, img.width, img.height, 0, 0, tukiArtParams.imageWidth, tukiArtParams.imageHeight);
+                        const imageData = canvas.transferToImageBitmap();
+
                         const worker = new Worker("./js/image_to_tuki_art_canvas_worker.js");
                         worker.onmessage = async e => {
                             worker.terminate();
@@ -1000,7 +1001,7 @@ const App = {
                             this.isGeneratingTukiArt = false;
                         };
 
-                        worker.postMessage({canvas, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [canvas]);
+                        worker.postMessage({imageData, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [imageData]);
                     };
                     img.onerror = e => {
                         // todo
