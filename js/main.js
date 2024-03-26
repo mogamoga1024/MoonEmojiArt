@@ -941,7 +941,7 @@ const App = {
                     isImageTateLinePowerUp: this.isImageTateLinePowerUp
                 };
 
-                fileReader.onload = async () => {
+                fileReader.onload = () => {
                     const img = new Image();
                     img.onload = () => {
                         const isValidCanvas = canvasSizeTest(tukiArtParams.imageWidth, tukiArtParams.imageHeight);
