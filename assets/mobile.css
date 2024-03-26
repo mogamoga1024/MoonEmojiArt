@@ -55,13 +55,21 @@
     margin: 0 auto;
   }
 
+  .input-file-container {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .input-file {
-    margin-left: 24px;
+    width: fit-content;
+    margin: 0;
   }
 
   .file-name {
-    width: auto;
-    margin-left: 8px;
+    max-width: var(--item-input-width);
+    margin-left: 0;
+    text-align: center;
   }
 
   .action-btn-list {
@@ -117,12 +125,12 @@
     width: 100%;
   }
 
-  .input-file {
-    margin-left: 0;
+  .input-file-container {
+    width: auto;
   }
 
   .file-name {
-    width: 200px;
+    width: calc(100% - 145px); /* .input-fileのwidthを引いている */
   }
 
   .plus-minus-input-numbur input[type="number"] {
