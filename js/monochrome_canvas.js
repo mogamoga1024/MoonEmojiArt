@@ -42,7 +42,7 @@ class MonochromeCanvas {
             this.#tateText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin, letterSpacingLevel);
         }
         else {
-            this.#yokoText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, letterSpacingLevel);
+            this.#yokoText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, letterSpacingLevel); // todo
         }
     }
 

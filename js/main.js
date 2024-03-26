@@ -204,21 +204,6 @@ const App = {
         canvasSizeTest = createCanvasSizeTest(canvasMaxWidth, canvasMaxHeight, canvasMaxArea);
     },
     mounted() {
-        if (this.isDebug) {
-            // this.shouldDisplayMonochromeImage = true;
-            this.text = "ピピコピコピコピコピッピ！";
-            // this.tukiCount = 10;
-            // this.letterSpacingLevel = 1;
-            // // this.fontFamily = "sans";
-            // this.fontFamily = "serif";
-            // // this.fontFamily = "default";
-            // this.isBold = true;
-            // this.isTextYokoLinePowerUp = true;
-            // this.isTextTateLinePowerUp = true;
-            // this.isTate = false;
-            // this.isMobile = true;
-        }
-
         if (this.isMobile) {
             this.$refs.generateBtn.style.width = mobileGenerateBtnWidth;
             this.$refs.copyBtnWrapper.style.width = mobileCopyBtnWidth;
@@ -226,6 +211,28 @@ const App = {
         }
 
         this.displaySample();
+
+        if (this.isDebug) {
+            // this.shouldDisplayMonochromeImage = true;
+            this.text = "一三￥";
+            // this.tukiCount = 10;
+            // this.letterSpacingLevel = 1;
+            // // this.fontFamily = "sans";
+            // this.fontFamily = "serif";
+            // // this.fontFamily = "default";
+            // this.isBold = true;
+            this.isTextYokoLinePowerUp = false;
+            this.isTextTateLinePowerUp = false;
+            // this.isTate = false;
+            // this.isMobile = true;
+
+            const timer = setInterval(() => {
+                if (canvasMaxArea !== 0) {
+                    clearInterval(timer);
+                    this.onClickGenerateButton();
+                }
+            }, 100);
+        }
     },
     watch: {
         mode(newVal) {
