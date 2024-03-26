@@ -16,7 +16,7 @@ class MonochromeCanvas {
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true, letterSpacingLevel = 3) {
+    text(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true, letterSpacingLevel = 3, lineWidth = 0) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80
@@ -39,14 +39,14 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate || text.length === 1) {
-            this.#tateText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin, letterSpacingLevel);
+            this.#tateText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin, letterSpacingLevel, lineWidth);
         }
         else {
-            this.#yokoText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, letterSpacingLevel); // todo
+            this.#yokoText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, letterSpacingLevel, lineWidth);
         }
     }
 
-    #tateText(text, font, yokoPixelCount, tateMargin = 4, letterSpacingLevel = 3) {
+    #tateText(text, font, yokoPixelCount, tateMargin = 4, letterSpacingLevel = 3, lineWidth = 0) {
         const letterSpacing = Math.floor(tateMargin / 2 * (letterSpacingLevel - 1));
 
         const tmpCanvas = new OffscreenCanvas(300, 150);
@@ -161,6 +161,10 @@ class MonochromeCanvas {
                 this.#context.translate(0, -this.#canvas.height);
             }
 
+            if (lineWidth !== 0) {
+                this.#context.lineWidth = lineWidth;
+                this.#context.strokeText(char.value, this.#canvas.width / 2, this.#canvas.height / 2);
+            }
             this.#context.fillText(char.value, this.#canvas.width / 2, this.#canvas.height / 2);
             // トリミング
             let trimmed = null;
@@ -228,7 +232,7 @@ class MonochromeCanvas {
         this.#context.drawImage(tmpCanvas2, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    #yokoText(text, font, tatePixelCount, letterSpacingLevel = 3) {
+    #yokoText(text, font, tatePixelCount, letterSpacingLevel = 3, lineWidth = 0) {
         const letterSpacing = [-8, -4, 0, 4, 8, 12][letterSpacingLevel - 1];
 
         this.#context.font = font;
@@ -248,6 +252,10 @@ class MonochromeCanvas {
         this.#context.fillStyle = "#000";
         this.#context.textBaseline = "top";
         this.#context.letterSpacing = letterSpacing + "px";
+        if (lineWidth !== 0) {
+            this.#context.lineWidth = lineWidth;
+            this.#context.strokeText(text, 0, 0);
+        }
         this.#context.fillText(text, 0, 0);
 
         const trimmed = CanvasUtils.trimming(this.pixels);
