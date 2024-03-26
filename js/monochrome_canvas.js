@@ -268,23 +268,23 @@ class MonochromeCanvas {
     }
 
     image(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
-        this.#pasteImageToCanvas(imageData, 0, 0, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
+        this.#pasteImageToCanvas(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
     }
 
     video(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isVideoColorReverse = false) {
-        this.#pasteImageToCanvas(video, video.videoWidth, video.videoHeight, resizeVideoWidth, resizeVideoHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isVideoColorReverse);
+        this.#pasteImageToCanvas(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isVideoColorReverse, true);
     }
 
-    #pasteImageToCanvas(image, imageWidth, imageHeight, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
+    #pasteImageToCanvas(image, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false, isVideo = false) {
         this.#canvas.width = resizeImageWidth;
         this.#canvas.height = resizeImageHeight;
         this.#context.fillStyle = "#fff"; // 透過画像対策
         this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        if (imageWidth === 0 && imageHeight === 0) { // todo りふぁ
-            this.#context.drawImage(image, 0, 0);
+        if (isVideo) {
+            this.#context.drawImage(image, 0, 0, image.videoWidth, image.videoHeight, 0, 0, resizeImageWidth, resizeImageHeight);
         }
         else {
-            this.#context.drawImage(image, 0, 0, imageWidth, imageHeight, 0, 0, resizeImageWidth, resizeImageHeight);
+            this.#context.drawImage(image, 0, 0);
         }
         
         // 画像の各ピクセルをグレースケールに変換する
