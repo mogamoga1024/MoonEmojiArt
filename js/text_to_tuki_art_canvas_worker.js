@@ -12,9 +12,8 @@ onmessage = async evnt => {
 
         const prm = evnt.data.tukiArtParams;
         const monoCanvas = new MonochromeCanvas();
-        const letterSpacingLevel = prm.needDetailConfigLetterSpacingLevel ? prm.letterSpacingLevel : prm.letterSpacingLevelDefault;
 
-        monoCanvas.text(prm.text, prm.fontFamily, prm.tukiCount, prm.isBold, prm.isTate, letterSpacingLevel, prm.lineWidth);
+        monoCanvas.text(prm.text, prm.fontFamily, prm.tukiCount, prm.isBold, prm.isTate, prm.letterSpacingLevel, prm.lineWidth);
         tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prm.isTextColorReverse, prm.isTextYokoLinePowerUp, prm.isTextTateLinePowerUp, 2);
 
         if (prm.needDetailConfigTukiArtMargin) {

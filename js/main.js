@@ -943,13 +943,11 @@ const App = {
                 };
 
                 const tukiArtParams = {
-                    needDetailConfigLetterSpacingLevel: this.needDetailConfigLetterSpacingLevel,
-                    letterSpacingLevel: this.letterSpacingLevel,
-                    letterSpacingLevelDefault: letterSpacingLevelDefault,
                     text: this.text,
                     fontFamily: this.fontFamily,
                     tukiCount: this.tukiCount,
-                    lineWidth: this.lineWidth,
+                    lineWidth: this.needDetailConfigLineWidth ? this.lineWidth : 0,
+                    letterSpacingLevel: this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault,
                     isBold: this.isBold,
                     isTate: this.isTate,
                     isTextColorReverse: this.isTextColorReverse,
