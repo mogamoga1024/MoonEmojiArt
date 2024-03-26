@@ -275,30 +275,28 @@ class MonochromeCanvas {
             }
             this.#isProcessing = true;
 
-            const img = new Image();
-            img.src = src;
+            // const img = new Image();
+            // img.src = src;
 
-            img.onload = () => {
-                // キャンバスに画像を貼る
-                if (resizeImageWidth == null || resizeImageHeight == null) {
-                    resizeImageWidth = img.width;
-                    resizeImageHeight = img.height;
-                }
-
-                const isValidCanvas = canvasSizeTest(resizeImageWidth, resizeImageHeight);
-                if (!isValidCanvas) {
-                    return reject(new TooLargeCanvasError("キャンバスでかすぎ"));
-                }
+            // img.onload = () => {
+            //     const isValidCanvas = canvasSizeTest(resizeImageWidth, resizeImageHeight);
+            //     if (!isValidCanvas) {
+            //         return reject(new TooLargeCanvasError("キャンバスでかすぎ"));
+            //     }
                 
-                this.#pasteImageToCanvas(img, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
+            //     this.#pasteImageToCanvas(img, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
 
-                this.#isProcessing = false;
-                resolve();
-            };
-            img.onerror = e => {
-                this.#isProcessing = false;
-                reject(e);
-            };
+            //     this.#isProcessing = false;
+            //     resolve();
+            // };
+            // img.onerror = e => {
+            //     this.#isProcessing = false;
+            //     reject(e);
+            // };
+
+            this.#pasteImageToCanvas(src, img.width, img.height, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
+
+            this.#isProcessing = false; // todo this.#isProcessing不要説
         });
     }
 
