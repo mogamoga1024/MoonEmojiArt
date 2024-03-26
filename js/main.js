@@ -49,8 +49,8 @@ const MSG_完成イメージが作れなかった_MOBILE =
 const mobileGenerateBtnWidth = "110px";
 const mobileCopyBtnWidth = "126px"; // 生成ボタンのwidthとpaddingを足した値
 
-const textLengthSafeMax = 20;
-const tukiCountSafeMaxDefault = 30;
+const textLengthSafeMax = 40;
+const tukiCountSafeMaxDefault = 50;
 const tukiCountUnSafeMaxDefault = 100;
 const letterSpacingLevelDefault = 3;
 
