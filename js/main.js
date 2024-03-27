@@ -1061,6 +1061,7 @@ const App = {
                 fileReader.readAsDataURL(this.imageFile);
             }
             else if (mode === "video") {
+                // 余談：videoもWebWorkerで処理しようとしたが重すぎて話にならなかった
                 const video = document.createElement("video");
                 video.setAttribute("height", "240");
                 video.setAttribute("controls", "");
