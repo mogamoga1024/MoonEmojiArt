@@ -65,6 +65,7 @@ const videoWidthMaxDefault = 5000;
 let videoWidthOri = 10;
 let videoHeightRate = 1;
 
+let worker = null;
 let shouldReGenerateTukiArt = false;
 
 let canvasMaxWidth = 0;
@@ -831,14 +832,17 @@ const App = {
                 return;
             }
 
-            if (this.isGeneratingTukiArt) {
-                if (this.isGenerateImmediatelyMode) {
-                    shouldReGenerateTukiArt = true;
-                }
-                return;
-            }
+            // if (this.isGeneratingTukiArt) {
+            //     if (this.isGenerateImmediatelyMode) {
+            //         shouldReGenerateTukiArt = true;
+            //     }
+            //     return;
+            // }
 
             this.isGeneratingTukiArt = true;
+            if (worker !== null) {
+                worker.terminate(); worker = null;
+            }
 
             tukiArt = "";
 
@@ -891,10 +895,10 @@ const App = {
                     }
                 }
 
-                const worker = new Worker("./js/text_to_tuki_art_canvas_worker.js");
+                worker = new Worker("./js/text_to_tuki_art_canvas_worker.js");
                 const isTate = this.isTate;
                 worker.onmessage = async e => {
-                    worker.terminate();
+                    worker.terminate(); worker = null;
 
                     tukiArt = e.data.tukiArt;
 
@@ -935,7 +939,7 @@ const App = {
                 };
                 worker.onerror = e => {
                     console.error(e);
-                    worker.terminate();
+                    worker.terminate(); worker = null;
                     this.resultMessage = MSG_エラー;
                     this.tukiArtType = "none";
                     this.clearResult();
@@ -994,9 +998,9 @@ const App = {
                         context.drawImage(img, 0, 0, img.width, img.height, 0, 0, tukiArtParams.imageWidth, tukiArtParams.imageHeight);
                         const imageData = canvas.transferToImageBitmap();
 
-                        const worker = new Worker("./js/image_to_tuki_art_canvas_worker.js");
+                        worker = new Worker("./js/image_to_tuki_art_canvas_worker.js");
                         worker.onmessage = async e => {
-                            worker.terminate();
+                            worker.terminate(); worker = null;
 
                             tukiArt = e.data.tukiArt;
 
@@ -1032,7 +1036,7 @@ const App = {
                         };
                         worker.onerror = e => {
                             console.error(e);
-                            worker.terminate();
+                            worker.terminate(); worker = null;
                             this.resultMessage = MSG_エラー;
                             this.tukiArtType = "none";
                             this.clearResult();
