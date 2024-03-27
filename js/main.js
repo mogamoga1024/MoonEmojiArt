@@ -13,7 +13,7 @@ let canCopyButtonClick = true;
 let isLoadingInputImage = false;
 let isLoadingInputVideo = false;
 
-let timer = 0;
+let videoTimerId = 0;
 let isVideoParamChanged = false;
 
 const MSG_非表示 = "";
@@ -226,9 +226,9 @@ const App = {
             // this.isTate = false;
             // this.isMobile = true;
 
-            const timer = setInterval(() => {
+            const timerId = setInterval(() => {
                 if (canvasMaxArea !== 0) {
-                    clearInterval(timer);
+                    clearInterval(timerId);
                     this.onClickGenerateButton();
                 }
             }, 100);
@@ -244,6 +244,15 @@ const App = {
                     this.displaySample();
                 }
             }
+        }
+    },
+    computed: {
+        canDisplayGenerateButton() {
+            return this.tukiArtType === "none" && (
+                this.mode === "text" && this.text !== "" ||
+                this.mode === "image" && this.imageFile !== null ||
+                this.mode === "video" && this.videoFile !== null
+            );
         }
     },
     methods: {
@@ -558,7 +567,7 @@ const App = {
                 worker.terminate(); worker = null;
             }
             if (this.tukiArtType === "video") {
-                clearInterval(timer); timer = 0;
+                clearInterval(videoTimerId); videoTimerId = 0;
             }
             this.resultMessage = MSG_月ジェネの説明;
             this.tukiArtType = "none";
@@ -753,7 +762,7 @@ const App = {
                 this.clearResultVideo();
             }
             if (this.tukiArtType === "video") {
-                clearInterval(timer); timer = 0;
+                clearInterval(videoTimerId); videoTimerId = 0;
             }
 
             tukiArt = "";
@@ -774,9 +783,9 @@ const App = {
             const moons = ["🌑", "🌘", "🌗", "🌖", "🌕", "🌔", "🌓", "🌒"];
             let moonIndex = this.isSafety ? 0 : 4;
             this.moon = moons[moonIndex];
-            const moonTimer = setInterval(() => {
+            const moonTimerId = setInterval(() => {
                 if (!this.isGeneratingTukiArt) {
-                    clearInterval(moonTimer);
+                    clearInterval(moonTimerId);
                     return;
                 }
                 moonIndex = (moonIndex + 1) % moons.length;
@@ -1045,7 +1054,7 @@ const App = {
                         }
                         catch (e) {
                             console.error(e);
-                            clearInterval(timer); timer = 0;
+                            clearInterval(videoTimerId); videoTimerId = 0;
                             this.resultMessage = MSG_エラー;
                             this.tukiArtType = "none";
                             this.clearResult();
@@ -1062,9 +1071,9 @@ const App = {
                         isVideoParamChanged = false;
 
                         if (this.fps !== fps) {
-                            clearInterval(timer); timer = 0;
+                            clearInterval(videoTimerId); videoTimerId = 0;
                             fps = this.fps;
-                            timer = playTukiArtVideo();
+                            videoTimerId = playTukiArtVideo();
                             return;
                         }
 
@@ -1073,7 +1082,7 @@ const App = {
                         }
                         catch (e) {
                             console.error(e);
-                            clearInterval(timer); timer = 0;
+                            clearInterval(videoTimerId); videoTimerId = 0;
                             this.resultMessage = MSG_エラー;
                             this.tukiArtType = "none";
                             this.clearResult();
@@ -1086,7 +1095,7 @@ const App = {
                     this.clearResult();
                     this.$refs.videoWrapper.appendChild(video);
 
-                    timer = playTukiArtVideo();
+                    videoTimerId = playTukiArtVideo();
 
                     this.resultMessage = MSG_非表示;
                     this.tukiArtType = mode;

@@ -322,7 +322,7 @@
     <hr>
     
     <div class="action-btn-list">
-      <div v-show="mode !== 'video' || (mode === 'video' && tukiArtType !== 'video')"
+      <div v-show="canDisplayGenerateButton"
            id="generate-btn"
            class="action-btn"
            ref="generateBtn"
