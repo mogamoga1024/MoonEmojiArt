@@ -1,8 +1,5 @@
 
-let debugText = "";
-function debug(text) {
-    debugText += text + "\n";
-};
+let isDebug = false;
 
 let appTitleClickCount = 0;
 
@@ -74,8 +71,6 @@ const App = {
     },
     data() {
         return {
-            isDebug: false,
-            debugText: debugText,
             resultMessage: MSG_月ジェネの説明,
             tukiArtType: "none", // "none" | "text" | "image" | "video"
             shouldDisplayMonochromeImage: false,
@@ -167,7 +162,7 @@ const App = {
 
         // デバッグ用 & PCでスマホのUIを確認したい
         const params = (new URL(window.location.href)).searchParams;
-        this.isDebug = params.has("d");
+        isDebug = params.has("d");
         if (!this.isMobile) {
             this.isMobile = params.has("m");
         }
@@ -210,7 +205,7 @@ const App = {
             this.$refs.copyBtn.style.width = mobileCopyBtnWidth;
         }
 
-        if (this.isDebug) {
+        if (isDebug) {
             // this.shouldDisplayMonochromeImage = true;
             this.text = "一三￥";
             // this.tukiCount = 10;
