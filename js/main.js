@@ -78,7 +78,6 @@ const App = {
             debugText: debugText,
             resultMessage: MSG_月ジェネの説明,
             tukiArtType: "none", // "none" | "text" | "image" | "video"
-            shouldDisplaySample: true,
             shouldDisplayMonochromeImage: false,
             needDetailConfigLineWidth: false,
             needDetailConfigLetterSpacingLevel: false,
@@ -147,6 +146,7 @@ const App = {
             tukiArtMarginMin: -20,
             tukiArtMarginMax: 20,
 
+            canDisplayGenerateButton: false,
             isGeneratingTukiArt: false,
 
             isMobile: false,
@@ -210,8 +210,6 @@ const App = {
             this.$refs.copyBtn.style.width = mobileCopyBtnWidth;
         }
 
-        this.displaySample();
-
         if (this.isDebug) {
             // this.shouldDisplayMonochromeImage = true;
             this.text = "一三￥";
@@ -236,23 +234,47 @@ const App = {
     },
     watch: {
         mode(newVal) {
-            if (this.tukiArtType === "none") {
-                if (newVal === "video") {
-                    this.clearResult();
-                }
-                else {
-                    this.displaySample();
-                }
+            if (
+                newVal !== this.tukiArtType && (
+                    newVal === "text" && this.text !== "" ||
+                    newVal === "image" && this.imageFile !== null ||
+                    newVal === "video" && this.videoFile !== null
+                )
+            ) {
+                this.canDisplayGenerateButton = true;
             }
-        }
-    },
-    computed: {
-        canDisplayGenerateButton() {
-            return this.tukiArtType === "none" && (
-                this.mode === "text" && this.text !== "" ||
-                this.mode === "image" && this.imageFile !== null ||
-                this.mode === "video" && this.videoFile !== null
-            );
+            else {
+                this.canDisplayGenerateButton = false;
+            }
+        },
+        tukiArtType(newVal) {
+            if (
+                this.mode !== newVal && (
+                    this.mode === "text" && this.text !== "" ||
+                    this.mode === "image" && this.imageFile !== null ||
+                    this.mode === "video" && this.videoFile !== null
+                )
+            ) {
+                this.canDisplayGenerateButton = true;
+            }
+            else {
+                this.canDisplayGenerateButton = false;
+            }
+        },
+        text(newVal) {
+            if (newVal === "") {
+                this.canDisplayGenerateButton = false;
+            }
+        },
+        imageFile(newVal) {
+            if (newVal === null) {
+                this.canDisplayGenerateButton = false;
+            }
+        },
+        videoFile(newVal) {
+            if (newVal === null) {
+                this.canDisplayGenerateButton = false;
+            }
         }
     },
     methods: {
@@ -708,20 +730,6 @@ const App = {
             this.imageWidthMax = imageWidthMaxDefault;
             this.videoWidthMax = videoWidthMaxDefault;
         },
-        displaySample() {
-            if (this.mode === "text") {
-                this.shouldDisplaySample = true;
-                URL.revokeObjectURL(this.$refs.resultImage.src);
-                this.$refs.resultImage.src = "./assets/sample_text.png";
-                this.$refs.resultImage.style.maxWidth = "247px";
-            }
-            else if (this.mode === "image") {
-                this.shouldDisplaySample = true;
-                URL.revokeObjectURL(this.$refs.resultImage.src);
-                this.$refs.resultImage.src = "./assets/sample_image.png";
-                this.$refs.resultImage.style.maxWidth = "494px";
-            }
-        },
         clearResultVideo() {
             if (this.$refs.videoWrapper.firstChild != null) {
                 this.$refs.videoWrapper.removeChild(this.$refs.videoWrapper.firstChild);
@@ -733,17 +741,11 @@ const App = {
         },
         clearResult() {
             URL.revokeObjectURL(this.$refs.monochrome.src);
+            URL.revokeObjectURL(this.$refs.resultImage.src);
             this.$refs.monochrome.src = "";
+            this.$refs.resultImage.src = "";
 
             this.clearResultVideo();
-
-            if (this.mode === "video") {
-                URL.revokeObjectURL(this.$refs.resultImage.src);
-                this.$refs.resultImage.src = "";
-            }
-            else {
-                this.displaySample();
-            }
         },
         generateTukiArt() {
             if (
@@ -840,7 +842,6 @@ const App = {
                         await this.displayTukiArt(e.data.resultBase64, e.data.width);
                         this.resultMessage = MSG_非表示;
                         this.tukiArtType = mode;
-                        this.shouldDisplaySample = false;
                         this.isGeneratingTukiArt = false;
                     }
                     catch (e) {
@@ -937,7 +938,6 @@ const App = {
                                 await this.displayTukiArt(e.data.resultBase64, e.data.width, e.data.monoBase64, tukiArtParams.imageWidth);
                                 this.resultMessage = MSG_非表示;
                                 this.tukiArtType = mode;
-                                this.shouldDisplaySample = false;
                                 this.isGeneratingTukiArt = false;
                             }
                             catch (e) {
@@ -1099,7 +1099,6 @@ const App = {
 
                     this.resultMessage = MSG_非表示;
                     this.tukiArtType = mode;
-                    this.shouldDisplaySample = false;
                     this.isGeneratingTukiArt = false;
                 };
                 video.onerror = () => {

@@ -359,7 +359,7 @@
       </div>
     </div>
 
-    <hr v-show="mode !== 'video' || (mode === 'video' && tukiArtType !== 'video')">
+    <hr v-show="mode !== 'video' || (mode === 'video' && canDisplayGenerateButton)">
     
     <div style="white-space: pre-wrap;" v-show="isDebug">{{debugText}}</div>
     
@@ -379,7 +379,7 @@
       <canvas ref="resultVideo" style="width: 100%;"></canvas>
     </div>
 
-    <div v-show="tukiArtType === 'text' || tukiArtType === 'image' || shouldDisplaySample"
+    <div v-show="tukiArtType === 'text' || tukiArtType === 'image'"
          :style="{whiteSpace: isMonoCanvasTate ? 'normal' : 'nowrap'}">
       <div v-show="isMobile" style="white-space: normal;">
         画像は長押しするとダウンロードできます。
@@ -391,7 +391,7 @@
            style="width: 100%;">
       <div :class="isMonoCanvasTate ? 'tate-canvas' : 'yoko-canvas'">
         <img ref="resultImage"
-             :style="{width: (tukiArtType === 'image' || mode === 'image' && shouldDisplaySample) && shouldShrinkImage ? '100%' : 'auto'}">
+             :style="{width: tukiArtType === 'image' && shouldShrinkImage ? '100%' : 'auto'}">
       </div>
     </div>
   </div>
