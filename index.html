@@ -389,9 +389,15 @@
       <img ref="monochrome"
            v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage"
            style="width: 100%;">
-      <div>
+      <div class="resizing-container">
         <img ref="resultImage"
-             :style="{width: tukiArtType === 'image' && shouldShrinkImage ? '100%' : 'auto'}">
+             :style="{width: tukiArtType === 'image' && shouldShrinkImage ? resultImageWidthRate + '%' : 'auto'}">
+        <plus-minus-input-numbur
+          v-if="!isMobile && tukiArtType === 'image' && shouldShrinkImage"
+          class="resizing"
+          :min="resultImageWidthRateMin"
+          :max="resultImageWidthRateMax"
+          v-model="resultImageWidthRate">
       </div>
     </div>
   </div>

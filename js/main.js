@@ -143,6 +143,10 @@ const App = {
             canDisplayGenerateButton: false,
             isGeneratingTukiArt: false,
 
+            resultImageWidthRate: 100,
+            resultImageWidthRateMin: 10,
+            resultImageWidthRateMax: 100,
+
             isMobile: false,
             canUseContextLetterSpacing: false,
             isSafety: true,
@@ -1198,6 +1202,7 @@ const App = {
                 this.$refs.resultImage.addEventListener("load", onImageLoad);
                 this.$refs.resultImage.addEventListener("error", onImageError);
 
+                this.resultImageWidthRate = 100;
                 this.$refs.resultImage.style.maxWidth = resultWidth + "px";
                 this.$refs.resultImage.src = resultBase64;
             });
