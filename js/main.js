@@ -1127,13 +1127,21 @@ const App = {
                     this.$refs.monochrome.src = monoBase64;
                 }
                 
-                this.$refs.resultImage.onload = () => {
+                const onImageLoad = () => {
+                    this.$refs.resultImage.removeEventListener("load", onImageLoad);
+                    this.$refs.resultImage.removeEventListener("error", onImageError);
                     resolve();
                 };
-                this.$refs.resultImage.onerror = e => {
+                const onImageError = e => {
                     console.log(e);
+                    this.$refs.resultImage.removeEventListener("load", onImageLoad);
+                    this.$refs.resultImage.removeEventListener("error", onImageError);
                     reject();
                 };
+
+                this.$refs.resultImage.addEventListener("load", onImageLoad);
+                this.$refs.resultImage.addEventListener("error", onImageError);
+
                 this.$refs.resultImage.style.maxWidth = resultWidth + "px";
                 this.$refs.resultImage.src = resultBase64;
             });
