@@ -315,6 +315,7 @@ const App = {
                 alert("画像ファイルを選択してね。");
                 this.imageFile = null;
                 this.imageWidth = imageWidthOri = this.imageWidthMin;
+                this.clearResult(MSG_月ジェネの説明);
                 isLoadingInputImage = false;
                 return;
             }
@@ -330,6 +331,7 @@ const App = {
                     this.imageBaseAverageColor = baseAverageColorDefault;
                     this.imageBaseColorDistance = baseColorDistanceDefault;
                     URL.revokeObjectURL(img.src);
+                    this.clearResult(MSG_月ジェネの説明);
                     isLoadingInputImage = false;
                 }
                 else {
@@ -362,6 +364,7 @@ const App = {
                 this.imageFile = null;
                 this.imageWidth = imageWidthOri = this.imageWidthMin;
                 URL.revokeObjectURL(img.src);
+                this.clearResult(MSG_月ジェネの説明);
                 isLoadingInputImage = false;
             };
 
@@ -380,6 +383,7 @@ const App = {
                 alert("動画ファイルを選択してね。");
                 this.videoFile = null;
                 this.videoWidth = videoWidthOri = this.videoWidthMin;
+                this.clearResult(MSG_月ジェネの説明);
                 isLoadingInputVideo = false;
                 return;
             }
@@ -395,6 +399,7 @@ const App = {
                     this.videoBaseAverageColor = baseAverageColorDefault;
                     this.videoBaseColorDistance = baseColorDistanceDefault;
                     URL.revokeObjectURL(video.src);
+                    this.clearResult(MSG_月ジェネの説明);
                     isLoadingInputVideo = false;
                 }
                 else {
@@ -427,6 +432,7 @@ const App = {
                 this.videoFile = null;
                 this.videoWidth = videoWidthOri = this.videoWidthMin;
                 URL.revokeObjectURL(video.src);
+                this.clearResult(MSG_月ジェネの説明);
                 isLoadingInputVideo = false;
             };
 
@@ -592,8 +598,7 @@ const App = {
             if (this.tukiArtType === "video") {
                 clearInterval(videoTimerId); videoTimerId = 0;
             }
-            this.resultMessage = MSG_月ジェネの説明;
-            this.clearResult();
+            this.clearResult(MSG_月ジェネの説明);
 
             tukiArt = "";
 
@@ -739,7 +744,10 @@ const App = {
                 this.$refs.resultVideo.height = 0;
             }
         },
-        clearResult() {
+        clearResult(resultMessage) {
+            if (resultMessage !== undefined) {
+                this.resultMessage = resultMessage;
+            }
             this.tukiArtType = "none";
             this.canDisplayGenerateButton = true;
 
@@ -777,8 +785,7 @@ const App = {
                 this.mode === "image" && this.imageFile == null ||
                 this.mode === "video" && this.videoFile == null
             ) {
-                this.resultMessage = MSG_月ジェネの説明;
-                this.clearResult();
+                this.clearResult(MSG_月ジェネの説明);
                 this.isGeneratingTukiArt = false;
                 return;
             }
@@ -820,12 +827,11 @@ const App = {
                 }
                 catch (e) {
                     if (this.isTate) {
-                        this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_縦;
+                        this.clearResult(MSG_テキストが大きすぎてキャンバスが作れなかった_縦);
                     }
                     else {
-                        this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_横;
+                        this.clearResult(MSG_テキストが大きすぎてキャンバスが作れなかった_横);
                     }
-                    this.clearResult();
                     this.isGeneratingTukiArt = false;
                     return;
                 }
@@ -838,12 +844,11 @@ const App = {
 
                     if (e.data.isError) {
                         if (e.data.tukiArt !== "") {
-                            this.resultMessage = MSG_完成イメージが作れなかった;
+                            this.clearResult(MSG_完成イメージが作れなかった);
                         }
                         else {
-                            this.resultMessage = MSG_エラー;
+                            this.clearResult(MSG_エラー);
                         }
-                        this.clearResult();
                         this.isGeneratingTukiArt = false;
                         return;
                     }
@@ -856,16 +861,14 @@ const App = {
                         this.isGeneratingTukiArt = false;
                     }
                     catch (e) {
-                        this.resultMessage = MSG_完成イメージが作れなかった;
-                        this.clearResult();
+                        this.clearResult(MSG_完成イメージが作れなかった);
                         this.isGeneratingTukiArt = false;
                     }
                 };
                 worker.onerror = e => {
                     console.error(e);
                     worker.terminate(); worker = null;
-                    this.resultMessage = MSG_エラー;
-                    this.clearResult();
+                    this.clearResult(MSG_エラー);
                     this.isGeneratingTukiArt = false;
                 };
 
@@ -904,8 +907,7 @@ const App = {
                     img.onload = () => {
                         const isValidCanvas = canvasSizeTest(tukiArtParams.imageWidth, tukiArtParams.imageHeight);
                         if (!isValidCanvas) {
-                            this.resultMessage = MSG_画像サイズが大きすぎてキャンバスが作れなかった;
-                            this.clearResult();
+                            this.clearResult(MSG_画像サイズが大きすぎてキャンバスが作れなかった);
                             this.isGeneratingTukiArt = false;
                             return;
                         }
@@ -923,12 +925,11 @@ const App = {
 
                             if (e.data.isError) {
                                 if (e.data.tukiArt !== "") {
-                                    this.resultMessage = MSG_完成イメージが作れなかった;
+                                    this.clearResult(MSG_完成イメージが作れなかった);
                                 }
                                 else {
-                                    this.resultMessage = MSG_エラー;
+                                    this.clearResult(MSG_エラー);
                                 }
-                                this.clearResult();
                                 this.isGeneratingTukiArt = false;
                                 return;
                             }
@@ -941,24 +942,21 @@ const App = {
                                 this.isGeneratingTukiArt = false;
                             }
                             catch (e) {
-                                this.resultMessage = MSG_完成イメージが作れなかった;
-                                this.clearResult();
+                                this.clearResult(MSG_完成イメージが作れなかった);
                                 this.isGeneratingTukiArt = false;
                             }
                         };
                         worker.onerror = e => {
                             console.error(e);
                             worker.terminate(); worker = null;
-                            this.resultMessage = MSG_エラー;
-                            this.clearResult();
+                            this.clearResult(MSG_エラー);
                             this.isGeneratingTukiArt = false;
                         };
 
                         worker.postMessage({imageData, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [imageData]);
                     };
                     img.onerror = e => {
-                        this.resultMessage = MSG_エラー;
-                        this.clearResult();
+                        this.clearResult(MSG_エラー);
                         this.isGeneratingTukiArt = false;
                         return;
                     };
@@ -966,8 +964,7 @@ const App = {
                     img.src = fileReader.result;
                 };
                 fileReader.onerror = () => {
-                    this.resultMessage = MSG_エラー;
-                    this.clearResult();
+                    this.clearResult(MSG_エラー);
                     this.isGeneratingTukiArt = false;
                 };
 
@@ -993,8 +990,7 @@ const App = {
                     
                     const isValidCanvas = canvasSizeTest(resizeVideoWidth, resizeVideoHeight);
                     if (!isValidCanvas) {
-                        this.resultMessage = MSG_動画の画面サイズが大きすぎてキャンバスが作れなかった;
-                        this.clearResult();
+                        this.clearResult(MSG_動画の画面サイズが大きすぎてキャンバスが作れなかった);
                         this.isGeneratingTukiArt = false;
                         return;
                     }
@@ -1050,8 +1046,7 @@ const App = {
                         catch (e) {
                             console.error(e);
                             clearInterval(videoTimerId); videoTimerId = 0;
-                            this.resultMessage = MSG_エラー;
-                            this.clearResult();
+                            this.clearResult(MSG_エラー);
                         }
                     };
 
@@ -1077,8 +1072,7 @@ const App = {
                         catch (e) {
                             console.error(e);
                             clearInterval(videoTimerId); videoTimerId = 0;
-                            this.resultMessage = MSG_エラー;
-                            this.clearResult();
+                            this.clearResult(MSG_エラー);
                         }
                         if (forceRunFrameCount > 0) {
                             forceRunFrameCount--;
@@ -1097,8 +1091,7 @@ const App = {
                 };
                 video.onerror = () => {
                     alert("動画の読み込みに失敗したよ。");
-                    this.resultMessage = MSG_エラー;
-                    this.clearResult();
+                    this.clearResult(MSG_エラー);
                     this.$refs.inputVideoFile.value = "";
                     this.videoFile = null;
                     this.isGeneratingTukiArt = false;
