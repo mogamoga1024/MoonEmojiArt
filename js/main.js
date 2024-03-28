@@ -682,7 +682,12 @@ const App = {
                 return;
             }
             const link = document.createElement("a");
-            link.href = this.$refs.resultImage.src;
+            if (this.mode === "video") {
+                link.href = this.$refs.resultVideo.toDataURL();
+            }
+            else {
+                link.href = this.$refs.resultImage.src;
+            }
             link.download = `moon_art${getStrCurrentDateTime()}.png`;
             link.click();
             URL.revokeObjectURL(link.href);
@@ -1030,7 +1035,7 @@ const App = {
                             this.isVideoColorReverse
                         );
 
-                        const tukiArt = TukiArtGenerator.createTukiArt(
+                        tukiArt = TukiArtGenerator.createTukiArt(
                             monoCanvas.pixels,
                             this.isVideoColorReverse,
                             this.isVideoYokoLinePowerUp,

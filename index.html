@@ -333,7 +333,7 @@
            ref="generateBtn"
            ontouchstart=""
            @click="onClickGenerateButton">生成</div>
-      <div v-show="mode !== 'video' && tukiArtType !== 'none'"
+      <div v-show="tukiArtType !== 'none'"
            id="copy-btn-wrapper"
            class="action-btn"
            ref="copyBtnWrapper"
@@ -342,7 +342,7 @@
         <div id="copy-message" ref="copyMessage">Copied!</div>
       </div>
       <div v-if="!isMobile"
-           v-show="mode !== 'video' && tukiArtType !== 'none'"
+           v-show="tukiArtType !== 'none'"
            id="download-text-btn"
            class="action-btn"
            ontouchstart=""
@@ -352,7 +352,7 @@
         </div>
       </div>
       <div v-if="!isMobile"
-           v-show="mode !== 'video' && tukiArtType !== 'none'"
+           v-show="tukiArtType !== 'none'"
            id="download-image-btn"
            class="action-btn"
            ontouchstart=""
@@ -363,7 +363,7 @@
       </div>
     </div>
 
-    <hr v-show="(mode !== 'video' && (canDisplayGenerateButton || tukiArtType !== 'none')) || (mode === 'video' && canDisplayGenerateButton)">
+    <hr v-show="canDisplayGenerateButton || tukiArtType !== 'none'">
     
     <div id="processing" v-show="isGeneratingTukiArt">
       処理中… {{moon}}
