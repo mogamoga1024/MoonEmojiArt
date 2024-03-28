@@ -16,7 +16,7 @@ class MonochromeCanvas {
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    createTextCanvasParams(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true, letterSpacingLevel = 3, lineWidth = 0) {
+    createTextCanvasParams(text, _fontFamily = "default", isBold = true, isTate = true, letterSpacingLevel = 3, lineWidth = 0) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80
@@ -39,14 +39,14 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate || text.length === 1) {
-            return this.#createTateTextCanvasParams(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin, letterSpacingLevel, lineWidth);
+            return this.#createTateTextCanvasParams(text, font, tateMargin, letterSpacingLevel, lineWidth);
         }
         else {
-            return this.#createYokoTextCanvasParams(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, letterSpacingLevel, lineWidth);
+            return this.#createYokoTextCanvasParams(text, font, letterSpacingLevel, lineWidth);
         }
     }
 
-    #createTateTextCanvasParams(text, font, yokoPixelCount, tateMargin = 4, letterSpacingLevel = 3, lineWidth = 0) {
+    #createTateTextCanvasParams(text, font, tateMargin = 4, letterSpacingLevel = 3, lineWidth = 0) {
         const letterSpacing = Math.floor(tateMargin / 2 * (letterSpacingLevel - 1));
 
         const tmpCanvas = new OffscreenCanvas(300, 150);
@@ -140,6 +140,7 @@ class MonochromeCanvas {
             this.#canvas.height = Math.max(Math.ceil(char.canvasHeight), minCanvasHeight);
 
             if (isRotateCar) {
+                // todo #canvasを使う意味がない気がするが もともとは速度のためにありものを使いまわしていただけ
                 this.#canvas.width = this.#canvas.height = Math.max(this.#canvas.width, this.#canvas.height);
             }
 
@@ -229,13 +230,14 @@ class MonochromeCanvas {
         return tmpCanvas2.transferToImageBitmap();
     }
 
-    #createYokoTextCanvasParams(text, font, tatePixelCount, letterSpacingLevel = 3, lineWidth = 0) {
+    #createYokoTextCanvasParams(text, font, letterSpacingLevel = 3, lineWidth = 0) {
         const letterSpacing = [-8, -4, 0, 4, 8, 12][letterSpacingLevel - 1];
 
         this.#context.font = font;
         this.#context.textBaseline = "top";
         const measure = this.#context.measureText(text);
         // キャンバスのサイズ設定
+        // todo tateと同じ理由
         this.#canvas.width = measure.width + letterSpacing * ([...text].length - 1);
         this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
         const isValidCanvas = canvasSizeTest(this.#canvas.width, this.#canvas.height);

@@ -875,13 +875,13 @@ const App = {
                     this.isGeneratingTukiArt = false;
                 };
 
+                const monoCanvas = new MonochromeCanvas(); // todo staticでいいのでは
+                const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
+                const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault;
+                const iamgeData = monoCanvas.createTextCanvasParams(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacingLevel, lineWidth);
+
                 const tukiArtParams = {
-                    text: this.text,
-                    fontFamily: this.fontFamily,
                     tukiCount: this.tukiCount,
-                    lineWidth: this.needDetailConfigLineWidth ? this.lineWidth : 0,
-                    letterSpacingLevel: this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault,
-                    isBold: this.isBold,
                     isTate: this.isTate,
                     isTextColorReverse: this.isTextColorReverse,
                     isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
@@ -893,7 +893,7 @@ const App = {
                     tukiArtMarginRight: this.tukiArtMarginRight
                 };
 
-                worker.postMessage({tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea});
+                worker.postMessage({iamgeData, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [iamgeData]);
             }
             else if (mode === "image") {
                 const fileReader = new FileReader();
