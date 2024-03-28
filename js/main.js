@@ -170,33 +170,33 @@ const App = {
         MSG_完成イメージが作れなかった = this.isMobile ? MSG_完成イメージが作れなかった_MOBILE : MSG_完成イメージが作れなかった_PC;
 
         // エラー時のデフォ値の参考元：https://jhildenbiddle.github.io/canvas-size/#/?id=mobile
-        const strCanvasMaxWidth = Cookies.get('canvasMaxWidth');
+        const strCanvasMaxWidth = Cookies.get("canvasMaxWidth");
         if (strCanvasMaxWidth !== undefined) {
             canvasMaxWidth = Number(strCanvasMaxWidth);
         }
         else {
             try {
                 canvasMaxWidth = (await canvasSize.maxWidth()).width;
-                Cookies.set('canvasMaxWidth', String(canvasMaxWidth), {expires: 365});
+                Cookies.set("canvasMaxWidth", String(canvasMaxWidth), {expires: 365});
             }
             catch (e) {
                 canvasMaxWidth = 32767;
             }
         }
-        const strCanvasMaxHeight = Cookies.get('canvasMaxHeight');
+        const strCanvasMaxHeight = Cookies.get("canvasMaxHeight");
         if (strCanvasMaxHeight !== undefined) {
             canvasMaxHeight = Number(strCanvasMaxHeight);
         }
         else {
             try {
                 canvasMaxHeight = (await canvasSize.maxHeight()).height;
-                Cookies.set('canvasMaxHeight', String(canvasMaxHeight), {expires: 365});
+                Cookies.set("canvasMaxHeight", String(canvasMaxHeight), {expires: 365});
             }
             catch (e) {
                 canvasMaxHeight = 32767;
             }
         }
-        const strCanvasMaxArea = Cookies.get('canvasMaxArea');
+        const strCanvasMaxArea = Cookies.get("canvasMaxArea");
         if (strCanvasMaxArea !== undefined) {
             canvasMaxArea = Number(strCanvasMaxArea);
         }
@@ -210,7 +210,7 @@ const App = {
                     const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea();
                     canvasMaxArea = maxAreaWidth * maxAreaHeight;
                 }
-                Cookies.set('canvasMaxArea', String(canvasMaxArea), {expires: 365});
+                Cookies.set("canvasMaxArea", String(canvasMaxArea), {expires: 365});
             }
             catch (e) {
                 canvasMaxArea = 10836 * 10836;
@@ -638,7 +638,7 @@ const App = {
                 this.isImageTateLinePowerUp = false;
                 this.shouldDisplayMonochromeImage = false;
             }
-            else if (this.mode === 'video') {
+            else if (this.mode === "video") {
                 this.videoColorCount = 3;
                 this.useVideoNanameMikaduki = true;
                 this.videoBaseAverageColor = baseAverageColorDefault;
