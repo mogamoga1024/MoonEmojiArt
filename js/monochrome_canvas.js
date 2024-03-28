@@ -50,7 +50,6 @@ class MonochromeCanvas {
         const letterSpacing = Math.floor(tateMargin / 2 * (letterSpacingLevel - 1));
 
         const tmpCanvas = new OffscreenCanvas(300, 150);
-        // const tmpCanvas = document.querySelector("#canvas");
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ 「」『』()（）【】";
@@ -126,6 +125,8 @@ class MonochromeCanvas {
         tmpContext.fillStyle = "#fff";
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
 
+        const tmpCanvas2 = new OffscreenCanvas(1, 1);
+        const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });
         let dstY = 0;
         let maxWidth = standardCharWidth;
         let totalHeight = letterSpacing * (charList.length - 1);
@@ -136,41 +137,41 @@ class MonochromeCanvas {
             const isCenterJustifiedChar = centerJustifiedCharList.includes(char.value); 
             const isLeftJustifiedChar = leftJustifiedCharList.includes(char.value);
 
-            this.#canvas.width = Math.ceil(char.canvasWidth);
-            this.#canvas.height = Math.max(Math.ceil(char.canvasHeight), minCanvasHeight);
+            tmpCanvas2.width = Math.ceil(char.canvasWidth);
+            tmpCanvas2.height = Math.max(Math.ceil(char.canvasHeight), minCanvasHeight);
 
             if (isRotateCar) {
                 // todo #canvasを使う意味がない気がするが もともとは速度のためにありものを使いまわしていただけ
-                this.#canvas.width = this.#canvas.height = Math.max(this.#canvas.width, this.#canvas.height);
+                tmpCanvas2.width = tmpCanvas2.height = Math.max(tmpCanvas2.width, tmpCanvas2.height);
             }
 
             // テキスト反映
-            this.#context.font = font;
-            this.#context.fillStyle = "#fff";
-            this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-            this.#context.fillStyle = "#000";
-            this.#context.textBaseline = "middle";
-            this.#context.textAlign = "center";
+            tmpContext2.font = font;
+            tmpContext2.fillStyle = "#fff";
+            tmpContext2.fillRect(0, 0, tmpCanvas2.width, tmpCanvas2.height);
+            tmpContext2.fillStyle = "#000";
+            tmpContext2.textBaseline = "middle";
+            tmpContext2.textAlign = "center";
 
             if (isRotateCar) {
-                this.#context.translate(this.#canvas.width / 2, this.#canvas.height / 2);
-                this.#context.rotate(Math.PI / 2);
-                this.#context.translate(-this.#canvas.width / 2, -this.#canvas.height / 2);
+                tmpContext2.translate(tmpCanvas2.width / 2, tmpCanvas2.height / 2);
+                tmpContext2.rotate(Math.PI / 2);
+                tmpContext2.translate(-tmpCanvas2.width / 2, -tmpCanvas2.height / 2);
             }
             if (isReverseChar) {
-                this.#context.scale(1, -1);
-                this.#context.translate(0, -this.#canvas.height);
+                tmpContext2.scale(1, -1);
+                tmpContext2.translate(0, -tmpCanvas2.height);
             }
 
             if (lineWidth !== 0) {
-                this.#context.lineWidth = lineWidth;
-                this.#context.strokeText(char.value, this.#canvas.width / 2, this.#canvas.height / 2);
+                tmpContext2.lineWidth = lineWidth;
+                tmpContext2.strokeText(char.value, tmpCanvas2.width / 2, tmpCanvas2.height / 2);
             }
-            this.#context.fillText(char.value, this.#canvas.width / 2, this.#canvas.height / 2);
+            tmpContext2.fillText(char.value, tmpCanvas2.width / 2, tmpCanvas2.height / 2);
             // トリミング
             let trimmed = null;
             try {
-                trimmed = CanvasUtils.trimming(this.pixels);
+                trimmed = CanvasUtils.trimming(tmpContext2.getImageData(0, 0, tmpCanvas2.width, tmpCanvas2.height));
             }
             catch (e) {
                 trimmed = {
@@ -202,7 +203,7 @@ class MonochromeCanvas {
                 dstY += (standardCharHeight - trimmed.height) / 2;
             }
 
-            tmpContext.putImageData(this.#context.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
+            tmpContext.putImageData(tmpContext2.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
 
             if (isLargeMarginChar) {
                 dstY = prevDestY;
@@ -220,8 +221,8 @@ class MonochromeCanvas {
         }
 
         let yokoMargin = 0; // 現時点で0を代入しているので実質意味ない
-        const tmpCanvas2 = new OffscreenCanvas(maxWidth + yokoMargin * 2, totalHeight + tateMargin * 2);
-        const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });
+        tmpCanvas2.width = maxWidth + yokoMargin * 2;
+        tmpCanvas2.height = totalHeight + tateMargin * 2;
         tmpContext2.fillStyle = "#fff";
         tmpContext2.fillRect(0, 0, tmpCanvas2.width, tmpCanvas2.height);
         const dstX = (tmpCanvas2.width - tmpCanvas.width) / 2;
