@@ -825,23 +825,34 @@ const App = {
                     }
                 }
 
+                const monoCanvas = new MonochromeCanvas(); // todo staticでいいのでは
+                const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault;
+                const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
+                let imageData = null;
+                try {
+                    imageData = monoCanvas.createTextCanvasParams(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacingLevel, lineWidth);
+                }
+                catch (e) {
+                    if (this.isTate) {
+                        this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_縦;
+                    }
+                    else {
+                        this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_横;
+                    }
+                    this.tukiArtType = "none";
+                    this.clearResult();
+                    this.isGeneratingTukiArt = false;
+                    return;
+                }
+
                 worker = new Worker("./js/text_to_tuki_art_canvas_worker.js");
-                const isTate = this.isTate;
                 worker.onmessage = async e => {
                     worker.terminate(); worker = null;
 
                     tukiArt = e.data.tukiArt;
 
                     if (e.data.isError) {
-                        if (e.data.errorName === "TooLargeCanvasError") {
-                            if (isTate) {
-                                this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_縦;
-                            }
-                            else {
-                                this.resultMessage = MSG_テキストが大きすぎてキャンバスが作れなかった_横;
-                            }
-                        }
-                        else if (e.data.tukiArt !== "") {
+                        if (e.data.tukiArt !== "") {
                             this.resultMessage = MSG_完成イメージが作れなかった;
                         }
                         else {
@@ -875,11 +886,6 @@ const App = {
                     this.isGeneratingTukiArt = false;
                 };
 
-                const monoCanvas = new MonochromeCanvas(); // todo staticでいいのでは
-                const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
-                const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault;
-                const iamgeData = monoCanvas.createTextCanvasParams(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacingLevel, lineWidth);
-
                 const tukiArtParams = {
                     tukiCount: this.tukiCount,
                     isTate: this.isTate,
@@ -893,7 +899,7 @@ const App = {
                     tukiArtMarginRight: this.tukiArtMarginRight
                 };
 
-                worker.postMessage({iamgeData, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [iamgeData]);
+                worker.postMessage({imageData, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [imageData]);
             }
             else if (mode === "image") {
                 const fileReader = new FileReader();
@@ -934,10 +940,7 @@ const App = {
                             tukiArt = e.data.tukiArt;
 
                             if (e.data.isError) {
-                                if (e.data.errorName === "TooLargeCanvasError") {
-                                    this.resultMessage = MSG_画像サイズが大きすぎてキャンバスが作れなかった;
-                                }
-                                else if (e.data.tukiArt !== "") {
+                                if (e.data.tukiArt !== "") {
                                     this.resultMessage = MSG_完成イメージが作れなかった;
                                 }
                                 else {

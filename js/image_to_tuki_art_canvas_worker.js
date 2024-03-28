@@ -55,6 +55,6 @@ onmessage = async evnt => {
         fr.readAsDataURL(blob);
     }
     catch (error) {
-        postMessage({isError: true, errorName: error.constructor.name, tukiArt})
+        postMessage({isError: true, tukiArt})
     }
 };

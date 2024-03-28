@@ -13,7 +13,7 @@ onmessage = async evnt => {
         const prm = evnt.data.tukiArtParams;
         const monoCanvas = new MonochromeCanvas();
 
-        monoCanvas.text(evnt.data.iamgeData, prm.tukiCount, prm.isTate);
+        monoCanvas.text(evnt.data.imageData, prm.tukiCount, prm.isTate);
         tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prm.isTextColorReverse, prm.isTextYokoLinePowerUp, prm.isTextTateLinePowerUp, 2);
 
         if (prm.needDetailConfigTukiArtMargin) {
@@ -39,6 +39,6 @@ onmessage = async evnt => {
         fileReader.readAsDataURL(blob);
     }
     catch (error) {
-        postMessage({isError: true, errorName: error.constructor.name, tukiArt})
+        postMessage({isError: true, tukiArt})
     }
 };
