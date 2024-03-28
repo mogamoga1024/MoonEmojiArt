@@ -280,7 +280,7 @@ class MonochromeCanvas {
         }
         else {
             const rate = pixelCount / imageData.height;
-            this.#canvas.width *= rate;
+            this.#canvas.width = imageData.width * rate;
             this.#canvas.height = pixelCount;
         }
         this.#context.drawImage(imageData, 0, 0, this.#canvas.width, this.#canvas.height);
