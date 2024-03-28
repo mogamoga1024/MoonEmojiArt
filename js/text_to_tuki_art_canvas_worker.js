@@ -39,6 +39,7 @@ onmessage = async evnt => {
         fileReader.readAsDataURL(blob);
     }
     catch (error) {
+        console.error(error);
         postMessage({isError: true, tukiArt})
     }
 };
