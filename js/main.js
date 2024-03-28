@@ -443,21 +443,31 @@ const App = {
 
         onClickNeedDetailConfigLineWidth() {
             this.needDetailConfigLineWidth = !this.needDetailConfigLineWidth;
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onClickNeedDetailConfigLetterSpacingLevel() {
             this.needDetailConfigLetterSpacingLevel = !this.needDetailConfigLetterSpacingLevel;
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onClickNeedDetailConfigTukiArtMargin() {
             this.needDetailConfigTukiArtMargin = !this.needDetailConfigTukiArtMargin;
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onChangeText() {
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onChangeTukiCount() {
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onChangeFontFamily(e) {
             if (e.target.value === "serif") {
@@ -470,82 +480,124 @@ const App = {
                 this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
             }
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onChangeLineWidth() {
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onClickLetterSpacingLevel(num) {
             this.letterSpacingLevel = num;
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onChangeTukiArtMarginTop() {
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onChangeTukiArtMarginBottom() {
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onChangeTukiArtMarginLeft() {
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onChangeTukiArtMarginRight() {
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onClickIsBold() {
             this.isBold = !this.isBold;
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onClickIsTextColorReverse() {
             this.isTextColorReverse = !this.isTextColorReverse;
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onClickIsTate(isTate) {
             this.isTate = isTate;
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onClickIsTextYokoLinePowerUp() {
             this.isTextYokoLinePowerUp = !this.isTextYokoLinePowerUp;
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
         onClickIsTextTateLinePowerUp() {
             this.isTextTateLinePowerUp = !this.isTextTateLinePowerUp;
-            this.generateTukiArt();
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
         },
 
         // 🌕🌕 画像パラメータのUIイベント 🌕🌕
 
         onChangeImageBaseAverageColor() {
-            this.generateTukiArt();
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
         },
         onClickImageColorCount(count) {
             this.imageColorCount = count;
-            this.generateTukiArt();
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
         },
         onClickUseImageNanameMikaduki() {
             this.useImageNanameMikaduki = !this.useImageNanameMikaduki;
-            this.generateTukiArt();
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
         },
         onChangeImageBaseColorDistance() {
-            this.generateTukiArt();
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
         },
         onChangeImageWidth() {
-            this.generateTukiArt();
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
         },
         onClickNeedImageOutline() {
             this.needImageOutline = !this.needImageOutline;
-            this.generateTukiArt();
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
         },
         onClickIsImageColorReverse() {
             this.isImageColorReverse = !this.isImageColorReverse;
-            this.generateTukiArt();
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
         },
         onClickIsImageYokoLinePowerUp() {
             this.isImageYokoLinePowerUp = !this.isImageYokoLinePowerUp;
-            this.generateTukiArt();
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
         },
         onClickIsImageTateLinePowerUp() {
             this.isImageTateLinePowerUp = !this.isImageTateLinePowerUp;
-            this.generateTukiArt();
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
         },
 
         // 🌕🌕 動画パラメータのUIイベント 🌕🌕
