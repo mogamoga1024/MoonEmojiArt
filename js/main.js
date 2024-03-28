@@ -170,32 +170,52 @@ const App = {
         MSG_完成イメージが作れなかった = this.isMobile ? MSG_完成イメージが作れなかった_MOBILE : MSG_完成イメージが作れなかった_PC;
 
         // エラー時のデフォ値の参考元：https://jhildenbiddle.github.io/canvas-size/#/?id=mobile
-        try {
-            canvasMaxWidth = (await canvasSize.maxWidth()).width;
+        const strCanvasMaxWidth = Cookies.get('canvasMaxWidth');
+        if (strCanvasMaxWidth !== undefined) {
+            canvasMaxWidth = Number(strCanvasMaxWidth);
         }
-        catch (e) {
-            canvasMaxWidth = 32767;
-        }
-        try {
-            canvasMaxHeight = (await canvasSize.maxHeight()).height;
-        }
-        catch (e) {
-            canvasMaxHeight = 32767;
-        }
-        try {
-            if (this.isMobile) {
-                const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea({max: 16384});
-                canvasMaxArea = maxAreaWidth * maxAreaHeight;
+        else {
+            try {
+                canvasMaxWidth = (await canvasSize.maxWidth()).width;
+                Cookies.set('canvasMaxWidth', String(canvasMaxWidth), {expires: 365});
             }
-            else {
-                const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea();
-                canvasMaxArea = maxAreaWidth * maxAreaHeight;
+            catch (e) {
+                canvasMaxWidth = 32767;
             }
         }
-        catch (e) {
-            canvasMaxArea = 10836 * 10836;
+        const strCanvasMaxHeight = Cookies.get('canvasMaxHeight');
+        if (strCanvasMaxHeight !== undefined) {
+            canvasMaxHeight = Number(strCanvasMaxHeight);
         }
-
+        else {
+            try {
+                canvasMaxHeight = (await canvasSize.maxHeight()).height;
+                Cookies.set('canvasMaxHeight', String(canvasMaxHeight), {expires: 365});
+            }
+            catch (e) {
+                canvasMaxHeight = 32767;
+            }
+        }
+        const strCanvasMaxArea = Cookies.get('canvasMaxArea');
+        if (strCanvasMaxArea !== undefined) {
+            canvasMaxArea = Number(strCanvasMaxArea);
+        }
+        else {
+            try {
+                if (this.isMobile) {
+                    const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea({max: 16384});
+                    canvasMaxArea = maxAreaWidth * maxAreaHeight;
+                }
+                else {
+                    const { width: maxAreaWidth, height: maxAreaHeight } = await canvasSize.maxArea();
+                    canvasMaxArea = maxAreaWidth * maxAreaHeight;
+                }
+                Cookies.set('canvasMaxArea', String(canvasMaxArea), {expires: 365});
+            }
+            catch (e) {
+                canvasMaxArea = 10836 * 10836;
+            }
+        }
         canvasSizeTest = createCanvasSizeTest(canvasMaxWidth, canvasMaxHeight, canvasMaxArea);
     },
     mounted() {
