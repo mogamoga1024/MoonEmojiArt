@@ -749,7 +749,18 @@ const App = {
                 this.resultMessage = resultMessage;
             }
             this.tukiArtType = "none";
-            this.canDisplayGenerateButton = true;
+            if (
+                this.mode !== this.tukiArtType && (
+                    this.mode === "text" && this.text !== "" ||
+                    this.mode === "image" && this.imageFile !== null ||
+                    this.mode === "video" && this.videoFile !== null
+                )
+            ) {
+                this.canDisplayGenerateButton = true;
+            }
+            else {
+                this.canDisplayGenerateButton = false;
+            }
 
             URL.revokeObjectURL(this.$refs.monochrome.src);
             URL.revokeObjectURL(this.$refs.resultImage.src);
