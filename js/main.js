@@ -682,7 +682,7 @@ const App = {
                 return;
             }
             const link = document.createElement("a");
-            if (this.mode === "video") {
+            if (this.tukiArtType === "video") {
                 link.href = this.$refs.resultVideo.toDataURL();
             }
             else {
