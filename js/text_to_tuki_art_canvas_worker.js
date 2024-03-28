@@ -13,7 +13,8 @@ onmessage = async evnt => {
         const prm = evnt.data.tukiArtParams;
         const monoCanvas = new MonochromeCanvas();
 
-        monoCanvas.text(prm.text, prm.fontFamily, prm.tukiCount, prm.isBold, prm.isTate, prm.letterSpacingLevel, prm.lineWidth);
+        const iamgeData = monoCanvas.createTextCanvasParams(prm.text, prm.fontFamily, prm.tukiCount, prm.isBold, prm.isTate, prm.letterSpacingLevel, prm.lineWidth);
+        monoCanvas.text(iamgeData, prm.tukiCount, prm.isTate);
         tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prm.isTextColorReverse, prm.isTextYokoLinePowerUp, prm.isTextTateLinePowerUp, 2);
 
         if (prm.needDetailConfigTukiArtMargin) {

@@ -16,7 +16,7 @@ class MonochromeCanvas {
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    text(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true, letterSpacingLevel = 3, lineWidth = 0) {
+    createTextCanvasParams(text, _fontFamily = "default", tukiCount = 13, isBold = true, isTate = true, letterSpacingLevel = 3, lineWidth = 0) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80
@@ -39,14 +39,14 @@ class MonochromeCanvas {
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
         
         if (isTate || text.length === 1) {
-            this.#tateText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin, letterSpacingLevel, lineWidth);
+            return this.#createTateTextCanvasParams(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, tateMargin, letterSpacingLevel, lineWidth);
         }
         else {
-            this.#yokoText(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, letterSpacingLevel, lineWidth);
+            return this.#createYokoTextCanvasParams(text, font, TUKI_SIDE_PIXEL_COUNT * tukiCount, letterSpacingLevel, lineWidth);
         }
     }
 
-    #tateText(text, font, yokoPixelCount, tateMargin = 4, letterSpacingLevel = 3, lineWidth = 0) {
+    #createTateTextCanvasParams(text, font, yokoPixelCount, tateMargin = 4, letterSpacingLevel = 3, lineWidth = 0) {
         const letterSpacing = Math.floor(tateMargin / 2 * (letterSpacingLevel - 1));
 
         const tmpCanvas = new OffscreenCanvas(300, 150);
@@ -226,13 +226,10 @@ class MonochromeCanvas {
         const dstX = (tmpCanvas2.width - tmpCanvas.width) / 2;
         tmpContext2.drawImage(tmpCanvas, dstX, tateMargin);
 
-        const rate = yokoPixelCount / tmpCanvas2.width;
-        this.#canvas.width = yokoPixelCount;
-        this.#canvas.height = tmpCanvas2.height * rate;
-        this.#context.drawImage(tmpCanvas2, 0, 0, this.#canvas.width, this.#canvas.height);
+        return tmpCanvas2.transferToImageBitmap();
     }
 
-    #yokoText(text, font, tatePixelCount, letterSpacingLevel = 3, lineWidth = 0) {
+    #createYokoTextCanvasParams(text, font, tatePixelCount, letterSpacingLevel = 3, lineWidth = 0) {
         const letterSpacing = [-8, -4, 0, 4, 8, 12][letterSpacingLevel - 1];
 
         this.#context.font = font;
@@ -269,10 +266,22 @@ class MonochromeCanvas {
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
         tmpContext.putImageData(pixels, 0, tateMargin);
 
-        const rate = tatePixelCount / tmpCanvas.height;
-        this.#canvas.width *= rate;
-        this.#canvas.height = tatePixelCount;
-        this.#context.drawImage(tmpCanvas, 0, 0, this.#canvas.width, this.#canvas.height);
+        return tmpCanvas.transferToImageBitmap();
+    }
+
+    text(imageData, tukiCount, isTate) {
+        const pixelCount = TUKI_SIDE_PIXEL_COUNT * tukiCount;
+        if (isTate) {
+            const rate = pixelCount / imageData.width;
+            this.#canvas.width = pixelCount;
+            this.#canvas.height = imageData.height * rate;
+        }
+        else {
+            const rate = pixelCount / imageData.height;
+            this.#canvas.width *= rate;
+            this.#canvas.height = pixelCount;
+        }
+        this.#context.drawImage(imageData, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
     image(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
