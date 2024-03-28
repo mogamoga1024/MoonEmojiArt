@@ -825,12 +825,11 @@ const App = {
                     }
                 }
 
-                const monoCanvas = new MonochromeCanvas(); // todo staticでいいのでは
                 const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault;
                 const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
                 let imageData = null;
                 try {
-                    imageData = monoCanvas.createTextCanvasParams(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacingLevel, lineWidth);
+                    imageData = MonochromeCanvas.createTextCanvasParams(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacingLevel, lineWidth);
                 }
                 catch (e) {
                     if (this.isTate) {

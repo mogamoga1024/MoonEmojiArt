@@ -16,7 +16,7 @@ class MonochromeCanvas {
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    createTextCanvasParams(text, _fontFamily = "default", isBold = true, isTate = true, letterSpacingLevel = 3, lineWidth = 0) {
+    static createTextCanvasParams(text, _fontFamily = "default", isBold = true, isTate = true, letterSpacingLevel = 3, lineWidth = 0) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80
@@ -46,7 +46,7 @@ class MonochromeCanvas {
         }
     }
 
-    #createTateTextCanvasParams(text, font, tateMargin = 4, letterSpacingLevel = 3, lineWidth = 0) {
+    static #createTateTextCanvasParams(text, font, tateMargin = 4, letterSpacingLevel = 3, lineWidth = 0) {
         const letterSpacing = Math.floor(tateMargin / 2 * (letterSpacingLevel - 1));
 
         const tmpCanvas = new OffscreenCanvas(300, 150);
@@ -231,45 +231,45 @@ class MonochromeCanvas {
         return tmpCanvas2.transferToImageBitmap();
     }
 
-    #createYokoTextCanvasParams(text, font, letterSpacingLevel = 3, lineWidth = 0) {
+    static #createYokoTextCanvasParams(text, font, letterSpacingLevel = 3, lineWidth = 0) {
         const letterSpacing = [-8, -4, 0, 4, 8, 12][letterSpacingLevel - 1];
 
-        this.#context.font = font;
-        this.#context.textBaseline = "top";
-        const measure = this.#context.measureText(text);
+        const tmpCanvas = new OffscreenCanvas(300, 150);
+        const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
+        tmpContext.font = font;
+        tmpContext.textBaseline = "top";
+        const measure = tmpContext.measureText(text);
         // キャンバスのサイズ設定
-        // todo tateと同じ理由
-        this.#canvas.width = measure.width + letterSpacing * ([...text].length - 1);
-        this.#canvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
-        const isValidCanvas = canvasSizeTest(this.#canvas.width, this.#canvas.height);
+        tmpCanvas.width = measure.width + letterSpacing * ([...text].length - 1);
+        tmpCanvas.height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent;
+        const isValidCanvas = canvasSizeTest(tmpCanvas.width, tmpCanvas.height);
         if (!isValidCanvas) {
             throw new TooLargeCanvasError("キャンバスでかすぎ");
         }
         // テキスト反映
-        this.#context.font = font;
-        this.#context.fillStyle = "#fff";
-        this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.fillStyle = "#000";
-        this.#context.textBaseline = "top";
-        this.#context.letterSpacing = letterSpacing + "px";
-        if (lineWidth !== 0) {
-            this.#context.lineWidth = lineWidth;
-            this.#context.strokeText(text, 0, 0);
-        }
-        this.#context.fillText(text, 0, 0);
-
-        const trimmed = CanvasUtils.trimming(this.pixels);
-        const pixels = this.#context.getImageData(0, trimmed.y, this.#canvas.width, trimmed.height);
-
-        const tateMargin = 4;
-        const tmpCanvas = new OffscreenCanvas(this.#canvas.width, trimmed.height + tateMargin * 2);
-        // const tmpCanvas = document.querySelector("#canvas");
-        const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
+        tmpContext.font = font;
         tmpContext.fillStyle = "#fff";
         tmpContext.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
-        tmpContext.putImageData(pixels, 0, tateMargin);
+        tmpContext.fillStyle = "#000";
+        tmpContext.textBaseline = "top";
+        tmpContext.letterSpacing = letterSpacing + "px";
+        if (lineWidth !== 0) {
+            tmpContext.lineWidth = lineWidth;
+            tmpContext.strokeText(text, 0, 0);
+        }
+        tmpContext.fillText(text, 0, 0);
 
-        return tmpCanvas.transferToImageBitmap();
+        const trimmed = CanvasUtils.trimming(tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height));
+        const pixels = tmpContext.getImageData(0, trimmed.y, tmpCanvas.width, trimmed.height);
+
+        const tateMargin = 4;
+        const tmpCanvas2 = new OffscreenCanvas(tmpCanvas.width, trimmed.height + tateMargin * 2);
+        const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });
+        tmpContext2.fillStyle = "#fff";
+        tmpContext2.fillRect(0, 0, tmpCanvas2.width, tmpCanvas2.height);
+        tmpContext2.putImageData(pixels, 0, tateMargin);
+
+        return tmpCanvas2.transferToImageBitmap();
     }
 
     text(imageData, tukiCount, isTate) {
