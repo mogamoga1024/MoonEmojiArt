@@ -91,7 +91,6 @@ const App = {
             lineWidthMax: 10,
             isBold: false,
             isTate: true,
-            isMonoCanvasTate: false, // 縦書きのモノクロ画像が見たいときだけにtrueにする。デバグ専用。
 
             imageFile: null,
             videoFile: null,

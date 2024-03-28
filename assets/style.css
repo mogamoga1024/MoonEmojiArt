@@ -524,15 +524,6 @@ input {
   color: red;
 }
 
-.yoko-canvas {
-  display: block;
-}
-
-.tate-canvas {
-  display: inline-block;
-  vertical-align: top;
-}
-
 #result-video {
   display: flex;
   flex-wrap: wrap;
