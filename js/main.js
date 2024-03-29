@@ -475,7 +475,10 @@ const App = {
         },
         onBlurText() {
             if (this.text !== "" && this.text !== prevText) {
-                this.generateTukiArt();
+                // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
+                setTimeout(() => {
+                    this.generateTukiArt();
+                }, 100);
             }
         },
         onChangeTukiCount() {
@@ -495,7 +498,10 @@ const App = {
                 this.isTextTateLinePowerUp = false;
             }
             if (this.text !== "") {
-                this.generateTukiArt();
+                // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
+                setTimeout(() => {
+                    this.generateTukiArt();
+                }, 100);
             }
         },
         onChangeLineWidth() {
