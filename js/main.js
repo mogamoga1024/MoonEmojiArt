@@ -357,6 +357,7 @@ const App = {
 
                     this.imageBaseAverageColor = baseAverageColorDefault;
                     this.imageBaseColorDistance = baseColorDistanceDefault;
+                    this.resultImageWidthRate = 100;
                     URL.revokeObjectURL(img.src);
                     isLoadingInputImage = false;
 
@@ -1209,7 +1210,6 @@ const App = {
                 this.$refs.resultImage.addEventListener("load", onImageLoad);
                 this.$refs.resultImage.addEventListener("error", onImageError);
 
-                this.resultImageWidthRate = 100;
                 this.$refs.resultImage.src = resultBase64;
             });
         }
