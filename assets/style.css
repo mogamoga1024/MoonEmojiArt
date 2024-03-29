@@ -47,12 +47,20 @@ button, input, select, textarea {
   font-family: 'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif;
 }
 
-.font-sans {
+.font-noto-sans {
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-.font-serif {
+.font-noto-serif {
   font-family: 'Noto Serif JP', serif;
+}
+
+.font-sans {
+  font-family: sans-serif;
+}
+
+.font-serif {
+  font-family: serif;
 }
 
 .bold {

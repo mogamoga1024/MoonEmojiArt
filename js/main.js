@@ -82,7 +82,7 @@ const App = {
             mode: "text", // "text" | "image" | "video"
 
             text: "",
-            fontFamily: "serif", // "default" | "sans" | "serif"
+            fontFamily: "noto-serif", // "default" | "noto-sans" | "noto-serif" | "sans" | "serif"
             tukiCount: 13, // Twitterが絵文字13文字で改行されるから
             tukiCountMin: 10,
             tukiCountMax: tukiCountSafeMaxDefault,
@@ -487,7 +487,7 @@ const App = {
             }
         },
         onChangeFontFamily(e) {
-            if (e.target.value === "serif") {
+            if (e.target.value === "noto-serif" || e.target.value === "serif") {
                 this.isBold = false;
                 this.isTextYokoLinePowerUp = true;
                 this.isTextTateLinePowerUp = true;
@@ -676,7 +676,7 @@ const App = {
 
             if (this.mode === "text") {
                 this.tukiCount = 13;
-                this.fontFamily = "serif";
+                this.fontFamily = "noto-serif";
                 this.lineWidth = 0;
                 this.letterSpacingLevel = letterSpacingLevelDefault;
                 this.isBold = false;

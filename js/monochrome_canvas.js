@@ -20,23 +20,32 @@ class MonochromeCanvas {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80
-        let tateMargin = 4;
         switch (_fontFamily) {
             case "default":
                 fontFamily = "'ＭＳ Ｐゴシック', '游ゴシック', YuGothic, 'メイリオ', Meiryo, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', Verdana, Roboto, 'Droid Sans', sans-serif";
                 break;
-            case "sans":
+            case "noto-sans":
                 fontFamily = "'Noto Sans JP', sans-serif";
                 break;
-            case "serif":
+            case "noto-serif":
                 fontFamily = "'Noto Serif JP', serif";
-                if (isTate || text.length == 1) {
-                    tateMargin = 8;
-                }
+                break;
+            case "sans":
+                fontFamily = "sans-serif";
+                break;
+            case "serif":
+                fontFamily = "serif";
                 break;
             default: throw new Error(`引数が不正：${_fontFamily}`);
         }
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+
+        let tateMargin = 4;
+        if (_fontFamily === "noto-serif" || _fontFamily === "serif") {
+            if (isTate || text.length == 1) {
+                tateMargin = 8;
+            }
+        }
         
         if (isTate || text.length === 1) {
             return this.#createTateTextCanvasParams(text, font, tateMargin, letterSpacingLevel, lineWidth);

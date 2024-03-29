@@ -99,9 +99,11 @@
         <div class="name">フォント</div>
         <div class="input">
           <select v-model="fontFamily" @change="onChangeFontFamily">
-            <option value="default">標準</option>
-            <option value="sans">ゴシック体</option>
-            <option value="serif">明朝体</option>
+            <option v-if="!isMobile" value="default">標準</option>
+            <option value="noto-serif">明朝体1</option>
+            <option value="serif">明朝体2</option>
+            <option value="noto-sans">ゴシック体1</option>
+            <option value="sans">ゴシック体2</option>
           </select>
         </div>
       </div>
