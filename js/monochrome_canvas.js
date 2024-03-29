@@ -40,10 +40,10 @@ class MonochromeCanvas {
         }
         const font = `${fontWeight} ${fontSize}px ${fontFamily}`;
 
-        let tateMargin = 4;
+        let tateMargin = 8;
         if (_fontFamily === "noto-serif" || _fontFamily === "serif") {
             if (isTate || text.length == 1) {
-                tateMargin = 8;
+                tateMargin = 12;
             }
         }
         
@@ -55,7 +55,7 @@ class MonochromeCanvas {
         }
     }
 
-    static #createTateTextCanvasParams(text, font, tateMargin = 4, letterSpacingLevel = 3, lineWidth = 0) {
+    static #createTateTextCanvasParams(text, font, tateMargin, letterSpacingLevel = 3, lineWidth = 0) {
         const letterSpacing = Math.floor(tateMargin / 2 * (letterSpacingLevel - 1));
 
         const tmpCanvas = new OffscreenCanvas(300, 150);
