@@ -926,7 +926,7 @@ const App = {
                     }
 
                     try {
-                        await this.displayTukiArt(e.data.resultBase64, e.data.width);
+                        await this.displayTukiArt(e.data.resultBase64);
                         this.resultMessage = MSG_非表示;
                         this.tukiArtType = mode;
                         this.canDisplayGenerateButton = false;
@@ -1007,7 +1007,7 @@ const App = {
                             }
 
                             try {
-                                await this.displayTukiArt(e.data.resultBase64, e.data.width, e.data.monoBase64, tukiArtParams.imageWidth);
+                                await this.displayTukiArt(e.data.resultBase64, e.data.monoBase64, tukiArtParams.imageWidth);
                                 this.resultMessage = MSG_非表示;
                                 this.tukiArtType = mode;
                                 this.canDisplayGenerateButton = false;
@@ -1178,7 +1178,7 @@ const App = {
                 video.src = URL.createObjectURL(this.videoFile);
             }
         },
-        displayTukiArt(resultBase64, resultWidth, monoBase64 = "", monoWidth = 0) {
+        displayTukiArt(resultBase64, monoBase64 = "", monoWidth = 0) {
             return new Promise(async (resolve, reject) => {
                 URL.revokeObjectURL(this.$refs.monochrome.src);
                 URL.revokeObjectURL(this.$refs.resultImage.src);
@@ -1191,6 +1191,9 @@ const App = {
                 const onImageLoad = () => {
                     this.$refs.resultImage.removeEventListener("load", onImageLoad);
                     this.$refs.resultImage.removeEventListener("error", onImageError);
+
+                    this.$refs.resultImageContainer.style.maxWidth = this.$refs.resultImage.width + "px";
+
                     resolve();
                 };
                 const onImageError = e => {
@@ -1204,7 +1207,6 @@ const App = {
                 this.$refs.resultImage.addEventListener("error", onImageError);
 
                 this.resultImageWidthRate = 100;
-                this.$refs.resultImageContainer.style.maxWidth = resultWidth + "px";
                 this.$refs.resultImage.src = resultBase64;
             });
         }

@@ -33,7 +33,7 @@ onmessage = async evnt => {
 
         const fileReader = new FileReader();
         fileReader.onload = () => {
-            postMessage({tukiArt, resultBase64: fileReader.result, width: canvasParams.width, isError: false});
+            postMessage({tukiArt, resultBase64: fileReader.result, isError: false});
         };
         const blob = await canvas.convertToBlob();
         fileReader.readAsDataURL(blob);
