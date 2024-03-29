@@ -42,17 +42,33 @@ const PlusMinusInputNumbur = {
     },
     methods: {
         onClickMinusButton() {
+            if (this.modelValue === this.min) {
+                return;
+            }
+
             const newModelValue = this.modelValue - this.step;
             if (newModelValue >= this.min) {
                 this.$emit("update:modelValue", newModelValue);
                 this.$emit("change", newModelValue);
             }
+            else {
+                this.$emit("update:modelValue", this.min);
+                this.$emit("change", this.min);
+            }
         },
         onClickPlusButton() {
+            if (this.modelValue === this.max) {
+                return;
+            }
+
             const newModelValue = this.modelValue + this.step;
             if (newModelValue <= this.max) {
                 this.$emit("update:modelValue", newModelValue);
                 this.$emit("change", newModelValue);
+            }
+            else {
+                this.$emit("update:modelValue", this.max);
+                this.$emit("change", this.max);
             }
         },
         onBlurInputNumber(e) {
