@@ -475,15 +475,7 @@ const App = {
         },
         onBlurText() {
             if (this.text !== "" && this.text !== prevText) {
-                // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
-                if (this.fontFamily ==="noto-serif" || this.fontFamily ==="noto-sans") {
-                    setTimeout(() => {
-                        this.generateTukiArt();
-                    }, 100);
-                }
-                else {
-                    this.generateTukiArt();
-                }
+                this.loadFontAndGenerateTukiArt();
             }
         },
         onChangeTukiCount() {
@@ -503,15 +495,7 @@ const App = {
                 this.isTextTateLinePowerUp = false;
             }
             if (this.text !== "") {
-                // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
-                if (this.fontFamily ==="noto-serif" || this.fontFamily ==="noto-sans") {
-                    setTimeout(() => {
-                        this.generateTukiArt();
-                    }, 100);
-                }
-                else {
-                    this.generateTukiArt();
-                }
+                this.loadFontAndGenerateTukiArt();
             }
         },
         onChangeLineWidth() {
@@ -548,7 +532,7 @@ const App = {
         onClickIsBold() {
             this.isBold = !this.isBold;
             if (this.text !== "") {
-                this.generateTukiArt();
+                this.loadFontAndGenerateTukiArt();
             }
         },
         onClickIsTextColorReverse() {
@@ -821,6 +805,17 @@ const App = {
             this.tukiCountMax = tukiCountUnSafeMaxDefault;
             this.imageWidthMax = imageWidthMaxDefault;
             this.videoWidthMax = videoWidthMaxDefault;
+        },
+        loadFontAndGenerateTukiArt() {
+            // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
+            if (this.fontFamily ==="noto-serif" || this.fontFamily ==="noto-sans") {
+                setTimeout(() => {
+                    this.generateTukiArt();
+                }, 100);
+            }
+            else {
+                this.generateTukiArt();
+            }
         },
         clearResultVideo() {
             if (this.$refs.videoWrapper.firstChild != null) {
