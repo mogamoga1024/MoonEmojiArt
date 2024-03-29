@@ -206,6 +206,13 @@ class MonochromeCanvas {
             
             // 漢数字の「一」みたいな文字は必要な余白すら切り取られてしまうので対策
             let isLargeMarginChar = !isSmallChar && trimmed.height < standardCharHeight;
+            // ただし、これらは除外する
+            if (isLargeMarginChar) {
+                // ASCII ひらかな 全角カタカナ 半角カタカナ 半角数字 全角数字 全角英字大文字 全角英字小文字
+                if (/[\x00-\x7F\u3040-\u309F\u30A0-\u30FF\uFF61-\uFF9F0-9０-９Ａ-Ｚａ-ｚ]/.test(char.value)) {
+                    isLargeMarginChar = false;
+                }
+            }
             const prevDestY = dstY;
             if (isLargeMarginChar) {
                 dstY += (standardCharHeight - trimmed.height) / 2;
