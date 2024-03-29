@@ -4,6 +4,10 @@ const PlusMinusInputNumbur = {
         modelValue: Number,
         min: Number,
         max: Number,
+        step: {
+            type: Number,
+            default: 1
+        }
     },
     emits: ["update:modelValue", "change"],
     template: `
@@ -38,15 +42,15 @@ const PlusMinusInputNumbur = {
     },
     methods: {
         onClickMinusButton() {
-            if (this.modelValue > this.min) {
-                const newModelValue = this.modelValue - 1;
+            const newModelValue = this.modelValue - this.step;
+            if (newModelValue >= this.min) {
                 this.$emit("update:modelValue", newModelValue);
                 this.$emit("change", newModelValue);
             }
         },
         onClickPlusButton() {
-            if (this.modelValue < this.max) {
-                const newModelValue = this.modelValue + 1;
+            const newModelValue = this.modelValue + this.step;
+            if (newModelValue <= this.max) {
                 this.$emit("update:modelValue", newModelValue);
                 this.$emit("change", newModelValue);
             }

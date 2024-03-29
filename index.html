@@ -382,7 +382,7 @@
 
     <div v-show="tukiArtType === 'text' || tukiArtType === 'image'"
          style="white-space: nowrap;">
-      <div v-show="isMobile" style="white-space: normal;">
+      <div v-if="isMobile" style="white-space: normal;">
         画像は長押しするとダウンロードできます。
         <hr>
       </div>
@@ -397,10 +397,11 @@
         <img ref="resultImage"
             :style="{width: tukiArtType === 'image' && shouldShrinkImage ? '100%' : 'auto'}">
         <plus-minus-input-numbur
-          v-if="!isMobile && tukiArtType === 'image' && shouldShrinkImage && canDisplayResultImageWidthRate"
+          v-show="!isMobile && tukiArtType === 'image' && shouldShrinkImage && canDisplayResultImageWidthRate"
           class="resizing"
           :min="resultImageWidthRateMin"
           :max="resultImageWidthRateMax"
+          :step="10"
           v-model="resultImageWidthRate">
       </div>
     </div>
