@@ -144,6 +144,7 @@ const App = {
             isGeneratingTukiArt: false,
 
             canDisplayResultImageWidthRate: false,
+            resultImageWidth: 0,
             resultImageWidthRate: 100,
             resultImageWidthRateMin: 10,
             resultImageWidthRateMax: 100,
@@ -823,6 +824,8 @@ const App = {
                 this.canDisplayGenerateButton = false;
             }
 
+            this.resultImageWidth = 0;
+
             URL.revokeObjectURL(this.$refs.monochrome.src);
             URL.revokeObjectURL(this.$refs.resultImage.src);
             this.$refs.monochrome.src = "";
@@ -1192,7 +1195,7 @@ const App = {
                     this.$refs.resultImage.removeEventListener("load", onImageLoad);
                     this.$refs.resultImage.removeEventListener("error", onImageError);
 
-                    this.$refs.resultImageContainer.style.maxWidth = this.$refs.resultImage.width + "px";
+                    this.resultImageWidth = this.$refs.resultImage.naturalWidth;
 
                     resolve();
                 };

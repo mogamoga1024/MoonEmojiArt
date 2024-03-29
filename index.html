@@ -391,7 +391,10 @@
            style="width: 100%;">
       <div ref="resultImageContainer"
            class="resizing-container"
-           :style="{width: tukiArtType === 'image' && shouldShrinkImage ? resultImageWidthRate + '%' : 'auto'}"
+           :style="{
+              width: tukiArtType === 'image' && shouldShrinkImage ? resultImageWidthRate + '%' : 'auto',
+              maxWidth: resultImageWidth * (resultImageWidthRate / 100) + 'px'
+            }"
            @mouseover="canDisplayResultImageWidthRate = true"
            @mouseleave="canDisplayResultImageWidthRate = false">
         <img ref="resultImage"
