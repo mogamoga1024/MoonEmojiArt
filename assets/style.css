@@ -522,6 +522,8 @@ input {
   font-weight: bold;
 
   color: red;
+
+  z-index: 100;
 }
 
 .resizing-container {
