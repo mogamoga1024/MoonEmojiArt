@@ -43,6 +43,7 @@ const MSG_完成イメージが作れなかった_MOBILE =
 const mobileGenerateBtnWidth = "110px";
 const mobileCopyBtnWidth = "126px"; // 生成ボタンのwidthとpaddingを足した値
 
+let prevText = "";
 const textLengthSafeMax = 40;
 const tukiCountSafeMaxDefault = 50;
 const tukiCountUnSafeMaxDefault = 100;
@@ -473,7 +474,7 @@ const App = {
             }
         },
         onBlurText() {
-            if (this.text !== "") {
+            if (this.text !== "" && this.text !== prevText) {
                 this.generateTukiArt();
             }
         },
@@ -900,6 +901,8 @@ const App = {
                         this.text = charArray.slice(0, textLengthSafeMax).join("");
                     }
                 }
+
+                prevText = this.text;
 
                 const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault;
                 const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
