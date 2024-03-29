@@ -150,7 +150,6 @@ class MonochromeCanvas {
             tmpCanvas2.height = Math.max(Math.ceil(char.canvasHeight), minCanvasHeight);
 
             if (isRotateCar) {
-                // todo #canvasを使う意味がない気がするが もともとは速度のためにありものを使いまわしていただけ
                 tmpCanvas2.width = tmpCanvas2.height = Math.max(tmpCanvas2.width, tmpCanvas2.height);
             }
 
