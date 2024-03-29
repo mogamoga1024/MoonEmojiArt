@@ -377,7 +377,19 @@
     <div v-show="tukiArtType === 'video'"
          id="result-video">
       <div ref="videoWrapper"></div>
-      <canvas ref="resultVideo" style="width: 100%;"></canvas>
+      <div class="resizing-container"
+           :style="{maxWidth: resultVideoWidth * (resultVideoWidthRate / 100) + 'px'}"
+           @mouseover="canDisplayResultVideoWidthRate = true"
+           @mouseleave="canDisplayResultVideoWidthRate = false">
+        <canvas ref="resultVideo" style="width: 100%;"></canvas>
+        <plus-minus-input-numbur
+          v-show="canDisplayResultVideoWidthRate"
+          class="resizing"
+          :min="resultVideoWidthRateMin"
+          :max="resultVideoWidthRateMax"
+          :step="10"
+          v-model="resultVideoWidthRate">
+      </div>
     </div>
 
     <div v-show="tukiArtType === 'text' || tukiArtType === 'image'"

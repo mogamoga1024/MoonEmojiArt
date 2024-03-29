@@ -149,6 +149,12 @@ const App = {
             resultImageWidthRateMin: 10,
             resultImageWidthRateMax: 100,
 
+            canDisplayResultVideoWidthRate: false,
+            resultVideoWidth: 0,
+            resultVideoWidthRate: 100,
+            resultVideoWidthRateMin: 10,
+            resultVideoWidthRateMax: 100,
+
             isMobile: false,
             canUseContextLetterSpacing: false,
             isSafety: true,
@@ -426,6 +432,7 @@ const App = {
 
                     this.videoBaseAverageColor = baseAverageColorDefault;
                     this.videoBaseColorDistance = baseColorDistanceDefault;
+                    this.resultVideoWidthRate = 100;
                     URL.revokeObjectURL(video.src);
                     isLoadingInputVideo = false;
 
@@ -802,10 +809,9 @@ const App = {
             if (this.$refs.videoWrapper.firstChild != null) {
                 this.$refs.videoWrapper.removeChild(this.$refs.videoWrapper.firstChild);
             }
-            if (this.$refs.resultVideo.width !== 0) {
-                this.$refs.resultVideo.width = 0;
-                this.$refs.resultVideo.height = 0;
-            }
+            this.resultVideoWidth = 0;
+            this.$refs.resultVideo.width = 0;
+            this.$refs.resultVideo.height = 0;
         },
         clearResult(resultMessage) {
             if (resultMessage !== undefined) {
@@ -1059,8 +1065,6 @@ const App = {
 
                     video.volume = 0.2;
 
-                    this.$refs.resultVideo.style.maxWidth = (video.videoWidth < 1200 ? video.videoWidth : 1200) + "px";
-                    
                     let resizeVideoWidth = this.videoWidth;
                     let resizeVideoHeight = Math.round(resizeVideoWidth * videoHeightRate);
                     
@@ -1157,6 +1161,8 @@ const App = {
 
                     this.clearResult();
                     this.$refs.videoWrapper.appendChild(video);
+
+                    this.resultVideoWidth = video.videoWidth < 1200 ? video.videoWidth : 1200;
 
                     videoTimerId = playTukiArtVideo();
 
