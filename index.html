@@ -389,8 +389,7 @@
       <img ref="monochrome"
            v-show="tukiArtType === 'image' && shouldDisplayMonochromeImage"
            style="width: 100%;">
-      <div ref="resultImageContainer"
-           class="resizing-container"
+      <div class="resizing-container"
            :style="{
               width: tukiArtType === 'image' && shouldShrinkImage ? resultImageWidthRate + '%' : 'auto',
               maxWidth: resultImageWidth * (resultImageWidthRate / 100) + 'px'
