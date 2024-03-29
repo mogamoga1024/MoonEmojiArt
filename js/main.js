@@ -478,7 +478,7 @@ const App = {
                 // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
                 setTimeout(() => {
                     this.generateTukiArt();
-                }, 100);
+                }, 50);
             }
         },
         onChangeTukiCount() {
@@ -501,7 +501,7 @@ const App = {
                 // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
                 setTimeout(() => {
                     this.generateTukiArt();
-                }, 100);
+                }, 50);
             }
         },
         onChangeLineWidth() {
