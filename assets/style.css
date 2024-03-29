@@ -472,6 +472,7 @@ input {
 #copy-message {
   position: absolute;
   visibility: hidden;
+  z-index: 100;
 }
 
 .display-copy-message {
