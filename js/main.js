@@ -476,9 +476,14 @@ const App = {
         onBlurText() {
             if (this.text !== "" && this.text !== prevText) {
                 // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
-                setTimeout(() => {
+                if (this.fontFamily ==="noto-serif" || this.fontFamily ==="noto-sans") {
+                    setTimeout(() => {
+                        this.generateTukiArt();
+                    }, 100);
+                }
+                else {
                     this.generateTukiArt();
-                }, 50);
+                }
             }
         },
         onChangeTukiCount() {
@@ -499,9 +504,14 @@ const App = {
             }
             if (this.text !== "") {
                 // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
-                setTimeout(() => {
+                if (this.fontFamily ==="noto-serif" || this.fontFamily ==="noto-sans") {
+                    setTimeout(() => {
+                        this.generateTukiArt();
+                    }, 100);
+                }
+                else {
                     this.generateTukiArt();
-                }, 50);
+                }
             }
         },
         onChangeLineWidth() {
