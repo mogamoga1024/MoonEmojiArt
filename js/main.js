@@ -472,7 +472,7 @@ const App = {
                 this.generateTukiArt();
             }
         },
-        onChangeText() {
+        onBlurText() {
             if (this.text !== "") {
                 this.generateTukiArt();
             }
