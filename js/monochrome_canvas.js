@@ -16,7 +16,7 @@ class MonochromeCanvas {
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    static createTextCanvasParams(text, _fontFamily = "default", isBold = true, isTate = true, letterSpacingLevel = 3, lineWidth = 0) {
+    static createTextCanvasParams(text, _fontFamily = "default", isBold = true, isTate = true, letterSpacing = 0, lineWidth = 0) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80
@@ -46,18 +46,17 @@ class MonochromeCanvas {
                 tateMargin = 12;
             }
         }
-        
+
         if (isTate || text.length === 1) {
-            return this.#createTateTextCanvasParams(text, font, tateMargin, letterSpacingLevel, lineWidth);
+            letterSpacing += tateMargin;
+            return this.#createTateTextCanvasParams(text, font, tateMargin, letterSpacing, lineWidth);
         }
         else {
-            return this.#createYokoTextCanvasParams(text, font, letterSpacingLevel, lineWidth);
+            return this.#createYokoTextCanvasParams(text, font, letterSpacing, lineWidth);
         }
     }
 
-    static #createTateTextCanvasParams(text, font, tateMargin, letterSpacingLevel = 3, lineWidth = 0) {
-        const letterSpacing = Math.floor(tateMargin / 2 * (letterSpacingLevel - 1));
-
+    static #createTateTextCanvasParams(text, font, tateMargin, letterSpacing, lineWidth = 0) {
         const tmpCanvas = new OffscreenCanvas(300, 150);
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
@@ -246,9 +245,7 @@ class MonochromeCanvas {
         return tmpCanvas2.transferToImageBitmap();
     }
 
-    static #createYokoTextCanvasParams(text, font, letterSpacingLevel = 3, lineWidth = 0) {
-        const letterSpacing = [-8, -4, 0, 4, 8, 12][letterSpacingLevel - 1];
-
+    static #createYokoTextCanvasParams(text, font, letterSpacing, lineWidth = 0) {
         const tmpCanvas = new OffscreenCanvas(300, 150);
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         tmpContext.font = font;

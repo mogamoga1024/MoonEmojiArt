@@ -47,7 +47,6 @@ let prevText = "";
 const textLengthSafeMax = 40;
 const tukiCountSafeMaxDefault = 50;
 const tukiCountUnSafeMaxDefault = 100;
-const letterSpacingLevelDefault = 3;
 
 const baseAverageColorDefault = 110;
 const baseColorDistanceDefault = 30;
@@ -76,7 +75,7 @@ const App = {
             tukiArtType: "none", // "none" | "text" | "image" | "video"
             shouldDisplayMonochromeImage: false,
             needDetailConfigLineWidth: false,
-            needDetailConfigLetterSpacingLevel: false,
+            needDetailConfigLetterSpacing: false,
             needDetailConfigTukiArtMargin: false,
             shouldShrinkImage: true,
             mode: "text", // "text" | "image" | "video"
@@ -86,7 +85,9 @@ const App = {
             tukiCount: 13, // Twitterが絵文字13文字で改行されるから
             tukiCountMin: 10,
             tukiCountMax: tukiCountSafeMaxDefault,
-            letterSpacingLevel: 3,
+            letterSpacing: 0,
+            letterSpacingMin: -20,
+            letterSpacingMax: 20,
             lineWidth: 0,
             lineWidthMin: 0,
             lineWidthMax: 10,
@@ -241,7 +242,6 @@ const App = {
             // this.shouldDisplayMonochromeImage = true;
             this.text = "一三￥";
             // this.tukiCount = 10;
-            // this.letterSpacingLevel = 1;
             // // this.fontFamily = "sans";
             // this.fontFamily = "serif";
             // // this.fontFamily = "default";
@@ -461,8 +461,8 @@ const App = {
                 this.generateTukiArt();
             }
         },
-        onClickNeedDetailConfigLetterSpacingLevel() {
-            this.needDetailConfigLetterSpacingLevel = !this.needDetailConfigLetterSpacingLevel;
+        onClickNeedDetailConfigLetterSpacing() {
+            this.needDetailConfigLetterSpacing = !this.needDetailConfigLetterSpacing;
             if (this.text !== "") {
                 this.generateTukiArt();
             }
@@ -503,8 +503,7 @@ const App = {
                 this.generateTukiArt();
             }
         },
-        onClickLetterSpacingLevel(num) {
-            this.letterSpacingLevel = num;
+        onChangeLetterSpacing() {
             if (this.text !== "") {
                 this.generateTukiArt();
             }
@@ -672,7 +671,7 @@ const App = {
                 this.tukiCount = 13;
                 this.fontFamily = "noto-serif";
                 this.lineWidth = 0;
-                this.letterSpacingLevel = letterSpacingLevelDefault;
+                this.letterSpacing = 0;
                 this.isBold = false;
                 this.isTextYokoLinePowerUp = true;
                 this.isTextTateLinePowerUp = true;
@@ -915,11 +914,11 @@ const App = {
 
                 prevText = this.text;
 
-                const letterSpacingLevel = this.needDetailConfigLetterSpacingLevel ? this.letterSpacingLevel : letterSpacingLevelDefault;
+                const letterSpacing = this.needDetailConfigLetterSpacing ? this.letterSpacing : 0;
                 const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
                 let imageData = null;
                 try {
-                    imageData = MonochromeCanvas.createTextCanvasParams(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacingLevel, lineWidth);
+                    imageData = MonochromeCanvas.createTextCanvasParams(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacing, lineWidth);
                 }
                 catch (e) {
                     if (this.isTate) {
