@@ -1,9 +1,9 @@
-importScripts("create_canvas_size_test.js");
-importScripts("constants.js");
-importScripts("canvas_utils.js");
-importScripts("custom_errors.js");
-importScripts("monochrome_canvas.js");
-importScripts("tuki_art_generator.js");
+importScripts("../create_canvas_size_test.js");
+importScripts("../constants.js");
+importScripts("../canvas_utils.js");
+importScripts("../custom_errors.js");
+importScripts("../monochrome_canvas.js");
+importScripts("../tuki_art_generator.js");
 
 onmessage = async evnt => {
     let tukiArt = "";

@@ -932,7 +932,7 @@ const App = {
                     return;
                 }
 
-                worker = new Worker("./js/text_to_tuki_art_canvas_worker.js");
+                worker = new Worker("./js/worker/text_to_tuki_art_canvas_worker.js");
                 worker.onmessage = async e => {
                     worker.terminate(); worker = null;
 
@@ -1013,7 +1013,7 @@ const App = {
                         context.drawImage(img, 0, 0, img.width, img.height, 0, 0, tukiArtParams.imageWidth, tukiArtParams.imageHeight);
                         const imageData = canvas.transferToImageBitmap();
 
-                        worker = new Worker("./js/image_to_tuki_art_canvas_worker.js");
+                        worker = new Worker("./js/worker/image_to_tuki_art_canvas_worker.js");
                         worker.onmessage = async e => {
                             worker.terminate(); worker = null;
 
