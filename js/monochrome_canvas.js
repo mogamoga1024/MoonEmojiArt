@@ -43,7 +43,7 @@ class MonochromeCanvas {
         let tateMargin = 8;
         if (_fontFamily === "noto-serif" || _fontFamily === "serif") {
             if (isTate || text.length == 1) {
-                tateMargin = 12;
+                tateMargin = 14;
             }
         }
 
