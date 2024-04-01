@@ -1129,6 +1129,7 @@ const App = {
                             canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
                             this.$refs.resultVideo.width = canvasParams.width;
                             this.$refs.resultVideo.height = canvasParams.height;
+                            this.resultVideoWidth = canvasParams.width < 1200 ? canvasParams.width : 1200;
                         }
 
                         TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, resultVideoContext);
@@ -1176,8 +1177,6 @@ const App = {
 
                     this.clearResult();
                     this.$refs.videoWrapper.appendChild(video);
-
-                    this.resultVideoWidth = video.videoWidth < 1200 ? video.videoWidth : 1200;
 
                     videoTimerId = playTukiArtVideo();
 
