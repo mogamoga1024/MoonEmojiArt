@@ -49,6 +49,7 @@ class MonochromeCanvas {
 
         if (isTate || text.length === 1) {
             letterSpacing += tateMargin;
+            letterSpacing = Math.max(letterSpacing, 0);
             return this.#createTateTextCanvasParams(text, font, tateMargin, letterSpacing, lineWidth);
         }
         else {
