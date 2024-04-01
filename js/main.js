@@ -364,11 +364,10 @@ const App = {
 
                     this.imageBaseAverageColor = baseAverageColorDefault;
                     this.imageBaseColorDistance = baseColorDistanceDefault;
-                    this.resultImageWidthRate = 100;
                     URL.revokeObjectURL(img.src);
                     isLoadingInputImage = false;
 
-                    this.generateTukiArt();
+                    this.generateTukiArt(true);
                 }
             };
             img.onerror = () => {
@@ -851,7 +850,7 @@ const App = {
 
             this.clearResultVideo();
         },
-        generateTukiArt() {
+        generateTukiArt(shoudlResetResultImageWidthRate = false) {
             if (
                 this.mode === "image" && isLoadingInputImage ||
                 this.mode === "video" && isLoadingInputVideo
@@ -899,9 +898,9 @@ const App = {
             // こうしないとスマホで「処理中…」のやつがでない
             // setTimeout(this.generateTukiArt1, 50);
 
-            this.generateTukiArt1();
+            this.generateTukiArt1(shoudlResetResultImageWidthRate);
         },
-        generateTukiArt1() {
+        generateTukiArt1(shoudlResetResultImageWidthRate = false) {
             const mode = this.mode;
 
             if (mode === "text") {
@@ -1030,6 +1029,9 @@ const App = {
                             }
 
                             try {
+                                if (shoudlResetResultImageWidthRate) {
+                                    this.resultImageWidthRate = 100;
+                                }
                                 await this.displayTukiArt(e.data.resultBase64, e.data.monoBase64, tukiArtParams.imageWidth);
                                 this.resultMessage = MSG_非表示;
                                 this.tukiArtType = mode;
