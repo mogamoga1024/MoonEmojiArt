@@ -473,7 +473,10 @@ const App = {
             }
         },
         onBlurText() {
-            if (this.text !== "" && this.text !== prevText) {
+            if (
+                this.text === "" && this.tukiArtType !== "none" ||
+                this.text !== "" && this.text !== prevText
+            ) {
                 this.loadFontAndGenerateTukiArt();
             }
         },
