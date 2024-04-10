@@ -903,15 +903,20 @@ const App = {
                 prevText = this.text;
 
                 // Canvasを作る前に先にフォントを読み込む
-                if (this.fontFamily === "noto-serif") {
-                    const weight = this.isBold ? 700 : 400;
-                    await loadFont("Noto Serif JP", `https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@${weight}&text=${encodeURIComponent(this.text)}`);
+                try {
+                    if (this.fontFamily === "noto-serif") {
+                        const weight = this.isBold ? 700 : 400;
+                        await loadFont("Noto Serif JP", `https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@${weight}&text=${encodeURIComponent(this.text)}`);
+                    }
+                    else if (this.fontFamily === "noto-sans") {
+                        const weight = this.isBold ? 700 : 400;
+                        await loadFont("Noto Sans JP", `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@${weight}&text=${encodeURIComponent(this.text)}`);
+                    }
                 }
-                else if (this.fontFamily === "noto-sans") {
-                    const weight = this.isBold ? 700 : 400;
-                    await loadFont("Noto Sans JP", `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@${weight}&text=${encodeURIComponent(this.text)}`);
+                catch (e) {
+                    // フォントが読み込めなくても何もしない
                 }
-
+                
                 const letterSpacing = this.needDetailConfigLetterSpacing ? this.letterSpacing : 0;
                 const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
                 let imageData = null;
