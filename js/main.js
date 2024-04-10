@@ -887,12 +887,9 @@ const App = {
                 this.moon = moons[moonIndex];
             }, 100);
 
-            // こうしないとスマホで「処理中…」のやつがでない
-            // setTimeout(this.generateTukiArt1, 50);
-
             this.generateTukiArt1(shoudlResetResultImageWidthRate);
         },
-        generateTukiArt1(shoudlResetResultImageWidthRate = false) {
+        async generateTukiArt1(shoudlResetResultImageWidthRate = false) {
             const mode = this.mode;
 
             if (mode === "text") {
@@ -904,6 +901,14 @@ const App = {
                 }
 
                 prevText = this.text;
+
+                // Canvasを作る前に先にフォントを読み込む
+                if (this.fontFamily === "noto-serif") {
+                    await loadFont("Noto Serif JP", `https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&text=${encodeURIComponent(this.text)}`);
+                }
+                else if (this.fontFamily === "noto-sans") {
+                    await loadFont("Noto Sans JP", `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&text=${encodeURIComponent(this.text)}`);
+                }
 
                 const letterSpacing = this.needDetailConfigLetterSpacing ? this.letterSpacing : 0;
                 const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
