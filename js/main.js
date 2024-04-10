@@ -240,14 +240,14 @@ const App = {
 
         if (isDebug) {
             // this.shouldDisplayMonochromeImage = true;
-            this.text = "一三￥";
+            this.text = "一三￥月文字";
             // this.tukiCount = 10;
             // // this.fontFamily = "sans";
             // this.fontFamily = "serif";
             // // this.fontFamily = "default";
             // this.isBold = true;
-            this.isTextYokoLinePowerUp = false;
-            this.isTextTateLinePowerUp = false;
+            // this.isTextYokoLinePowerUp = false;
+            // this.isTextTateLinePowerUp = false;
             // this.isTate = false;
             // this.isMobile = true;
 
