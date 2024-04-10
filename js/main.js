@@ -477,7 +477,7 @@ const App = {
                 this.text === "" && this.tukiArtType !== "none" ||
                 this.text !== "" && this.text !== prevText
             ) {
-                this.loadFontAndGenerateTukiArt();
+                this.generateTukiArt();;
             }
         },
         onChangeTukiCount() {
@@ -497,7 +497,7 @@ const App = {
                 this.isTextTateLinePowerUp = false;
             }
             if (this.text !== "") {
-                this.loadFontAndGenerateTukiArt();
+                this.generateTukiArt();;
             }
         },
         onChangeLineWidth() {
@@ -533,7 +533,7 @@ const App = {
         onClickIsBold() {
             this.isBold = !this.isBold;
             if (this.text !== "") {
-                this.loadFontAndGenerateTukiArt();
+                this.generateTukiArt();;
             }
         },
         onClickIsTextColorReverse() {
@@ -806,17 +806,6 @@ const App = {
             this.tukiCountMax = tukiCountUnSafeMaxDefault;
             this.imageWidthMax = imageWidthMaxDefault;
             this.videoWidthMax = videoWidthMaxDefault;
-        },
-        loadFontAndGenerateTukiArt() {
-            // こうしないとiPhoneのSafariでWebフォントが読み込まれずに月文字が生成されてしまう
-            if (this.fontFamily ==="noto-serif" || this.fontFamily ==="noto-sans") {
-                setTimeout(() => {
-                    this.generateTukiArt();
-                }, 100);
-            }
-            else {
-                this.generateTukiArt();
-            }
         },
         clearResultVideo() {
             if (this.$refs.videoWrapper.firstChild != null) {
