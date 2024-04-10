@@ -364,11 +364,10 @@ const App = {
 
                     this.imageBaseAverageColor = baseAverageColorDefault;
                     this.imageBaseColorDistance = baseColorDistanceDefault;
-                    this.resultImageWidthRate = 100;
                     URL.revokeObjectURL(img.src);
                     isLoadingInputImage = false;
 
-                    this.generateTukiArt();
+                    this.generateTukiArt(true);
                 }
             };
             img.onerror = () => {
@@ -474,7 +473,10 @@ const App = {
             }
         },
         onBlurText() {
-            if (this.text !== "" && this.text !== prevText) {
+            if (
+                this.text === "" && this.tukiArtType !== "none" ||
+                this.text !== "" && this.text !== prevText
+            ) {
                 this.loadFontAndGenerateTukiArt();
             }
         },
@@ -851,7 +853,7 @@ const App = {
 
             this.clearResultVideo();
         },
-        generateTukiArt() {
+        generateTukiArt(shoudlResetResultImageWidthRate = false) {
             if (
                 this.mode === "image" && isLoadingInputImage ||
                 this.mode === "video" && isLoadingInputVideo
@@ -899,9 +901,9 @@ const App = {
             // こうしないとスマホで「処理中…」のやつがでない
             // setTimeout(this.generateTukiArt1, 50);
 
-            this.generateTukiArt1();
+            this.generateTukiArt1(shoudlResetResultImageWidthRate);
         },
-        generateTukiArt1() {
+        generateTukiArt1(shoudlResetResultImageWidthRate = false) {
             const mode = this.mode;
 
             if (mode === "text") {
@@ -1030,6 +1032,9 @@ const App = {
                             }
 
                             try {
+                                if (shoudlResetResultImageWidthRate) {
+                                    this.resultImageWidthRate = 100;
+                                }
                                 await this.displayTukiArt(e.data.resultBase64, e.data.monoBase64, tukiArtParams.imageWidth);
                                 this.resultMessage = MSG_非表示;
                                 this.tukiArtType = mode;
@@ -1127,6 +1132,7 @@ const App = {
                             canvasParams = TukiArtGenerator.findValidTukiArtCanvasParams(textList);
                             this.$refs.resultVideo.width = canvasParams.width;
                             this.$refs.resultVideo.height = canvasParams.height;
+                            this.resultVideoWidth = canvasParams.width < 1200 ? canvasParams.width : 1200;
                         }
 
                         TukiArtGenerator.createTukiArtCanvas(textList, canvasParams, resultVideoContext);
@@ -1174,8 +1180,6 @@ const App = {
 
                     this.clearResult();
                     this.$refs.videoWrapper.appendChild(video);
-
-                    this.resultVideoWidth = video.videoWidth < 1200 ? video.videoWidth : 1200;
 
                     videoTimerId = playTukiArtVideo();
 

@@ -43,12 +43,13 @@ class MonochromeCanvas {
         let tateMargin = 8;
         if (_fontFamily === "noto-serif" || _fontFamily === "serif") {
             if (isTate || text.length == 1) {
-                tateMargin = 12;
+                tateMargin = 14;
             }
         }
 
         if (isTate || text.length === 1) {
             letterSpacing += tateMargin;
+            letterSpacing = Math.max(letterSpacing, 0);
             return this.#createTateTextCanvasParams(text, font, tateMargin, letterSpacing, lineWidth);
         }
         else {
@@ -60,11 +61,13 @@ class MonochromeCanvas {
         const tmpCanvas = new OffscreenCanvas(300, 150);
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
-        const smallCharList = "、。っゃゅょぁぃぅぇぉッャュョァィゥェォ 「」『』()（）【】";
+        const smallCharList = "、。.,っゃゅょぁぃぅぇぉッャュョァィゥェォ 「」『』()（）【】";
         const rotateCharList = "「」『』()（）【】ー ～…";
         const reverseCharList = "ー～";
         const centerJustifiedCharList = "()（）【】…";
         const leftJustifiedCharList = "」』";
+        const topJustifiedCharList = "、。」』";
+        const bottomJustifiedCharList = "「『";
 
         let minCanvasHeight = 0;
         const {
@@ -144,6 +147,8 @@ class MonochromeCanvas {
             const isReverseChar = reverseCharList.includes(char.value);
             const isCenterJustifiedChar = centerJustifiedCharList.includes(char.value); 
             const isLeftJustifiedChar = leftJustifiedCharList.includes(char.value);
+            const isTopJustifiedChar = topJustifiedCharList.includes(char.value);
+            const isBottomJustifiedChar = bottomJustifiedCharList.includes(char.value);
 
             tmpCanvas2.width = Math.ceil(char.canvasWidth);
             tmpCanvas2.height = Math.max(Math.ceil(char.canvasHeight), minCanvasHeight);
@@ -212,9 +217,25 @@ class MonochromeCanvas {
                     isLargeMarginChar = false;
                 }
             }
+
+            // 小さい文字も最低限の高さを与える
+            const standardCharHalfHeight = standardCharHeight / 2;
+            const isSmallMarginChar = isSmallChar && trimmed.height < standardCharHalfHeight;
+
             const prevDestY = dstY;
             if (isLargeMarginChar) {
                 dstY += (standardCharHeight - trimmed.height) / 2;
+            }
+            else if (isSmallMarginChar) {
+                if (isTopJustifiedChar) {
+                    // 何もしない
+                }
+                else if (isBottomJustifiedChar) {
+                    dstY += standardCharHalfHeight - trimmed.height;
+                }
+                else {
+                    dstY += (standardCharHalfHeight - trimmed.height) / 2;
+                }
             }
 
             tmpContext.putImageData(tmpContext2.getImageData(trimmed.x, trimmed.y, trimmed.width, trimmed.height), dstX, dstY);
@@ -223,6 +244,11 @@ class MonochromeCanvas {
                 dstY = prevDestY;
                 dstY += standardCharHeight + letterSpacing;
                 totalHeight += standardCharHeight;
+            }
+            else if (isSmallMarginChar) {
+                dstY = prevDestY;
+                dstY += standardCharHalfHeight + letterSpacing;
+                totalHeight += standardCharHalfHeight;
             }
             else {
                 dstY += trimmed.height + letterSpacing;
