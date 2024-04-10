@@ -904,10 +904,12 @@ const App = {
 
                 // Canvasを作る前に先にフォントを読み込む
                 if (this.fontFamily === "noto-serif") {
-                    await loadFont("Noto Serif JP", `https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&text=${encodeURIComponent(this.text)}`);
+                    const weight = this.isBold ? 700 : 400;
+                    await loadFont("Noto Serif JP", `https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@${weight}&text=${encodeURIComponent(this.text)}`);
                 }
                 else if (this.fontFamily === "noto-sans") {
-                    await loadFont("Noto Sans JP", `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&text=${encodeURIComponent(this.text)}`);
+                    const weight = this.isBold ? 700 : 400;
+                    await loadFont("Noto Sans JP", `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@${weight}&text=${encodeURIComponent(this.text)}`);
                 }
 
                 const letterSpacing = this.needDetailConfigLetterSpacing ? this.letterSpacing : 0;
