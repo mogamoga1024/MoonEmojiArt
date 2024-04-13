@@ -28,7 +28,7 @@ const loadFont = (() => {
                 throw new Error("フォントが見つかりませんでした");
             }
     
-            for (const url of matchUrls) {
+            for (const url of new Set(matchUrls)) {
                 // 後は普通にFontFaceを追加
                 const font = new FontFace(name, url);
                 await font.load();
