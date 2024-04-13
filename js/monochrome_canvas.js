@@ -62,7 +62,7 @@ class MonochromeCanvas {
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
         const smallCharList = "、。.,っゃゅょぁぃぅぇぉッャュョァィゥェォ 「」『』()（）【】";
-        const rotateCharList = "「」『』()（）【】ー ～…";
+        const rotateCharList = "「」『』()（）【】ー ～…-";
         const reverseCharList = "ー～";
         const centerJustifiedCharList = "()（）【】…";
         const leftJustifiedCharList = "」』";
