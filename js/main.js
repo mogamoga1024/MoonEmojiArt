@@ -1013,12 +1013,11 @@ const App = {
                 // Canvasを作る前に先にフォントを読み込む
                 try {
                     if (this.fontFamily === "noto-serif") {
-                        const weight = this.isBold ? 700 : 400;
-                        await loadFont("Noto Serif JP", `https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@${weight}&text=${encodeURIComponent(this.text)}`);
+                        // :wght@400;700があると何故か太字と標準で切り変わらない
+                        await loadFont("Noto Serif JP", `https://fonts.googleapis.com/css2?family=Noto+Serif+JP&text=${encodeURIComponent(this.text)}`);
                     }
                     else if (this.fontFamily === "noto-sans") {
-                        const weight = this.isBold ? 700 : 400;
-                        await loadFont("Noto Sans JP", `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@${weight}&text=${encodeURIComponent(this.text)}`);
+                        await loadFont("Noto Sans JP", `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&text=${encodeURIComponent(this.text)}`);
                     }
                 }
                 catch (e) {
@@ -1029,7 +1028,7 @@ const App = {
                 const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
                 let imageData = null;
                 try {
-                    imageData = MonochromeCanvas.createTextCanvasParams(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacing, lineWidth);
+                    imageData = MonochromeCanvas.createTextCanvas(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacing, lineWidth);
                 }
                 catch (e) {
                     if (this.isTate) {
