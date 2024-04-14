@@ -8,7 +8,7 @@
             [B, B, W, W],
             [B, B, B, B],
         ];
-        strictEqual(TukiArtGenerator._convertTuki(pixels, true, true), "🌑");
+        strictEqual(TukiArtGenerator._convertTuki(pixels, true, true, true), "🌑");
     });
     
     test("🌓", function() {
@@ -18,6 +18,6 @@
             [W, B, W, W],
             [W, B, W, W],
         ];
-        strictEqual(TukiArtGenerator._convertTuki(pixels, true, true), "🌓");
+        strictEqual(TukiArtGenerator._convertTuki(pixels, true, true, true), "🌓");
     });
 })();

@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    static createTukiArt(pixels, isColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, colorCount = 2, useNanameMikaduki = false) {
+    static createTukiArt(pixels, isColorReverse = false, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, colorCount = 2, useNanameMikaduki = false) {
         let text = "";
 
         const data = pixels.data;
@@ -26,7 +26,7 @@ class TukiArtGenerator {
                     }
                 }
 
-                const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine, shouldDrawThinBlackYokoTopLine, shouldDrawThinBlackYokoBottomLine, useNanameMikaduki);
+                const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackTateLine, shouldDrawThinBlackYokoTopLine, shouldDrawThinBlackYokoBottomLine, useNanameMikaduki);
                 if (isColorReverse && !useNanameMikaduki) {
                     text += this.#reverse(emoji);
                 }
@@ -198,11 +198,10 @@ class TukiArtGenerator {
         }
     }
 
-    static _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, useNanameMikaduki = false) {
+    static _convertTuki(pixels, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, useNanameMikaduki = false) {
         let rtnTuki = null;
         let hitCount = -1;
 
-        const existsBlackColList = [false, false, false, false];
         const existsBlackColTopList = [false, false, false, false];
         const existsBlackColBottomList = [false, false, false, false];
         let tukiBBBWHitCount = 0;
@@ -235,9 +234,6 @@ class TukiArtGenerator {
                     }
                     else if (color === SW && tuki.pixels[row][col] === W) {
                         tmpHitCount++;
-                    }
-                    if (shouldDrawThinBlackYokoLine && !existsBlackColList[col] && color < W) {
-                        existsBlackColList[col] = true;
                     }
                     if (shouldDrawThinBlackYokoTopLine && row < TUKI_SIDE_PIXEL_COUNT / 2 && !existsBlackColTopList[col] && color < W) {
                         existsBlackColTopList[col] = true;
@@ -282,7 +278,12 @@ class TukiArtGenerator {
         }
 
         const maxHitCount = TUKI_SIDE_PIXEL_COUNT * TUKI_SIDE_PIXEL_COUNT;
-        if (shouldDrawThinBlackYokoLine && hitCount < maxHitCount && existsBlackColList.filter(e => e).length > 2) {
+        if (
+            shouldDrawThinBlackYokoTopLine &&
+            shouldDrawThinBlackYokoBottomLine &&
+            hitCount < maxHitCount &&
+            existsBlackColTopList.map((e, i) => e || existsBlackColBottomList[i]).filter(e => e).length > 2
+        ) {
             return "🌑";
         }
         if (shouldDrawThinBlackYokoTopLine && hitCount < maxHitCount && existsBlackColTopList.filter(e => e).length > 2) {

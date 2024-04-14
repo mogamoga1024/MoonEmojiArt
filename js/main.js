@@ -99,17 +99,14 @@ const App = {
             imageFile: null,
             videoFile: null,
 
-            isTextYokoLinePowerUp: false,
             isTextTateLinePowerUp: true,
             isTextYokoTopLinePowerUp: false,
             isTextYokoBottomLinePowerUp: true,
 
-            isImageYokoLinePowerUp: false,
             isImageTateLinePowerUp: false,
             isImageYokoTopLinePowerUp: false,
             isImageYokoBottomLinePowerUp: false,
 
-            isVideoYokoLinePowerUp: false,
             isVideoTateLinePowerUp: false,
             isVideoYokoTopLinePowerUp: false,
             isVideoYokoBottomLinePowerUp: false,
@@ -256,7 +253,6 @@ const App = {
             // this.fontFamily = "serif";
             // // this.fontFamily = "default";
             // this.isBold = true;
-            // this.isTextYokoLinePowerUp = false;
             // this.isTextTateLinePowerUp = false;
             // this.isTate = false;
             // this.isMobile = true;
@@ -487,12 +483,10 @@ const App = {
             if (!this.needDetailConfigTextSenKyoka) {
                 if (this.fontFamily === "noto-serif" || this.fontFamily === "serif") {
                     if (
-                        this.isTextYokoLinePowerUp ||
                         !this.isTextTateLinePowerUp ||
                         this.isTextYokoTopLinePowerUp ||
                         !this.isTextYokoBottomLinePowerUp
                     ) {
-                        this.isTextYokoLinePowerUp = false;
                         this.isTextTateLinePowerUp = true;
                         this.isTextYokoTopLinePowerUp = false;
                         this.isTextYokoBottomLinePowerUp = true;
@@ -503,12 +497,10 @@ const App = {
                 }
                 else {
                     if (
-                        this.isTextYokoLinePowerUp ||
                         this.isTextTateLinePowerUp ||
                         this.isTextYokoTopLinePowerUp ||
                         this.isTextYokoBottomLinePowerUp
                     ) {
-                        this.isTextYokoLinePowerUp = false;
                         this.isTextTateLinePowerUp = false;
                         this.isTextYokoTopLinePowerUp = false;
                         this.isTextYokoBottomLinePowerUp = false;
@@ -535,14 +527,12 @@ const App = {
         onChangeFontFamily(e) {
             if (e.target.value === "noto-serif" || e.target.value === "serif") {
                 this.isBold = false;
-                this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = true;
                 this.isTextYokoTopLinePowerUp = false;
                 this.isTextYokoBottomLinePowerUp = true;
             }
             else {
                 this.isBold = true;
-                this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
                 this.isTextYokoTopLinePowerUp = false;
                 this.isTextYokoBottomLinePowerUp = false;
@@ -599,12 +589,6 @@ const App = {
                 this.generateTukiArt();
             }
         },
-        onClickIsTextYokoLinePowerUp() {
-            this.isTextYokoLinePowerUp = !this.isTextYokoLinePowerUp;
-            if (this.text !== "") {
-                this.generateTukiArt();
-            }
-        },
         onClickIsTextTateLinePowerUp() {
             this.isTextTateLinePowerUp = !this.isTextTateLinePowerUp;
             if (this.text !== "") {
@@ -630,12 +614,10 @@ const App = {
             this.needDetailConfigImageSenKyoka = !this.needDetailConfigImageSenKyoka;
             if (!this.needDetailConfigImageSenKyoka) {
                 if (
-                    this.isImageYokoLinePowerUp ||
                     this.isImageTateLinePowerUp ||
                     this.isImageYokoTopLinePowerUp ||
                     this.isImageYokoBottomLinePowerUp
                 ) {
-                    this.isImageYokoLinePowerUp = false;
                     this.isImageTateLinePowerUp = false;
                     this.isImageYokoTopLinePowerUp = false;
                     this.isImageYokoBottomLinePowerUp = false;
@@ -680,12 +662,6 @@ const App = {
         },
         onClickIsImageColorReverse() {
             this.isImageColorReverse = !this.isImageColorReverse;
-            if (this.imageFile !== null) {
-                this.generateTukiArt();
-            }
-        },
-        onClickIsImageYokoLinePowerUp() {
-            this.isImageYokoLinePowerUp = !this.isImageYokoLinePowerUp;
             if (this.imageFile !== null) {
                 this.generateTukiArt();
             }
@@ -739,10 +715,6 @@ const App = {
             this.isVideoColorReverse = !this.isVideoColorReverse;
             isVideoParamChanged = true;
         },
-        onClickIsVideoYokoLinePowerUp() {
-            this.isVideoYokoLinePowerUp = !this.isVideoYokoLinePowerUp;
-            isVideoParamChanged = true;
-        },
         onClickIsVideoTateLinePowerUp() {
             this.isVideoTateLinePowerUp = !this.isVideoTateLinePowerUp;
             isVideoParamChanged = true;
@@ -777,7 +749,6 @@ const App = {
                 this.lineWidth = 0;
                 this.letterSpacing = 0;
                 this.isBold = false;
-                this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = true;
                 this.isTextYokoTopLinePowerUp = false;
                 this.isTextYokoBottomLinePowerUp = true;
@@ -795,7 +766,6 @@ const App = {
                 this.needImageOutline = true;
                 this.isImageColorReverse = false;
                 this.imageWidth = imageWidthOri;
-                this.isImageYokoLinePowerUp = false;
                 this.isImageTateLinePowerUp = false;
                 this.isImageYokoTopLinePowerUp = false;
                 this.isImageYokoBottomLinePowerUp = false;
@@ -809,7 +779,6 @@ const App = {
                 this.needVideoOutline = true;
                 this.isVideoColorReverse = false;
                 this.videoWidth = videoWidthOri;
-                this.isVideoYokoLinePowerUp = false;
                 this.isVideoTateLinePowerUp = false;
                 this.isVideoYokoTopLinePowerUp = false;
                 this.isVideoYokoBottomLinePowerUp = false;
@@ -1081,7 +1050,6 @@ const App = {
                     tukiCount: this.tukiCount,
                     isTate: this.isTate,
                     isTextColorReverse: this.isTextColorReverse,
-                    isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
                     isTextTateLinePowerUp: this.isTextTateLinePowerUp,
                     isTextYokoTopLinePowerUp: this.isTextYokoTopLinePowerUp,
                     isTextYokoBottomLinePowerUp: this.isTextYokoBottomLinePowerUp,
@@ -1105,7 +1073,6 @@ const App = {
                     imageColorCount: this.imageColorCount,
                     useImageNanameMikaduki: this.useImageNanameMikaduki,
                     isImageColorReverse: this.isImageColorReverse,
-                    isImageYokoLinePowerUp: this.isImageYokoLinePowerUp,
                     isImageTateLinePowerUp: this.isImageTateLinePowerUp,
                     isImageYokoTopLinePowerUp: this.isImageYokoTopLinePowerUp,
                     isImageYokoBottomLinePowerUp: this.isImageYokoBottomLinePowerUp
@@ -1232,7 +1199,6 @@ const App = {
                         tukiArt = TukiArtGenerator.createTukiArt(
                             monoCanvas.pixels,
                             this.isVideoColorReverse,
-                            this.isVideoYokoLinePowerUp,
                             this.isVideoTateLinePowerUp,
                             this.isVideoYokoTopLinePowerUp,
                             this.isVideoYokoBottomLinePowerUp, 
