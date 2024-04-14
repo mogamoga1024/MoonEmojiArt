@@ -202,7 +202,7 @@ class TukiArtGenerator {
         let rtnTuki = null;
         let hitCount = -1;
 
-        const existsLightColList = [false, false, false, false];
+        const existsBlackColList = [false, false, false, false];
         let tukiBBBWHitCount = 0;
         let tukiWBBBHitCount = 0;
         for (const tuki of this.#tukiList) {
@@ -234,8 +234,8 @@ class TukiArtGenerator {
                     else if (color === SW && tuki.pixels[row][col] === W) {
                         tmpHitCount++;
                     }
-                    if (!existsLightColList[col] && color < W) {
-                        existsLightColList[col] = true;
+                    if (!existsBlackColList[col] && color < W) {
+                        existsBlackColList[col] = true;
                     }
                 }
             }
@@ -274,7 +274,7 @@ class TukiArtGenerator {
         }
 
         const maxHitCount = TUKI_SIDE_PIXEL_COUNT * TUKI_SIDE_PIXEL_COUNT;
-        if (shouldDrawThinBlackYokoLine && hitCount < maxHitCount && existsLightColList.filter(e => e).length > 2) {
+        if (shouldDrawThinBlackYokoLine && hitCount < maxHitCount && existsBlackColList.filter(e => e).length > 2) {
             return "🌑";
         }
 
