@@ -96,11 +96,16 @@ button, input, select, textarea {
   row-gap: 16px;
 }
 
-.input-check-area {
+.input-check-area-container {
   display: flex;
   flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.input-check-area {
+  display: flex;
   column-gap: 8px;
-  row-gap: 8px;
 }
 
 .item-list {
@@ -377,12 +382,6 @@ input {
 
 #input-text {
   width: calc(var(--item-name-width) + var(--item-input-width) + 60px);
-}
-
-#sen-kyoka-area {
-  display: flex;
-  margin-top: 8px;
-  column-gap: 8px;
 }
 
 .action-btn-list {
