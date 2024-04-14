@@ -63,18 +63,23 @@
              :class="{'selected': needDetailConfigTukiArtMargin}"
              @click="onClickNeedDetailConfigTukiArtMargin">余白</div>
         <div class="btn"
-             :class="{'selected': shouldDisplaySenKyokaDetail}"
-             @click="shouldDisplaySenKyokaDetail = !shouldDisplaySenKyokaDetail">線強化</div>
+             :class="{'selected': shouldDisplayTextSenKyokaDetail}"
+             @click="shouldDisplayTextSenKyokaDetail = !shouldDisplayTextSenKyokaDetail">線強化</div>
       </div>
       <hr>
     </div>
 
     <div v-show="mode === 'image'">
       <div class="config-area">
-        <div class="btn"
-             :class="{'selected': shouldDisplayMonochromeImage}"
-             style="display: inline-block; margin-bottom: 8px;"
-             @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">モノクロ画像表示</div><br>
+        <div class="item-list"
+             style="margin-bottom: 8px;">
+          <div class="btn"
+               :class="{'selected': shouldDisplayMonochromeImage}"
+               @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">モノクロ画像表示</div>
+          <div class="btn"
+               :class="{'selected': shouldDisplayImageSenKyokaDetail}"
+               @click="shouldDisplayImageSenKyokaDetail = !shouldDisplayImageSenKyokaDetail">線強化</div>
+        </div>
         <div class="btn"
              :class="{'selected': shouldShrinkImage}"
              @click="this.shouldShrinkImage = !this.shouldShrinkImage">月文字画像を画面内に収める</div>
@@ -183,7 +188,7 @@
       </div>
 
       <div id="sen-kyoka-area"
-           v-if=shouldDisplaySenKyokaDetail>
+           v-if=shouldDisplayTextSenKyokaDetail>
         <div class="btn" :class="{'selected': isTextYokoLinePowerUp}" @click="onClickIsTextYokoLinePowerUp">横強化</div>
         <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="onClickIsTextTateLinePowerUp">縦強化</div>
       </div>

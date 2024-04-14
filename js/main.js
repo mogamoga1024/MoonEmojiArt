@@ -77,7 +77,8 @@ const App = {
             needDetailConfigLineWidth: false,
             needDetailConfigLetterSpacing: false,
             needDetailConfigTukiArtMargin: false,
-            shouldDisplaySenKyokaDetail: false,
+            shouldDisplayTextSenKyokaDetail: false,
+            shouldDisplayImageSenKyokaDetail: false,
             shouldShrinkImage: true,
             mode: "text", // "text" | "image" | "video"
 
