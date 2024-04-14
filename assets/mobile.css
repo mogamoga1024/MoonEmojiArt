@@ -28,7 +28,7 @@
     width: 70px;
   }
 
-  #setting .input-check-area, #sen-kyoka-area {
+  .input-check-area-container {
     justify-content: center;
 
     .btn {
