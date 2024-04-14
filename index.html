@@ -63,8 +63,8 @@
              :class="{'selected': needDetailConfigTukiArtMargin}"
              @click="onClickNeedDetailConfigTukiArtMargin">余白</div>
         <div class="btn"
-             :class="{'selected': shouldDisplayTextSenKyokaDetail}"
-             @click="shouldDisplayTextSenKyokaDetail = !shouldDisplayTextSenKyokaDetail">線強化</div>
+             :class="{'selected': needDetailConfigTextSenKyoka}"
+             @click="onClickNeedDetailConfigTextSenKyoka">線強化</div>
       </div>
       <hr>
     </div>
@@ -77,8 +77,8 @@
                :class="{'selected': shouldDisplayMonochromeImage}"
                @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">モノクロ画像表示</div>
           <div class="btn"
-               :class="{'selected': shouldDisplayImageSenKyokaDetail}"
-               @click="shouldDisplayImageSenKyokaDetail = !shouldDisplayImageSenKyokaDetail">線強化</div>
+               :class="{'selected': needDetailConfigImageSenKyoka}"
+               @click="onClickNeedDetailConfigImageSenKyoka">線強化</div>
         </div>
         <div class="btn"
              :class="{'selected': shouldShrinkImage}"
@@ -187,7 +187,7 @@
         </div>
       </div>
       <div id="sen-kyoka-area"
-           v-if="shouldDisplayTextSenKyokaDetail">
+           v-if="needDetailConfigTextSenKyoka">
         <div class="btn" :class="{'selected': isTextYokoLinePowerUp}" @click="onClickIsTextYokoLinePowerUp">横強化</div>
         <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="onClickIsTextTateLinePowerUp">縦強化</div>
       </div>
@@ -256,7 +256,7 @@
           <div class="btn" :class="{'selected': isImageColorReverse}" @click="onClickIsImageColorReverse">色反転</div>
         </div>
         <div id="sen-kyoka-area"
-             v-if="shouldDisplayImageSenKyokaDetail">
+             v-if="needDetailConfigImageSenKyoka">
           <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="onClickIsImageYokoLinePowerUp">横強化</div>
           <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="onClickIsImageTateLinePowerUp">縦強化</div>
         </div>

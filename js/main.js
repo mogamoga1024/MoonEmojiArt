@@ -77,8 +77,8 @@ const App = {
             needDetailConfigLineWidth: false,
             needDetailConfigLetterSpacing: false,
             needDetailConfigTukiArtMargin: false,
-            shouldDisplayTextSenKyokaDetail: false,
-            shouldDisplayImageSenKyokaDetail: false,
+            needDetailConfigTextSenKyoka: false,
+            needDetailConfigImageSenKyoka: false,
             shouldShrinkImage: true,
             mode: "text", // "text" | "image" | "video"
 
@@ -474,6 +474,29 @@ const App = {
                 this.generateTukiArt();
             }
         },
+        onClickNeedDetailConfigTextSenKyoka() {
+            this.needDetailConfigTextSenKyoka = !this.needDetailConfigTextSenKyoka;
+            if (!this.needDetailConfigTextSenKyoka) {
+                if (this.fontFamily === "noto-serif" || this.fontFamily === "serif") {
+                    if (!this.isTextYokoLinePowerUp || !this.isTextTateLinePowerUp) {
+                        this.isTextYokoLinePowerUp = true;
+                        this.isTextTateLinePowerUp = true;
+                        if (this.text !== "") {
+                            this.generateTukiArt();
+                        }
+                    }
+                }
+                else {
+                    if (this.isTextYokoLinePowerUp || this.isTextTateLinePowerUp) {
+                        this.isTextYokoLinePowerUp = false;
+                        this.isTextTateLinePowerUp = false;
+                        if (this.text !== "") {
+                            this.generateTukiArt();
+                        }
+                    }
+                }
+            }
+        },
         onBlurText() {
             if (
                 this.text === "" && this.tukiArtType !== "none" ||
@@ -565,6 +588,18 @@ const App = {
 
         // 🌕🌕 画像パラメータのUIイベント 🌕🌕
 
+        onClickNeedDetailConfigImageSenKyoka() {
+            this.needDetailConfigImageSenKyoka = !this.needDetailConfigImageSenKyoka;
+            if (!this.needDetailConfigImageSenKyoka) {
+                if (this.isImageYokoLinePowerUp || this.isImageTateLinePowerUp) {
+                    this.isImageYokoLinePowerUp = false;
+                    this.isImageTateLinePowerUp = false;
+                    if (this.imageFile !== null) {
+                        this.generateTukiArt();
+                    }
+                }
+            }
+        },
         onChangeImageBaseAverageColor() {
             if (this.imageFile !== null) {
                 this.generateTukiArt();
