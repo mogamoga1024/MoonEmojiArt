@@ -203,6 +203,8 @@ class TukiArtGenerator {
         let hitCount = -1;
 
         const existsBlackColList = [false, false, false, false];
+        const existsBlackColTopList = [false, false, false, false];
+        const existsBlackColBottomList = [false, false, false, false];
         let tukiBBBWHitCount = 0;
         let tukiWBBBHitCount = 0;
         for (const tuki of this.#tukiList) {
@@ -234,8 +236,14 @@ class TukiArtGenerator {
                     else if (color === SW && tuki.pixels[row][col] === W) {
                         tmpHitCount++;
                     }
-                    if (!existsBlackColList[col] && color < W) {
+                    if (shouldDrawThinBlackYokoLine && !existsBlackColList[col] && color < W) {
                         existsBlackColList[col] = true;
+                    }
+                    if (shouldDrawThinBlackYokoTopLine && row < TUKI_SIDE_PIXEL_COUNT / 2 && !existsBlackColTopList[col] && color < W) {
+                        existsBlackColTopList[col] = true;
+                    }
+                    if (shouldDrawThinBlackYokoBottomLine && row >= TUKI_SIDE_PIXEL_COUNT / 2 && !existsBlackColBottomList[col] && color < W) {
+                        existsBlackColBottomList[col] = true;
                     }
                 }
             }
@@ -275,6 +283,12 @@ class TukiArtGenerator {
 
         const maxHitCount = TUKI_SIDE_PIXEL_COUNT * TUKI_SIDE_PIXEL_COUNT;
         if (shouldDrawThinBlackYokoLine && hitCount < maxHitCount && existsBlackColList.filter(e => e).length > 2) {
+            return "🌑";
+        }
+        if (shouldDrawThinBlackYokoTopLine && hitCount < maxHitCount && existsBlackColTopList.filter(e => e).length > 2) {
+            return "🌑";
+        }
+        if (shouldDrawThinBlackYokoBottomLine && hitCount < maxHitCount && existsBlackColBottomList.filter(e => e).length > 2) {
             return "🌑";
         }
 
