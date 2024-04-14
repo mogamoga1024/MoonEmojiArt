@@ -98,7 +98,7 @@ const App = {
             videoFile: null,
 
             isTextTateLinePowerUp: true,
-            isTextYokoTopLinePowerUp: false,
+            isTextYokoTopLinePowerUp: true,
             isTextYokoBottomLinePowerUp: true,
 
             isImageTateLinePowerUp: false,
@@ -493,7 +493,7 @@ const App = {
             if (e.target.value === "noto-serif" || e.target.value === "serif") {
                 this.isBold = false;
                 this.isTextTateLinePowerUp = true;
-                this.isTextYokoTopLinePowerUp = false;
+                this.isTextYokoTopLinePowerUp = true;
                 this.isTextYokoBottomLinePowerUp = true;
             }
             else {
@@ -698,7 +698,7 @@ const App = {
                 this.letterSpacing = 0;
                 this.isBold = false;
                 this.isTextTateLinePowerUp = true;
-                this.isTextYokoTopLinePowerUp = false;
+                this.isTextYokoTopLinePowerUp = true;
                 this.isTextYokoBottomLinePowerUp = true;
                 this.isTextColorReverse = true;
                 this.tukiArtMarginTop = 0;
