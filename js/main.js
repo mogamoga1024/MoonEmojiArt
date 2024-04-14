@@ -921,7 +921,7 @@ const App = {
                 const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
                 let imageData = null;
                 try {
-                    imageData = MonochromeCanvas.createTextCanvasParams(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacing, lineWidth);
+                    imageData = MonochromeCanvas.createTextCanvas(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacing, lineWidth);
                 }
                 catch (e) {
                     if (this.isTate) {

@@ -16,7 +16,7 @@ class MonochromeCanvas {
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    static createTextCanvasParams(text, _fontFamily = "default", isBold = true, isTate = true, letterSpacing = 0, lineWidth = 0) {
+    static createTextCanvas(text, _fontFamily = "default", isBold = true, isTate = true, letterSpacing = 0, lineWidth = 0) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80
@@ -50,14 +50,14 @@ class MonochromeCanvas {
         if (isTate || text.length === 1) {
             letterSpacing += tateMargin;
             letterSpacing = Math.max(letterSpacing, 0);
-            return this.#createTateTextCanvasParams(text, font, tateMargin, letterSpacing, lineWidth);
+            return this.#createTateTextCanvas(text, font, tateMargin, letterSpacing, lineWidth);
         }
         else {
-            return this.#createYokoTextCanvasParams(text, font, letterSpacing, lineWidth);
+            return this.#createYokoTextCanvas(text, font, letterSpacing, lineWidth);
         }
     }
 
-    static #createTateTextCanvasParams(text, font, tateMargin, letterSpacing, lineWidth = 0) {
+    static #createTateTextCanvas(text, font, tateMargin, letterSpacing, lineWidth = 0) {
         const tmpCanvas = new OffscreenCanvas(300, 150);
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
@@ -271,7 +271,7 @@ class MonochromeCanvas {
         return tmpCanvas2.transferToImageBitmap();
     }
 
-    static #createYokoTextCanvasParams(text, font, letterSpacing, lineWidth = 0) {
+    static #createYokoTextCanvas(text, font, letterSpacing, lineWidth = 0) {
         const tmpCanvas = new OffscreenCanvas(300, 150);
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         tmpContext.font = font;
