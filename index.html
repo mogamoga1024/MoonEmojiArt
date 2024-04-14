@@ -186,9 +186,8 @@
           <div class="radio" :class="{'selected': !isTate}" @click="onClickIsTate(false)">横</div>
         </div>
       </div>
-
       <div id="sen-kyoka-area"
-           v-if=shouldDisplayTextSenKyokaDetail>
+           v-if="shouldDisplayTextSenKyokaDetail">
         <div class="btn" :class="{'selected': isTextYokoLinePowerUp}" @click="onClickIsTextYokoLinePowerUp">横強化</div>
         <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="onClickIsTextTateLinePowerUp">縦強化</div>
       </div>
@@ -255,6 +254,9 @@
         <div class="input-check-area">
           <div class="btn" :class="{'selected': needImageOutline}" @click="onClickNeedImageOutline">輪郭</div>
           <div class="btn" :class="{'selected': isImageColorReverse}" @click="onClickIsImageColorReverse">色反転</div>
+        </div>
+        <div id="sen-kyoka-area"
+             v-if="shouldDisplayImageSenKyokaDetail">
           <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="onClickIsImageYokoLinePowerUp">横強化</div>
           <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="onClickIsImageTateLinePowerUp">縦強化</div>
         </div>
