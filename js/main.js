@@ -99,12 +99,20 @@ const App = {
             imageFile: null,
             videoFile: null,
 
-            isTextYokoLinePowerUp: true,
+            isTextYokoLinePowerUp: false,
             isTextTateLinePowerUp: true,
+            isTextYokoTopLinePowerUp: false,
+            isTextYokoBottomLinePowerUp: true,
+
             isImageYokoLinePowerUp: false,
             isImageTateLinePowerUp: false,
+            isImageYokoTopLinePowerUp: false,
+            isImageYokoBottomLinePowerUp: false,
+
             isVideoYokoLinePowerUp: false,
             isVideoTateLinePowerUp: false,
+            isVideoYokoTopLinePowerUp: false,
+            isVideoYokoBottomLinePowerUp: false,
 
             imageColorCount: 3,
             videoColorCount: 3,
@@ -478,18 +486,32 @@ const App = {
             this.needDetailConfigTextSenKyoka = !this.needDetailConfigTextSenKyoka;
             if (!this.needDetailConfigTextSenKyoka) {
                 if (this.fontFamily === "noto-serif" || this.fontFamily === "serif") {
-                    if (!this.isTextYokoLinePowerUp || !this.isTextTateLinePowerUp) {
-                        this.isTextYokoLinePowerUp = true;
+                    if (
+                        this.isTextYokoLinePowerUp ||
+                        !this.isTextTateLinePowerUp ||
+                        this.isTextYokoTopLinePowerUp ||
+                        !this.isTextYokoBottomLinePowerUp
+                    ) {
+                        this.isTextYokoLinePowerUp = false;
                         this.isTextTateLinePowerUp = true;
+                        this.isTextYokoTopLinePowerUp = false;
+                        this.isTextYokoBottomLinePowerUp = true;
                         if (this.text !== "") {
                             this.generateTukiArt();
                         }
                     }
                 }
                 else {
-                    if (this.isTextYokoLinePowerUp || this.isTextTateLinePowerUp) {
+                    if (
+                        this.isTextYokoLinePowerUp ||
+                        this.isTextTateLinePowerUp ||
+                        this.isTextYokoTopLinePowerUp ||
+                        this.isTextYokoBottomLinePowerUp
+                    ) {
                         this.isTextYokoLinePowerUp = false;
                         this.isTextTateLinePowerUp = false;
+                        this.isTextYokoTopLinePowerUp = false;
+                        this.isTextYokoBottomLinePowerUp = false;
                         if (this.text !== "") {
                             this.generateTukiArt();
                         }
@@ -513,13 +535,17 @@ const App = {
         onChangeFontFamily(e) {
             if (e.target.value === "noto-serif" || e.target.value === "serif") {
                 this.isBold = false;
-                this.isTextYokoLinePowerUp = true;
+                this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = true;
+                this.isTextYokoTopLinePowerUp = false;
+                this.isTextYokoBottomLinePowerUp = true;
             }
             else {
                 this.isBold = true;
                 this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = false;
+                this.isTextYokoTopLinePowerUp = false;
+                this.isTextYokoBottomLinePowerUp = false;
             }
             if (this.text !== "") {
                 this.generateTukiArt();;
@@ -581,6 +607,18 @@ const App = {
         },
         onClickIsTextTateLinePowerUp() {
             this.isTextTateLinePowerUp = !this.isTextTateLinePowerUp;
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsTextYokoTopLinePowerUp() {
+            this.isTextYokoTopLinePowerUp = !this.isTextYokoTopLinePowerUp;
+            if (this.text !== "") {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsTextYokoBottomLinePowerUp() {
+            this.isTextYokoBottomLinePowerUp = !this.isTextYokoBottomLinePowerUp;
             if (this.text !== "") {
                 this.generateTukiArt();
             }
@@ -712,8 +750,10 @@ const App = {
                 this.lineWidth = 0;
                 this.letterSpacing = 0;
                 this.isBold = false;
-                this.isTextYokoLinePowerUp = true;
+                this.isTextYokoLinePowerUp = false;
                 this.isTextTateLinePowerUp = true;
+                this.isTextYokoTopLinePowerUp = false;
+                this.isTextYokoBottomLinePowerUp = true;
                 this.isTextColorReverse = true;
                 this.tukiArtMarginTop = 0;
                 this.tukiArtMarginBottom = 0;
@@ -1013,6 +1053,8 @@ const App = {
                     isTextColorReverse: this.isTextColorReverse,
                     isTextYokoLinePowerUp: this.isTextYokoLinePowerUp,
                     isTextTateLinePowerUp: this.isTextTateLinePowerUp,
+                    isTextYokoTopLinePowerUp: this.isTextYokoTopLinePowerUp,
+                    isTextYokoBottomLinePowerUp: this.isTextYokoBottomLinePowerUp,
                     needDetailConfigTukiArtMargin: this.needDetailConfigTukiArtMargin,
                     tukiArtMarginTop: this.tukiArtMarginTop,
                     tukiArtMarginBottom: this.tukiArtMarginBottom,
