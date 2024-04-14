@@ -62,24 +62,16 @@
         <div class="btn"
              :class="{'selected': needDetailConfigTukiArtMargin}"
              @click="onClickNeedDetailConfigTukiArtMargin">余白</div>
-        <div class="btn"
-             :class="{'selected': needDetailConfigTextSenKyoka}"
-             @click="onClickNeedDetailConfigTextSenKyoka">線強化</div>
       </div>
       <hr>
     </div>
 
     <div v-show="mode === 'image'">
       <div class="config-area">
-        <div class="item-list"
-             style="margin-bottom: 8px;">
-          <div class="btn"
-               :class="{'selected': shouldDisplayMonochromeImage}"
-               @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">モノクロ画像表示</div>
-          <div class="btn"
-               :class="{'selected': needDetailConfigImageSenKyoka}"
-               @click="onClickNeedDetailConfigImageSenKyoka">線強化</div>
-        </div>
+        <div class="btn"
+             style="display: inline-block; margin-bottom: 8px;"
+             :class="{'selected': shouldDisplayMonochromeImage}"
+             @click="shouldDisplayMonochromeImage = !shouldDisplayMonochromeImage">モノクロ画像表示</div><br>
         <div class="btn"
              :class="{'selected': shouldShrinkImage}"
              @click="this.shouldShrinkImage = !this.shouldShrinkImage">月文字画像を画面内に収める</div>
@@ -186,8 +178,7 @@
           <div class="radio" :class="{'selected': !isTate}" @click="onClickIsTate(false)">横</div>
         </div>
       </div>
-      <div id="sen-kyoka-area"
-           v-if="needDetailConfigTextSenKyoka">
+      <div id="sen-kyoka-area">
         <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="onClickIsTextTateLinePowerUp">縦強化</div>
         <div class="btn" :class="{'selected': isTextYokoTopLinePowerUp}" @click="onClickIsTextYokoTopLinePowerUp">横上強化</div>
         <div class="btn" :class="{'selected': isTextYokoBottomLinePowerUp}" @click="onClickIsTextYokoBottomLinePowerUp">横下強化</div>
@@ -256,8 +247,7 @@
           <div class="btn" :class="{'selected': needImageOutline}" @click="onClickNeedImageOutline">輪郭</div>
           <div class="btn" :class="{'selected': isImageColorReverse}" @click="onClickIsImageColorReverse">色反転</div>
         </div>
-        <div id="sen-kyoka-area"
-             v-if="needDetailConfigImageSenKyoka">
+        <div id="sen-kyoka-area">
           <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="onClickIsImageTateLinePowerUp">縦強化</div>
           <div class="btn" :class="{'selected': isImageYokoTopLinePowerUp}" @click="onClickIsImageYokoTopLinePowerUp">横上強化</div>
           <div class="btn" :class="{'selected': isImageYokoBottomLinePowerUp}" @click="onClickIsImageYokoBottomLinePowerUp">横下強化</div>

@@ -77,8 +77,6 @@ const App = {
             needDetailConfigLineWidth: false,
             needDetailConfigLetterSpacing: false,
             needDetailConfigTukiArtMargin: false,
-            needDetailConfigTextSenKyoka: false,
-            needDetailConfigImageSenKyoka: false,
             shouldShrinkImage: true,
             mode: "text", // "text" | "image" | "video"
 
@@ -478,39 +476,6 @@ const App = {
                 this.generateTukiArt();
             }
         },
-        onClickNeedDetailConfigTextSenKyoka() {
-            this.needDetailConfigTextSenKyoka = !this.needDetailConfigTextSenKyoka;
-            if (!this.needDetailConfigTextSenKyoka) {
-                if (this.fontFamily === "noto-serif" || this.fontFamily === "serif") {
-                    if (
-                        !this.isTextTateLinePowerUp ||
-                        this.isTextYokoTopLinePowerUp ||
-                        !this.isTextYokoBottomLinePowerUp
-                    ) {
-                        this.isTextTateLinePowerUp = true;
-                        this.isTextYokoTopLinePowerUp = false;
-                        this.isTextYokoBottomLinePowerUp = true;
-                        if (this.text !== "") {
-                            this.generateTukiArt();
-                        }
-                    }
-                }
-                else {
-                    if (
-                        this.isTextTateLinePowerUp ||
-                        this.isTextYokoTopLinePowerUp ||
-                        this.isTextYokoBottomLinePowerUp
-                    ) {
-                        this.isTextTateLinePowerUp = false;
-                        this.isTextYokoTopLinePowerUp = false;
-                        this.isTextYokoBottomLinePowerUp = false;
-                        if (this.text !== "") {
-                            this.generateTukiArt();
-                        }
-                    }
-                }
-            }
-        },
         onBlurText() {
             if (
                 this.text === "" && this.tukiArtType !== "none" ||
@@ -610,23 +575,6 @@ const App = {
 
         // 🌕🌕 画像パラメータのUIイベント 🌕🌕
 
-        onClickNeedDetailConfigImageSenKyoka() {
-            this.needDetailConfigImageSenKyoka = !this.needDetailConfigImageSenKyoka;
-            if (!this.needDetailConfigImageSenKyoka) {
-                if (
-                    this.isImageTateLinePowerUp ||
-                    this.isImageYokoTopLinePowerUp ||
-                    this.isImageYokoBottomLinePowerUp
-                ) {
-                    this.isImageTateLinePowerUp = false;
-                    this.isImageYokoTopLinePowerUp = false;
-                    this.isImageYokoBottomLinePowerUp = false;
-                    if (this.imageFile !== null) {
-                        this.generateTukiArt();
-                    }
-                }
-            }
-        },
         onChangeImageBaseAverageColor() {
             if (this.imageFile !== null) {
                 this.generateTukiArt();
