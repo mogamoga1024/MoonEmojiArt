@@ -86,23 +86,11 @@
   }
 }
 
-/* Galaxy S8+ 360px */
-@media screen and (max-width: 370px) {
-  #setting .input-check-area .radio {
-    padding-left: 4px;
-    padding-right: 4px;
-  }
-}
-
 @media screen and (max-width: 350px) {
   #app-title h1, #app-title div {
     height: 32px;
     line-height: 32px;
     font-size: 20px;
-  }
-
-  #setting .input-check-area, #sen-kyoka-area {
-    font-size: 0.88em;
   }
 }
 
@@ -135,15 +123,5 @@
 
   .plus-minus-input-numbur input[type="number"] {
     width: 60px;
-  }
-
-  #setting .input-check-area, #sen-kyoka-area {
-    justify-content: space-evenly;
-    column-gap: 2px;
-
-    .btn, .radio {
-      padding-left: 1px !important;
-      padding-right: 1px !important;
-    }
   }
 }

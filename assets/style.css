@@ -172,6 +172,7 @@ button, input, select, textarea {
 
 .btn {
   display: inline-block;
+  height: 25px;
   line-height: 25px;
   padding: 4px 8px;
   border-radius: 5px;
@@ -183,10 +184,6 @@ button, input, select, textarea {
   color: #007BAE;
   background-color: white;
   text-align: center;
-
-  span {
-    display: inline-block;
-  }
 }
 
 .dark .btn {
