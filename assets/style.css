@@ -172,7 +172,6 @@ button, input, select, textarea {
 
 .btn {
   display: inline-block;
-  height: 25px;
   line-height: 25px;
   padding: 4px 8px;
   border-radius: 5px;
@@ -184,6 +183,10 @@ button, input, select, textarea {
   color: #007BAE;
   background-color: white;
   text-align: center;
+
+  span {
+    display: inline-block;
+  }
 }
 
 .dark .btn {
@@ -377,6 +380,11 @@ input {
 
 #input-text {
   width: calc(var(--item-name-width) + var(--item-input-width) + 60px);
+}
+
+#sen-kyoka-area {
+  display: flex;
+  column-gap: 8px;
 }
 
 .action-btn-list {
