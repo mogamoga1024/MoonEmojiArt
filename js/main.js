@@ -629,9 +629,16 @@ const App = {
         onClickNeedDetailConfigImageSenKyoka() {
             this.needDetailConfigImageSenKyoka = !this.needDetailConfigImageSenKyoka;
             if (!this.needDetailConfigImageSenKyoka) {
-                if (this.isImageYokoLinePowerUp || this.isImageTateLinePowerUp) {
+                if (
+                    this.isImageYokoLinePowerUp ||
+                    this.isImageTateLinePowerUp ||
+                    this.isImageYokoTopLinePowerUp ||
+                    this.isImageYokoBottomLinePowerUp
+                ) {
                     this.isImageYokoLinePowerUp = false;
                     this.isImageTateLinePowerUp = false;
+                    this.isImageYokoTopLinePowerUp = false;
+                    this.isImageYokoBottomLinePowerUp = false;
                     if (this.imageFile !== null) {
                         this.generateTukiArt();
                     }
@@ -689,6 +696,18 @@ const App = {
                 this.generateTukiArt();
             }
         },
+        onClickIsImageYokoTopLinePowerUp() {
+            this.isImageYokoTopLinePowerUp = !this.isImageYokoTopLinePowerUp;
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
+        },
+        onClickIsImageYokoBottomLinePowerUp() {
+            this.isImageYokoBottomLinePowerUp = !this.isImageYokoBottomLinePowerUp;
+            if (this.imageFile !== null) {
+                this.generateTukiArt();
+            }
+        },
 
         // 🌕🌕 動画パラメータのUIイベント 🌕🌕
 
@@ -726,6 +745,14 @@ const App = {
         },
         onClickIsVideoTateLinePowerUp() {
             this.isVideoTateLinePowerUp = !this.isVideoTateLinePowerUp;
+            isVideoParamChanged = true;
+        },
+        onClickIsVideoYokoTopLinePowerUp() {
+            this.isVideoYokoTopLinePowerUp = !this.isVideoYokoTopLinePowerUp;
+            isVideoParamChanged = true;
+        },
+        onClickIsVideoYokoBottomLinePowerUp() {
+            this.isVideoYokoBottomLinePowerUp = !this.isVideoYokoBottomLinePowerUp;
             isVideoParamChanged = true;
         },
 
@@ -770,6 +797,8 @@ const App = {
                 this.imageWidth = imageWidthOri;
                 this.isImageYokoLinePowerUp = false;
                 this.isImageTateLinePowerUp = false;
+                this.isImageYokoTopLinePowerUp = false;
+                this.isImageYokoBottomLinePowerUp = false;
                 this.shouldDisplayMonochromeImage = false;
             }
             else if (this.mode === "video") {
@@ -782,6 +811,8 @@ const App = {
                 this.videoWidth = videoWidthOri;
                 this.isVideoYokoLinePowerUp = false;
                 this.isVideoTateLinePowerUp = false;
+                this.isVideoYokoTopLinePowerUp = false;
+                this.isVideoYokoBottomLinePowerUp = false;
                 this.fps = this.fpsMin;
             }
         },
@@ -1076,7 +1107,9 @@ const App = {
                     useImageNanameMikaduki: this.useImageNanameMikaduki,
                     isImageColorReverse: this.isImageColorReverse,
                     isImageYokoLinePowerUp: this.isImageYokoLinePowerUp,
-                    isImageTateLinePowerUp: this.isImageTateLinePowerUp
+                    isImageTateLinePowerUp: this.isImageTateLinePowerUp,
+                    isImageYokoTopLinePowerUp: this.isImageYokoTopLinePowerUp,
+                    isImageYokoBottomLinePowerUp: this.isImageYokoBottomLinePowerUp
                 };
 
                 fileReader.onload = () => {
@@ -1201,7 +1234,9 @@ const App = {
                             monoCanvas.pixels,
                             this.isVideoColorReverse,
                             this.isVideoYokoLinePowerUp,
-                            this.isVideoTateLinePowerUp, 
+                            this.isVideoTateLinePowerUp,
+                            this.isVideoYokoTopLinePowerUp,
+                            this.isVideoYokoBottomLinePowerUp, 
                             this.videoColorCount,
                             this.useVideoNanameMikaduki
                         );

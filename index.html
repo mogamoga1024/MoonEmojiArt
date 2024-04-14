@@ -261,6 +261,8 @@
              v-if="needDetailConfigImageSenKyoka">
           <div class="btn" :class="{'selected': isImageYokoLinePowerUp}" @click="onClickIsImageYokoLinePowerUp">横強化</div>
           <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="onClickIsImageTateLinePowerUp">縦強化</div>
+          <div class="btn" :class="{'selected': isImageYokoTopLinePowerUp}" @click="onClickIsImageYokoTopLinePowerUp">横上強化</div>
+          <div class="btn" :class="{'selected': isImageYokoBottomLinePowerUp}" @click="onClickIsImageYokoBottomLinePowerUp">横下強化</div>
         </div>
       </div>
     </template>
@@ -338,6 +340,8 @@
           <div class="btn" :class="{'selected': isVideoColorReverse}" @click="onClickIsVideoColorReverse">色反転</div>
           <div class="btn" :class="{'selected': isVideoYokoLinePowerUp}" @click="onClickIsVideoYokoLinePowerUp">横強化</div>
           <div class="btn" :class="{'selected': isVideoTateLinePowerUp}" @click="onClickIsVideoTateLinePowerUp">縦強化</div>
+          <div class="btn" :class="{'selected': isVideoYokoTopLinePowerUp}" @click="onClickIsVideoYokoTopLinePowerUp">横上強化</div>
+          <div class="btn" :class="{'selected': isVideoYokoBottomLinePowerUp}" @click="onClickIsVideoYokoBottomLinePowerUp">横下強化</div>
         </div>
       </div>
     </template>

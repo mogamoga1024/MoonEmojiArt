@@ -1,6 +1,6 @@
 
 class TukiArtGenerator {
-    static createTukiArt(pixels, isColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false, colorCount = 2, useNanameMikaduki = false) {
+    static createTukiArt(pixels, isColorReverse = false, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, colorCount = 2, useNanameMikaduki = false) {
         let text = "";
 
         const data = pixels.data;
@@ -26,7 +26,7 @@ class TukiArtGenerator {
                     }
                 }
 
-                const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine, useNanameMikaduki);
+                const emoji = this._convertTuki(tmpPixels, shouldDrawThinBlackYokoLine, shouldDrawThinBlackTateLine, shouldDrawThinBlackYokoTopLine, shouldDrawThinBlackYokoBottomLine, useNanameMikaduki);
                 if (isColorReverse && !useNanameMikaduki) {
                     text += this.#reverse(emoji);
                 }
@@ -198,7 +198,7 @@ class TukiArtGenerator {
         }
     }
 
-    static _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false, useNanameMikaduki = false) {
+    static _convertTuki(pixels, shouldDrawThinBlackYokoLine = false, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, useNanameMikaduki = false) {
         let rtnTuki = null;
         let hitCount = -1;
 

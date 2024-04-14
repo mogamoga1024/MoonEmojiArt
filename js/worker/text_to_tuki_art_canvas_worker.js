@@ -14,7 +14,7 @@ onmessage = async evnt => {
         const monoCanvas = new MonochromeCanvas();
 
         monoCanvas.text(evnt.data.imageData, prm.tukiCount, prm.isTate);
-        tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prm.isTextColorReverse, prm.isTextYokoLinePowerUp, prm.isTextTateLinePowerUp, 2);
+        tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prm.isTextColorReverse, prm.isTextYokoLinePowerUp, prm.isTextTateLinePowerUp, prm.isTextYokoTopLinePowerUp, prm.isTextYokoBottomLinePowerUp, 2);
 
         if (prm.needDetailConfigTukiArtMargin) {
             const tukiArtMargin = {
