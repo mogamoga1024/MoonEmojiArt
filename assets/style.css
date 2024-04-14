@@ -381,6 +381,7 @@ input {
 
 #sen-kyoka-area {
   display: flex;
+  margin-top: 8px;
   column-gap: 8px;
 }
 

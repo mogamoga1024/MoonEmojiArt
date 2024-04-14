@@ -170,18 +170,20 @@
           </div>
         </div>
       </template>
-      <div class="input-check-area">
-        <div class="btn" :class="{'selected': isBold}" @click="onClickIsBold">太字</div>
-        <div class="btn" :class="{'selected': isTextColorReverse}" @click="onClickIsTextColorReverse">色反転</div>
-        <div class="radio-wrapper">
-          <div class="radio" :class="{'selected': isTate}" @click="onClickIsTate(true)">縦</div>
-          <div class="radio" :class="{'selected': !isTate}" @click="onClickIsTate(false)">横</div>
+      <div>
+        <div class="input-check-area">
+          <div class="btn" :class="{'selected': isBold}" @click="onClickIsBold">太字</div>
+          <div class="btn" :class="{'selected': isTextColorReverse}" @click="onClickIsTextColorReverse">色反転</div>
+          <div class="radio-wrapper">
+            <div class="radio" :class="{'selected': isTate}" @click="onClickIsTate(true)">縦</div>
+            <div class="radio" :class="{'selected': !isTate}" @click="onClickIsTate(false)">横</div>
+          </div>
         </div>
-      </div>
-      <div id="sen-kyoka-area">
-        <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="onClickIsTextTateLinePowerUp">縦強化</div>
-        <div class="btn" :class="{'selected': isTextYokoTopLinePowerUp}" @click="onClickIsTextYokoTopLinePowerUp">横上強化</div>
-        <div class="btn" :class="{'selected': isTextYokoBottomLinePowerUp}" @click="onClickIsTextYokoBottomLinePowerUp">横下強化</div>
+        <div id="sen-kyoka-area">
+          <div class="btn" :class="{'selected': isTextTateLinePowerUp}" @click="onClickIsTextTateLinePowerUp">縦強化</div>
+          <div class="btn" :class="{'selected': isTextYokoTopLinePowerUp}" @click="onClickIsTextYokoTopLinePowerUp">横上強化</div>
+          <div class="btn" :class="{'selected': isTextYokoBottomLinePowerUp}" @click="onClickIsTextYokoBottomLinePowerUp">横下強化</div>
+        </div>
       </div>
     </div>
 
@@ -243,14 +245,16 @@
               @change="onChangeImageWidth">
           </div>
         </div>
-        <div class="input-check-area">
-          <div class="btn" :class="{'selected': needImageOutline}" @click="onClickNeedImageOutline">輪郭</div>
-          <div class="btn" :class="{'selected': isImageColorReverse}" @click="onClickIsImageColorReverse">色反転</div>
-        </div>
-        <div id="sen-kyoka-area">
-          <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="onClickIsImageTateLinePowerUp">縦強化</div>
-          <div class="btn" :class="{'selected': isImageYokoTopLinePowerUp}" @click="onClickIsImageYokoTopLinePowerUp">横上強化</div>
-          <div class="btn" :class="{'selected': isImageYokoBottomLinePowerUp}" @click="onClickIsImageYokoBottomLinePowerUp">横下強化</div>
+        <div>
+          <div class="input-check-area">
+            <div class="btn" :class="{'selected': needImageOutline}" @click="onClickNeedImageOutline">輪郭</div>
+            <div class="btn" :class="{'selected': isImageColorReverse}" @click="onClickIsImageColorReverse">色反転</div>
+          </div>
+          <div id="sen-kyoka-area">
+            <div class="btn" :class="{'selected': isImageTateLinePowerUp}" @click="onClickIsImageTateLinePowerUp">縦強化</div>
+            <div class="btn" :class="{'selected': isImageYokoTopLinePowerUp}" @click="onClickIsImageYokoTopLinePowerUp">横上強化</div>
+            <div class="btn" :class="{'selected': isImageYokoBottomLinePowerUp}" @click="onClickIsImageYokoBottomLinePowerUp">横下強化</div>
+          </div>
         </div>
       </div>
     </template>
