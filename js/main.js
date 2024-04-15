@@ -94,6 +94,7 @@ const App = {
             isBold: false,
             isTate: true,
 
+            imageFileName: "",
             image: null,
             videoFile: null,
 
@@ -286,6 +287,7 @@ const App = {
         image(newVal) {
             if (newVal === null) {
                 this.canDisplayGenerateButton = false;
+                this.imageFileName = "";
             }
         },
         videoFile(newVal) {
@@ -351,6 +353,8 @@ const App = {
                     isLoadingInputImage = false;
                 }
                 else {
+                    this.imageFileName = imageFile.name;
+
                     imageHeightRate = this.image.height / this.image.width;
                     const maxArea = 1280 * 720;
                     const imageWidthSafeMax = Math.floor(Math.sqrt(maxArea / imageHeightRate));
