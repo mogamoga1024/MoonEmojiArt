@@ -10,6 +10,8 @@ let canCopyButtonClick = true;
 let isLoadingInputImage = false;
 let isLoadingInputVideo = false;
 
+let isSvg = false;
+
 let videoTimerId = 0;
 let isVideoParamChanged = false;
 
@@ -354,6 +356,7 @@ const App = {
                 }
                 else {
                     this.imageFileName = imageFile.name;
+                    isSvg = imageFile.type.includes("svg");
 
                     imageHeightRate = this.image.height / this.image.width;
                     const maxArea = 1280 * 720;
@@ -1015,7 +1018,6 @@ const App = {
                 worker.postMessage({imageData, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [imageData]);
             }
             else if (mode === "image") {
-                const fileReader = new FileReader();
                 const tukiArtParams = {
                     imageWidth: this.imageWidth,
                     imageHeight: Math.round(this.imageWidth * imageHeightRate),
@@ -1039,7 +1041,16 @@ const App = {
                 
                 const canvas = new OffscreenCanvas(tukiArtParams.imageWidth, tukiArtParams.imageHeight);
                 const context = canvas.getContext("2d");
-                context.drawImage(this.image, 0, 0, this.image.width, this.image.height, 0, 0, tukiArtParams.imageWidth, tukiArtParams.imageHeight);
+                if (isSvg) {
+                    const svgCanvas = new OffscreenCanvas(this.image.width, this.image.height);
+                    const svgContext = svgCanvas.getContext("2d", { willReadFrequently: true });
+                    svgContext.drawImage(this.image, 0, 0);
+                    context.drawImage(svgCanvas, 0, 0, this.image.width, this.image.height, 0, 0, tukiArtParams.imageWidth, tukiArtParams.imageHeight);
+                }
+                else {
+                    context.drawImage(this.image, 0, 0, this.image.width, this.image.height, 0, 0, tukiArtParams.imageWidth, tukiArtParams.imageHeight);
+                }
+                
                 const imageData = canvas.transferToImageBitmap();
 
                 worker = new Worker("./js/worker/image_to_tuki_art_canvas_worker.js");
