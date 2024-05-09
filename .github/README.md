@@ -6,7 +6,7 @@ https://mogamoga1024.github.io/MoonEmojiArt/
 ## JSってなーに？
 
 JavaScriptのことです。  
-先代サイトがPythonで実装されていたので、こっちはJSだよー。的な意味合い。  
+[先代サイト](https://tsukimoji.com)がPythonで実装されていたので、こっちはJSだよー。的な意味合い。  
 ネットワーク系のオーバーヘッドがないから月文字の生成が速い。
 
 ## 「横強化」「縦強化」ってなんだよｗと思っている技術者へ
