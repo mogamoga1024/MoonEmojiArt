@@ -16,7 +16,7 @@ JavaScriptのことです。
 
 ## todo
 
-issueを片付ける…
+issueを片付ける…  
 やる気がかなり下がっているためしばらく放置しそう。  
 
 ## MEMO
