@@ -7,7 +7,7 @@ class MonochromeCanvas {
         return this.#canvas;
     }
 
-    get imageData() {
+    get pixels() {
         return this.#context.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
@@ -298,14 +298,14 @@ class MonochromeCanvas {
         tmpContext.fillText(text, 0, 0);
 
         const trimmed = CanvasUtils.trimming(tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height));
-        const imageData = tmpContext.getImageData(0, trimmed.y, tmpCanvas.width, trimmed.height);
+        const pixels = tmpContext.getImageData(0, trimmed.y, tmpCanvas.width, trimmed.height);
 
         const tateMargin = 4;
         const tmpCanvas2 = new OffscreenCanvas(tmpCanvas.width, trimmed.height + tateMargin * 2);
         const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });
         tmpContext2.fillStyle = "#fff";
         tmpContext2.fillRect(0, 0, tmpCanvas2.width, tmpCanvas2.height);
-        tmpContext2.putImageData(imageData, 0, tateMargin);
+        tmpContext2.putImageData(pixels, 0, tateMargin);
 
         return tmpCanvas2.transferToImageBitmap();
     }
@@ -346,22 +346,22 @@ class MonochromeCanvas {
         }
         
         // 画像の各ピクセルをグレースケールに変換する
-        const imageData = this.imageData;
-        for (let row = 0; row < imageData.height; row++) {
-            for (let col = 0; col < imageData.width; col++) {
-                const i = row * imageData.width * 4 + col * 4;
+        const pixels = this.pixels;
+        for (let row = 0; row < pixels.height; row++) {
+            for (let col = 0; col < pixels.width; col++) {
+                const i = row * pixels.width * 4 + col * 4;
 
                 if (needOutline) {
-                    this.#outline(imageData, i, baseColorDistance);
+                    this.#outline(pixels, i, baseColorDistance);
                 }
-                this.#monochrome(imageData, i, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
+                this.#monochrome(pixels, i, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
             }
         }
-        this.#context.putImageData(imageData, 0, 0, 0, 0, imageData.width, imageData.height);
+        this.#context.putImageData(pixels, 0, 0, 0, 0, pixels.width, pixels.height);
     }
 
-    #monochrome(imageData, i, baseAverageColor, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
-        const data = imageData.data;
+    #monochrome(pixels, i, baseAverageColor, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
+        const data = pixels.data;
         let avgColor = 0;
         if (useNanameMikaduki && isImageColorReverse) {
             avgColor = Math.floor(((255 - data[i]) + (255 - data[i + 1]) + (255 - data[i + 2])) / 3);
@@ -406,13 +406,13 @@ class MonochromeCanvas {
         data[i] = data[i + 1] = data[i + 2] = newColor;
     };
     
-    #outline(imageData, i, baseColorDistance) {
-        const data = imageData.data;
+    #outline(pixels, i, baseColorDistance) {
+        const data = pixels.data;
         const rightIdx = i + 4;
-        const underIdx = i + imageData.width * 4;
+        const underIdx = i + pixels.width * 4;
     
-        const existsRight = (i / 4 + 1) % imageData.width !== 0;
-        const existsUnder = i <= imageData.width * 4 * (imageData.height - 1);
+        const existsRight = (i / 4 + 1) % pixels.width !== 0;
+        const existsUnder = i <= pixels.width * 4 * (pixels.height - 1);
     
         let didChangeColor = false;
         if (existsRight) {

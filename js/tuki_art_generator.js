@@ -1,18 +1,18 @@
 
 class TukiArtGenerator {
-    static createTukiArt(imageData, isColorReverse = false, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, colorCount = 2, useNanameMikaduki = false) {
+    static createTukiArt(pixels, isColorReverse = false, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, colorCount = 2, useNanameMikaduki = false) {
         let text = "";
 
-        const data = imageData.data;
-        for (let row = 0; row < imageData.height; row += TUKI_SIDE_PIXEL_COUNT) {
-            for (let col = 0; col < imageData.width; col += TUKI_SIDE_PIXEL_COUNT) {
+        const data = pixels.data;
+        for (let row = 0; row < pixels.height; row += TUKI_SIDE_PIXEL_COUNT) {
+            for (let col = 0; col < pixels.width; col += TUKI_SIDE_PIXEL_COUNT) {
                 const tmpPixels = [];
                 for (let j = 0; j < TUKI_SIDE_PIXEL_COUNT; j++) {
-                    if (row + j < imageData.height) {
+                    if (row + j < pixels.height) {
                         const tmpRow = [];
                         for (let k = 0; k < TUKI_SIDE_PIXEL_COUNT; k++) {
-                            if (col + k < imageData.width) {
-                                const l = (row + j) * imageData.width * 4 + (col + k) * 4;
+                            if (col + k < pixels.width) {
+                                const l = (row + j) * pixels.width * 4 + (col + k) * 4;
                                 tmpRow.push(this.#colorToBit(data[l], colorCount));
                             }
                             else {
@@ -34,7 +34,7 @@ class TukiArtGenerator {
                     text += emoji;
                 }
             }
-            if (row + TUKI_SIDE_PIXEL_COUNT < imageData.height) {
+            if (row + TUKI_SIDE_PIXEL_COUNT < pixels.height) {
                 text += "\n";
             }
         }
@@ -198,7 +198,7 @@ class TukiArtGenerator {
         }
     }
 
-    static _convertTuki(imageData, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, useNanameMikaduki = false) {
+    static _convertTuki(pixels, shouldDrawThinBlackTateLine = false, shouldDrawThinBlackYokoTopLine = false, shouldDrawThinBlackYokoBottomLine = false, useNanameMikaduki = false) {
         let rtnTuki = null;
         let hitCount = -1;
 
@@ -214,7 +214,7 @@ class TukiArtGenerator {
             let g3Count = 0;
             for (let row = 0; row < TUKI_SIDE_PIXEL_COUNT; row++) {
                 for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
-                    const color = imageData[row][col];
+                    const color = pixels[row][col];
                     if (!existsWhite) {
                         if (color >= W) {
                             existsWhite = true;
@@ -303,12 +303,12 @@ class TukiArtGenerator {
                 let blackHitCount = 0;
                 for (let row = 0; row < TUKI_SIDE_PIXEL_COUNT; row++) {
                     for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
-                        blackHitCount += imageData[row][col] < W ? 1 : 0;
+                        blackHitCount += pixels[row][col] < W ? 1 : 0;
                     }
                 }
                 if (blackHitCount < 3) {
                     if (useNanameMikaduki) {
-                        return this.#convertWhiteEmoji(imageData);
+                        return this.#convertWhiteEmoji(pixels);
                     }
                     return "🌕";
                 }
@@ -316,21 +316,21 @@ class TukiArtGenerator {
         }
 
         if (useNanameMikaduki && rtnTuki.emoji === "🌕") {
-            return this.#convertWhiteEmoji(imageData);
+            return this.#convertWhiteEmoji(pixels);
         }
 
         return rtnTuki.emoji;
     }
 
-    static #convertWhiteEmoji(imageData) {
+    static #convertWhiteEmoji(pixels) {
         let WCount = 0;
         let SWCount = 0;
         for (let row = 0; row < TUKI_SIDE_PIXEL_COUNT; row++) {
             for (let col = 0; col < TUKI_SIDE_PIXEL_COUNT; col++) {
-                if (imageData[row][col] === W) {
+                if (pixels[row][col] === W) {
                     WCount++;
                 }
-                else if (imageData[row][col] === SW) {
+                else if (pixels[row][col] === SW) {
                     SWCount++;
                 }
             }

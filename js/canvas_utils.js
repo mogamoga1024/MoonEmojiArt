@@ -1,16 +1,16 @@
 
 class CanvasUtils {
-    static trimming(imageData) {
-        const data = imageData.data;
+    static trimming(pixels) {
+        const data = pixels.data;
         let targetLeftX = -1;
         let targetRightX = -1;
         let targetTopY = -1;
         let targetBottomY = -1;
 
         // left-xを求める
-        for (let col = 0; col < imageData.width; col++) {
-            for (let row = 0; row < imageData.height; row++) {
-                const i = row * imageData.width * 4 + col * 4;
+        for (let col = 0; col < pixels.width; col++) {
+            for (let row = 0; row < pixels.height; row++) {
+                const i = row * pixels.width * 4 + col * 4;
                 if (data[i] !== COLOR_SW) {
                     targetLeftX = col;
                     break;
@@ -26,9 +26,9 @@ class CanvasUtils {
         }
 
         // right-xを求める
-        for (let col = imageData.width - 1; col >= 0; col--) {
-            for (let row = 0; row < imageData.height; row++) {
-                const i = row * imageData.width * 4 + col * 4;
+        for (let col = pixels.width - 1; col >= 0; col--) {
+            for (let row = 0; row < pixels.height; row++) {
+                const i = row * pixels.width * 4 + col * 4;
                 if (data[i] !== COLOR_SW) {
                     targetRightX = col;
                     break;
@@ -40,9 +40,9 @@ class CanvasUtils {
         }
 
         // top-yを求める
-        for (let row = 0; row < imageData.height; row++) {
+        for (let row = 0; row < pixels.height; row++) {
             for (let col = targetLeftX; col <= targetRightX; col++) {
-                const i = row * imageData.width * 4 + col * 4;
+                const i = row * pixels.width * 4 + col * 4;
                 if (data[i] !== COLOR_SW) {
                     targetTopY = row;
                     break;
@@ -54,9 +54,9 @@ class CanvasUtils {
         }
 
         // bottom-yを求める
-        for (let row = imageData.height - 1; row >= 0; row--) {
+        for (let row = pixels.height - 1; row >= 0; row--) {
             for (let col = targetLeftX; col <= targetRightX; col++) {
-                const i = row * imageData.width * 4 + col * 4;
+                const i = row * pixels.width * 4 + col * 4;
                 if (data[i] !== COLOR_SW) {
                     targetBottomY = row;
                     break;
