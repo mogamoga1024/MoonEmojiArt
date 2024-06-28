@@ -51,7 +51,7 @@ const tukiCountSafeMaxDefault = 50;
 const tukiCountUnSafeMaxDefault = 100;
 
 const baseAverageColorDefault = 110;
-const baseColorDistanceDefault = 30;
+const baseColorDistanceDefault = 180;
 
 const imageWidthMaxDefault = 5000;
 let imageWidthOri = 10;
@@ -123,7 +123,7 @@ const App = {
             imageBaseColorDistance: baseColorDistanceDefault,
             videoBaseColorDistance: baseColorDistanceDefault,
             baseColorDistanceMin: 0,
-            baseColorDistanceMax: 200,
+            baseColorDistanceMax: 255,
             needImageOutline: true,
             needVideoOutline: true,
 
