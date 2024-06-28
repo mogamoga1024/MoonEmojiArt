@@ -24,7 +24,7 @@ onmessage = async evnt => {
             prm.useImageNanameMikaduki,
             prm.isImageColorReverse
         );
-        tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.pixels, prm.isImageColorReverse, prm.isImageTateLinePowerUp, prm.isImageYokoTopLinePowerUp, prm.isImageYokoBottomLinePowerUp, prm.imageColorCount, prm.useImageNanameMikaduki);
+        tukiArt = TukiArtGenerator.createTukiArt(monoCanvas.imageData, prm.isImageColorReverse, prm.isImageTateLinePowerUp, prm.isImageYokoTopLinePowerUp, prm.isImageYokoBottomLinePowerUp, prm.imageColorCount, prm.useImageNanameMikaduki);
 
         const textList = tukiArt.split("\n");
 

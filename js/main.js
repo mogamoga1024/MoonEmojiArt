@@ -1142,7 +1142,7 @@ const App = {
                         );
 
                         tukiArt = TukiArtGenerator.createTukiArt(
-                            monoCanvas.pixels,
+                            monoCanvas.imageData,
                             this.isVideoColorReverse,
                             this.isVideoTateLinePowerUp,
                             this.isVideoYokoTopLinePowerUp,
