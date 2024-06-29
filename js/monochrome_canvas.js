@@ -325,15 +325,15 @@ class MonochromeCanvas {
         this.#context.drawImage(imageData, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    image(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
-        this.#pasteImageToCanvas(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isImageColorReverse);
+    image(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, outlineThreshold = 180, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
+        this.#pasteImageToCanvas(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, outlineThreshold, colorCount, useNanameMikaduki, isImageColorReverse);
     }
 
-    video(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isVideoColorReverse = false) {
-        this.#pasteImageToCanvas(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor, needOutline, baseColorDistance, colorCount, useNanameMikaduki, isVideoColorReverse, true);
+    video(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor = 110, needOutline = true, outlineThreshold = 180, colorCount = 2, useNanameMikaduki = false, isVideoColorReverse = false) {
+        this.#pasteImageToCanvas(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor, needOutline, outlineThreshold, colorCount, useNanameMikaduki, isVideoColorReverse, true);
     }
 
-    #pasteImageToCanvas(image, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, baseColorDistance = 30, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false, isVideo = false) {
+    #pasteImageToCanvas(image, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, outlineThreshold = 180, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false, isVideo = false) {
         this.#canvas.width = resizeImageWidth;
         this.#canvas.height = resizeImageHeight;
         this.#context.fillStyle = "#fff"; // 透過画像対策
@@ -347,16 +347,19 @@ class MonochromeCanvas {
         
         // 画像の各ピクセルをグレースケールに変換する
         const imageData = this.imageData;
-        for (let row = 0; row < imageData.height; row++) {
-            for (let col = 0; col < imageData.width; col++) {
-                const i = row * imageData.width * 4 + col * 4;
+        // for (let row = 0; row < imageData.height; row++) {
+        //     for (let col = 0; col < imageData.width; col++) {
+        //         const i = row * imageData.width * 4 + col * 4;
 
-                if (needOutline) {
-                    this.#outline(imageData, i, baseColorDistance);
-                }
-                this.#monochrome(imageData, i, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
-            }
-        }
+        //         if (needOutline) {
+        //             this.#outline(imageData, i, outlineThreshold);
+        //         }
+        //         this.#monochrome(imageData, i, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
+        //     }
+        // }
+
+        this.#kirieFilter(imageData, outlineThreshold, baseAverageColor);
+
         this.#context.putImageData(imageData, 0, 0, 0, 0, imageData.width, imageData.height);
     }
 
@@ -406,35 +409,78 @@ class MonochromeCanvas {
         data[i] = data[i + 1] = data[i + 2] = newColor;
     };
     
-    #outline(imageData, i, baseColorDistance) {
+    #kirieFilter(imageData, outlineThreshold = 180, fillThreshold = 100) {
+        // sobelフィルタによる輪郭抽出
+        
         const data = imageData.data;
-        const rightIdx = i + 4;
-        const underIdx = i + imageData.width * 4;
+        const width = imageData.width;
+        const height = imageData.height;
     
-        const existsRight = (i / 4 + 1) % imageData.width !== 0;
-        const existsUnder = i <= imageData.width * 4 * (imageData.height - 1);
+        for (let i = 0; i < data.length; i += 4) {
+            if (data[i + 3] === 0) {
+                data[i] = 255;
+                data[i + 1] = 255;
+                data[i + 2] = 255;
+            }
+            else {
+                const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                data[i] = avg;
+                data[i + 1] = avg;
+                data[i + 2] = avg;
+            }
+            data[i + 3] = 255;
+        }
     
-        let didChangeColor = false;
-        if (existsRight) {
-            if (this.#colorDistance(data, i, rightIdx) > baseColorDistance) {
-                data[i] = data[i + 1] = data[i + 2] = 0;
-                didChangeColor = true;
+        const sobelData = new Uint8ClampedArray(width * height);
+    
+        const kernelX = [
+            [-1, 0, 1],
+            [-2, 0, 2],
+            [-1, 0, 1]
+        ];
+        const kernelY = [
+            [-1, -2, -1],
+            [0, 0, 0],
+            [1, 2, 1]
+        ];
+    
+        for (let y = 1; y < height - 1; y++) {
+            for (let x = 1; x < width - 1; x++) {
+                let pixelX = 0;
+                let pixelY = 0;
+    
+                for (let ky = -1; ky <= 1; ky++) {
+                    for (let kx = -1; kx <= 1; kx++) {
+                        const pixel = data[((y + ky) * width + (x + kx)) * 4];
+                        pixelX += pixel * kernelX[ky + 1][kx + 1];
+                        pixelY += pixel * kernelY[ky + 1][kx + 1];
+                    }
+                }
+    
+                const magnitude = Math.round(Math.sqrt(pixelX * pixelX + pixelY * pixelY));
+                sobelData[y * width + x] = magnitude;
             }
         }
-        if (!didChangeColor && existsUnder) {
-            if (this.#colorDistance(data, i, underIdx) > baseColorDistance) {
-                data[i] = data[i + 1] = data[i + 2] = 0;
+    
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const idx = (y * width + x) * 4;
+                const invertedMagnitude = 255 - sobelData[y * width + x];
+    
+                if (invertedMagnitude < outlineThreshold || data[idx] < fillThreshold) {
+                    data[idx    ] = 0;
+                    data[idx + 1] = 0;
+                    data[idx + 2] = 0;
+                }
+                else {
+                    data[idx    ] = 255;
+                    data[idx + 1] = 255;
+                    data[idx + 2] = 255;
+                }
             }
         }
-    };
     
-    // 3次元空間の距離を求める
-    // ちなみに最大値は441.6729559300637
-    #colorDistance(data, oriIdx, dstIdx) {
-        return Math.sqrt(
-            Math.pow((data[oriIdx] - data[dstIdx]), 2) +
-            Math.pow((data[oriIdx + 1] - data[dstIdx + 1]), 2) +
-            Math.pow((data[oriIdx + 2] - data[dstIdx + 2]), 2)
-        );
-    };
+        // ノイズ除去
+        // medianFilter(imageData);
+    }
 }

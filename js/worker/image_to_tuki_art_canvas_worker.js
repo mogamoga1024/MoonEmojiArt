@@ -19,7 +19,7 @@ onmessage = async evnt => {
             prm.imageHeight,
             prm.imageBaseAverageColor,
             prm.needImageOutline,
-            prm.imageBaseColorDistance,
+            prm.imageOutlineThreshold,
             prm.imageColorCount,
             prm.useImageNanameMikaduki,
             prm.isImageColorReverse

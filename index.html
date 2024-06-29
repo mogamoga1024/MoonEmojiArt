@@ -224,14 +224,14 @@
         <div class="item" v-show="needImageOutline">
           <div class="name">
             <div>輪郭</div>
-            <div class="hosoku">{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</div>
+            <div class="hosoku">{{outlineThresholdMin}}(弱)～{{outlineThresholdMax}}(強)</div>
           </div>
           <div class="input">
             <plus-minus-input-numbur
-              :min="baseColorDistanceMin"
-              :max="baseColorDistanceMax"
-              v-model="imageBaseColorDistance"
-              @change="onChangeImageBaseColorDistance">
+              :min="outlineThresholdMin"
+              :max="outlineThresholdMax"
+              v-model="imageOutlineThreshold"
+              @change="onChangeImageOutlineThreshold">
           </div>
         </div>
         <div class="item">
@@ -296,14 +296,14 @@
         <div class="item" v-show="needVideoOutline">
           <div class="name">
             <div>輪郭</div>
-            <div class="hosoku">{{baseColorDistanceMin}}(強)～{{baseColorDistanceMax}}(弱)</div>
+            <div class="hosoku">{{outlineThresholdMin}}(弱)～{{outlineThresholdMax}}(強)</div>
           </div>
           <div class="input">
             <plus-minus-input-numbur
-              :min="baseColorDistanceMin"
-              :max="baseColorDistanceMax"
-              v-model="videoBaseColorDistance"
-              @change="onChangeVideoBaseColorDistance">
+              :min="outlineThresholdMin"
+              :max="outlineThresholdMax"
+              v-model="videoOutlineThreshold"
+              @change="onChangeVideoOutlineThreshold">
           </div>
         </div>
         <div class="item">

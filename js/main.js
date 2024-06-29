@@ -51,7 +51,7 @@ const tukiCountSafeMaxDefault = 50;
 const tukiCountUnSafeMaxDefault = 100;
 
 const baseAverageColorDefault = 110;
-const baseColorDistanceDefault = 180;
+const outlineThresholdDefault = 180;
 
 const imageWidthMaxDefault = 5000;
 let imageWidthOri = 10;
@@ -120,10 +120,10 @@ const App = {
             videoBaseAverageColor: baseAverageColorDefault,
             baseAverageColorMin: COLOR_B,
             baseAverageColorMax: COLOR_SW,
-            imageBaseColorDistance: baseColorDistanceDefault,
-            videoBaseColorDistance: baseColorDistanceDefault,
-            baseColorDistanceMin: 0,
-            baseColorDistanceMax: 255,
+            imageOutlineThreshold: outlineThresholdDefault,
+            videoOutlineThreshold: outlineThresholdDefault,
+            outlineThresholdMin: 0,
+            outlineThresholdMax: 255,
             needImageOutline: true,
             needVideoOutline: true,
 
@@ -349,7 +349,7 @@ const App = {
                     this.imageWidth = imageWidthOri = this.imageWidthMin;
 
                     this.imageBaseAverageColor = baseAverageColorDefault;
-                    this.imageBaseColorDistance = baseColorDistanceDefault;
+                    this.imageOutlineThreshold = outlineThresholdDefault;
                     URL.revokeObjectURL(this.image.src);
                     this.clearResult(MSG_月ジェネの説明);
                     isLoadingInputImage = false;
@@ -374,7 +374,7 @@ const App = {
                     }
 
                     this.imageBaseAverageColor = baseAverageColorDefault;
-                    this.imageBaseColorDistance = baseColorDistanceDefault;
+                    this.imageOutlineThreshold = outlineThresholdDefault;
                     URL.revokeObjectURL(this.image.src);
                     isLoadingInputImage = false;
 
@@ -420,7 +420,7 @@ const App = {
                     this.videoWidth = videoWidthOri = this.videoWidthMin;
 
                     this.videoBaseAverageColor = baseAverageColorDefault;
-                    this.videoBaseColorDistance = baseColorDistanceDefault;
+                    this.videoOutlineThreshold = outlineThresholdDefault;
                     URL.revokeObjectURL(video.src);
                     this.clearResult(MSG_月ジェネの説明);
                     isLoadingInputVideo = false;
@@ -442,7 +442,7 @@ const App = {
                     }
 
                     this.videoBaseAverageColor = baseAverageColorDefault;
-                    this.videoBaseColorDistance = baseColorDistanceDefault;
+                    this.videoOutlineThreshold = outlineThresholdDefault;
                     this.resultVideoWidthRate = 100;
                     URL.revokeObjectURL(video.src);
                     isLoadingInputVideo = false;
@@ -599,7 +599,7 @@ const App = {
                 this.generateTukiArt();
             }
         },
-        onChangeImageBaseColorDistance() {
+        onChangeImageOutlineThreshold() {
             if (this.image !== null) {
                 this.generateTukiArt();
             }
@@ -653,7 +653,7 @@ const App = {
             this.useVideoNanameMikaduki = !this.useVideoNanameMikaduki;
             isVideoParamChanged = true;
         },
-        onChangeVideoBaseColorDistance() {
+        onChangeVideoOutlineThreshold() {
             isVideoParamChanged = true;
         },
         onChangeVideoWidth() {
@@ -717,7 +717,7 @@ const App = {
                 this.imageColorCount = 3;
                 this.useImageNanameMikaduki = true;
                 this.imageBaseAverageColor = baseAverageColorDefault;
-                this.imageBaseColorDistance = baseColorDistanceDefault;
+                this.imageOutlineThreshold = outlineThresholdDefault;
                 this.needImageOutline = true;
                 this.isImageColorReverse = false;
                 this.imageWidth = imageWidthOri;
@@ -730,7 +730,7 @@ const App = {
                 this.videoColorCount = 3;
                 this.useVideoNanameMikaduki = true;
                 this.videoBaseAverageColor = baseAverageColorDefault;
-                this.videoBaseColorDistance = baseColorDistanceDefault;
+                this.videoOutlineThreshold = outlineThresholdDefault;
                 this.needVideoOutline = true;
                 this.isVideoColorReverse = false;
                 this.videoWidth = videoWidthOri;
@@ -1023,7 +1023,7 @@ const App = {
                     imageHeight: Math.round(this.imageWidth * imageHeightRate),
                     imageBaseAverageColor: this.imageBaseAverageColor,
                     needImageOutline: this.needImageOutline,
-                    imageBaseColorDistance: this.imageBaseColorDistance,
+                    imageOutlineThreshold: this.imageOutlineThreshold,
                     imageColorCount: this.imageColorCount,
                     useImageNanameMikaduki: this.useImageNanameMikaduki,
                     isImageColorReverse: this.isImageColorReverse,
@@ -1135,7 +1135,7 @@ const App = {
                             resizeVideoHeight,
                             this.videoBaseAverageColor, 
                             this.needVideoOutline,
-                            this.videoBaseColorDistance,
+                            this.videoOutlineThreshold,
                             this.videoColorCount,
                             this.useVideoNanameMikaduki,
                             this.isVideoColorReverse
