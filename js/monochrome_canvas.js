@@ -347,18 +347,7 @@ class MonochromeCanvas {
         
         // 画像の各ピクセルをグレースケールに変換する
         const imageData = this.imageData;
-        // for (let row = 0; row < imageData.height; row++) {
-        //     for (let col = 0; col < imageData.width; col++) {
-        //         const i = row * imageData.width * 4 + col * 4;
-
-        //         if (needOutline) {
-        //             this.#outline(imageData, i, outlineThreshold);
-        //         }
-        //         this.#monochrome(imageData, i, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
-        //     }
-        // }
-
-        this.#kirieFilter(imageData, outlineThreshold, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
+        this.#kirieFilter(imageData, baseAverageColor, needOutline, outlineThreshold, colorCount, useNanameMikaduki, isImageColorReverse);
 
         this.#context.putImageData(imageData, 0, 0, 0, 0, imageData.width, imageData.height);
     }
@@ -409,7 +398,7 @@ class MonochromeCanvas {
         data[i] = data[i + 1] = data[i + 2] = newColor;
     };
     
-    #kirieFilter(imageData, outlineThreshold = 180, fillThreshold = 100, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
+    #kirieFilter(imageData, fillThreshold = 100, needOutline = true, outlineThreshold = 180, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
         // sobelフィルタによる輪郭抽出
         
         const data = imageData.data;
@@ -431,50 +420,55 @@ class MonochromeCanvas {
             data[i + 3] = 255;
         }
     
-        const sobelData = new Uint8ClampedArray(width * height);
+        let sobelData = null;
+        if (needOutline) {
+            sobelData = new Uint8ClampedArray(width * height);
     
-        const kernelX = [
-            [-1, 0, 1],
-            [-2, 0, 2],
-            [-1, 0, 1]
-        ];
-        const kernelY = [
-            [-1, -2, -1],
-            [0, 0, 0],
-            [1, 2, 1]
-        ];
-    
-        for (let y = 1; y < height - 1; y++) {
-            for (let x = 1; x < width - 1; x++) {
-                let pixelX = 0;
-                let pixelY = 0;
-    
-                for (let ky = -1; ky <= 1; ky++) {
-                    for (let kx = -1; kx <= 1; kx++) {
-                        const pixel = data[((y + ky) * width + (x + kx)) * 4];
-                        pixelX += pixel * kernelX[ky + 1][kx + 1];
-                        pixelY += pixel * kernelY[ky + 1][kx + 1];
+            const kernelX = [
+                [-1, 0, 1],
+                [-2, 0, 2],
+                [-1, 0, 1]
+            ];
+            const kernelY = [
+                [-1, -2, -1],
+                [0, 0, 0],
+                [1, 2, 1]
+            ];
+        
+            for (let y = 1; y < height - 1; y++) {
+                for (let x = 1; x < width - 1; x++) {
+                    let pixelX = 0;
+                    let pixelY = 0;
+        
+                    for (let ky = -1; ky <= 1; ky++) {
+                        for (let kx = -1; kx <= 1; kx++) {
+                            const pixel = data[((y + ky) * width + (x + kx)) * 4];
+                            pixelX += pixel * kernelX[ky + 1][kx + 1];
+                            pixelY += pixel * kernelY[ky + 1][kx + 1];
+                        }
                     }
+        
+                    const magnitude = Math.round(Math.sqrt(pixelX * pixelX + pixelY * pixelY));
+                    sobelData[y * width + x] = magnitude;
                 }
-    
-                const magnitude = Math.round(Math.sqrt(pixelX * pixelX + pixelY * pixelY));
-                sobelData[y * width + x] = magnitude;
             }
         }
-    
+        
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
                 const idx = (y * width + x) * 4;
-                const invertedMagnitude = 255 - sobelData[y * width + x];
-    
-                if (invertedMagnitude < outlineThreshold) {
-                    if (useNanameMikaduki && isImageColorReverse) {
-                        data[idx] = data[idx + 1] = data[idx + 2] = COLOR_SW;
+
+                if (needOutline) {
+                    const invertedMagnitude = 255 - sobelData[y * width + x];
+                    if (invertedMagnitude < outlineThreshold) {
+                        if (useNanameMikaduki && isImageColorReverse) {
+                            data[idx] = data[idx + 1] = data[idx + 2] = COLOR_SW;
+                        }
+                        else {
+                            data[idx] = data[idx + 1] = data[idx + 2] = COLOR_B;
+                        }
+                        continue;
                     }
-                    else {
-                        data[idx] = data[idx + 1] = data[idx + 2] = COLOR_B;
-                    }
-                    continue;
                 }
 
                 let avgColor = 0;
