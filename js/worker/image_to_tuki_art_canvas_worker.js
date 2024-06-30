@@ -14,12 +14,12 @@ onmessage = async evnt => {
         const monoCanvas = new MonochromeCanvas();
 
         monoCanvas.image(
-            evnt.data.imageData,
+            evnt.data.imageBitmap,
             prm.imageWidth,
             prm.imageHeight,
             prm.imageBaseAverageColor,
             prm.needImageOutline,
-            prm.imageBaseColorDistance,
+            prm.imageOutlineThreshold,
             prm.imageColorCount,
             prm.useImageNanameMikaduki,
             prm.isImageColorReverse
