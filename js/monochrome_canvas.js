@@ -351,52 +351,6 @@ class MonochromeCanvas {
 
         this.#context.putImageData(imageData, 0, 0, 0, 0, imageData.width, imageData.height);
     }
-
-    #monochrome(imageData, i, baseAverageColor, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
-        const data = imageData.data;
-        let avgColor = 0;
-        if (useNanameMikaduki && isImageColorReverse) {
-            avgColor = Math.floor(((255 - data[i]) + (255 - data[i + 1]) + (255 - data[i + 2])) / 3);
-        }
-        else {
-            avgColor = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
-        }
-    
-        let newColor = COLOR_W; // todo りふぁくた
-        if (colorCount === 5) {
-            if (avgColor < baseAverageColor * 1/3) {
-                newColor = COLOR_B;
-            }
-            else if (avgColor < baseAverageColor * 2/3) {
-                newColor = COLOR_G1;
-            }
-            else if (avgColor < baseAverageColor) {
-                newColor = COLOR_G2;
-            }
-            else if (avgColor < baseAverageColor * 4/3) {
-                newColor = COLOR_G3;
-            }
-        }
-        else if (colorCount === 3) {
-            if (avgColor < baseAverageColor * 2/3) {
-                newColor = COLOR_B;
-            }
-            else if (avgColor < baseAverageColor) {
-                newColor = COLOR_G2;
-            }
-        }
-        else if (avgColor < baseAverageColor) {
-            newColor = COLOR_B;
-        }
-
-        if (useNanameMikaduki && newColor === COLOR_W) {
-            if (avgColor >= baseAverageColor * 4/3 + (COLOR_SW - baseAverageColor * 4/3) / 2) {
-                newColor = COLOR_SW;
-            }
-        }
-    
-        data[i] = data[i + 1] = data[i + 2] = newColor;
-    };
     
     #kirieFilter(imageData, fillThreshold = 100, needOutline = true, outlineThreshold = 180, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
         // sobelフィルタによる輪郭抽出
