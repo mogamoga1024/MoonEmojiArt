@@ -358,7 +358,7 @@ class MonochromeCanvas {
         //     }
         // }
 
-        this.#kirieFilter(imageData, outlineThreshold, baseAverageColor);
+        this.#kirieFilter(imageData, outlineThreshold, baseAverageColor, colorCount, useNanameMikaduki, isImageColorReverse);
 
         this.#context.putImageData(imageData, 0, 0, 0, 0, imageData.width, imageData.height);
     }
@@ -409,7 +409,7 @@ class MonochromeCanvas {
         data[i] = data[i + 1] = data[i + 2] = newColor;
     };
     
-    #kirieFilter(imageData, outlineThreshold = 180, fillThreshold = 100) {
+    #kirieFilter(imageData, outlineThreshold = 180, fillThreshold = 100, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
         // sobelフィルタによる輪郭抽出
         
         const data = imageData.data;
@@ -468,14 +468,57 @@ class MonochromeCanvas {
                 const invertedMagnitude = 255 - sobelData[y * width + x];
     
                 if (invertedMagnitude < outlineThreshold) {
-                    data[idx] = data[idx + 1] = data[idx + 2] = COLOR_B;
+                    if (useNanameMikaduki && isImageColorReverse) {
+                        data[idx] = data[idx + 1] = data[idx + 2] = COLOR_SW;
+                    }
+                    else {
+                        data[idx] = data[idx + 1] = data[idx + 2] = COLOR_B;
+                    }
+                    continue;
                 }
-                if (data[idx] < fillThreshold) {
-                    data[idx] = data[idx + 1] = data[idx + 2] = COLOR_B;
+
+                let avgColor = 0;
+                if (useNanameMikaduki && isImageColorReverse) {
+                    avgColor = 255 - data[idx];
                 }
                 else {
-                    data[idx] = data[idx + 1] = data[idx + 2] = 255;
+                    avgColor = data[idx];
                 }
+                
+                let newColor = COLOR_W;
+                if (colorCount === 5) {
+                    if (avgColor < fillThreshold * 1/3) {
+                        newColor = COLOR_B;
+                    }
+                    else if (avgColor < fillThreshold * 2/3) {
+                        newColor = COLOR_G1;
+                    }
+                    else if (avgColor < fillThreshold) {
+                        newColor = COLOR_G2;
+                    }
+                    else if (avgColor < fillThreshold * 4/3) {
+                        newColor = COLOR_G3;
+                    }
+                }
+                else if (colorCount === 3) {
+                    if (avgColor < fillThreshold * 2/3) {
+                        newColor = COLOR_B;
+                    }
+                    else if (avgColor < fillThreshold) {
+                        newColor = COLOR_G2;
+                    }
+                }
+                else if (avgColor < fillThreshold) {
+                    newColor = COLOR_B;
+                }
+        
+                if (useNanameMikaduki && newColor === COLOR_W) {
+                    if (avgColor >= fillThreshold * 4/3 + (COLOR_SW - fillThreshold * 4/3) / 2) {
+                        newColor = COLOR_SW;
+                    }
+                }
+            
+                data[idx] = data[idx + 1] = data[idx + 2] = newColor;
             }
         }
     
