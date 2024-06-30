@@ -7,7 +7,7 @@ class MonochromeCanvas {
         return this.#canvas;
     }
 
-    get pixels() {
+    get imageData() {
         return this.#context.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
@@ -298,14 +298,14 @@ class MonochromeCanvas {
         tmpContext.fillText(text, 0, 0);
 
         const trimmed = CanvasUtils.trimming(tmpContext.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height));
-        const pixels = tmpContext.getImageData(0, trimmed.y, tmpCanvas.width, trimmed.height);
+        const imageData = tmpContext.getImageData(0, trimmed.y, tmpCanvas.width, trimmed.height);
 
         const tateMargin = 4;
         const tmpCanvas2 = new OffscreenCanvas(tmpCanvas.width, trimmed.height + tateMargin * 2);
         const tmpContext2 = tmpCanvas2.getContext("2d", { willReadFrequently: true });
         tmpContext2.fillStyle = "#fff";
         tmpContext2.fillRect(0, 0, tmpCanvas2.width, tmpCanvas2.height);
-        tmpContext2.putImageData(pixels, 0, tateMargin);
+        tmpContext2.putImageData(imageData, 0, tateMargin);
 
         return tmpCanvas2.transferToImageBitmap();
     }
