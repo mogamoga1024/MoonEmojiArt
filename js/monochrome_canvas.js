@@ -467,15 +467,14 @@ class MonochromeCanvas {
                 const idx = (y * width + x) * 4;
                 const invertedMagnitude = 255 - sobelData[y * width + x];
     
-                if (invertedMagnitude < outlineThreshold || data[idx] < fillThreshold) {
-                    data[idx    ] = 0;
-                    data[idx + 1] = 0;
-                    data[idx + 2] = 0;
+                if (invertedMagnitude < outlineThreshold) {
+                    data[idx] = data[idx + 1] = data[idx + 2] = COLOR_B;
+                }
+                if (data[idx] < fillThreshold) {
+                    data[idx] = data[idx + 1] = data[idx + 2] = COLOR_B;
                 }
                 else {
-                    data[idx    ] = 255;
-                    data[idx + 1] = 255;
-                    data[idx + 2] = 255;
+                    data[idx] = data[idx + 1] = data[idx + 2] = 255;
                 }
             }
         }
