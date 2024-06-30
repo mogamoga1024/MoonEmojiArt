@@ -16,7 +16,7 @@ class MonochromeCanvas {
         this.#context = this.#canvas.getContext("2d", { willReadFrequently: true });
     }
 
-    static createTextCanvas(text, _fontFamily = "default", isBold = true, isTate = true, letterSpacing = 0, lineWidth = 0) {
+    static createTextImageBitmap(text, _fontFamily = "default", isBold = true, isTate = true, letterSpacing = 0, lineWidth = 0) {
         const fontWeight = isBold ? 700 : 400;
         let fontFamily = "";
         const fontSize = 80
@@ -50,14 +50,14 @@ class MonochromeCanvas {
         if (isTate || text.length === 1) {
             letterSpacing += tateMargin;
             letterSpacing = Math.max(letterSpacing, 0);
-            return this.#createTateTextCanvas(text, font, tateMargin, letterSpacing, lineWidth);
+            return this.#createTateTextImageBitmap(text, font, tateMargin, letterSpacing, lineWidth);
         }
         else {
-            return this.#createYokoTextCanvas(text, font, letterSpacing, lineWidth);
+            return this.#createYokoTextImageBitmap(text, font, letterSpacing, lineWidth);
         }
     }
 
-    static #createTateTextCanvas(text, font, tateMargin, letterSpacing, lineWidth = 0) {
+    static #createTateTextImageBitmap(text, font, tateMargin, letterSpacing, lineWidth = 0) {
         const tmpCanvas = new OffscreenCanvas(300, 150);
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         
@@ -271,7 +271,7 @@ class MonochromeCanvas {
         return tmpCanvas2.transferToImageBitmap();
     }
 
-    static #createYokoTextCanvas(text, font, letterSpacing, lineWidth = 0) {
+    static #createYokoTextImageBitmap(text, font, letterSpacing, lineWidth = 0) {
         const tmpCanvas = new OffscreenCanvas(300, 150);
         const tmpContext = tmpCanvas.getContext("2d", { willReadFrequently: true });
         tmpContext.font = font;
@@ -310,23 +310,23 @@ class MonochromeCanvas {
         return tmpCanvas2.transferToImageBitmap();
     }
 
-    text(imageData, tukiCount, isTate) {
+    text(imageBitmap, tukiCount, isTate) {
         const pixelCount = TUKI_SIDE_PIXEL_COUNT * tukiCount;
         if (isTate) {
-            const rate = pixelCount / imageData.width;
+            const rate = pixelCount / imageBitmap.width;
             this.#canvas.width = pixelCount;
-            this.#canvas.height = imageData.height * rate;
+            this.#canvas.height = imageBitmap.height * rate;
         }
         else {
-            const rate = pixelCount / imageData.height;
-            this.#canvas.width = imageData.width * rate;
+            const rate = pixelCount / imageBitmap.height;
+            this.#canvas.width = imageBitmap.width * rate;
             this.#canvas.height = pixelCount;
         }
-        this.#context.drawImage(imageData, 0, 0, this.#canvas.width, this.#canvas.height);
+        this.#context.drawImage(imageBitmap, 0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    image(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, outlineThreshold = 180, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
-        this.#pasteImageToCanvas(imageData, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, outlineThreshold, colorCount, useNanameMikaduki, isImageColorReverse);
+    image(imageBitmap, resizeImageWidth, resizeImageHeight, baseAverageColor = 110, needOutline = true, outlineThreshold = 180, colorCount = 2, useNanameMikaduki = false, isImageColorReverse = false) {
+        this.#pasteImageToCanvas(imageBitmap, resizeImageWidth, resizeImageHeight, baseAverageColor, needOutline, outlineThreshold, colorCount, useNanameMikaduki, isImageColorReverse);
     }
 
     video(video, resizeVideoWidth, resizeVideoHeight, baseAverageColor = 110, needOutline = true, outlineThreshold = 180, colorCount = 2, useNanameMikaduki = false, isVideoColorReverse = false) {

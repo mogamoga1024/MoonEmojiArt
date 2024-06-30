@@ -950,9 +950,9 @@ const App = {
                 
                 const letterSpacing = this.needDetailConfigLetterSpacing ? this.letterSpacing : 0;
                 const lineWidth = this.needDetailConfigLineWidth ? this.lineWidth : 0;
-                let imageData = null;
+                let imageBitmap = null;
                 try {
-                    imageData = MonochromeCanvas.createTextCanvas(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacing, lineWidth);
+                    imageBitmap = MonochromeCanvas.createTextImageBitmap(this.text, this.fontFamily, this.isBold, this.isTate, letterSpacing, lineWidth);
                 }
                 catch (e) {
                     if (this.isTate) {
@@ -1015,7 +1015,7 @@ const App = {
                     tukiArtMarginRight: this.tukiArtMarginRight
                 };
 
-                worker.postMessage({imageData, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [imageData]);
+                worker.postMessage({imageBitmap, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [imageBitmap]);
             }
             else if (mode === "image") {
                 const tukiArtParams = {
@@ -1051,7 +1051,7 @@ const App = {
                     context.drawImage(this.image, 0, 0, this.image.width, this.image.height, 0, 0, tukiArtParams.imageWidth, tukiArtParams.imageHeight);
                 }
                 
-                const imageData = canvas.transferToImageBitmap();
+                const imageBitmap = canvas.transferToImageBitmap();
 
                 worker = new Worker("./js/worker/image_to_tuki_art_canvas_worker.js");
                 worker.onmessage = async e => {
@@ -1092,7 +1092,7 @@ const App = {
                     this.isGeneratingTukiArt = false;
                 };
 
-                worker.postMessage({imageData, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [imageData]);
+                worker.postMessage({imageBitmap, tukiArtParams, canvasMaxWidth, canvasMaxHeight, canvasMaxArea}, [imageBitmap]);
             }
             else if (mode === "video") {
                 // 余談：videoもWebWorkerで処理しようとしたが重すぎて話にならなかった
