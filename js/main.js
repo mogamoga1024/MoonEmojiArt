@@ -265,6 +265,11 @@ const App = {
                 }
             }, 100);
         }
+
+        const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
+        if (isFirefox) {
+            alert("Firefoxでは文字が狂うバグがあります。Chromeを使ってください。直さないのは面倒だからです。ごめんちゃい。")
+        }
     },
     watch: {
         mode(newVal) {
