@@ -25,3 +25,7 @@ issueを片付ける…
 （それ以前に普通に表示がおかしい気がするが）  
 やろうと思えば反映できますが必要性を感じないので対応しません。  
 
+## deepwiki
+
+https://deepwiki.com/mogamoga1024/MoonEmojiArt
+
